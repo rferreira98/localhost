@@ -1,0 +1,20 @@
+PODS:
+  - InitialsImageView (0.6.0)
+  - RSKImageCropper (2.2.3)
+
+DEPENDENCIES:
+  - InitialsImageView
+  - RSKImageCropper
+
+SPEC REPOS:
+  trunk:
+    - InitialsImageView
+    - RSKImageCropper
+
+SPEC CHECKSUMS:
+  InitialsImageView: 09a5a30bdfaad2a8d9bb31b43257ae6ebcc8b52a
+  RSKImageCropper: a446db0e8444a036b34f3c43db01b2373baa4b2a
+
+PODFILE CHECKSUM: c4e8476a4c5ef9d7290c0d632bb70959692e12ab
+
+COCOAPODS: 1.8.4

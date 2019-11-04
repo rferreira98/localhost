@@ -34,7 +34,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         self.navigationController?.navigationBar.shadowImage = UIImage()
 
         //Style textFieldEmail
-        textFieldEmail.backgroundColor = UIColor(named: "WhiteColor")
+        
+        textFieldEmail.backgroundColor = UIColor.white
         textFieldEmail.textColor = UIColor.black
         textFieldEmail.attributedPlaceholder = NSAttributedString(string: "E-Mail",
                 attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
@@ -45,7 +46,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         textFieldEmail.layer.cornerRadius = 5.0;
 
         //Style textFieldPassword
-        textFieldPassword.backgroundColor = UIColor(named: "WhiteColor")
+        textFieldPassword.backgroundColor = UIColor.white
         textFieldPassword.textColor = UIColor.black
         textFieldPassword.attributedPlaceholder = NSAttributedString(string: "Password",
                 attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
@@ -83,14 +84,23 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         let emailTest = NSPredicate(format: "SELF MATCHES[c] %@", emailRegEx)
         return emailTest.evaluate(with: email)
     }
+    
+    
+    @IBAction func inicioClicked(_ sender: Any) {
+        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let tabBarController = storyBoard.instantiateViewController(withIdentifier: "tabBarController")
+        //tabBarController.modalTransitionStyle = .crossDissolve
+        self.dismiss(animated: true, completion: nil)
+        self.present(tabBarController, animated: true, completion: nil)
+    }
 
 
  
-    /*func goToMainScreen() {
+    func goToMainScreen() {
         let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let loginViewController = storyBoard.instantiateViewController(withIdentifier: "tabBarController")
         self.present(loginViewController, animated: true, completion: nil)
-    }*/
+    }
 
 }
 

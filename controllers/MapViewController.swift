@@ -60,11 +60,14 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         map.showsUserLocation = true
         map.showsScale = true
         map.showsCompass = true
-    
+        
         
         let buttonCurrentLocation = MKUserTrackingButton(mapView: map)
-        buttonCurrentLocation.frame = CGRect(origin: CGPoint(x:map.frame.maxX - (map.frame.maxX * 0.15), y: map.frame.maxY -  (map.frame.maxY * 0.18) ), size: CGSize(width: 35, height: 35))
+        
+        buttonCurrentLocation.frame = CGRect(origin: CGPoint(x:view.frame.maxX - (view.frame.maxX * 0.15), y: view.frame.maxY -  (view.frame.maxY * 0.30) ), size: CGSize(width: 35, height: 35))
+        //buttonCurrentLocation.frame = CGRect(origin: CGPoint(x:320, y: 560 ), size: CGSize(width: 35, height: 35))
         map.addSubview(buttonCurrentLocation)
+        
         
         let buttonFilter = UIBarButtonItem(image: UIImage(named: "Filter"), style: .plain, target: self, action: #selector(segueFilters))
         self.navigationItem.rightBarButtonItem  = buttonFilter
