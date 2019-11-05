@@ -200,39 +200,8 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIImagePick
             
                 let alert = Utils.triggerAlert(title: "Error", error: "Invalid E-Mail")
                 self.present(alert, animated: true, completion: nil)
-            }else{/*
-                let myPost = NetworkRequestsHandler.PostRegister(firstName: firstName, lastName: lastName, password: password, email: email, username: username)
+            }else{
                 
-                NetworkRequestsHandler.register(post: myPost) { (success, error) in
-                    OperationQueue.main.addOperation {
-                        
-                        if error != nil {
-                            let alert = Utils.triggerAlert(title: "Erro", error: error!.message)
-                            self.present(alert, animated: true, completion: nil)
-                        }
-                        else{
-                            
-                            //------
-                            
-                            //Upload Avatar
-                            let userId = UserDefaults.standard.value(forKey: "UserID")
-                            NetworkRequestsHandler.uploadAvatar(avatar: self.imageViewAvatar.image!, userId: userId as! Int){ (success, error) in
-                                OperationQueue.main.addOperation {
-                                    if error != nil{
-                                        let alert = Utils.triggerAlert(title: "Erro", error: error?.message)
-                                        self.present(alert, animated: true, completion: nil)
-                                    }else{
-                                        //go to first screen
-                                        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                                        let loginViewController = storyBoard.instantiateViewController(withIdentifier: "tabBarController")
-                                        self.present(loginViewController, animated: true, completion: nil)
-                                    }
-                                }
-                            }
-
-                        }
-                    }
-                }*/
             }
         }
     }
