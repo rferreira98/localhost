@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="J0K-jz-x1x">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -217,7 +218,7 @@
         <!--Recommendations-->
         <scene sceneID="f9x-YM-DK9">
             <objects>
-                <tableViewController title="Recommendations" id="woV-Be-tJf" sceneMemberID="viewController">
+                <tableViewController title="Recommendations" id="woV-Be-tJf" customClass="RecommendationsViewController" customModule="Localhost" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Whc-h7-3fD">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -253,16 +254,18 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="A0C-eb-tXX">
                         <nil key="title"/>
-                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="Ag0-nZ-pJV">
-                            <rect key="frame" x="43" y="5.6666666666666679" width="289" height="33"/>
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="OYS-HR-7L9">
+                            <rect key="frame" x="122" y="6" width="131" height="32"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <segments>
-                                <segment title="My Recomendations"/>
-                                <segment title="Questions"/>
+                                <segment title="First"/>
+                                <segment title="Second"/>
                             </segments>
-                            <color key="selectedSegmentTintColor" name="AppGreenPrimary"/>
                         </segmentedControl>
                     </navigationItem>
+                    <connections>
+                        <outlet property="segmentedControl" destination="OYS-HR-7L9" id="hps-E6-dYY"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gDz-zE-FJf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -480,7 +483,6 @@
                                                 <constraint firstItem="nqj-Ys-RQY" firstAttribute="top" secondItem="kf3-6l-CQk" secondAttribute="top" constant="23" id="csS-Oz-Fj7"/>
                                                 <constraint firstItem="nqj-Ys-RQY" firstAttribute="leading" secondItem="41i-Gd-BiM" secondAttribute="trailing" constant="8" id="fZm-IJ-KWk"/>
                                                 <constraint firstItem="41i-Gd-BiM" firstAttribute="leading" secondItem="kf3-6l-CQk" secondAttribute="leading" constant="20" id="frZ-Ct-eiN"/>
-                                                <constraint firstAttribute="trailing" secondItem="nqj-Ys-RQY" secondAttribute="trailing" constant="220" id="sit-2y-2nq"/>
                                                 <constraint firstItem="41i-Gd-BiM" firstAttribute="top" secondItem="kf3-6l-CQk" secondAttribute="top" constant="3" id="tx1-ij-L1i"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -686,7 +688,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" image="LocalhostIcon" translatesAutoresizingMaskIntoConstraints="NO" id="nGb-ea-EiD">
-                                <rect key="frame" x="87.666666666666686" y="88" width="200" height="200.00000000000011"/>
+                                <rect key="frame" x="87.666666666666686" y="88" width="200" height="200"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="KDX-yo-zpz"/>
                                     <constraint firstAttribute="height" constant="200" id="i8F-VJ-211"/>

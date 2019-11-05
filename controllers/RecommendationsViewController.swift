@@ -11,4 +11,13 @@ import UIKit
 
 class RecommendationsViewController: UITableViewController{
     
+    @IBOutlet weak var segmentedControl: UISegmentedControl!
+    
+    override func viewDidAppear(_ animated: Bool) {
+        if #available(iOS 13.0, *) {
+            segmentedControl.selectedSegmentTintColor = UIColor(named: "AppGreenPrimary")
+        } else {
+            
+        }
+    }
 }

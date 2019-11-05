@@ -22,9 +22,14 @@ class SettingsViewController: UITableViewController, MFMailComposeViewController
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //tableView.tableFooterView = UIView()
-        //let sectionColor = UIColor(red: 247/255, green: 247/255, blue: 247/255, alpha: 1)
-        let sectionColor = UIColor.systemBackground
+        
+        var sectionColor: UIColor
+        
+        if #available(iOS 13.0, *) {
+            sectionColor = UIColor.systemBackground
+        } else {
+            sectionColor = UIColor.white
+        }
         self.tableView.backgroundView?.backgroundColor = sectionColor
         self.tableView.backgroundColor = sectionColor
         self.tableView.separatorStyle = .none
@@ -65,11 +70,11 @@ class SettingsViewController: UITableViewController, MFMailComposeViewController
     
     @IBAction func darkModeSwitcher(_ sender: Any) {
         if switchDarkMode.isOn {
-            self.overrideUserInterfaceStyle = UIUserInterfaceStyle.dark;
+            //self.overrideUserInterfaceStyle = UIUserInterfaceStyle.dark;
             
         }
         if !switchDarkMode.isOn {
-            overrideUserInterfaceStyle = .light
+            //overrideUserInterfaceStyle = .light
         }
     }
     

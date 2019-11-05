@@ -20,8 +20,13 @@ class InfoViewController: UITableViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //tableView.tableFooterView = UIView()
-        let sectionColor = UIColor.systemBackground
+        var sectionColor:UIColor
+        if #available(iOS 13.0, *) {
+            sectionColor = UIColor.systemBackground
+        }else{
+            sectionColor = UIColor.white
+        }
+        
         self.tableView.backgroundView?.backgroundColor = sectionColor
         self.tableView.backgroundColor = sectionColor
         self.tableView.separatorStyle = .none
