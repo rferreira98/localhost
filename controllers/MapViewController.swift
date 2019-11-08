@@ -38,23 +38,22 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         locationManager.requestWhenInUseAuthorization()
         locationManager.requestLocation()
         
-        
-        
-        let locationSearchTable = storyboard!.instantiateViewController(withIdentifier: "LocationSearchTable") as! LocationSearchTableController
-        resultSearchController = UISearchController(searchResultsController: locationSearchTable)
-        resultSearchController.searchResultsUpdater = locationSearchTable
+        //Sets the location of the search bar to the navigation bar (on the top of the screen)
         let searchBar = resultSearchController!.searchBar
         //navigationItem.searchController = resultSearchController
         self.navigationItem.titleView = searchBar
+        searchBar.tintColor = UIColor(named: "AppGreenPrimary")
+        //------------------------------------------------------------
+        
+        //This code is used to render the table that will show the locations results when searched
+        let locationSearchTable = storyboard!.instantiateViewController(withIdentifier: "LocationSearchTable") as! LocationSearchTableController
+        resultSearchController = UISearchController(searchResultsController: locationSearchTable)
+        resultSearchController.searchResultsUpdater = locationSearchTable
         resultSearchController.hidesNavigationBarDuringPresentation = false
         definesPresentationContext = true
         locationSearchTable.mapView = map
         locationSearchTable.handleMapSearchDelegate = self
-        
-        
-        //searchBar.delegate = self as? UISearchBarDelegate
-        searchBar.tintColor = UIColor(named: "AppGreenPrimary")
-        //searchBar.barStyle = .black
+        //-------------------------------------------------------------------------
         
         map.userTrackingMode = .follow
         map.showsUserLocation = true
@@ -62,19 +61,20 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         map.showsCompass = true
         
         
+        //Adds the button for current location to the map
         let buttonCurrentLocation = MKUserTrackingButton(mapView: map)
-        
         buttonCurrentLocation.frame = CGRect(origin: CGPoint(x:view.frame.maxX - (view.frame.maxX * 0.15), y: view.frame.maxY -  (view.frame.maxY * 0.30) ), size: CGSize(width: 35, height: 35))
-        //buttonCurrentLocation.frame = CGRect(origin: CGPoint(x:320, y: 560 ), size: CGSize(width: 35, height: 35))
         map.addSubview(buttonCurrentLocation)
+        //----------------------------------------------
         
-        
+        //Since we wanted the searchbar on the navbar and we added it programmaticaly, we need to also add the filter button programmaticaly and place it to the right
         let buttonFilter = UIBarButtonItem(image: UIImage(named: "Filter"), style: .plain, target: self, action: #selector(segueFilters))
         self.navigationItem.rightBarButtonItem  = buttonFilter
-        
+        //-----------------------------------------------------------------
     }
     
     @objc func segueFilters(){
+        //Used to perform the segue for the screen with the filters when filters button is pressed
         performSegue(withIdentifier: "mapFiltersButton", sender: nil)
     }
     
@@ -95,7 +95,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         //if status == CLAuthorizationStatus.authorizedWhenInUse{
-        locationManager.startUpdatingLocation()
+            locationManager.startUpdatingLocation()
         //}
     }
     
@@ -115,7 +115,9 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         }
     }
     
-
+        //TODO displays pins on the map
+    
+    
         //MARK: - Custom Annotation
     /*private func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if annotation is MKUserLocation{
@@ -175,24 +177,11 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         }
         return annotationView
     }
-    
-   
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
 
-    
 }
 extension MapViewController: HandleMapSearch {
-    
+
+    //When a searched location is clicked the map will zomm on it
     func zoomLocation(_ placemark: MKPlacemark){
         let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
         let region = MKCoordinateRegion(center: placemark.coordinate, span: span)

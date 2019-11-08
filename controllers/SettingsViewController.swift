@@ -15,8 +15,9 @@ class SettingsViewController: UITableViewController, MFMailComposeViewController
     @IBOutlet weak var switchDarkMode: UISwitch!
     
     override func viewDidAppear(_ animated: Bool) {
+        //removes the separator/line on the table cell
         tableView.cellForRow(at: IndexPath(row: 0, section: 3))?.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: .greatestFiniteMagnitude)
-        
+        //if the user has dark mode enable in the system the button is set to on, otherwise to off
         switchDarkMode.setOn(traitCollection.userInterfaceStyle == .dark, animated: true)
     }
     
@@ -25,13 +26,16 @@ class SettingsViewController: UITableViewController, MFMailComposeViewController
         
         var sectionColor: UIColor
         
+        //if ios 13 is available, the background for the cell will be the system color, otherwise it will be white, since there is no dark mode on ios 13 <
         if #available(iOS 13.0, *) {
             sectionColor = UIColor.systemBackground
         } else {
             sectionColor = UIColor.white
         }
+        
         self.tableView.backgroundView?.backgroundColor = sectionColor
         self.tableView.backgroundColor = sectionColor
+        //Removes the thick separators
         self.tableView.separatorStyle = .none
         let footerView = UIView()
         footerView.backgroundColor =  sectionColor
@@ -42,7 +46,7 @@ class SettingsViewController: UITableViewController, MFMailComposeViewController
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
            self.tableView.deselectRow(at: indexPath, animated: true)
-
+            //if the selected cell is the "contact" cell at index 2, opens the system mail app
             if indexPath.section == 2 {
                if MFMailComposeViewController.canSendMail() {
                    let mail = MFMailComposeViewController()

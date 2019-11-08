@@ -34,7 +34,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         self.navigationController?.navigationBar.shadowImage = UIImage()
 
         //Style textFieldEmail
-        
         textFieldEmail.backgroundColor = UIColor.white
         textFieldEmail.textColor = UIColor.black
         textFieldEmail.attributedPlaceholder = NSAttributedString(string: "E-Mail",
