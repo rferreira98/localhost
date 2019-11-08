@@ -135,11 +135,31 @@ class ProfileViewController: UITableViewController, UIImagePickerControllerDeleg
     @objc func avatarUpload(_ sender: UITapGestureRecognizer) {
         view.endEditing(true)
 
-        let controler = UIImagePickerController()
-        controler.sourceType = .photoLibrary
-        controler.delegate = self
+        let controller = UIImagePickerController()
+        controller.delegate = self
+
+        let actionsheet = UIAlertController(title: "Select Photo", message: "Choose A Photo", preferredStyle: .actionSheet)
         
-        self.present(controler, animated: true, completion: nil)
+        actionsheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (action:UIAlertAction)in
+            if UIImagePickerController.isSourceTypeAvailable(.camera){
+                controller.sourceType = .camera
+                self.present(controller, animated: true, completion: nil)
+            }else
+            {
+                print("Camera is Not Available")
+            }
+        }))
+        
+        actionsheet.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: { (action:UIAlertAction)in
+            controller.sourceType = .photoLibrary
+            self.present(controller, animated: true, completion: nil)
+        }))
+        
+        actionsheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        self.present(actionsheet,animated: true, completion: nil)
+        
+        
+
     }
 
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
