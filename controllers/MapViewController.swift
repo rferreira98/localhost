@@ -38,12 +38,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         locationManager.requestWhenInUseAuthorization()
         locationManager.requestLocation()
         
-        //Sets the location of the search bar to the navigation bar (on the top of the screen)
-        let searchBar = resultSearchController!.searchBar
-        //navigationItem.searchController = resultSearchController
-        self.navigationItem.titleView = searchBar
-        searchBar.tintColor = UIColor(named: "AppGreenPrimary")
-        //------------------------------------------------------------
         
         //This code is used to render the table that will show the locations results when searched
         let locationSearchTable = storyboard!.instantiateViewController(withIdentifier: "LocationSearchTable") as! LocationSearchTableController
@@ -54,6 +48,13 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         locationSearchTable.mapView = map
         locationSearchTable.handleMapSearchDelegate = self
         //-------------------------------------------------------------------------
+        
+        //Sets the location of the search bar to the navigation bar (on the top of the screen)
+        let searchBar = resultSearchController!.searchBar
+        //navigationItem.searchController = resultSearchController
+        self.navigationItem.titleView = searchBar
+        searchBar.tintColor = UIColor(named: "AppGreenPrimary")
+        //------------------------------------------------------------
         
         map.userTrackingMode = .follow
         map.showsUserLocation = true
