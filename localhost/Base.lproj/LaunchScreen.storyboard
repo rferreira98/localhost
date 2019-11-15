@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="retina6_1" orientation="portrait" appearance="dark"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
@@ -17,22 +17,23 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" image="LocalhostIcon" translatesAutoresizingMaskIntoConstraints="NO" id="tiv-05-3gw">
-                                <rect key="frame" x="19.5" y="145" width="375" height="394.00000000000011"/>
-                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Localhost" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A7Y-h1-SKT">
-                                <rect key="frame" x="69.5" y="563" width="275" height="80"/>
+                                <rect key="frame" x="70" y="852" width="275" height="80"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="67"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" image="LocalhostIcon" translatesAutoresizingMaskIntoConstraints="NO" id="tiv-05-3gw">
+                                <rect key="frame" x="-168" y="54" width="750" height="788"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" name="AppGreenPrimary"/>
                         <constraints>
-                            <constraint firstItem="A7Y-h1-SKT" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="FHZ-KL-rd8"/>
-                            <constraint firstItem="A7Y-h1-SKT" firstAttribute="top" secondItem="tiv-05-3gw" secondAttribute="bottom" constant="24.000000000000114" id="diX-Ok-xe4"/>
-                            <constraint firstItem="tiv-05-3gw" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="dsl-Qe-uBi"/>
-                            <constraint firstItem="tiv-05-3gw" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="101" id="mCA-8r-bh7"/>
+                            <constraint firstItem="tiv-05-3gw" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="J1b-kJ-ox7"/>
+                            <constraint firstItem="tiv-05-3gw" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="cEN-Cd-Sxc"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="A7Y-h1-SKT" secondAttribute="trailing" constant="69" id="xV6-EI-ZJw"/>
+                            <constraint firstItem="A7Y-h1-SKT" firstAttribute="top" secondItem="tiv-05-3gw" secondAttribute="bottom" constant="10" id="xuM-eJ-NVl"/>
+                            <constraint firstItem="A7Y-h1-SKT" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="70" id="zrR-uL-dk1"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>

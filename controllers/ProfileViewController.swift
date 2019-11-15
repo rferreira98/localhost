@@ -120,16 +120,13 @@ class ProfileViewController: UITableViewController, UIImagePickerControllerDeleg
         self.usernameTextField.isUserInteractionEnabled = isEditingFields
         self.passwordTextField.isUserInteractionEnabled = isEditingFields
         self.avatarImageView.isUserInteractionEnabled = isEditingFields
+        
         if isEditingFields {
-
             self.avatarImageView.image = UIImage(named: "AddAvatar")
             let tapImage = UITapGestureRecognizer(target: self, action: #selector(ProfileViewController.avatarUpload(_:)))
             avatarImageView.isUserInteractionEnabled = isEditingFields
             avatarImageView.addGestureRecognizer(tapImage)
         }
-        
-        
-        
     }
     
     @objc func avatarUpload(_ sender: UITapGestureRecognizer) {
@@ -158,8 +155,6 @@ class ProfileViewController: UITableViewController, UIImagePickerControllerDeleg
         actionsheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         self.present(actionsheet,animated: true, completion: nil)
         
-        
-
     }
 
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {

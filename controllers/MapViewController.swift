@@ -54,6 +54,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         //navigationItem.searchController = resultSearchController
         self.navigationItem.titleView = searchBar
         searchBar.tintColor = UIColor(named: "AppGreenPrimary")
+        searchBar.showsCancelButton = false
         //------------------------------------------------------------
         
         map.userTrackingMode = .follow

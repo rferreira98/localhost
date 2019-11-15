@@ -22,6 +22,7 @@ class PlacesListViewController: UITableViewController {
         resultSearchController.hidesNavigationBarDuringPresentation = false
         definesPresentationContext = true
         searchBar.tintColor = UIColor(named: "AppGreenPrimary")
+        searchBar.showsCancelButton = false
         
         
         let buttonFilter = UIBarButtonItem(image: UIImage(named: "Filter"), style: .plain, target: self, action: #selector(segueFilters))
