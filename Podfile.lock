@@ -4,23 +4,27 @@ PODS:
   - SDWebImage (5.3.0):
     - SDWebImage/Core (= 5.3.0)
   - SDWebImage/Core (5.3.0)
+  - SwiftHTTP (3.0.1)
 
 DEPENDENCIES:
   - InitialsImageView
   - RSKImageCropper
   - SDWebImage
+  - SwiftHTTP
 
 SPEC REPOS:
   trunk:
     - InitialsImageView
     - RSKImageCropper
     - SDWebImage
+    - SwiftHTTP
 
 SPEC CHECKSUMS:
   InitialsImageView: 09a5a30bdfaad2a8d9bb31b43257ae6ebcc8b52a
   RSKImageCropper: a446db0e8444a036b34f3c43db01b2373baa4b2a
   SDWebImage: f1afa74b86587c2c63f4e80dfd39b21e3c17b45b
+  SwiftHTTP: e94f1aa8cde58637dcc0100f6349de31a3337fde
 
-PODFILE CHECKSUM: c43e8d773b5b9f7ae9ceb11e0cf59b49f0b71f91
+PODFILE CHECKSUM: 1499fd7ae67730fa32eb4cf18647bdc1232273ce
 
 COCOAPODS: 1.8.4

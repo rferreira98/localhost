@@ -9,6 +9,7 @@ target 'localhost' do
   pod 'RSKImageCropper'
   pod 'InitialsImageView'
   pod 'SDWebImage'
+  pod 'SwiftHTTP'
   
   target 'localhostTests' do
     inherit! :search_paths

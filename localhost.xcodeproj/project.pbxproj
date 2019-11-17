@@ -27,6 +27,7 @@
 		C766EC65236FDCDD0006A248 /* ListFiltersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C766EC64236FDCDD0006A248 /* ListFiltersController.swift */; };
 		C766EC67236FDE530006A248 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C766EC66236FDE530006A248 /* LoginViewController.swift */; };
 		C766EC69236FDE5E0006A248 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C766EC68236FDE5E0006A248 /* RegisterViewController.swift */; };
+		C78DA8492381EE8500CCD60C /* NetworkHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C78DA8482381EE8500CCD60C /* NetworkHandler.swift */; };
 		C7B62395236FE1B900CF4CF6 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B62394236FE1B900CF4CF6 /* TabBarController.swift */; };
 		C7B62398236FE20700CF4CF6 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B62397236FE20700CF4CF6 /* User.swift */; };
 		C7CA1DFB236FE5F200A1A72A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7CA1DF9236FE5F200A1A72A /* Main.storyboard */; };
@@ -80,6 +81,7 @@
 		C766EC64236FDCDD0006A248 /* ListFiltersController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListFiltersController.swift; sourceTree = "<group>"; };
 		C766EC66236FDE530006A248 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		C766EC68236FDE5E0006A248 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		C78DA8482381EE8500CCD60C /* NetworkHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkHandler.swift; sourceTree = "<group>"; };
 		C7B62394236FE1B900CF4CF6 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		C7B62397236FE20700CF4CF6 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		C7CA1DFA236FE5F200A1A72A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -230,6 +232,7 @@
 			isa = PBXGroup;
 			children = (
 				C766EC5E236FD5420006A248 /* Utils.swift */,
+				C78DA8482381EE8500CCD60C /* NetworkHandler.swift */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -491,6 +494,7 @@
 				C7E9E67A23710082004BB27C /* ProfileViewController.swift in Sources */,
 				C7D6EF6223711B6300D33E4B /* SceneDelegate.swift in Sources */,
 				5B1748D223634BB3004532AE /* AppDelegate.swift in Sources */,
+				C78DA8492381EE8500CCD60C /* NetworkHandler.swift in Sources */,
 				C7B62398236FE20700CF4CF6 /* User.swift in Sources */,
 				C766EC61236FD9AD0006A248 /* RecommendationsViewController.swift in Sources */,
 				C766EC65236FDCDD0006A248 /* ListFiltersController.swift in Sources */,
