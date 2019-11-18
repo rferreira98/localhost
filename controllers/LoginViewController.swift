@@ -56,6 +56,37 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         textFieldPassword.layer.cornerRadius = 5.0;
     }
 
+    @IBAction func loginClicked(_ sender: Any) {
+        let password = textFieldPassword.text!
+        let email = textFieldEmail.text!
+
+
+        if textFieldEmail.text!.isEmpty || textFieldPassword.text!.isEmpty {
+            let alert = Utils.triggerAlert(title: "Erro", error: "E-Mail ou Password vazios")
+            self.present(alert, animated: true, completion: nil)
+            return;
+        }
+        if !isValid(email) {
+            let alert = Utils.triggerAlert(title: "Erro", error: "E-Mail em formato incorreto.")
+            self.present(alert, animated: true, completion: nil)
+        } else {
+            let myPost = NetworkHandler.PostLogin(password: password, email: email)
+
+            NetworkHandler.login(post: myPost) { (success, error) in
+                OperationQueue.main.addOperation {
+
+                    if error != nil {
+                        let alert = Utils.triggerAlert(title: "Erro", error: error!.message)
+                        self.present(alert, animated: true, completion: nil)
+                    } else {
+                        self.goToMainScreen()
+                    }
+                }
+
+            }
+        }
+        
+    }
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         //print(totalTextFields)
 
@@ -86,11 +117,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     
     @IBAction func inicioClicked(_ sender: Any) {
-        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let tabBarController = storyBoard.instantiateViewController(withIdentifier: "tabBarController")
-        //tabBarController.modalTransitionStyle = .crossDissolve
-        self.dismiss(animated: true, completion: nil)
-        self.present(tabBarController, animated: true, completion: nil)
+        self.goToMainScreen()
     }
 
 
@@ -98,6 +125,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     func goToMainScreen() {
         let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let loginViewController = storyBoard.instantiateViewController(withIdentifier: "tabBarController")
+        self.dismiss(animated: true, completion: nil)
         self.present(loginViewController, animated: true, completion: nil)
     }
 

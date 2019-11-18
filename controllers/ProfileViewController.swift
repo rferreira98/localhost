@@ -26,6 +26,7 @@ class ProfileViewController: UITableViewController, UIImagePickerControllerDeleg
     
     var isEditingFields: Bool = false;
     var hasChangedAvatar = false;
+    var profile: User?
     
     @IBOutlet weak var avatarImageView: UIImageView!
     @IBOutlet weak var firstNameTextField: UITextField!
@@ -90,9 +91,22 @@ class ProfileViewController: UITableViewController, UIImagePickerControllerDeleg
         
     
 
-    tableProfile.delegate = self
-    tableView.dataSource = self
-    tableView.delegate = self
+        tableProfile.delegate = self
+        tableView.dataSource = self
+        tableView.delegate = self
+        if let token = UserDefaults.standard.value(forKey: "Token") as? String {
+            self.profile = User(token,
+                    UserDefaults.standard.value(forKey: "FirstName") as! String,
+                    UserDefaults.standard.value(forKey: "LastName") as! String,
+                    UserDefaults.standard.value(forKey: "Email") as! String,
+                    UserDefaults.standard.value(forKey: "Local") as! String)
+            
+            self.firstNameTextField.text = self.profile!.firstName
+            self.lastNameTextField.text = self.profile!.lastName
+            self.emailTextField.text = self.profile!.email
+            //self..text = self.profile!.local
+        }
+        
     
     
     //TODO Load data with the data retrieved from API
@@ -178,14 +192,21 @@ class ProfileViewController: UITableViewController, UIImagePickerControllerDeleg
     }
     
     @IBAction func logoutClicked(_ sender: Any) {
-       
-        //UserDefaults.standard.removeObject(forKey: "XXXXX")
-        //UserDefaults.standard.synchronize()
+        
+        UserDefaults.standard.removeObject(forKey: "Token")
+        UserDefaults.standard.removeObject(forKey: "FirstName")
+        UserDefaults.standard.removeObject(forKey: "LastName")
+        UserDefaults.standard.removeObject(forKey: "Email")
+        UserDefaults.standard.removeObject(forKey: "Local")
+        UserDefaults.standard.synchronize()
 
         //go to first screen
         let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let loginViewController = storyBoard.instantiateViewController(withIdentifier: "tabBarController")
-        self.present(loginViewController, animated: true, completion: nil)
+        let first = storyBoard.instantiateViewController(withIdentifier: "tabBarController")        
+        first.modalPresentationStyle = .fullScreen
+        //self.dismiss(animated: true, completion: nil)
+        self.present(first, animated: true, completion: nil)
+        
     }
 }
 
