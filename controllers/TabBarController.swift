@@ -25,12 +25,12 @@ class TabBarController : UITabBarController, UITabBarControllerDelegate{
     
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
 
-       /* if !User.hasUserLoggedIn(){
+       if !User.hasUserLoggedIn(){
             if viewController == tabBarController.viewControllers?[2] || viewController == tabBarController.viewControllers?[3] {
                 return false
             }
            
-        } */
+        }
         return true
     }
     
@@ -50,7 +50,7 @@ class TabBarController : UITabBarController, UITabBarControllerDelegate{
             
         }*/
         
-        /* if item == tabBar.items?[2] || item == tabBar.items?[3] {
+         if item == tabBar.items?[2] || item == tabBar.items?[3] {
             
             if !User.hasUserLoggedIn(){
                 
@@ -69,7 +69,7 @@ class TabBarController : UITabBarController, UITabBarControllerDelegate{
                 // show the alert
                 self.present(alert, animated: true, completion: nil)
             }
-        }*/
+        }
         
     }
     

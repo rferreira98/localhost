@@ -7,11 +7,25 @@
 //
 
 import UIKit
+import Alamofire
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
+    private let manager = NetworkReachabilityManager(host: "www.google.com")
+    public var isNetworkOn:Bool = true
+    
+    
      var window: UIWindow?
+    
+    override public init()
+    {
+        super.init()
+        self.manager?.listener = { status in
+            self.isNetworkOn = (status == .reachable(.ethernetOrWiFi) || status == .reachable(.wwan))
+        }
+        
+    }
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {

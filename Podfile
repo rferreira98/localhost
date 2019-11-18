@@ -10,6 +10,7 @@ target 'localhost' do
   pod 'InitialsImageView'
   pod 'SDWebImage'
   pod 'SwiftHTTP'
+  pod 'Alamofire'
   
   target 'localhostTests' do
     inherit! :search_paths

@@ -13,6 +13,7 @@ import MessageUI
 class SettingsViewController: UITableViewController, MFMailComposeViewControllerDelegate{
     
     @IBOutlet weak var switchDarkMode: UISwitch!
+    @IBOutlet weak var imageViewAvatar: UIImageView!
     
     override func viewDidAppear(_ animated: Bool) {
         //removes the separator/line on the table cell
@@ -32,6 +33,9 @@ class SettingsViewController: UITableViewController, MFMailComposeViewController
         } else {
             sectionColor = UIColor.white
         }
+        
+        imageViewAvatar.layer.cornerRadius = imageViewAvatar.frame.size.height / 2
+        imageViewAvatar.clipsToBounds = true
         
         self.tableView.backgroundView?.backgroundColor = sectionColor
         self.tableView.backgroundColor = sectionColor

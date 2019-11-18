@@ -10,7 +10,9 @@ import UIKit
 import RSKImageCropper
 import InitialsImageView
 
-class RegisterViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate & UINavigationControllerDelegate, RSKImageCropViewControllerDelegate {
+class RegisterViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate & UINavigationControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource, RSKImageCropViewControllerDelegate {
+    
+    
     func imageCropViewControllerDidCancelCrop(_ controller: RSKImageCropViewController) {
         _ = self.navigationController?.popViewController(animated: true)
     }
@@ -26,12 +28,17 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIImagePick
     @IBOutlet weak var textFieldLastName: UITextField!
     @IBOutlet weak var textFieldEmail: UITextField!
     @IBOutlet weak var textFieldPassword: UITextField!
-    @IBOutlet weak var textFieldUsername: UITextField!
+    @IBOutlet weak var textFieldConfirmPassword: UITextField!
+    @IBOutlet weak var textFieldLocal: UITextField!
     @IBOutlet weak var imageViewAvatar: UIImageView!
     
     var hasAddedAvatar: Bool = false
-    var areas = [String]()
-    var selectedAreas = [String]()
+   
+    var localPicker = UIPickerView()
+    var mvc: MapViewController?
+    var selectedCity: String = ""
+    
+    
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -40,11 +47,14 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIImagePick
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        createPicker();
+        
         textFieldFirstName.delegate = self
         textFieldLastName.delegate = self
         textFieldPassword.delegate = self
+        textFieldConfirmPassword.delegate = self
         textFieldEmail.delegate = self
-        textFieldUsername.delegate = self
+        textFieldLocal.delegate = self
         
         let tapImage = UITapGestureRecognizer(target: self, action: #selector(self.avatarUpload(_:)))
         imageViewAvatar.isUserInteractionEnabled = true
@@ -55,6 +65,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIImagePick
         tap.cancelsTouchesInView = false
         self.view.addGestureRecognizer(tap)
         
+        /*
         //Style textFieldFirstName
         //textFieldFirstName.backgroundColor = UIColor(named: "AppDarkBackground")
         //textFieldFirstName.textColor = UIColor.white
@@ -93,18 +104,18 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIImagePick
         
         
         //Style textFieldPassword
-        //textFieldUsername.backgroundColor = UIColor(named: "AppDarkBackground")
-        //textFieldUsername.textColor = UIColor.white
-        textFieldUsername.attributedPlaceholder = NSAttributedString(string: "Username",
+        //textFieldLocal.backgroundColor = UIColor(named: "AppDarkBackground")
+        //textFieldLocal.textColor = UIColor.white
+        textFieldLocal.attributedPlaceholder = NSAttributedString(string: "Local",
                                                                      attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
-        textFieldUsername.layer.borderColor = UIColor.lightGray.cgColor;
-        textFieldUsername.layer.borderWidth = 1.0;
-        textFieldUsername.layer.cornerRadius = 5.0;
+        textFieldLocal.layer.borderColor = UIColor.lightGray.cgColor;
+        textFieldLocal.layer.borderWidth = 1.0;
+        textFieldLocal.layer.cornerRadius = 5.0;
+ */
     }
     
     @objc func avatarUpload(_ sender: UITapGestureRecognizer){
         view.endEditing(true)
-        
         
         
         let controller = UIImagePickerController()
@@ -167,6 +178,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIImagePick
     
     /// - returns: A Boolean value indicating whether an email is valid.
     func isValid(_ email: String) -> Bool {
+        
         let emailRegEx = "(?:[a-zA-Z0-9!#$%\\&‘*+/=?\\^_`{|}~-]+(?:\\.[a-zA-Z0-9!#$%\\&'*+/=?\\^_`{|}" +
         "~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\" +
         "x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-" +
@@ -205,6 +217,13 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIImagePick
                 let name = textFieldFirstName.text! + " " + textFieldLastName.text!
                 imageViewAvatar.setImageForName(name, backgroundColor: nil, circular: true, textAttributes: nil)
             }
+            
+        }
+        
+        if textFieldPassword.text != "" && textFieldConfirmPassword.text != "" && textFieldConfirmPassword.text != textFieldPassword.text{
+            let alert = Utils.triggerAlert(title: "Erro", error: "Passwords não coincidem")
+            self.present(alert, animated: true, completion: nil)
+            textFieldConfirmPassword.text=""
         }
     }
     
@@ -213,24 +232,124 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIImagePick
         let firstName = textFieldFirstName.text!
         let lastName = textFieldLastName.text!
         let password = textFieldPassword.text!
+        let passwordConfirm = textFieldConfirmPassword.text!
         let email = textFieldEmail.text!
-        let username = textFieldUsername.text!
+        let local = textFieldLocal.text!
         var image: UIImage!
         
-        if textFieldFirstName.text!.isEmpty || textFieldLastName.text!.isEmpty || textFieldEmail.text!.isEmpty || textFieldPassword.text!.isEmpty{
+        if textFieldFirstName.text!.isEmpty || textFieldLastName.text!.isEmpty || textFieldEmail.text!.isEmpty || textFieldPassword.text!.isEmpty || textFieldConfirmPassword.text!.isEmpty || textFieldLocal.text!.isEmpty{
             
-            let alert = Utils.triggerAlert(title: "Error", error: "Some fields are empty.")
+            let alert = Utils.triggerAlert(title: "Error", error: "Alguns campos estão vazios.")
             self.present(alert, animated: true, completion: nil)
         }else{
             if !isValid(email){
             
-                let alert = Utils.triggerAlert(title: "Error", error: "Invalid E-Mail")
+                let error = NetworkError(code: NetworkError.ERROR_CODE_USER_EMAIL_INVALID);
+                let alert = Utils.triggerAlert(title: "Erro", error: error.message)
                 self.present(alert, animated: true, completion: nil)
             }else{
+                let postRegist = NetworkHandler.PostRegister(first_name: firstName, last_name: lastName, password: password, password_confirmation: passwordConfirm, email: email, local: local)
                 
+                NetworkHandler.register(post: postRegist) { (success, error) in
+                    OperationQueue.main.addOperation {
+                        
+                        if error != nil {
+                            let alert = Utils.triggerAlert(title: "Erro", error: error!.message)
+                            self.present(alert, animated: true, completion: nil)
+                        }
+                        else{
+                            
+                            //------
+                            
+                            //Upload Avatar
+                            let token = UserDefaults.standard.value(forKey: "Token")
+                            /*NetworkHandler.uploadAvatar(avatar: self.imageViewAvatar.image!, userId: userId as! Int){ (success, error) in
+                                OperationQueue.main.addOperation {
+                                    if error != nil{
+                                        let alert = Utils.triggerAlert(title: "Erro", error: error?.message)
+                                        self.present(alert, animated: true, completion: nil)
+                                    }else{
+                                        //go to first screen
+                                        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                                        let loginViewController = storyBoard.instantiateViewController(withIdentifier: "tabBarController")
+                                        self.present(loginViewController, animated: true, completion: nil)
+                                    }
+                                }
+                            }*/
+                            let postLogin = NetworkHandler.PostLogin(password: password, email: email)
+                            NetworkHandler.login(post: postLogin) { (success, error) in
+                                OperationQueue.main.addOperation {
+
+                                    if error != nil {
+                                        let alert = Utils.triggerAlert(title: "Erro", error: error!.message)
+                                        self.present(alert, animated: true, completion: nil)
+                                    } else {
+                                        self.goToMainScreen()
+                                    }
+                                }
+
+                            }
+
+                        }
+                    }
+                }
             }
         }
     }
     
+    func goToMainScreen(){
+        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let loginViewController = storyBoard.instantiateViewController(withIdentifier: "tabBarController")
+        //self.dismiss(animated: true, completion: nil)
+        self.present(loginViewController, animated: true, completion: nil)
+    }
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1;
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return Cities.cities.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return Cities.cities[row]
+        
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        selectedCity = Cities.cities[row]
+        textFieldLocal.text = selectedCity
+    }
+    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+
+        var label: UILabel
+
+        if let view = view as? UILabel {
+            label = view
+        } else {
+            label = UILabel()
+        }
+
+        label.textColor = .white
+        label.textAlignment = .center
+        label.text = Cities.cities[row]
+
+        return label
+    }
+    
+    func createPicker() {
+        localPicker.delegate = self
+        textFieldLocal.inputView = localPicker
+        //localPicker.backgroundColor = UIColor(named: "AppDarkBackground")
+
+        //------------------------------------------------
+
+    }
+    
+    func resetPicker() {
+        self.textFieldLocal.text = ""
+        self.selectedCity = ""
+    }
 }
 
