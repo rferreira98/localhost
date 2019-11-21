@@ -168,6 +168,7 @@ class ProfileViewController: UITableViewController, UIImagePickerControllerDeleg
         }))
         
         actionsheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
         self.present(actionsheet,animated: true, completion: nil)
         
     }
@@ -182,7 +183,7 @@ class ProfileViewController: UITableViewController, UIImagePickerControllerDeleg
             imageCropVC = RSKImageCropViewController(image: image, cropMode: RSKImageCropMode.circle)
 
             imageCropVC.delegate = self
-
+                        
             self.navigationController?.pushViewController(imageCropVC, animated: true)
 
         })

@@ -720,17 +720,6 @@
                                     <segue destination="Nb8-Pt-vFg" kind="show" id="DUm-uL-UMg"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="296-YU-ouf">
-                                <rect key="frame" x="165" y="298" width="45" height="45"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="45" id="5M0-hs-i89"/>
-                                    <constraint firstAttribute="height" constant="45" id="Ifc-vT-hQ5"/>
-                                </constraints>
-                                <state key="normal" image="FacebookLogo"/>
-                                <connections>
-                                    <action selector="facebookLoginClicked:" destination="X1K-Wl-KBG" eventType="touchUpInside" id="ccl-CC-Puw"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fbl-lr-va4">
                                 <rect key="frame" x="124.66666666666669" y="631" width="126" height="30"/>
                                 <state key="normal" title="Recover Password">
@@ -738,6 +727,17 @@
                                 </state>
                                 <connections>
                                     <action selector="passwordRecoveryClicked:" destination="X1K-Wl-KBG" eventType="touchUpInside" id="nE1-gY-YQ8"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="296-YU-ouf">
+                                <rect key="frame" x="124" y="309" width="45" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="45" id="5M0-hs-i89"/>
+                                    <constraint firstAttribute="height" constant="45" id="Ifc-vT-hQ5"/>
+                                </constraints>
+                                <state key="normal" image="FacebookLogo"/>
+                                <connections>
+                                    <action selector="facebookLoginClicked:" destination="X1K-Wl-KBG" eventType="touchUpInside" id="ccl-CC-Puw"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="79k-mR-A9w">
@@ -759,7 +759,6 @@
                             <constraint firstItem="z72-Fn-9mD" firstAttribute="top" secondItem="296-YU-ouf" secondAttribute="bottom" constant="19" id="4Gm-6G-dJO"/>
                             <constraint firstItem="7Qj-qP-oFx" firstAttribute="leading" secondItem="PeA-Kf-TNn" secondAttribute="leading" constant="40" id="9vJ-mk-OdH"/>
                             <constraint firstItem="DUj-nm-94h" firstAttribute="centerX" secondItem="PeA-Kf-TNn" secondAttribute="centerX" id="DWf-WU-LnQ"/>
-                            <constraint firstItem="296-YU-ouf" firstAttribute="centerX" secondItem="PeA-Kf-TNn" secondAttribute="centerX" id="G6c-2C-Tme"/>
                             <constraint firstItem="296-YU-ouf" firstAttribute="top" secondItem="nGb-ea-EiD" secondAttribute="bottom" constant="10" id="InR-0x-tSX"/>
                             <constraint firstItem="z72-Fn-9mD" firstAttribute="leading" secondItem="PeA-Kf-TNn" secondAttribute="leading" constant="40" id="Jtg-85-j9S"/>
                             <constraint firstItem="nGb-ea-EiD" firstAttribute="centerX" secondItem="PeA-Kf-TNn" secondAttribute="centerX" id="LE1-eh-Ceu"/>
