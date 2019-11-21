@@ -177,7 +177,19 @@ class ProfileViewController: UITableViewController, UIImagePickerControllerDeleg
             
             //userProfile filled
             if userProfile.profileChanged {
-                
+                let postUserData = NetworkHandler.PostUserData(first_name: userProfile.firstName, last_name: userProfile.lastName, local: userProfile.local)
+                NetworkHandler.updateUser(post: postUserData) { (success, error) in
+                    OperationQueue.main.addOperation {
+
+                        if error != nil {
+                            let alert = Utils.triggerAlert(title: "Erro", error: error!.message)
+                            self.present(alert, animated: true, completion: nil)
+                        } else {
+                            self.goToMainScreen()
+                        }
+                    }
+
+                }
             }
         }
     }
@@ -315,6 +327,12 @@ class ProfileViewController: UITableViewController, UIImagePickerControllerDeleg
         self.selectedCity = ""
     }
     
+    func goToMainScreen(){
+        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let profileViewController = storyBoard.instantiateViewController(withIdentifier: "tabBarController")
+        //self.dismiss(animated: true, completion: nil)
+        self.present(profileViewController, animated: true, completion: nil)
+    }
 }
 
 extension ProfileViewController: UITextFieldDelegate {
