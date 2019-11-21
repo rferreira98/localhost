@@ -15,7 +15,6 @@
 		5B1748E923634BB5004532AE /* localhostTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1748E823634BB5004532AE /* localhostTests.swift */; };
 		5B1748F423634BB6004532AE /* localhostUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1748F323634BB6004532AE /* localhostUITests.swift */; };
 		9FFF675A78A806AB3504979F /* Pods_localhostTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DB14336AA67FCAA43C22716 /* Pods_localhostTests.framework */; };
-		C72833252374EC440056202C /* user.json in Resources */ = {isa = PBXBuildFile; fileRef = C72833242374EC440056202C /* user.json */; };
 		C72BAED8236FC2A40022C461 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72BAED7236FC2A40022C461 /* MapViewController.swift */; };
 		C72BAEDA236FC4240022C461 /* LocationSearchTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72BAED9236FC4240022C461 /* LocationSearchTableController.swift */; };
 		C766EC58236FD1120006A248 /* MapFiltersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C766EC57236FD1120006A248 /* MapFiltersController.swift */; };
@@ -27,6 +26,8 @@
 		C766EC65236FDCDD0006A248 /* ListFiltersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C766EC64236FDCDD0006A248 /* ListFiltersController.swift */; };
 		C766EC67236FDE530006A248 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C766EC66236FDE530006A248 /* LoginViewController.swift */; };
 		C766EC69236FDE5E0006A248 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C766EC68236FDE5E0006A248 /* RegisterViewController.swift */; };
+		C769DE812383953200020527 /* KeychainPasswordItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C769DE802383953200020527 /* KeychainPasswordItem.swift */; };
+		C769DE8323839C9400020527 /* BiometricAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = C769DE8223839C9400020527 /* BiometricAuth.swift */; };
 		C78DA8492381EE8500CCD60C /* NetworkHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C78DA8482381EE8500CCD60C /* NetworkHandler.swift */; };
 		C78DA84B2382145F00CCD60C /* NetworkErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = C78DA84A2382145F00CCD60C /* NetworkErrors.swift */; };
 		C78DA84D2382263400CCD60C /* Cities.swift in Sources */ = {isa = PBXBuildFile; fileRef = C78DA84C2382263400CCD60C /* Cities.swift */; };
@@ -71,7 +72,6 @@
 		8310D0417BE2BF3022CAE98E /* Pods_localhost_localhostUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_localhost_localhostUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		854FD002A07AE702A8ADB2E0 /* Pods-localhost.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-localhost.release.xcconfig"; path = "Target Support Files/Pods-localhost/Pods-localhost.release.xcconfig"; sourceTree = "<group>"; };
 		A8E9A9CBCA1B3BECDAADC893 /* Pods-localhostTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-localhostTests.release.xcconfig"; path = "Target Support Files/Pods-localhostTests/Pods-localhostTests.release.xcconfig"; sourceTree = "<group>"; };
-		C72833242374EC440056202C /* user.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = user.json; sourceTree = "<group>"; };
 		C72BAED7236FC2A40022C461 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		C72BAED9236FC4240022C461 /* LocationSearchTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchTableController.swift; sourceTree = "<group>"; };
 		C766EC57236FD1120006A248 /* MapFiltersController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapFiltersController.swift; sourceTree = "<group>"; };
@@ -83,6 +83,8 @@
 		C766EC64236FDCDD0006A248 /* ListFiltersController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListFiltersController.swift; sourceTree = "<group>"; };
 		C766EC66236FDE530006A248 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		C766EC68236FDE5E0006A248 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		C769DE802383953200020527 /* KeychainPasswordItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainPasswordItem.swift; sourceTree = "<group>"; };
+		C769DE8223839C9400020527 /* BiometricAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricAuth.swift; sourceTree = "<group>"; };
 		C78DA8482381EE8500CCD60C /* NetworkHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkHandler.swift; sourceTree = "<group>"; };
 		C78DA84A2382145F00CCD60C /* NetworkErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkErrors.swift; sourceTree = "<group>"; };
 		C78DA84C2382263400CCD60C /* Cities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cities.swift; sourceTree = "<group>"; };
@@ -151,7 +153,6 @@
 		5B1748C523634BB3004532AE = {
 			isa = PBXGroup;
 			children = (
-				C72833232374EBA40056202C /* dummy_data */,
 				C7B62396236FE1FE00CF4CF6 /* models */,
 				C766EC5D236FD5370006A248 /* utils */,
 				C72BAED4236FA6E30022C461 /* controllers */,
@@ -205,14 +206,6 @@
 			path = localhostUITests;
 			sourceTree = "<group>";
 		};
-		C72833232374EBA40056202C /* dummy_data */ = {
-			isa = PBXGroup;
-			children = (
-				C72833242374EC440056202C /* user.json */,
-			);
-			path = dummy_data;
-			sourceTree = "<group>";
-		};
 		C72BAED4236FA6E30022C461 /* controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -239,6 +232,8 @@
 				C78DA8482381EE8500CCD60C /* NetworkHandler.swift */,
 				C78DA84A2382145F00CCD60C /* NetworkErrors.swift */,
 				C78DA84C2382263400CCD60C /* Cities.swift */,
+				C769DE802383953200020527 /* KeychainPasswordItem.swift */,
+				C769DE8223839C9400020527 /* BiometricAuth.swift */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -363,7 +358,6 @@
 				C7CA1DFB236FE5F200A1A72A /* Main.storyboard in Resources */,
 				5B1748DE23634BB5004532AE /* LaunchScreen.storyboard in Resources */,
 				5B1748DB23634BB5004532AE /* Assets.xcassets in Resources */,
-				C72833252374EC440056202C /* user.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -494,6 +488,7 @@
 				C766EC58236FD1120006A248 /* MapFiltersController.swift in Sources */,
 				C766EC69236FDE5E0006A248 /* RegisterViewController.swift in Sources */,
 				C766EC67236FDE530006A248 /* LoginViewController.swift in Sources */,
+				C769DE8323839C9400020527 /* BiometricAuth.swift in Sources */,
 				C766EC5F236FD5420006A248 /* Utils.swift in Sources */,
 				C766EC5A236FD4D20006A248 /* SettingsViewController.swift in Sources */,
 				C72BAEDA236FC4240022C461 /* LocationSearchTableController.swift in Sources */,
@@ -506,6 +501,7 @@
 				C766EC65236FDCDD0006A248 /* ListFiltersController.swift in Sources */,
 				C78DA84D2382263400CCD60C /* Cities.swift in Sources */,
 				C766EC5C236FD4FC0006A248 /* InfoViewController.swift in Sources */,
+				C769DE812383953200020527 /* KeychainPasswordItem.swift in Sources */,
 				C7B62395236FE1B900CF4CF6 /* TabBarController.swift in Sources */,
 				C766EC63236FDB4D0006A248 /* PlacesListViewController.swift in Sources */,
 				C72BAED8236FC2A40022C461 /* MapViewController.swift in Sources */,
@@ -685,14 +681,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5KB4ZY99NU;
+				DEVELOPMENT_TEAM = 9BAAJ9ZBNU;
 				INFOPLIST_FILE = localhost/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = ipleiria.ios2.localhost;
+				PRODUCT_BUNDLE_IDENTIFIER = ipleiria.ios1.localhost;
 				PRODUCT_NAME = Localhost;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;

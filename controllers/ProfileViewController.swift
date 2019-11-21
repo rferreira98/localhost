@@ -37,7 +37,8 @@ class ProfileViewController: UITableViewController, UIImagePickerControllerDeleg
     @IBOutlet var tableProfile: UITableView!
     @IBOutlet weak var buttonLogout: UIButton!
     @IBOutlet weak var barButtonItemEdit: UIBarButtonItem!
-    @IBOutlet weak var buttonShare: UIButton!
+    @IBOutlet weak var buttonLogoutDeleteBiometric: UIButton!
+    
     
     
     override func viewDidAppear(_ animated: Bool) {
@@ -187,16 +188,13 @@ class ProfileViewController: UITableViewController, UIImagePickerControllerDeleg
         })
     }
     
-    @IBAction func shareClicked(_ sender: Any) {
-        //TODO Share
-    }
-    
     @IBAction func logoutClicked(_ sender: Any) {
         
         UserDefaults.standard.removeObject(forKey: "Token")
         UserDefaults.standard.removeObject(forKey: "FirstName")
         UserDefaults.standard.removeObject(forKey: "LastName")
-        UserDefaults.standard.removeObject(forKey: "Email")
+        //shouldn't remove email in this case because it will be needed for faceID
+        //UserDefaults.standard.removeObject(forKey: "Email")
         UserDefaults.standard.removeObject(forKey: "Local")
         UserDefaults.standard.synchronize()
 
@@ -208,6 +206,23 @@ class ProfileViewController: UITableViewController, UIImagePickerControllerDeleg
         self.present(first, animated: true, completion: nil)
         
     }
+    @IBAction func logoutDeleteBiometricClicked(_ sender: Any) {
+        UserDefaults.standard.removeObject(forKey: "Token")
+        UserDefaults.standard.removeObject(forKey: "FirstName")
+        UserDefaults.standard.removeObject(forKey: "LastName")
+        UserDefaults.standard.removeObject(forKey: "Email")
+        UserDefaults.standard.removeObject(forKey: "Local")
+        UserDefaults.standard.set(false, forKey: "usesBiometricAuth")
+        UserDefaults.standard.synchronize()
+
+        //go to first screen
+        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let first = storyBoard.instantiateViewController(withIdentifier: "tabBarController")
+        first.modalPresentationStyle = .fullScreen
+        //self.dismiss(animated: true, completion: nil)
+        self.present(first, animated: true, completion: nil)
+    }
+    
 }
 
 extension ProfileViewController: UITextFieldDelegate {

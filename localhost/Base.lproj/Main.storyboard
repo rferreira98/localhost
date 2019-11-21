@@ -499,7 +499,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dark Mode" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dNr-0e-o28">
-                                                    <rect key="frame" x="20" y="12" width="84" height="21"/>
+                                                    <rect key="frame" x="16" y="12" width="84" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -513,9 +513,9 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="cZl-JB-lwN" firstAttribute="top" secondItem="BMf-8H-Q9c" secondAttribute="top" constant="7" id="Kw6-JS-W1s"/>
+                                                <constraint firstItem="dNr-0e-o28" firstAttribute="leading" secondItem="BMf-8H-Q9c" secondAttribute="leading" constant="16" id="NAb-Ga-UWH"/>
+                                                <constraint firstItem="dNr-0e-o28" firstAttribute="top" secondItem="BMf-8H-Q9c" secondAttribute="top" constant="12" id="WcQ-1K-dBb"/>
                                                 <constraint firstAttribute="trailing" secondItem="cZl-JB-lwN" secondAttribute="trailing" constant="22" id="XxS-za-lzc"/>
-                                                <constraint firstItem="dNr-0e-o28" firstAttribute="leading" secondItem="BMf-8H-Q9c" secondAttribute="leading" constant="20" id="baT-us-x4b"/>
-                                                <constraint firstItem="dNr-0e-o28" firstAttribute="top" secondItem="BMf-8H-Q9c" secondAttribute="top" constant="12" id="bbC-fl-hAr"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -693,7 +693,7 @@
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DUj-nm-94h">
-                                <rect key="frame" x="168.66666666666666" y="470" width="38" height="30"/>
+                                <rect key="frame" x="168.66666666666666" y="474" width="38" height="30"/>
                                 <state key="normal" title="Login">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
@@ -712,7 +712,7 @@
                                 <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES" secureTextEntry="YES" textContentType="password"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XcO-BP-B2H">
-                                <rect key="frame" x="159" y="504" width="57" height="30"/>
+                                <rect key="frame" x="159" y="601" width="57" height="30"/>
                                 <state key="normal" title="Register">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
@@ -732,7 +732,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fbl-lr-va4">
-                                <rect key="frame" x="124.66666666666669" y="534" width="126" height="30"/>
+                                <rect key="frame" x="124.66666666666669" y="631" width="126" height="30"/>
                                 <state key="normal" title="Recover Password">
                                     <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
@@ -740,12 +740,22 @@
                                     <action selector="passwordRecoveryClicked:" destination="X1K-Wl-KBG" eventType="touchUpInside" id="nE1-gY-YQ8"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="79k-mR-A9w">
+                                <rect key="frame" x="154.66666666666666" y="514" width="66" height="67"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="67" id="IaI-zN-wZN"/>
+                                    <constraint firstAttribute="width" constant="66" id="NgW-Av-Lb6"/>
+                                </constraints>
+                                <state key="normal" image="FaceIcon"/>
+                                <connections>
+                                    <action selector="biometricLoginClicked:" destination="X1K-Wl-KBG" eventType="touchUpInside" id="kBS-Vm-uDa"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" name="AppGreenPrimary"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="XcO-BP-B2H" firstAttribute="centerX" secondItem="PeA-Kf-TNn" secondAttribute="centerX" id="244-1H-QdP"/>
-                            <constraint firstItem="XcO-BP-B2H" firstAttribute="top" secondItem="DUj-nm-94h" secondAttribute="bottom" constant="4" id="2a6-fP-3ZR"/>
                             <constraint firstItem="z72-Fn-9mD" firstAttribute="top" secondItem="296-YU-ouf" secondAttribute="bottom" constant="19" id="4Gm-6G-dJO"/>
                             <constraint firstItem="7Qj-qP-oFx" firstAttribute="leading" secondItem="PeA-Kf-TNn" secondAttribute="leading" constant="40" id="9vJ-mk-OdH"/>
                             <constraint firstItem="DUj-nm-94h" firstAttribute="centerX" secondItem="PeA-Kf-TNn" secondAttribute="centerX" id="DWf-WU-LnQ"/>
@@ -753,13 +763,16 @@
                             <constraint firstItem="296-YU-ouf" firstAttribute="top" secondItem="nGb-ea-EiD" secondAttribute="bottom" constant="10" id="InR-0x-tSX"/>
                             <constraint firstItem="z72-Fn-9mD" firstAttribute="leading" secondItem="PeA-Kf-TNn" secondAttribute="leading" constant="40" id="Jtg-85-j9S"/>
                             <constraint firstItem="nGb-ea-EiD" firstAttribute="centerX" secondItem="PeA-Kf-TNn" secondAttribute="centerX" id="LE1-eh-Ceu"/>
+                            <constraint firstItem="79k-mR-A9w" firstAttribute="top" secondItem="DUj-nm-94h" secondAttribute="bottom" constant="10" id="LSR-oe-eue"/>
                             <constraint firstItem="fbl-lr-va4" firstAttribute="top" secondItem="XcO-BP-B2H" secondAttribute="bottom" id="LUm-vQ-ZUK"/>
                             <constraint firstItem="fbl-lr-va4" firstAttribute="centerX" secondItem="PeA-Kf-TNn" secondAttribute="centerX" id="Qgl-xG-Qoc"/>
                             <constraint firstItem="PeA-Kf-TNn" firstAttribute="trailing" secondItem="7Qj-qP-oFx" secondAttribute="trailing" constant="40" id="SOo-i4-ZHW"/>
+                            <constraint firstItem="XcO-BP-B2H" firstAttribute="top" secondItem="79k-mR-A9w" secondAttribute="bottom" constant="20" id="YOw-5Z-nBW"/>
                             <constraint firstItem="PeA-Kf-TNn" firstAttribute="top" secondItem="nGb-ea-EiD" secondAttribute="bottom" constant="-200" id="c7S-Yo-b3A"/>
                             <constraint firstItem="PeA-Kf-TNn" firstAttribute="trailing" secondItem="z72-Fn-9mD" secondAttribute="trailing" constant="40" id="dLW-b2-smk"/>
+                            <constraint firstItem="79k-mR-A9w" firstAttribute="centerX" secondItem="PeA-Kf-TNn" secondAttribute="centerX" id="obs-Kd-VHy"/>
                             <constraint firstItem="7Qj-qP-oFx" firstAttribute="top" secondItem="z72-Fn-9mD" secondAttribute="bottom" constant="24" id="vJL-Q9-bCP"/>
-                            <constraint firstItem="DUj-nm-94h" firstAttribute="top" secondItem="7Qj-qP-oFx" secondAttribute="bottom" constant="16" id="yI5-ud-a1e"/>
+                            <constraint firstItem="DUj-nm-94h" firstAttribute="top" secondItem="7Qj-qP-oFx" secondAttribute="bottom" constant="20" id="yI5-ud-a1e"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="PeA-Kf-TNn"/>
                     </view>
@@ -773,6 +786,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="biometricLoginButton" destination="79k-mR-A9w" id="Lfv-x5-eRM"/>
                         <outlet property="loginButton" destination="DUj-nm-94h" id="765-vL-Xyc"/>
                         <outlet property="textFieldEmail" destination="z72-Fn-9mD" id="zr0-7W-SeK"/>
                         <outlet property="textFieldPassword" destination="7Qj-qP-oFx" id="jaA-sS-Xy8"/>
@@ -1086,38 +1100,10 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection id="Zq6-zb-qlu">
-                                <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="LNG-SJ-ohO">
-                                        <rect key="frame" x="0.0" y="569" width="375" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="LNG-SJ-ohO" id="6Of-N1-PdT">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ALM-Rr-KLu">
-                                                    <rect key="frame" x="143.66666666666666" y="6" width="88" height="30"/>
-                                                    <state key="normal" title="Share Profile">
-                                                        <color key="titleColor" name="AppGreenPrimary"/>
-                                                    </state>
-                                                    <connections>
-                                                        <action selector="shareClicked:" destination="Yhi-9B-qW0" eventType="touchUpInside" id="7tS-Fd-UVi"/>
-                                                    </connections>
-                                                </button>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="ALM-Rr-KLu" firstAttribute="top" secondItem="6Of-N1-PdT" secondAttribute="top" constant="6" id="0sS-Vx-7pW"/>
-                                                <constraint firstItem="ALM-Rr-KLu" firstAttribute="centerX" secondItem="6Of-N1-PdT" secondAttribute="centerX" id="fLF-k0-f3Y"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
                             <tableViewSection id="aQb-0i-Oc7">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="YWY-he-GwH">
-                                        <rect key="frame" x="0.0" y="669" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="569" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="YWY-he-GwH" id="oA8-ab-V71">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -1136,6 +1122,30 @@
                                             <constraints>
                                                 <constraint firstItem="7ur-dd-zhl" firstAttribute="centerX" secondItem="oA8-ab-V71" secondAttribute="centerX" id="3L1-1y-dHx"/>
                                                 <constraint firstItem="7ur-dd-zhl" firstAttribute="top" secondItem="oA8-ab-V71" secondAttribute="top" constant="6" id="3gw-dX-n6g"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="DQb-O8-338">
+                                        <rect key="frame" x="0.0" y="613" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="DQb-O8-338" id="xpw-oy-HXm">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JOF-kL-14d">
+                                                    <rect key="frame" x="72" y="6" width="231" height="30"/>
+                                                    <state key="normal" title="Logout and Delete Biometric Data">
+                                                        <color key="titleColor" name="systemRedColor" catalog="System" colorSpace="catalog"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="logoutDeleteBiometricClicked:" destination="Yhi-9B-qW0" eventType="touchUpInside" id="5FU-YT-qjq"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="JOF-kL-14d" firstAttribute="top" secondItem="xpw-oy-HXm" secondAttribute="top" constant="6" id="dmS-6j-Mnj"/>
+                                                <constraint firstItem="JOF-kL-14d" firstAttribute="centerX" secondItem="xpw-oy-HXm" secondAttribute="centerX" id="eGd-kV-oFT"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
@@ -1160,7 +1170,7 @@
                         <outlet property="avatarImageView" destination="B9i-tC-lcV" id="Jvi-gX-bTd"/>
                         <outlet property="barButtonItemEdit" destination="986-Hq-6QW" id="fBK-Eh-UcK"/>
                         <outlet property="buttonLogout" destination="7ur-dd-zhl" id="mI6-b9-arM"/>
-                        <outlet property="buttonShare" destination="ALM-Rr-KLu" id="6N0-Iy-njc"/>
+                        <outlet property="buttonLogoutDeleteBiometric" destination="JOF-kL-14d" id="8QO-hO-eJ6"/>
                         <outlet property="emailTextField" destination="INN-B6-1Pr" id="Iks-br-S5Q"/>
                         <outlet property="firstNameTextField" destination="fiv-lu-mff" id="Foi-1s-e63"/>
                         <outlet property="lastNameTextField" destination="ZaT-Nf-7Zu" id="2xd-WD-T0a"/>
@@ -1177,6 +1187,7 @@
     <resources>
         <image name="AddAvatar" width="256" height="256"/>
         <image name="AvatarExample" width="300" height="300"/>
+        <image name="FaceIcon" width="69.666664123535156" height="69.666664123535156"/>
         <image name="FacebookLogo" width="128" height="128"/>
         <image name="List" width="24" height="24"/>
         <image name="LocalhostIcon" width="375" height="394"/>
