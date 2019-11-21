@@ -197,7 +197,7 @@ class NetworkHandler {
                 if let dictionary = jsonResponse as? [String: Any] {
                     
                     print(jsonResponse);
-                    let saved = saveUserInStorage(userJson: jsonResponse as! [String: Any])
+                    let saved = saveUserInStorage(userJson: dictionary)
                     completion(saved, nil)
                 }
 
