@@ -112,9 +112,17 @@ class ProfileViewController: UITableViewController, UIImagePickerControllerDeleg
             self.localTextField.text = self.profile!.local
         }
         
-    
-    
-    //TODO Load data with the data retrieved from API
+        if let avatarEncoded = UserDefaults.standard.value(forKey: "AvatarEncoded") as? String {
+            if let decodedData = Data(base64Encoded: avatarEncoded, options: .ignoreUnknownCharacters) {
+                let avatar = UIImage(data: decodedData)
+                self.avatarImageView.image = avatar
+            }
+        } else {
+            /*var imageCache = SDImageCache.shared()
+            imageCache.clearMemory()
+            imageCache.clearDisk()
+            self.avatarImageView.sd_setImage(with: URL(string: NetworkRequestsHandler.domainUrl + "/avatar/\(id).png"), placeholderImage: UIImage(named: "NoAvatar"))*/
+        }
             
     }
     
@@ -138,13 +146,6 @@ class ProfileViewController: UITableViewController, UIImagePickerControllerDeleg
         //Profile email can't be changed
         self.localTextField.isUserInteractionEnabled = isEditingFields
         self.avatarImageView.isUserInteractionEnabled = isEditingFields
-        
-        if isEditingFields {
-            self.avatarImageView.image = UIImage(named: "AddAvatar")
-            let tapImage = UITapGestureRecognizer(target: self, action: #selector(ProfileViewController.avatarUpload(_:)))
-            avatarImageView.isUserInteractionEnabled = isEditingFields
-            avatarImageView.addGestureRecognizer(tapImage)
-        }
         
         //User clicked "Done"
         if !isEditingFields {
@@ -175,11 +176,25 @@ class ProfileViewController: UITableViewController, UIImagePickerControllerDeleg
                 }
             }
             
+            
             //userProfile filled
             if userProfile.profileChanged {
-                
+                let postUserData = NetworkHandler.PostUserData(first_name: userProfile.firstName, last_name: userProfile.lastName, local: userProfile.local)
+                NetworkHandler.updateUser(post: postUserData) { (success, error) in
+                    OperationQueue.main.addOperation {
+
+                        if error != nil {
+                            let alert = Utils.triggerAlert(title: "Erro", error: error)
+                            self.present(alert, animated: true, completion: nil)
+                        } else {
+                            self.goToMainScreen()
+                        }
+                    }
+
+                }
             }
         }
+        
     }
     
     @objc func avatarUpload(_ sender: UITapGestureRecognizer) {
@@ -232,6 +247,7 @@ class ProfileViewController: UITableViewController, UIImagePickerControllerDeleg
         UserDefaults.standard.removeObject(forKey: "Token")
         UserDefaults.standard.removeObject(forKey: "FirstName")
         UserDefaults.standard.removeObject(forKey: "LastName")
+        UserDefaults.standard.removeObject(forKey: "AvatarEncoded")
         //shouldn't remove email in this case because it will be needed for faceID
         //UserDefaults.standard.removeObject(forKey: "Email")
         UserDefaults.standard.removeObject(forKey: "Local")
@@ -252,6 +268,7 @@ class ProfileViewController: UITableViewController, UIImagePickerControllerDeleg
         UserDefaults.standard.removeObject(forKey: "LastName")
         UserDefaults.standard.removeObject(forKey: "Email")
         UserDefaults.standard.removeObject(forKey: "Local")
+        UserDefaults.standard.removeObject(forKey: "AvatarEncoded")
         UserDefaults.standard.set(false, forKey: "usesBiometricAuth")
         UserDefaults.standard.synchronize()
 
@@ -355,6 +372,12 @@ class ProfileViewController: UITableViewController, UIImagePickerControllerDeleg
         self.selectedCity = ""
     }
     
+    func goToMainScreen(){
+        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let profileViewController = storyBoard.instantiateViewController(withIdentifier: "tabBarController")
+        //self.dismiss(animated: true, completion: nil)
+        self.present(profileViewController, animated: true, completion: nil)
+    }
 }
 
 extension ProfileViewController: UITextFieldDelegate {

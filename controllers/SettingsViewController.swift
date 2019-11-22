@@ -34,6 +34,18 @@ class SettingsViewController: UITableViewController, MFMailComposeViewController
             sectionColor = UIColor.white
         }
         
+        if let avatarEncoded = UserDefaults.standard.value(forKey: "AvatarEncoded") as? String {
+            if let decodedData = Data(base64Encoded: avatarEncoded, options: .ignoreUnknownCharacters) {
+                let avatar = UIImage(data: decodedData)
+                self.imageViewAvatar.image = avatar
+            }
+        } else {
+            /*var imageCache = SDImageCache.shared()
+            imageCache.clearMemory()
+            imageCache.clearDisk()
+            self.avatarImageView.sd_setImage(with: URL(string: NetworkRequestsHandler.domainUrl + "/avatar/\(id).png"), placeholderImage: UIImage(named: "NoAvatar"))*/
+        }
+        
         imageViewAvatar.layer.cornerRadius = imageViewAvatar.frame.size.height / 2
         imageViewAvatar.clipsToBounds = true
         

@@ -14,9 +14,9 @@ struct NetworkError:Error {
     let message: String
 
     let messages = [
-        
+                "O email inserido já se encontra em uso",
         "O email inserido é inválido",
-        "O email inserido já se encontra em uso",
+
         "Password inválida",
         
         "Ocorreu um erro a efetuar a autenticaçāo",
@@ -25,7 +25,9 @@ struct NetworkError:Error {
         "Ocorreu um erro a guardar o avatar",
 
         "Está actualmente sem ligação à internet",
-        "Ocorreu um erro desconhecido"
+        "Ocorreu um erro desconhecido",
+        
+        "Erro ao fazer parse do objeto JSON"
     ]
 
     init(code: Int) {
@@ -51,6 +53,8 @@ struct NetworkError:Error {
     
     static let ERROR_NETWORK_CONNECTION = errorCounter++;
     static let ERROR_CODE_UNKNOWN = errorCounter++;
+    
+    static let ERROR_CODE_PARSE_JSON = errorCounter++;
 
 }
 
