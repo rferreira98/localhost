@@ -14,9 +14,9 @@ struct NetworkError:Error {
     let message: String
 
     let messages = [
-        
+                "O email inserido já se encontra em uso",
         "O email inserido é inválido",
-        "O email inserido já se encontra em uso",
+
         "Password inválida",
         
         "Ocorreu um erro a efetuar a autenticaçāo",

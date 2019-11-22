@@ -35,7 +35,7 @@ class NetworkHandler {
         return URL(string: urlString)!
     }
     
-    static func preparePostRequest<T: Encodable>(_ data: T?, urlString: String, completion: @escaping (_ success: Bool, _ error: String?) -> Void) -> PostRequest? {
+    static func prepareRequest<T: Encodable>(_ data: T?, needsToken: Bool, urlString: String, request_type: String, completion: @escaping (_ success: Bool, NetworkError?) -> Void) -> PostRequest? {
         let url = buildRequestQueryString(urlString: baseUrl + urlString)
 
         guard url != nil else {
@@ -45,10 +45,15 @@ class NetworkHandler {
 
         // Specify this request as being a POST method
         var request = URLRequest(url: url)
-        request.httpMethod = "POST"
+        request.httpMethod = request_type
         // Make sure that headers are included specifying that our request HTTP body will be JSON encoded
         var headers = request.allHTTPHeaderFields ?? [:]
         headers["Content-Type"] = "application/json"
+        if needsToken == true{
+            let token = UserDefaults.standard.value(forKey: "Token") as? String
+            headers["Authorization"] = "Bearer " + token!
+            
+        }
         request.allHTTPHeaderFields = headers
 
         if (data != nil) {
@@ -110,7 +115,7 @@ class NetworkHandler {
             completion(false, "Sem conexão de Internet")
             return
         }
-        let postRequest = preparePostRequest(post, urlString: "/register", completion: completion)!
+        let postRequest = preparePostRequest(post, needsToken: false, urlString: "/register", request_type: "POST", completion: completion)!
         let task = postRequest.session.dataTask(with: postRequest.request) { (responseData, response, responseError) in
             let error = getServerError(responseData: responseData, response: response, responseError: responseError)
             guard error == nil else {
@@ -172,7 +177,7 @@ class NetworkHandler {
             completion(false, "Sem conexão de Internet")
             return
         }
-        let postRequest = preparePostRequest(post, urlString: "/login", completion: completion)!
+        let postRequest = preparePostRequest(post, needsToken: false, urlString: "/login", request_type: "POST", completion: completion)!
         let task = postRequest.session.dataTask(with: postRequest.request) { (responseData, response, responseError) in
             let error = getServerError(responseData: responseData, response: response, responseError: responseError)
             guard error == nil else {
@@ -308,7 +313,44 @@ class NetworkHandler {
         }
     }
 
+    struct PostUserData: Codable {
+        let first_name: String
+        let last_name: String
+        let local: String
+    }
+    
+    static func updateUser(post: PostUserData, completion: @escaping (_ success: Bool, NetworkError?) -> Void) {
+        if !NetworkHandler.appDelegate.isNetworkOn {
+            completion(false, NetworkError(code: NetworkError.ERROR_NETWORK_CONNECTION))
+            return
+        }
+        let postRequest = preparePostRequest(post, needsToken: true, urlString: "/me/update/", request_type: "PUT", completion: completion)!
+        let task = postRequest.session.dataTask(with: postRequest.request) { (responseData, response, responseError) in
+            let error = getServerError(responseData: responseData, response: response, responseError: responseError)
+            /*guard error == nil else {
+                return completion(false, error)
+            }*/
+            
+            do {
+                let jsonResponse = try JSONSerialization.jsonObject(with:
+                responseData!, options: .allowFragments) as? [[String: Any]]
+                let str = String(data: responseData!, encoding: String.Encoding.utf8) ?? "Data could not be printed"
+                print(str);
+                
+                if let dictionary = jsonResponse as? [String: Any] {
+                    
+                    print(jsonResponse);
+                    let saved = saveUserInStorage(userJson: dictionary)
+                    completion(saved, nil)
+                }
 
+            } catch let parsingError {
+                print("Error", parsingError)
+                completion(false, NetworkError(code: NetworkError.ERROR_CODE_UNKNOWN))
+            }
+        }
+        task.resume()
+    }
 
 }
 

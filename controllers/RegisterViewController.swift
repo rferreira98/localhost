@@ -294,6 +294,8 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIImagePick
         self.present(loginViewController, animated: true, completion: nil)
     }
     
+    
+    //Local picker methods
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1;
     }
