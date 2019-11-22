@@ -17,7 +17,7 @@ class NetworkHandler {
     static let appDelegate = UIApplication.shared.delegate as! AppDelegate
 
     static func buildRequestQueryString(urlString: String) -> URL {
-        let token = UserDefaults.standard.value(forKey: "Token") as? String
+        /*let token = UserDefaults.standard.value(forKey: "Token") as? String
 
         var urlWithToken = urlString
         if let token = token {
@@ -29,12 +29,12 @@ class NetworkHandler {
             }
 
             urlWithToken = urlWithToken + "token=" + token
-        }
+        }*/
 
-        return URL(string: urlWithToken)!
+        return URL(string: urlString)!
     }
     
-    static func preparePostRequest<T: Encodable>(_ data: T?, urlString: String, completion: @escaping (_ success: Bool, NetworkError?) -> Void) -> PostRequest? {
+    static func preparePostRequest<T: Encodable>(_ data: T?, urlString: String, completion: @escaping (_ success: Bool, _ error: String?) -> Void) -> PostRequest? {
         let url = buildRequestQueryString(urlString: baseUrl + urlString)
 
         guard url != nil else {
@@ -57,9 +57,9 @@ class NetworkHandler {
                 let jsonData = try encoder.encode(data)
                 // ... and set our request's HTTP body
                 request.httpBody = jsonData
-                print("jsonData: ", String(data: request.httpBody!, encoding: .utf8) ?? "no body data")
+                //print("jsonData: ", String(data: request.httpBody!, encoding: .utf8) ?? "no body data")
             } catch {
-                completion(false, NetworkError(code: NetworkError.ERROR_CODE_UNKNOWN))
+                completion(false, "Erro ao encodificar JSON")
             }
         }
 
@@ -75,30 +75,22 @@ class NetworkHandler {
         URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
     }
     
-    static func getServerError(responseData: Data?, response: URLResponse?, responseError: Error?) -> NetworkError? {
+    static func getServerError(responseData: Data?, response: URLResponse?, responseError: Error?) -> String? {
         guard responseError == nil else {
-            return NetworkError(code: NetworkError.ERROR_CODE_UNKNOWN)
+            return "Erro desconhecido"
         }
 
         do {
             if let httpResponse = response as? HTTPURLResponse {
                 if (httpResponse.statusCode < 200) || (httpResponse.statusCode >= 300) {
 
-                    let jsonResponse = try JSONSerialization.jsonObject(with:
-                    responseData!, options: [])
-
-                    if let dictionary = jsonResponse as? [String: Any] {
-                        let code = dictionary["code"] as! Int
-                        return NetworkError(code: code);
-                    }
+                    return "Erro \(httpResponse.statusCode)"
                 } else {
                     return nil
                 }
             }
-        } catch let _ {
-
         }
-        return NetworkError(code: NetworkError.ERROR_CODE_UNKNOWN)
+        return nil
 
     }
 
@@ -112,9 +104,9 @@ class NetworkHandler {
         let local: String
     }
 
-    static func register(post: PostRegister, completion: @escaping (_ success: Bool, NetworkError?) -> Void) {
+    static func register(post: PostRegister, completion: @escaping (_ success: Bool, _ error: String?) -> Void) {
         if !NetworkHandler.appDelegate.isNetworkOn {
-            completion(false, NetworkError(code: NetworkError.ERROR_NETWORK_CONNECTION))
+            completion(false, "Sem conexão de Internet")
             return
         }
         let postRequest = preparePostRequest(post, urlString: "/register", completion: completion)!
@@ -127,14 +119,23 @@ class NetworkHandler {
             do {
                 
                 
+                //let jsonResponse = try JSONSerialization.jsonObject(with:responseData!, options: .allowFragments)
                 let jsonResponse = try JSONSerialization.jsonObject(with:
-                responseData!, options: .allowFragments)
+                responseData!, options: [])
                 
                 
-
                 if let dictionary = jsonResponse as? [String: Any] {
                     if dictionary["message"] as? String == "User created successfully!" {
+
+                        //UserDefaults.standard.setValue(token, forKey: "Token")
+                        UserDefaults.standard.setValue(post.first_name, forKey: "FirstName")
+                        UserDefaults.standard.setValue(post.last_name, forKey: "LastName")
+                        UserDefaults.standard.setValue(post.email, forKey: "Email")
+                        UserDefaults.standard.setValue(post.local, forKey: "Local")
+                        UserDefaults.standard.synchronize()
+                        //logs in the user
                         
+                        completion(true, nil)
                     }
                     /*if let userID = dictionary["id"] as? Int {
                         print(userID)
@@ -146,20 +147,13 @@ class NetworkHandler {
                         return
                     }
                     //print(token)*/
-                    //UserDefaults.standard.setValue(token, forKey: "Token")
-                    UserDefaults.standard.setValue(post.first_name, forKey: "FirstName")
-                    UserDefaults.standard.setValue(post.last_name, forKey: "LastName")
-                    UserDefaults.standard.setValue(post.email, forKey: "Email")
-                    UserDefaults.standard.setValue(post.local, forKey: "Local")
-                    UserDefaults.standard.synchronize()
-                    //logs in the user
                     
                     completion(true, nil)
                 }
 
             } catch let parsingError {
                 print("Error", parsingError)
-
+                completion(false, "Erro no parse de JSON no Registo")
             }
 
         }
@@ -172,9 +166,9 @@ class NetworkHandler {
     }
 
     
-    static func login(post: PostLogin, completion: @escaping (_ success: Bool, NetworkError?) -> Void) {
+    static func login(post: PostLogin, completion: @escaping (_ success: Bool, _ error: String?) -> Void) {
         if !NetworkHandler.appDelegate.isNetworkOn {
-            completion(false, NetworkError(code: NetworkError.ERROR_NETWORK_CONNECTION))
+            completion(false, "Sem conexão de Internet")
             return
         }
         let postRequest = preparePostRequest(post, urlString: "/login", completion: completion)!
@@ -184,26 +178,22 @@ class NetworkHandler {
                 return completion(false, error)
             }
             
-            //let dataStr = String(responseData)\
-            
-            
+            //let dataStr = String(responseData)
 
             do {
                 let jsonResponse = try JSONSerialization.jsonObject(with:
                 responseData!, options: [])
-                let str = String(data: responseData!, encoding: String.Encoding.utf8) ?? "Data could not be printed"
-                print(str);
+                
                 
                 if let dictionary = jsonResponse as? [String: Any] {
-                    
-                    print(jsonResponse);
+                    //let saved = saveUserInStorage(userJson: jsonResponse as! [String: Any])
                     let saved = saveUserInStorage(userJson: jsonResponse as! [String: Any])
                     completion(saved, nil)
                 }
 
             } catch let parsingError {
                 print("Error", parsingError)
-                completion(false, NetworkError(code: NetworkError.ERROR_CODE_UNKNOWN))
+                completion(false, "Erro no parse de JSON no login" )
             }
         }
         task.resume()
@@ -236,31 +226,43 @@ class NetworkHandler {
     }
 
 
-    static func uploadAvatar(avatar: UIImage, userId: Int, completion: @escaping (_ success: Bool, NetworkError?) -> Void) {
+    static func uploadAvatar(avatar: UIImage, completion: @escaping (_ success: Bool, _ error: String?) -> Void) {
         if !NetworkHandler.appDelegate.isNetworkOn {
-            completion(false, NetworkError(code: NetworkError.ERROR_NETWORK_CONNECTION))
+            completion(false, "Sem conexão de Internet")
             return
         }
 
+        let email = UserDefaults.standard.value(forKey: "Email") as! String
         let imageData: NSData = avatar.pngData()! as NSData
-        let token = UserDefaults.standard.value(forKey: "Token") as? String
-        let urlString = baseUrl + "/user/\(userId)/edit/avatar?token=" + token!
+        
+        let token = UserDefaults.standard.value(forKey: "Token") as! String
+        let urlString = baseUrl + "/avatar"
+        
         let session = URLSession(configuration: URLSessionConfiguration.default)
+        
         let mutableURLRequest = NSMutableURLRequest(url: NSURL(string: urlString)! as URL)
         mutableURLRequest.httpMethod = "POST"
-        let boundaryConstant = "----------------12345";
-        let contentType = "multipart/form-data;boundary=" + boundaryConstant
+        
+        let boundaryConstant = "----WebKitFormBoundary7MA4YWxkTrZu0gW";
+        let contentType = "multipart/form-data; boundary=" + boundaryConstant
         mutableURLRequest.setValue(contentType, forHTTPHeaderField: "Content-Type")
         // create upload data to send
+        mutableURLRequest.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         let uploadData = NSMutableData()
         // add image
-        uploadData.append("\r\n--\(boundaryConstant)\r\n".data(using: String.Encoding.utf8)!)
-        uploadData.append("Content-Disposition: form-data; name=\"avatar\"; filename=\"avatar-user-\(userId).png\"\r\n".data(using: String.Encoding.utf8)!)
-        uploadData.append("Content-Type: image/png\r\n\r\n".data(using: String.Encoding.utf8)!)
+        uploadData.append("--\(boundaryConstant)\r\n".data(using: String.Encoding.utf8)!)
+        uploadData.append("Content-Disposition: form-data; name=\"avatar\"; filename=\"avatar-user-\(email).png\"\r\n".data(using: String.Encoding.utf8)!)
+        //uploadData.append("Content-Disposition: form-data; name=\"avatar\";".data(using: String.Encoding.utf8)!)
+        //uploadData.append("Content-Type: image/png\r\n\r\n".data(using: String.Encoding.utf8)!)
+        //uploadData.append("Authorization: Bearer \(token)".data(using: String.Encoding.utf8)!)
         uploadData.append(imageData as Data)
-        uploadData.append("\r\n--\(boundaryConstant)--\r\n".data(using: String.Encoding.utf8)!)
+        
+        //uploadData.append("\r\n--\(boundaryConstant)--\r\n".data(using: String.Encoding.utf8)!)
 
         mutableURLRequest.httpBody = uploadData as Data
+        
+        print (token)
+        print(String(data: uploadData as Data, encoding: String.Encoding.utf8))
 
         let task = session.dataTask(with: mutableURLRequest as URLRequest, completionHandler:
         { (responseData, response, responseError) -> Void in
@@ -280,6 +282,7 @@ class NetworkHandler {
         task.resume()
     }
 
+    
     static func downloadImage(from urlString: String, completion: @escaping (UIImage?, Error?) -> ()) {
         print("Download Started")
         let url = URL(string: urlString);
