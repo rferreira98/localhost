@@ -108,9 +108,17 @@ class ProfileViewController: UITableViewController, UIImagePickerControllerDeleg
             //self..text = self.profile!.local
         }
         
-    
-    
-    //TODO Load data with the data retrieved from API
+        if let avatarEncoded = UserDefaults.standard.value(forKey: "AvatarEncoded") as? String {
+            if let decodedData = Data(base64Encoded: avatarEncoded, options: .ignoreUnknownCharacters) {
+                let avatar = UIImage(data: decodedData)
+                self.avatarImageView.image = avatar
+            }
+        } else {
+            /*var imageCache = SDImageCache.shared()
+            imageCache.clearMemory()
+            imageCache.clearDisk()
+            self.avatarImageView.sd_setImage(with: URL(string: NetworkRequestsHandler.domainUrl + "/avatar/\(id).png"), placeholderImage: UIImage(named: "NoAvatar"))*/
+        }
             
     }
     
@@ -142,6 +150,7 @@ class ProfileViewController: UITableViewController, UIImagePickerControllerDeleg
             avatarImageView.isUserInteractionEnabled = isEditingFields
             avatarImageView.addGestureRecognizer(tapImage)
         }
+        
     }
     
     @objc func avatarUpload(_ sender: UITapGestureRecognizer) {
@@ -193,6 +202,7 @@ class ProfileViewController: UITableViewController, UIImagePickerControllerDeleg
         UserDefaults.standard.removeObject(forKey: "Token")
         UserDefaults.standard.removeObject(forKey: "FirstName")
         UserDefaults.standard.removeObject(forKey: "LastName")
+        UserDefaults.standard.removeObject(forKey: "AvatarEncoded")
         //shouldn't remove email in this case because it will be needed for faceID
         //UserDefaults.standard.removeObject(forKey: "Email")
         UserDefaults.standard.removeObject(forKey: "Local")
@@ -212,6 +222,7 @@ class ProfileViewController: UITableViewController, UIImagePickerControllerDeleg
         UserDefaults.standard.removeObject(forKey: "LastName")
         UserDefaults.standard.removeObject(forKey: "Email")
         UserDefaults.standard.removeObject(forKey: "Local")
+        UserDefaults.standard.removeObject(forKey: "AvatarEncoded")
         UserDefaults.standard.set(false, forKey: "usesBiometricAuth")
         UserDefaults.standard.synchronize()
 

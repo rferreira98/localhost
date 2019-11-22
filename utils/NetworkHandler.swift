@@ -8,6 +8,7 @@
 
 import Foundation
 import SwiftHTTP
+import Alamofire
 
 class NetworkHandler {
     static var domainUrl = "http://hostlocal.sytes.net"
@@ -209,7 +210,8 @@ class NetworkHandler {
                 let lastName = dataJson["last_name"] as? String,
                 let email = dataJson["email"] as? String,
                 let local = dataJson["local"] as? String,
-                let token = dataJson["token"] as? String
+                let token = dataJson["token"] as? String,
+                let avatarUrl = dataJson["avatar"] as? String
                 else {
             print("Invalid user received")
             return false
@@ -220,6 +222,7 @@ class NetworkHandler {
         UserDefaults.standard.setValue(email, forKey: "Email")
         UserDefaults.standard.setValue(local, forKey: "Local")
         UserDefaults.standard.setValue(token, forKey: "Token")
+        UserDefaults.standard.setValue(avatarUrl, forKey: "AvatarURL")
 
         UserDefaults.standard.synchronize()
         return true
@@ -231,40 +234,46 @@ class NetworkHandler {
             completion(false, "Sem conexão de Internet")
             return
         }
-
-        let email = UserDefaults.standard.value(forKey: "Email") as! String
-        let imageData: NSData = avatar.pngData()! as NSData
         
         let token = UserDefaults.standard.value(forKey: "Token") as! String
-        let urlString = baseUrl + "/avatar"
         
-        let session = URLSession(configuration: URLSessionConfiguration.default)
+        // the image in UIImage type
+        let image = avatar
         
-        let mutableURLRequest = NSMutableURLRequest(url: NSURL(string: urlString)! as URL)
-        mutableURLRequest.httpMethod = "POST"
-        
-        let boundaryConstant = "----WebKitFormBoundary7MA4YWxkTrZu0gW";
-        let contentType = "multipart/form-data; boundary=" + boundaryConstant
-        mutableURLRequest.setValue(contentType, forHTTPHeaderField: "Content-Type")
-        // create upload data to send
-        mutableURLRequest.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-        let uploadData = NSMutableData()
-        // add image
-        uploadData.append("--\(boundaryConstant)\r\n".data(using: String.Encoding.utf8)!)
-        uploadData.append("Content-Disposition: form-data; name=\"avatar\"; filename=\"avatar-user-\(email).png\"\r\n".data(using: String.Encoding.utf8)!)
-        //uploadData.append("Content-Disposition: form-data; name=\"avatar\";".data(using: String.Encoding.utf8)!)
-        //uploadData.append("Content-Type: image/png\r\n\r\n".data(using: String.Encoding.utf8)!)
-        //uploadData.append("Authorization: Bearer \(token)".data(using: String.Encoding.utf8)!)
-        uploadData.append(imageData as Data)
-        
-        //uploadData.append("\r\n--\(boundaryConstant)--\r\n".data(using: String.Encoding.utf8)!)
 
-        mutableURLRequest.httpBody = uploadData as Data
-        
-        print (token)
-        print(String(data: uploadData as Data, encoding: String.Encoding.utf8))
+        let filename = "avatar.png"
 
-        let task = session.dataTask(with: mutableURLRequest as URLRequest, completionHandler:
+        // generate boundary string using a unique per-app string
+        let boundary = UUID().uuidString
+
+
+        let config = URLSessionConfiguration.default
+        let session = URLSession(configuration: config)
+
+        // Set the URLRequest to POST and to the specified URL
+        var urlRequest = URLRequest(url: URL(string: baseUrl+"/avatar")!)
+        urlRequest.httpMethod = "POST"
+
+        // Set Content-Type Header to multipart/form-data, this is equivalent to submitting form data with file upload in a web browser
+        // And the boundary is also set here
+        urlRequest.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+        urlRequest.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        
+        var data = Data()
+
+        
+        // Add the image data to the raw http request data
+        data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
+        data.append("Content-Disposition: form-data; name=\"avatar\"; filename=\"\(filename)\"\r\n".data(using: .utf8)!)
+        data.append("Content-Type: image/png\r\n\r\n".data(using: .utf8)!)
+        data.append(image.pngData()!)
+
+        // End the raw http request data, note that there is 2 extra dash ("-") at the end, this is to indicate the end of the data
+        // According to the HTTP 1.1 specification https://tools.ietf.org/html/rfc7230
+        data.append("\r\n--\(boundary)--\r\n".data(using: .utf8)!)
+
+        // Send a POST request to the URL, with the data we created earlier
+        let task = session.uploadTask(with: urlRequest as URLRequest, from: data, completionHandler:
         { (responseData, response, responseError) -> Void in
 
             let error = getServerError(responseData: responseData, response: response, responseError: responseError)
@@ -273,13 +282,14 @@ class NetworkHandler {
                 return;
             }
 
-            let avatarEncoded = imageData.base64EncodedString()
+            let avatarEncoded = image.pngData()!.base64EncodedString()
             UserDefaults.standard.set(avatarEncoded, forKey: "AvatarEncoded")
             UserDefaults.standard.synchronize()
             completion(true, nil)
         })
-
+        
         task.resume()
+        
     }
 
     

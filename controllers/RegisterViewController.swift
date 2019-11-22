@@ -179,13 +179,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIImagePick
     /// - returns: A Boolean value indicating whether an email is valid.
     func isValid(_ email: String) -> Bool {
         
-        let emailRegEx = "(?:[a-zA-Z0-9!#$%\\&‘*+/=?\\^_`{|}~-]+(?:\\.[a-zA-Z0-9!#$%\\&'*+/=?\\^_`{|}" +
-        "~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\" +
-        "x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-" +
-        "z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5" +
-        "]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-" +
-        "9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21" +
-        "-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])"
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
         
         let emailTest = NSPredicate(format:"SELF MATCHES[c] %@", emailRegEx)
         return emailTest.evaluate(with: email)
@@ -243,9 +237,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIImagePick
             self.present(alert, animated: true, completion: nil)
         }else{
             if !isValid(email){
-            
-                let error = NetworkError(code: NetworkError.ERROR_CODE_USER_EMAIL_INVALID);
-                let alert = Utils.triggerAlert(title: "Erro", error: error.message)
+                let alert = Utils.triggerAlert(title: "Erro", error: "E-mail Inválido")
                 self.present(alert, animated: true, completion: nil)
             }else{
                 let postRegist = NetworkHandler.PostRegister(first_name: firstName, last_name: lastName, password: password, password_confirmation: passwordConfirm, email: email, local: local)
@@ -254,37 +246,35 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIImagePick
                     OperationQueue.main.addOperation {
                         
                         if error != nil {
-                            let alert = Utils.triggerAlert(title: "Erro", error: error!.message)
+                            let alert = Utils.triggerAlert(title: "Erro", error: error)
                             self.present(alert, animated: true, completion: nil)
                         }
                         else{
                             
                             //------
-                            
-                            //Upload Avatar
-                            let token = UserDefaults.standard.value(forKey: "Token")
-                            /*NetworkHandler.uploadAvatar(avatar: self.imageViewAvatar.image!, userId: userId as! Int){ (success, error) in
-                                OperationQueue.main.addOperation {
-                                    if error != nil{
-                                        let alert = Utils.triggerAlert(title: "Erro", error: error?.message)
-                                        self.present(alert, animated: true, completion: nil)
-                                    }else{
-                                        //go to first screen
-                                        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                                        let loginViewController = storyBoard.instantiateViewController(withIdentifier: "tabBarController")
-                                        self.present(loginViewController, animated: true, completion: nil)
-                                    }
-                                }
-                            }*/
+                        
                             let postLogin = NetworkHandler.PostLogin(password: password, email: email)
                             NetworkHandler.login(post: postLogin) { (success, error) in
                                 OperationQueue.main.addOperation {
 
                                     if error != nil {
-                                        let alert = Utils.triggerAlert(title: "Erro", error: error!.message)
+                                        let alert = Utils.triggerAlert(title: "Erro", error: error)
                                         self.present(alert, animated: true, completion: nil)
                                     } else {
-                                        self.goToMainScreen()
+                                        //Upload Avatar
+                
+                                        NetworkHandler.uploadAvatar(avatar: self.imageViewAvatar.image!){ (success, error) in
+                                            OperationQueue.main.addOperation {
+                                                if error != nil{
+                                                    let alert = Utils.triggerAlert(title: "Erro", error: error)
+                                                    self.present(alert, animated: true, completion: nil)
+                                                }else{
+                                                    //go to first screen
+                                                    self.goToMainScreen()
+                                                }
+                                            }
+                                        }
+
                                     }
                                 }
 
@@ -300,7 +290,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIImagePick
     func goToMainScreen(){
         let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let loginViewController = storyBoard.instantiateViewController(withIdentifier: "tabBarController")
-        //self.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
         self.present(loginViewController, animated: true, completion: nil)
     }
     
@@ -321,6 +311,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIImagePick
         selectedCity = Cities.cities[row]
         textFieldLocal.text = selectedCity
     }
+    
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
 
         var label: UILabel
@@ -339,6 +330,8 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIImagePick
     }
     
     func createPicker() {
+        
+        
         localPicker.delegate = self
         textFieldLocal.inputView = localPicker
         //localPicker.backgroundColor = UIColor(named: "AppDarkBackground")
@@ -351,5 +344,6 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIImagePick
         self.textFieldLocal.text = ""
         self.selectedCity = ""
     }
+    
 }
 
