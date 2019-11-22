@@ -184,7 +184,7 @@ class ProfileViewController: UITableViewController, UIImagePickerControllerDeleg
                     OperationQueue.main.addOperation {
 
                         if error != nil {
-                            let alert = Utils.triggerAlert(title: "Erro", error: error!.message)
+                            let alert = Utils.triggerAlert(title: "Erro", error: error)
                             self.present(alert, animated: true, completion: nil)
                         } else {
                             self.goToMainScreen()

@@ -35,7 +35,7 @@ class NetworkHandler {
         return URL(string: urlString)!
     }
     
-    static func prepareRequest<T: Encodable>(_ data: T?, needsToken: Bool, urlString: String, request_type: String, completion: @escaping (_ success: Bool, NetworkError?) -> Void) -> PostRequest? {
+    static func prepareRequest<T: Encodable>(_ data: T?, needsToken: Bool, urlString: String, request_type: String, completion: @escaping (_ success: Bool, _ error: String?) -> Void) -> PostRequest? {
         let url = buildRequestQueryString(urlString: baseUrl + urlString)
 
         guard url != nil else {
@@ -115,7 +115,7 @@ class NetworkHandler {
             completion(false, "Sem conexão de Internet")
             return
         }
-        let postRequest = preparePostRequest(post, needsToken: false, urlString: "/register", request_type: "POST", completion: completion)!
+        let postRequest = prepareRequest(post, needsToken: false, urlString: "/register", request_type: "POST", completion: completion)!
         let task = postRequest.session.dataTask(with: postRequest.request) { (responseData, response, responseError) in
             let error = getServerError(responseData: responseData, response: response, responseError: responseError)
             guard error == nil else {
@@ -177,7 +177,7 @@ class NetworkHandler {
             completion(false, "Sem conexão de Internet")
             return
         }
-        let postRequest = preparePostRequest(post, needsToken: false, urlString: "/login", request_type: "POST", completion: completion)!
+        let postRequest = prepareRequest(post, needsToken: false, urlString: "/login", request_type: "POST", completion: completion)!
         let task = postRequest.session.dataTask(with: postRequest.request) { (responseData, response, responseError) in
             let error = getServerError(responseData: responseData, response: response, responseError: responseError)
             guard error == nil else {
@@ -319,12 +319,13 @@ class NetworkHandler {
         let local: String
     }
     
-    static func updateUser(post: PostUserData, completion: @escaping (_ success: Bool, NetworkError?) -> Void) {
+    static func updateUser(post: PostUserData, completion: @escaping (_ success: Bool, _ error: String?) -> Void) {
         if !NetworkHandler.appDelegate.isNetworkOn {
-            completion(false, NetworkError(code: NetworkError.ERROR_NETWORK_CONNECTION))
+            completion(false, "Sem conexão de Internet")
             return
         }
-        let postRequest = preparePostRequest(post, needsToken: true, urlString: "/me/update/", request_type: "PUT", completion: completion)!
+        
+        let postRequest = prepareRequest(post, needsToken: true, urlString: "/me/update/", request_type: "PUT", completion: completion)!
         let task = postRequest.session.dataTask(with: postRequest.request) { (responseData, response, responseError) in
             let error = getServerError(responseData: responseData, response: response, responseError: responseError)
             /*guard error == nil else {
@@ -346,7 +347,7 @@ class NetworkHandler {
 
             } catch let parsingError {
                 print("Error", parsingError)
-                completion(false, NetworkError(code: NetworkError.ERROR_CODE_UNKNOWN))
+                completion(false, "Erro no parse JSON no Update")
             }
         }
         task.resume()
