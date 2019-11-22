@@ -283,24 +283,31 @@ class ProfileViewController: UITableViewController, UIImagePickerControllerDeleg
     
     @IBAction func ResetPasswordButtonClicked(_ sender: Any) {
         // Create the action buttons for the alert.
-        let defaultAction = UIAlertAction(title: "Continue",
-                                          style: .default) { (action) in
-         // Respond to user selection of the action.
-            if (UserDefaults.standard.value(forKey: "Token") as? String) != nil {
-                let email = UserDefaults.standard.value(forKey: "Email") as! String
+        let defaultAction = UIAlertAction(title: "Continue", style: .default) { (action) in
+            // Respond to user selection of the action.
+            let email = self.profile?.email as! String
+            
+            let postResetPass = NetworkHandler.PostResetPassword(email: email)
+            
+            NetworkHandler.resetPassword(post: postResetPass) { (success, error) in             OperationQueue.main.addOperation {
+                if error != nil {
+                    let alert = Utils.triggerAlert(title: "Erro", error: error)
+                    self.present(alert, animated: true, completion: nil)
+                } else {
+                    
+                }
+                }
             }
-                                            
-                let postResetPass = NetworkHandler.PostResetPassword(email: email)
-                                            
-                NetworkHandler.register(post: postResetPass) { (success, error) in
-                                            OperationQueue.main.addOperation {
-                    if error != nil {
-                        let alert = Utils.triggerAlert(title: "Erro", error: error!.message)
-                        self.present(alert, animated: true, completion: nil)
-                    } else {
-                        
-                    }
+            
+            let success = UIAlertController(title: "Success", message: "E-mail sent!", preferredStyle: .alert)
+            success.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "ok"), style: .default, handler: { _ in
+            NSLog("The email was sent successfuly.")
+            }))
+            self.present(success, animated: true, completion: nil)
+            
+            
         }
+            
         let cancelAction = UIAlertAction(title: "Cancel",
                              style: .cancel) { (action) in
          // Respond to user selection of the action.

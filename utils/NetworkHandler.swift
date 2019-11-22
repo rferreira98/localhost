@@ -52,7 +52,6 @@ class NetworkHandler {
         if needsToken == true{
             let token = UserDefaults.standard.value(forKey: "Token") as? String
             headers["Authorization"] = "Bearer " + token!
-            
         }
         request.allHTTPHeaderFields = headers
 
@@ -326,6 +325,45 @@ class NetworkHandler {
         }
         
         let postRequest = prepareRequest(post, needsToken: true, urlString: "/me/update/", request_type: "PUT", completion: completion)!
+        let task = postRequest.session.dataTask(with: postRequest.request) { (responseData, response, responseError) in
+            let error = getServerError(responseData: responseData, response: response, responseError: responseError)
+            /*guard error == nil else {
+                return completion(false, error)
+            }*/
+            
+            do {
+                let jsonResponse = try JSONSerialization.jsonObject(with:
+                responseData!, options: .allowFragments) as? [[String: Any]]
+                let str = String(data: responseData!, encoding: String.Encoding.utf8) ?? "Data could not be printed"
+                print(str);
+                
+                if let dictionary = jsonResponse as? [String: Any] {
+                    
+                    print(jsonResponse);
+                    let saved = saveUserInStorage(userJson: dictionary)
+                    completion(saved, nil)
+                }
+                
+
+            } catch let parsingError {
+                print("Error", parsingError)
+                completion(false, "Erro no parse JSON no Update")
+            }
+        }
+        task.resume()
+    }
+    
+    struct PostResetPassword: Codable {
+       let email: String
+    }
+    
+    static func resetPassword(post: PostResetPassword, completion: @escaping (_ success: Bool, _ error: String?) -> Void) {
+        if !NetworkHandler.appDelegate.isNetworkOn {
+            completion(false, "Sem conexão de Internet")
+            return
+        }
+        
+        let postRequest = prepareRequest(post, needsToken: false, urlString: "/reset/password", request_type: "POST", completion: completion)!
         let task = postRequest.session.dataTask(with: postRequest.request) { (responseData, response, responseError) in
             let error = getServerError(responseData: responseData, response: response, responseError: responseError)
             /*guard error == nil else {
