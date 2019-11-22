@@ -175,6 +175,7 @@ class ProfileViewController: UITableViewController, UIImagePickerControllerDeleg
                 }
             }
             
+            
             //userProfile filled
             if userProfile.profileChanged {
                 let postUserData = NetworkHandler.PostUserData(first_name: userProfile.firstName, last_name: userProfile.lastName, local: userProfile.local)

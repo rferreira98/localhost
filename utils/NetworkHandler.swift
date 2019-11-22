@@ -17,9 +17,9 @@ class NetworkHandler {
     static let appDelegate = UIApplication.shared.delegate as! AppDelegate
 
     static func buildRequestQueryString(urlString: String) -> URL {
-        let token = UserDefaults.standard.value(forKey: "Token") as? String
+        //let token = UserDefaults.standard.value(forKey: "Token") as? String
 
-        var urlWithToken = urlString
+        /*var urlWithToken = urlString
         if let token = token {
 
             if urlString.range(of: "?") != nil {
@@ -29,12 +29,12 @@ class NetworkHandler {
             }
 
             urlWithToken = urlWithToken + "token=" + token
-        }
+        }*/
 
-        return URL(string: urlWithToken)!
+        return URL(string: urlString)!
     }
     
-    static func preparePostRequest<T: Encodable>(_ data: T?, urlString: String, request_type: String, completion: @escaping (_ success: Bool, NetworkError?) -> Void) -> PostRequest? {
+    static func preparePostRequest<T: Encodable>(_ data: T?, needsToken: Bool, urlString: String, request_type: String, completion: @escaping (_ success: Bool, NetworkError?) -> Void) -> PostRequest? {
         let url = buildRequestQueryString(urlString: baseUrl + urlString)
 
         guard url != nil else {
@@ -48,6 +48,11 @@ class NetworkHandler {
         // Make sure that headers are included specifying that our request HTTP body will be JSON encoded
         var headers = request.allHTTPHeaderFields ?? [:]
         headers["Content-Type"] = "application/json"
+        if needsToken == true{
+            let token = UserDefaults.standard.value(forKey: "Token") as? String
+            headers["Authorization"] = "Bearer " + token!
+            
+        }
         request.allHTTPHeaderFields = headers
 
         if (data != nil) {
@@ -117,7 +122,7 @@ class NetworkHandler {
             completion(false, NetworkError(code: NetworkError.ERROR_NETWORK_CONNECTION))
             return
         }
-        let postRequest = preparePostRequest(post, urlString: "/register", request_type: "POST", completion: completion)!
+        let postRequest = preparePostRequest(post, needsToken: false, urlString: "/register", request_type: "POST", completion: completion)!
         let task = postRequest.session.dataTask(with: postRequest.request) { (responseData, response, responseError) in
             let error = getServerError(responseData: responseData, response: response, responseError: responseError)
             guard error == nil else {
@@ -177,7 +182,7 @@ class NetworkHandler {
             completion(false, NetworkError(code: NetworkError.ERROR_NETWORK_CONNECTION))
             return
         }
-        let postRequest = preparePostRequest(post, urlString: "/login", request_type: "POST", completion: completion)!
+        let postRequest = preparePostRequest(post, needsToken: false, urlString: "/login", request_type: "POST", completion: completion)!
         let task = postRequest.session.dataTask(with: postRequest.request) { (responseData, response, responseError) in
             let error = getServerError(responseData: responseData, response: response, responseError: responseError)
             guard error == nil else {
@@ -306,18 +311,16 @@ class NetworkHandler {
             completion(false, NetworkError(code: NetworkError.ERROR_NETWORK_CONNECTION))
             return
         }
-        let postRequest = preparePostRequest(post, urlString: "/me/update", request_type: "PUT", completion: completion)!
+        let postRequest = preparePostRequest(post, needsToken: true, urlString: "/me/update/", request_type: "PUT", completion: completion)!
         let task = postRequest.session.dataTask(with: postRequest.request) { (responseData, response, responseError) in
             let error = getServerError(responseData: responseData, response: response, responseError: responseError)
             /*guard error == nil else {
                 return completion(false, error)
             }*/
             
-            //let dataStr = String(responseData)\
-            print("okok: ", responseData)
             do {
                 let jsonResponse = try JSONSerialization.jsonObject(with:
-                    responseData!, options: [])
+                responseData!, options: .allowFragments) as? [[String: Any]]
                 let str = String(data: responseData!, encoding: String.Encoding.utf8) ?? "Data could not be printed"
                 print(str);
                 
