@@ -15,12 +15,20 @@ class SettingsViewController: UITableViewController, MFMailComposeViewController
     
     @IBOutlet weak var switchDarkMode: UISwitch!
     @IBOutlet weak var imageViewAvatar: UIImageView!
+    @IBOutlet weak var switchAuth: UISwitch!
     
     override func viewDidAppear(_ animated: Bool) {
         //removes the separator/line on the table cell
         tableView.cellForRow(at: IndexPath(row: 0, section: 3))?.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: .greatestFiniteMagnitude)
         //if the user has dark mode enable in the system the button is set to on, otherwise to off
         switchDarkMode.setOn(traitCollection.userInterfaceStyle == .dark, animated: true)
+        
+        switchAuth.setOn(UserDefaults.standard.bool(forKey: "usesBiometricAuth"), animated: true)
+        
+        
+        let authLabel = tableView.cellForRow(at: IndexPath(row: 1, section: 1))?.contentView.subviews[0] as! UILabel
+        authLabel.text = "Autenticação com "+Utils.getBiometricSensor()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -47,17 +55,12 @@ class SettingsViewController: UITableViewController, MFMailComposeViewController
         
         var sectionColor: UIColor
         
-        
-        
-        
         //if ios 13 is available, the background for the cell will be the system color, otherwise it will be white, since there is no dark mode on ios 13 <
         if #available(iOS 13.0, *) {
             sectionColor = UIColor.systemBackground
         } else {
             sectionColor = UIColor.white
         }
-        
-        
         
         
         self.tableView.backgroundView?.backgroundColor = sectionColor
@@ -108,6 +111,16 @@ class SettingsViewController: UITableViewController, MFMailComposeViewController
             //overrideUserInterfaceStyle = .light
         }
     }
+    
+    @IBAction func authSwitcher(_ sender: Any) {
+        if switchAuth.isOn{
+            UserDefaults.standard.set(true, forKey: "usesBiometricAuth")
+        }
+        if !switchAuth.isOn{
+            UserDefaults.standard.set(false, forKey: "usesBiometricAuth")
+        }
+    }
+    
     
 }
 

@@ -8,7 +8,7 @@
 
 import Foundation
 import UIKit
-
+let biometric = BiometricAuth()
 class Utils{
     static func triggerAlert(title:String, error:String? )->UIAlertController{
         let alert = UIAlertController(title: title, message: error, preferredStyle: .alert)
@@ -16,6 +16,18 @@ class Utils{
             NSLog("The \"OK\" alert occured.")
         }))
         return alert
+    }
+    
+    static func getBiometricSensor()->String{
+        switch BiometricAuth().biometricType() {
+        case .faceID:
+            return("Face ID")
+            
+        case .touchID:
+            return("Touch ID")
+        default:
+            return "Erro"
+        }
     }
 
 }
@@ -27,15 +39,5 @@ extension UIImage {
             _ in draw(in: CGRect(origin: .zero, size: canvas))
         }
     }
-    func resizeWithPercent(percentage: CGFloat) -> UIImage? {
-        let imageView = UIImageView(frame: CGRect(origin: .zero, size: CGSize(width: size.width * percentage, height: size.height * percentage)))
-        imageView.contentMode = .scaleAspectFit
-        imageView.image = self
-        UIGraphicsBeginImageContextWithOptions(imageView.bounds.size, false, scale)
-        guard let context = UIGraphicsGetCurrentContext() else { return nil }
-        imageView.layer.render(in: context)
-        guard let result = UIGraphicsGetImageFromCurrentImageContext() else { return nil }
-        UIGraphicsEndImageContext()
-        return result
-    }
+    
 }

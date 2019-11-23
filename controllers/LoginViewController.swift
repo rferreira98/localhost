@@ -8,14 +8,6 @@
 
 import UIKit
 
-
-// Keychain Configuration
-struct KeychainConfiguration {
-  static let serviceName = "biometricAuthLocalHost"
-  static let accessGroup: String? = nil
-}
-
-
 class LoginViewController: UIViewController, UITextFieldDelegate {
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -46,19 +38,20 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
         //UserDefaults.standard.set(false, forKey: "usesBiometricAuth")
         
+        switch biometric.biometricType() {
+        case .faceID:
+            biometricType = "Face ID"
+            biometricLoginButton.setImage(UIImage(named: "FaceIcon"), for: .normal)
+        case .touchID:
+            biometricType = "Touch ID"
+            biometricLoginButton.setImage(UIImage(named: "TouchIcon"), for: .normal)
+        default:
+            return
+        }
         
-        if usesBiometricAuth {
-            switch biometric.biometricType() {
-            case .faceID:
-                biometricType = "Face ID"
-                biometricLoginButton.setImage(UIImage(named: "FaceIcon"), for: .normal)
-            case .touchID:
-                biometricType = "Touch ID"
-                biometricLoginButton.setImage(UIImage(named: "TouchIcon"), for: .normal)
-            default:
-                return
-            }
-        }else {
+        
+            
+        if !usesBiometricAuth {
             biometricLoginButton.translatesAutoresizingMaskIntoConstraints = false
             biometricLoginButton.widthAnchor.constraint(equalToConstant: 0).isActive = true
             biometricLoginButton.heightAnchor.constraint(equalToConstant: 0).isActive = true
@@ -137,11 +130,17 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                             let alert = Utils.triggerAlert(title: "Erro", error: error)
                             self.present(alert, animated: true, completion: nil)
                         } else {
-                            self.displayActionSheet();
-                            
+                            if UserDefaults.standard.bool(forKey: "biometricPrompted") {
+                                self.goToMainScreen()
+                            }else{
+                                if !self.usesBiometricAuth {
+                                    self.displayActionSheet();
+                                }else {
+                                    self.goToMainScreen()
+                                }
+                            }
                         }
                     }
-                    
                     
                 }
                 
@@ -194,56 +193,56 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     func displayActionSheet(){
-        
-        //TODO Add a bool gotPrompted so that if users don't accept here, they will not be bombarded in the future with this
-        
-        if !usesBiometricAuth {
-            
-            let actionBiometric = UIAlertController(title: "Autenticação com "+biometricType, message: "Deseja que futuros logins na sua conta possam ser feitos através de "+biometricType+" ?", preferredStyle: .actionSheet)
+    
+        let actionBiometric = UIAlertController(title: "Autenticação com "+biometricType, message: "Deseja que futuros logins na sua conta possam ser feitos através de "+biometricType+" ?", preferredStyle: .actionSheet)
                 
             let noAction = UIAlertAction(title: "Não", style: .cancel, handler: {
                 (alert: UIAlertAction!) -> Void in
-                //TODO gotPrompted = true but answered no, this will be available in the settings
+                UserDefaults.standard.set(true, forKey: "biometricPrompted")
                 self.goToMainScreen()
             })
             let yesAction = UIAlertAction(title: "Sim", style: .default, handler: {
                 (alert: UIAlertAction!) -> Void in
                 //If user accepts, save his login data on the KeyChain
                 do {
-                  // This is a new account, create a new keychain item with the account name.
-                  let passwordItem = KeychainPasswordItem(service: KeychainConfiguration.serviceName,
-                                                          account: self.textFieldEmail.text!,
-                                                          accessGroup: KeychainConfiguration.accessGroup)
-                    
-                  // Save the password for the new item.
-                    try passwordItem.savePassword(self.textFieldPassword.text!)
-                    
-                    
+                    let email = self.textFieldEmail.text!
+                    let passwd : Data? = self.textFieldPassword.text!.data(using: .utf8)
+                    let status = KeychainPasswordItem.save(key: email, data: passwd!)
+                    UserDefaults.standard.set(true, forKey: "usesBiometricAuth")
+                    UserDefaults.standard.set(true, forKey: "biometricPrompted")
+                    self.goToMainScreen()
                 } catch {
                   fatalError("Error updating keychain - \(error)")
                 }
-                UserDefaults.standard.set(true, forKey: "usesBiometricAuth")
-                self.goToMainScreen()
+                
             })
-            
             actionBiometric.addAction(noAction)
             actionBiometric.addAction(yesAction)
             self.present(actionBiometric, animated: true, completion: nil)
-        }
-        
         
     }
+    
     @IBAction func biometricLoginClicked(_ sender: Any) {
         let email = UserDefaults.standard.value(forKey: "Email") as! String
         
-        let passwordItem = KeychainPasswordItem(service: KeychainConfiguration.serviceName,
-        account: email,
-        accessGroup: KeychainConfiguration.accessGroup)
-        
         biometric.authenticateUser() { [weak self] in
-            let password = KeychainPasswordItem.readPassword(passwordItem)
-            
-            print(password.self)
+            if let receivedData = KeychainPasswordItem.load(key: email) {
+                let pwd = String(decoding: receivedData, as: UTF8.self)
+                    let myPost = NetworkHandler.PostLogin(password: pwd, email: email)
+                    
+                    NetworkHandler.login(post: myPost) { (success, error) in
+                        OperationQueue.main.addOperation {
+                            
+                            if error != nil {
+                                let alert = Utils.triggerAlert(title: "Erro", error: error)
+                                self!.present(alert, animated: true, completion: nil)
+                            } else {
+                                    self!.goToMainScreen()
+                            }
+                        }
+                        
+                    }
+            }
         }
     }
     

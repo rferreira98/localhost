@@ -38,6 +38,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIImagePick
     var mvc: MapViewController?
     var selectedCity: String = ""
     
+    let usesBiometricAuth = UserDefaults.standard.bool(forKey: "usesBiometricAuth")
     
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -46,6 +47,9 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIImagePick
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        UserDefaults.standard.set(false, forKey: "usesBiometricAuth")
+        UserDefaults.standard.set(false, forKey: "biometricPrompted")
         
         createPicker();
         
@@ -65,53 +69,64 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIImagePick
         tap.cancelsTouchesInView = false
         self.view.addGestureRecognizer(tap)
         
-        /*
-        //Style textFieldFirstName
+        
+        /*//Style textFieldFirstName
         //textFieldFirstName.backgroundColor = UIColor(named: "AppDarkBackground")
         //textFieldFirstName.textColor = UIColor.white
         textFieldFirstName.attributedPlaceholder = NSAttributedString(string: "First Name",
                                                                   attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
         textFieldFirstName.layer.borderColor = UIColor.lightGray.cgColor;
         textFieldFirstName.layer.borderWidth = 1.0;
-        textFieldFirstName.layer.cornerRadius = 5.0;
-        
-        //Style textFieldLastName
-        //textFieldLastName.backgroundColor = UIColor(named: "AppDarkBackground")
-        //textFieldLastName.textColor = UIColor.white
-        textFieldLastName.attributedPlaceholder = NSAttributedString(string: "Last Name",
-                                                                      attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
-        textFieldLastName.layer.borderColor = UIColor.lightGray.cgColor;
-        textFieldLastName.layer.borderWidth = 1.0;
-        textFieldLastName.layer.cornerRadius = 5.0;
-        
-        //Style textFieldPassword
-        textFieldPassword.backgroundColor = UIColor(named: "AppDarkBackground")
-        textFieldPassword.textColor = UIColor.white
-        textFieldPassword.attributedPlaceholder = NSAttributedString(string: "Password",
-                                                                     attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
-        textFieldPassword.layer.borderColor = UIColor.lightGray.cgColor;
-        textFieldPassword.layer.borderWidth = 1.0;
-        textFieldPassword.layer.cornerRadius = 5.0;
-        
-        //Style textFieldEmail
-        textFieldEmail.backgroundColor = UIColor(named: "AppDarkBackground")
-        textFieldEmail.textColor = UIColor.white
-        textFieldEmail.attributedPlaceholder = NSAttributedString(string: "E-Mail",
-                                                                  attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
-        textFieldEmail.layer.borderColor = UIColor.lightGray.cgColor;
-        textFieldEmail.layer.borderWidth = 1.0;
-        textFieldEmail.layer.cornerRadius = 5.0;
+        textFieldFirstName.layer.cornerRadius = 5.0;*/
         
         
-        //Style textFieldPassword
-        //textFieldLocal.backgroundColor = UIColor(named: "AppDarkBackground")
-        //textFieldLocal.textColor = UIColor.white
+        textFieldFirstName.backgroundColor = UIColor.white
+        textFieldFirstName.textColor = UIColor.black
+        textFieldFirstName.attributedPlaceholder = NSAttributedString(string: "Primeiro Nome",
+        attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
+        
+        textFieldLastName.backgroundColor = UIColor.white
+        textFieldLastName.textColor = UIColor.black
+        textFieldLastName.attributedPlaceholder = NSAttributedString(string: "Ultimo Nome",
+        attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
+        
+        textFieldEmail.backgroundColor = UIColor.white
+        textFieldEmail.textColor = UIColor.black
+        textFieldEmail.attributedPlaceholder = NSAttributedString(string: "Email",
+        attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
+        
+        textFieldLocal.backgroundColor = UIColor.white
+        textFieldLocal.textColor = UIColor.black
         textFieldLocal.attributedPlaceholder = NSAttributedString(string: "Local",
-                                                                     attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
-        textFieldLocal.layer.borderColor = UIColor.lightGray.cgColor;
-        textFieldLocal.layer.borderWidth = 1.0;
-        textFieldLocal.layer.cornerRadius = 5.0;
- */
+        attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
+        
+        textFieldPassword.backgroundColor = UIColor.white
+        textFieldPassword.textColor = UIColor.black
+        textFieldPassword.attributedPlaceholder = NSAttributedString(string: "Password",
+        attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
+        
+        textFieldConfirmPassword.backgroundColor = UIColor.white
+        textFieldConfirmPassword.textColor = UIColor.black
+        textFieldConfirmPassword.attributedPlaceholder = NSAttributedString(string: "Confirmação Password",
+        attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
+        
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(RegisterViewController.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(RegisterViewController.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    @objc func keyboardWillShow(notification: NSNotification) {
+        guard let userInfo = notification.userInfo else {return}
+        guard let keyboardSize = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else {return}
+        let keyboardFrame = keyboardSize.cgRectValue
+        if self.view.frame.origin.y == 0{
+                self.view.frame.origin.y -= keyboardFrame.height
+        }
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if self.view.frame.origin.y != 0{
+            self.view.frame.origin.y = 0
+        }
     }
     
     @objc func avatarUpload(_ sender: UITapGestureRecognizer){
@@ -138,11 +153,6 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIImagePick
         actionsheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         self.present(actionsheet,animated: true, completion: nil)
         
-        
-        //controller.sourceType = .photoLibrary
-        
-        //controler.allowsEditing = true
-        //self.present(controller, animated: true, completion: nil)
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
@@ -263,14 +273,23 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIImagePick
                                     } else {
                                         //Upload Avatar
                 
-                                        NetworkHandler.uploadAvatar(avatar: self.imageViewAvatar.image!){ (success, error) in
+                                        
+                                        NetworkHandler.uploadAvatar(avatar: self.imageViewAvatar.image!.resized(toWidth: 200)!){ (success, error) in
                                             OperationQueue.main.addOperation {
                                                 if error != nil{
                                                     let alert = Utils.triggerAlert(title: "Erro", error: error)
                                                     self.present(alert, animated: true, completion: nil)
                                                 }else{
                                                     //go to first screen
-                                                    self.goToMainScreen()
+                                                    if UserDefaults.standard.bool(forKey: "biometricPrompted") {
+                                                        self.goToMainScreen()
+                                                    }else{
+                                                        if !self.usesBiometricAuth {
+                                                            self.displayActionSheet();
+                                                        }else {
+                                                            self.goToMainScreen()
+                                                        }
+                                                    }
                                                 }
                                             }
                                         }
@@ -292,6 +311,37 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIImagePick
         let loginViewController = storyBoard.instantiateViewController(withIdentifier: "tabBarController")
         self.dismiss(animated: true, completion: nil)
         self.present(loginViewController, animated: true, completion: nil)
+    }
+    
+    
+    func displayActionSheet(){
+    
+        let actionBiometric = UIAlertController(title: "Autenticação com "+Utils.getBiometricSensor(), message: "Deseja que futuros logins na sua conta possam ser feitos através de "+Utils.getBiometricSensor()+" ?", preferredStyle: .actionSheet)
+                
+            let noAction = UIAlertAction(title: "Não", style: .cancel, handler: {
+                (alert: UIAlertAction!) -> Void in
+                UserDefaults.standard.set(true, forKey: "biometricPrompted")
+                self.goToMainScreen()
+            })
+            let yesAction = UIAlertAction(title: "Sim", style: .default, handler: {
+                (alert: UIAlertAction!) -> Void in
+                //If user accepts, save his login data on the KeyChain
+                do {
+                    let email = self.textFieldEmail.text!
+                    let passwd : Data? = self.textFieldPassword.text!.data(using: .utf8)
+                    let status = KeychainPasswordItem.save(key: email, data: passwd!)
+                    UserDefaults.standard.set(true, forKey: "usesBiometricAuth")
+                    UserDefaults.standard.set(true, forKey: "biometricPrompted")
+                    self.goToMainScreen()
+                } catch {
+                  fatalError("Error updating keychain - \(error)")
+                }
+                
+            })
+            actionBiometric.addAction(noAction)
+            actionBiometric.addAction(yesAction)
+            self.present(actionBiometric, animated: true, completion: nil)
+        
     }
     
     
@@ -324,7 +374,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIImagePick
             label = UILabel()
         }
 
-        label.textColor = .white
+        
         label.textAlignment = .center
         label.text = Cities.cities[row]
 
@@ -336,15 +386,36 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIImagePick
         
         localPicker.delegate = self
         textFieldLocal.inputView = localPicker
-        //localPicker.backgroundColor = UIColor(named: "AppDarkBackground")
+        localPicker.showsSelectionIndicator = true
+        
+        let toolBar = UIToolbar()
+        toolBar.barStyle = UIBarStyle.default
+        toolBar.isTranslucent = true
+        toolBar.tintColor = UIColor(red: 76/255, green: 217/255, blue: 100/255, alpha: 1)
+        toolBar.sizeToFit()
 
-        //------------------------------------------------
+        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.done, target: self, action: #selector (self.dimissPicker))
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItem.Style.plain, target: self, action: #selector (self.dimissPickerReset))
+
+        toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
+        toolBar.isUserInteractionEnabled = true
+        
+        textFieldLocal.inputAccessoryView = toolBar
+      
 
     }
-    
+    @objc func dimissPicker(){
+        self.view.endEditing(true)
+    }
+    @objc func dimissPickerReset(){
+        self.view.endEditing(true)
+        resetPicker()
+    }
     func resetPicker() {
         self.textFieldLocal.text = ""
         self.selectedCity = ""
+        
     }
     
 }

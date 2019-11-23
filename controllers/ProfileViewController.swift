@@ -320,6 +320,7 @@ class ProfileViewController: UITableViewController, UIImagePickerControllerDeleg
         UserDefaults.standard.removeObject(forKey: "Local")
         UserDefaults.standard.removeObject(forKey: "AvatarEncoded")
         UserDefaults.standard.set(false, forKey: "usesBiometricAuth")
+        UserDefaults.standard.set(false, forKey: "biometricPrompted")
         UserDefaults.standard.synchronize()
 
         //go to first screen
@@ -406,7 +407,7 @@ class ProfileViewController: UITableViewController, UIImagePickerControllerDeleg
             label = UILabel()
         }
 
-        label.textColor = .white
+        
         label.textAlignment = .center
         label.text = Cities.cities[row]
 
@@ -418,6 +419,22 @@ class ProfileViewController: UITableViewController, UIImagePickerControllerDeleg
         
         localPicker.delegate = self
         localTextField.inputView = localPicker
+        localPicker.showsSelectionIndicator = true
+        
+        let toolBar = UIToolbar()
+        toolBar.barStyle = UIBarStyle.default
+        toolBar.isTranslucent = true
+        toolBar.tintColor = UIColor(red: 76/255, green: 217/255, blue: 100/255, alpha: 1)
+        toolBar.sizeToFit()
+
+        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.done, target: self, action: #selector (self.dimissPicker))
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItem.Style.plain, target: self, action: #selector (self.dimissPickerReset))
+
+        toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
+        toolBar.isUserInteractionEnabled = true
+        
+        localTextField.inputAccessoryView = toolBar
         
         //localPicker.backgroundColor = UIColor(named: "AppDarkBackground")
         //------------------------------------------------
@@ -426,6 +443,15 @@ class ProfileViewController: UITableViewController, UIImagePickerControllerDeleg
     
     func resetPicker() {
         self.localTextField.text = ""
+        self.selectedCity = ""
+    }
+    
+    @objc func dimissPicker(){
+        self.view.endEditing(true)
+    }
+    @objc func dimissPickerReset(){
+        self.view.endEditing(true)
+        self.localTextField.text = profile?.local
         self.selectedCity = ""
     }
     

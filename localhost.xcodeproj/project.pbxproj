@@ -74,6 +74,7 @@
 		A8E9A9CBCA1B3BECDAADC893 /* Pods-localhostTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-localhostTests.release.xcconfig"; path = "Target Support Files/Pods-localhostTests/Pods-localhostTests.release.xcconfig"; sourceTree = "<group>"; };
 		C72BAED7236FC2A40022C461 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		C72BAED9236FC4240022C461 /* LocationSearchTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchTableController.swift; sourceTree = "<group>"; };
+		C75996462388C2D100E23CE5 /* Localhost.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Localhost.entitlements; sourceTree = "<group>"; };
 		C766EC57236FD1120006A248 /* MapFiltersController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapFiltersController.swift; sourceTree = "<group>"; };
 		C766EC59236FD4D20006A248 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		C766EC5B236FD4FC0006A248 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
@@ -178,6 +179,7 @@
 		5B1748D023634BB3004532AE /* localhost */ = {
 			isa = PBXGroup;
 			children = (
+				C75996462388C2D100E23CE5 /* Localhost.entitlements */,
 				C7D6EF6123711B6200D33E4B /* SceneDelegate.swift */,
 				5B1748D123634BB3004532AE /* AppDelegate.swift */,
 				5B1748DA23634BB5004532AE /* Assets.xcassets */,
@@ -679,6 +681,7 @@
 			baseConfigurationReference = DB2C673CDC94E2B79A1C4DB8 /* Pods-localhost.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = localhost/Localhost.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9BAAJ9ZBNU;
@@ -701,6 +704,7 @@
 			baseConfigurationReference = 854FD002A07AE702A8ADB2E0 /* Pods-localhost.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = localhost/Localhost.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
