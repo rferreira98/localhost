@@ -206,14 +206,13 @@ class ProfileViewController: UITableViewController, UIImagePickerControllerDeleg
             }
 
             if self.hasChangedAvatar {
-                NetworkHandler.uploadAvatar(avatar: self.avatarImageView.image!){ (success, error) in
+                NetworkHandler.uploadAvatar(avatar: self.avatarImageView.image!.resized(toWidth: 200)!){ (success, error) in
                     OperationQueue.main.addOperation {
                         if error != nil{
                             let alert = Utils.triggerAlert(title: "Erro", error: error)
                             self.present(alert, animated: true, completion: nil)
                         }else{
-                            //go to first screen
-                            self.goToMainScreen()
+                            //success
                         }
                     }
                 }
@@ -246,6 +245,7 @@ class ProfileViewController: UITableViewController, UIImagePickerControllerDeleg
         }
         
     }
+    
     
     @objc func avatarUpload(_ sender: UITapGestureRecognizer) {
         view.endEditing(true)

@@ -285,6 +285,22 @@ class NetworkHandler {
                 completion(false, error)
                 return;
             }
+            
+            /*do {
+                let jsonResponse = try JSONSerialization.jsonObject(with:
+                responseData!, options: [])
+                
+                
+                if let dictionary = jsonResponse as? [String: Any] {
+                    //let saved = saveUserInStorage(userJson: jsonResponse as! [String: Any])
+                    let saved = saveUserInStorage(userJson: jsonResponse as! [String: Any])
+                    completion(saved, nil)
+                }
+
+            } catch let parsingError {
+                print("Error", parsingError)
+                completion(false, "Erro no parse de JSON no login" )
+            }*/
 
             let avatarEncoded = image.pngData()!.base64EncodedString()
             UserDefaults.standard.set(avatarEncoded, forKey: "AvatarEncoded")
@@ -297,20 +313,7 @@ class NetworkHandler {
     }
 
     
-    static func downloadImage(from urlString: String, completion: @escaping (UIImage?, Error?) -> ()) {
-        print("Download Started")
-        let url = URL(string: urlString);
-        NetworkHandler.getData(from: url!) { data, response, error in
-            guard let data = data, error == nil else {
-                completion(nil, error)
-                return
-            }
-
-            print("Download Finished")
-
-            completion(UIImage(data: data), error)
-        }
-    }
+   
 
     struct PostUserData: Codable {
         let first_name: String

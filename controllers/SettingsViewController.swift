@@ -23,6 +23,25 @@ class SettingsViewController: UITableViewController, MFMailComposeViewController
         switchDarkMode.setOn(traitCollection.userInterfaceStyle == .dark, animated: true)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        imageViewAvatar.layer.cornerRadius = imageViewAvatar.frame.size.height / 2
+        imageViewAvatar.clipsToBounds = true
+        if let avatarEncoded = UserDefaults.standard.value(forKey: "AvatarEncoded") as? String {
+            if let decodedData = Data(base64Encoded: avatarEncoded, options: .ignoreUnknownCharacters) {
+                let avatar = UIImage(data: decodedData)
+                self.imageViewAvatar.image = avatar
+            }
+        } else {
+            var imageCache = SDImageCache.shared
+            imageCache.clearMemory()
+            imageCache.clearDisk()
+            
+            let avatarName = UserDefaults.standard.value(forKey: "AvatarURL") as! String
+            let strUrl = NetworkHandler.domainUrl + "/storage/profiles/"+avatarName
+            self.imageViewAvatar.sd_setImage(with: URL(string: strUrl), placeholderImage: UIImage(named: "NoAvatar"))
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -38,23 +57,8 @@ class SettingsViewController: UITableViewController, MFMailComposeViewController
             sectionColor = UIColor.white
         }
         
-        if let avatarEncoded = UserDefaults.standard.value(forKey: "AvatarEncoded") as? String {
-            if let decodedData = Data(base64Encoded: avatarEncoded, options: .ignoreUnknownCharacters) {
-                let avatar = UIImage(data: decodedData)
-                self.imageViewAvatar.image = avatar
-            }
-        } else {
-            var imageCache = SDImageCache.shared
-            imageCache.clearMemory()
-            imageCache.clearDisk()
-            
-            let avatarName = UserDefaults.standard.value(forKey: "AvatarURL") as! String
-            let strUrl = NetworkHandler.domainUrl + "/storage/profiles/"+avatarName
-            self.imageViewAvatar.sd_setImage(with: URL(string: strUrl), placeholderImage: UIImage(named: "NoAvatar"))
-        }
         
-        imageViewAvatar.layer.cornerRadius = imageViewAvatar.frame.size.height / 2
-        imageViewAvatar.clipsToBounds = true
+        
         
         self.tableView.backgroundView?.backgroundColor = sectionColor
         self.tableView.backgroundColor = sectionColor
