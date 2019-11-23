@@ -40,7 +40,7 @@ class ProfileViewController: UITableViewController, UIImagePickerControllerDeleg
     @IBOutlet weak var buttonLogout: UIButton!
     @IBOutlet weak var barButtonItemEdit: UIBarButtonItem!
     @IBOutlet weak var buttonLogoutDeleteBiometric: UIButton!
-    
+    @IBOutlet weak var ResetPasswordButton: UIButton!
     
     
     override func viewDidAppear(_ animated: Bool) {
@@ -328,6 +328,53 @@ class ProfileViewController: UITableViewController, UIImagePickerControllerDeleg
         first.modalPresentationStyle = .fullScreen
         //self.dismiss(animated: true, completion: nil)
         self.present(first, animated: true, completion: nil)
+    }
+    
+    
+    @IBAction func ResetPasswordButtonClicked(_ sender: Any) {
+        // Create the action buttons for the alert.
+        let defaultAction = UIAlertAction(title: "Continue", style: .default) { (action) in
+            // Respond to user selection of the action.
+            let email = self.profile?.email as! String
+            
+            let postResetPass = NetworkHandler.PostResetPassword(email: email)
+            
+            NetworkHandler.resetPassword(post: postResetPass) { (success, error) in             OperationQueue.main.addOperation {
+                if error != nil {
+                    let alert = Utils.triggerAlert(title: "Erro", error: error)
+                    self.present(alert, animated: true, completion: nil)
+                } else {
+                    
+                }
+                }
+            }
+            
+            let success = UIAlertController(title: "Success", message: "E-mail sent!", preferredStyle: .alert)
+            success.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "ok"), style: .default, handler: { _ in
+            NSLog("The email was sent successfuly.")
+            }))
+            self.present(success, animated: true, completion: nil)
+            
+            
+        }
+            
+        let cancelAction = UIAlertAction(title: "Cancel",
+                             style: .cancel) { (action) in
+         // Respond to user selection of the action.
+                                
+        }
+        
+        // Create and configure the alert controller.
+        let alert = UIAlertController(title: "Reset Password",
+              message: "Do you really want to reset password?",
+              preferredStyle: .alert)
+        alert.addAction(defaultAction)
+        alert.addAction(cancelAction)
+             
+        self.present(alert, animated: true) {
+           // The alert was presented
+        }
+        
     }
     
     //Local picker methods

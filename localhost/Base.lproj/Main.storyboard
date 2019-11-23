@@ -1119,6 +1119,7 @@
                                                         <color key="titleColor" name="systemRedColor" catalog="System" colorSpace="catalog"/>
                                                     </state>
                                                     <connections>
+                                                        <action selector="ResetPasswordButtonClicked:" destination="Yhi-9B-qW0" eventType="touchUpInside" id="6IZ-E9-Y1W"/>
                                                         <action selector="logoutDeleteBiometricClicked:" destination="Yhi-9B-qW0" eventType="touchUpInside" id="WaM-Ai-8DI"/>
                                                     </connections>
                                                 </button>
@@ -1147,6 +1148,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="ResetPasswordButton" destination="BWK-lY-s0b" id="nvG-oU-Ehf"/>
                         <outlet property="avatarImageView" destination="B9i-tC-lcV" id="Jvi-gX-bTd"/>
                         <outlet property="barButtonItemEdit" destination="986-Hq-6QW" id="fBK-Eh-UcK"/>
                         <outlet property="buttonLogout" destination="7ur-dd-zhl" id="mI6-b9-arM"/>
