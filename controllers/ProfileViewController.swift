@@ -6,7 +6,7 @@
 //  Copyright © 2019 Ricardo Filipe Ribeiro Ferreira. All rights reserved.
 //
 import UIKit
-
+import SDWebImage
 import RSKImageCropper
 
 
@@ -51,10 +51,10 @@ class ProfileViewController: UITableViewController, UIImagePickerControllerDeleg
             let cell = tableView.cellForRow(at: indexPath)
             cell?.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: .greatestFiniteMagnitude)
 
-            /*let indexPath2 = IndexPath(row: 4, section: 1)
+            let indexPath2 = IndexPath(row: 4, section: 1)
             let cell2 = tableView.cellForRow(at: indexPath2)
             cell2?.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: .greatestFiniteMagnitude)
-            cell2?.selectionStyle = UITableViewCell.SelectionStyle.none;*/
+            cell2?.selectionStyle = UITableViewCell.SelectionStyle.none;
             
         }
         
@@ -104,7 +104,8 @@ class ProfileViewController: UITableViewController, UIImagePickerControllerDeleg
                     UserDefaults.standard.value(forKey: "FirstName") as! String,
                     UserDefaults.standard.value(forKey: "LastName") as! String,
                     UserDefaults.standard.value(forKey: "Email") as! String,
-                    UserDefaults.standard.value(forKey: "Local") as! String)
+                    UserDefaults.standard.value(forKey: "Local") as! String,
+                    UserDefaults.standard.value(forKey: "AvatarURL") as! String)
             
             self.firstNameTextField.text = self.profile!.firstName
             self.lastNameTextField.text = self.profile!.lastName
@@ -118,10 +119,13 @@ class ProfileViewController: UITableViewController, UIImagePickerControllerDeleg
                 self.avatarImageView.image = avatar
             }
         } else {
-            /*var imageCache = SDImageCache.shared()
+            var imageCache = SDImageCache.shared
             imageCache.clearMemory()
             imageCache.clearDisk()
-            self.avatarImageView.sd_setImage(with: URL(string: NetworkRequestsHandler.domainUrl + "/avatar/\(id).png"), placeholderImage: UIImage(named: "NoAvatar"))*/
+            
+            let avatarName = profile!.avatar as! String
+            let strUrl = NetworkHandler.domainUrl + "/storage/profiles/"+avatarName
+            self.avatarImageView.sd_setImage(with: URL(string: strUrl), placeholderImage: UIImage(named: "NoAvatar"))
         }
             
     }
@@ -146,6 +150,14 @@ class ProfileViewController: UITableViewController, UIImagePickerControllerDeleg
         //Profile email can't be changed
         self.localTextField.isUserInteractionEnabled = isEditingFields
         self.avatarImageView.isUserInteractionEnabled = isEditingFields
+        
+        if isEditingFields {
+
+                   self.avatarImageView.image = UIImage(named: "AddAvatar")
+                   let tapImage = UITapGestureRecognizer(target: self, action: #selector(ProfileViewController.avatarUpload(_:)))
+                   avatarImageView.isUserInteractionEnabled = isEditingFields
+                   avatarImageView.addGestureRecognizer(tapImage)
+               }
         
         //User clicked "Done"
         if !isEditingFields {
@@ -173,6 +185,44 @@ class ProfileViewController: UITableViewController, UIImagePickerControllerDeleg
                     self.localTextField.text = userProfile.local
                 } else {
                     userProfile.local = local
+                }
+            }
+            
+            if !hasChangedAvatar {
+                if let avatarEncoded = UserDefaults.standard.value(forKey: "AvatarEncoded") as? String {
+                    if let decodedData = Data(base64Encoded: avatarEncoded, options: .ignoreUnknownCharacters) {
+                        let avatar = UIImage(data: decodedData)
+                        self.avatarImageView.image = avatar
+                    }
+                } else {
+                    var imageCache = SDImageCache.shared
+                    imageCache.clearMemory()
+                    imageCache.clearDisk()
+                    
+                    let avatarName = profile!.avatar as! String
+                    let strUrl = NetworkHandler.domainUrl + "/storage/profiles/"+avatarName
+                    self.avatarImageView.sd_setImage(with: URL(string: strUrl), placeholderImage: UIImage(named: "NoAvatar"))
+                }
+            }
+
+            if self.hasChangedAvatar {
+                NetworkHandler.uploadAvatar(avatar: self.avatarImageView.image!){ (success, error) in
+                    OperationQueue.main.addOperation {
+                        if error != nil{
+                            let alert = Utils.triggerAlert(title: "Erro", error: error)
+                            self.present(alert, animated: true, completion: nil)
+                        }else{
+                            //go to first screen
+                            self.goToMainScreen()
+                        }
+                    }
+                }
+            } else {
+                if let avatarEncoded = UserDefaults.standard.value(forKey: "AvatarEncoded") as? String {
+                    if let decodedData = Data(base64Encoded: avatarEncoded, options: .ignoreUnknownCharacters) {
+                        let avatar = UIImage(data: decodedData)
+                        self.avatarImageView.image = avatar
+                    }
                 }
             }
             

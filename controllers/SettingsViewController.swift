@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import MessageUI
+import SDWebImage
 
 class SettingsViewController: UITableViewController, MFMailComposeViewControllerDelegate{
     
@@ -27,6 +28,9 @@ class SettingsViewController: UITableViewController, MFMailComposeViewController
         
         var sectionColor: UIColor
         
+        
+        
+        
         //if ios 13 is available, the background for the cell will be the system color, otherwise it will be white, since there is no dark mode on ios 13 <
         if #available(iOS 13.0, *) {
             sectionColor = UIColor.systemBackground
@@ -40,10 +44,13 @@ class SettingsViewController: UITableViewController, MFMailComposeViewController
                 self.imageViewAvatar.image = avatar
             }
         } else {
-            /*var imageCache = SDImageCache.shared()
+            var imageCache = SDImageCache.shared
             imageCache.clearMemory()
             imageCache.clearDisk()
-            self.avatarImageView.sd_setImage(with: URL(string: NetworkRequestsHandler.domainUrl + "/avatar/\(id).png"), placeholderImage: UIImage(named: "NoAvatar"))*/
+            
+            let avatarName = UserDefaults.standard.value(forKey: "AvatarURL") as! String
+            let strUrl = NetworkHandler.domainUrl + "/storage/profiles/"+avatarName
+            self.imageViewAvatar.sd_setImage(with: URL(string: strUrl), placeholderImage: UIImage(named: "NoAvatar"))
         }
         
         imageViewAvatar.layer.cornerRadius = imageViewAvatar.frame.size.height / 2
@@ -67,7 +74,7 @@ class SettingsViewController: UITableViewController, MFMailComposeViewController
                if MFMailComposeViewController.canSendMail() {
                    let mail = MFMailComposeViewController()
                    mail.mailComposeDelegate = self
-                   mail.setToRecipients(["xxxxxx@xxxxxx.com"])
+                   mail.setToRecipients(["team.localh@gmail.com"])
                    mail.setSubject("App Contact")
                    
                    
