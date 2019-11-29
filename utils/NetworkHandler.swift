@@ -394,6 +394,39 @@ class NetworkHandler {
         task.resume()
     }
 
+    static func getLocals(completionHandler: @escaping ([Local]?, _ error: String?) -> Void) {
+        if !NetworkHandler.appDelegate.isNetworkOn {
+            completionHandler(nil, "Sem ligação à internet")
+            return
+        }
+        
+        
+        
+        //let urlLocals = baseUrl + "/locals"
+        let urlLocals = URL(string:"https://5de010c2bb46ce001434c034.mockapi.io/locals")!
+
+        let localsTask = URLSession.shared.dataTask(with: urlLocals) { data, response, responseError in
+            let error = getServerError(responseData: data, response: response, responseError: responseError)
+            guard error == nil else {
+                return completionHandler(nil, error)
+            }
+
+            var locals = [Local]()
+            if let data = data {
+                let decoder = JSONDecoder()
+                do {
+                    locals = try decoder.decode([Local].self, from: data)
+                } catch let exception {
+                    completionHandler(nil, error)
+                    return
+                }
+
+            }
+            completionHandler(locals, nil)
+        }
+
+        localsTask.resume()
+    }
 }
 
 class PostRequest {
