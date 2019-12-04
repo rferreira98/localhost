@@ -68,6 +68,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         map.showsUserLocation = true
         map.showsScale = true
         map.showsCompass = true
+        map.showsPointsOfInterest = false
         
         
         //Adds the button for current location to the map
@@ -117,7 +118,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
                     for local in locals!{
                         self.locals.append(local)
                     }
-                    
                     self.drawLocalPins()
                 }
             }
@@ -136,12 +136,9 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
                 pointAnnotation.coordinate = CLLocationCoordinate2D(latitude: latitude ,
                                                                     longitude: longitude)
                 //pointAnnotation.title = local.name as! String
-                
-                
+
                 pinAnnotationView = MKPinAnnotationView(annotation: pointAnnotation, reuseIdentifier: "pin")
                 map.addAnnotation(pinAnnotationView.annotation!)
-            
-            
             
         }
     }
@@ -169,9 +166,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         }
     }
     
-        //TODO displays pins on the map
-    
-    
+        
         //MARK: - Custom Annotation
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if annotation is MKUserLocation{
