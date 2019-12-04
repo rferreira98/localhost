@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		08A464627A195C6A2873CF84 /* Pods_localhost_localhostUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8310D0417BE2BF3022CAE98E /* Pods_localhost_localhostUITests.framework */; };
+		230E0E8523986944001AB7E6 /* FiltersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230E0E8423986944001AB7E6 /* FiltersTableViewController.swift */; };
 		31DF515B73DD850C4ABDB745 /* Pods_localhost.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EABC756ECEE2BDCF6FCFAE9D /* Pods_localhost.framework */; };
 		5B1748D223634BB3004532AE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1748D123634BB3004532AE /* AppDelegate.swift */; };
 		5B1748DB23634BB5004532AE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B1748DA23634BB5004532AE /* Assets.xcassets */; };
@@ -65,6 +66,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		230E0E8423986944001AB7E6 /* FiltersTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersTableViewController.swift; sourceTree = "<group>"; };
 		4DB14336AA67FCAA43C22716 /* Pods_localhostTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_localhostTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B1748CE23634BB3004532AE /* Localhost.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Localhost.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B1748D123634BB3004532AE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -246,6 +248,7 @@
 				C776DE642395268D00EA1767 /* LocalTableViewCell.swift */,
 				C75321DA239688CC003BB49C /* CustomAnotation.swift */,
 				C720D48B239844220039A433 /* InitialViewController.swift */,
+				230E0E8423986944001AB7E6 /* FiltersTableViewController.swift */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -518,6 +521,7 @@
 				C75321DB239688CC003BB49C /* CustomAnotation.swift in Sources */,
 				C766EC58236FD1120006A248 /* MapFiltersController.swift in Sources */,
 				C720D49023984E7E0039A433 /* Items.swift in Sources */,
+				230E0E8523986944001AB7E6 /* FiltersTableViewController.swift in Sources */,
 				C766EC69236FDE5E0006A248 /* RegisterViewController.swift in Sources */,
 				C766EC67236FDE530006A248 /* LoginViewController.swift in Sources */,
 				C769DE8323839C9400020527 /* BiometricAuth.swift in Sources */,
