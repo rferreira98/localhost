@@ -123,7 +123,6 @@ class NetworkHandler {
 
             do {
                 
-                
                 //let jsonResponse = try JSONSerialization.jsonObject(with:responseData!, options: .allowFragments)
                 let jsonResponse = try JSONSerialization.jsonObject(with:
                 responseData!, options: [])
@@ -374,6 +373,8 @@ class NetworkHandler {
             }*/
             
             do {
+                
+                
                 let jsonResponse = try JSONSerialization.jsonObject(with:
                 responseData!, options: .allowFragments) as? [[String: Any]]
                 let str = String(data: responseData!, encoding: String.Encoding.utf8) ?? "Data could not be printed"
@@ -402,8 +403,8 @@ class NetworkHandler {
         
         
         
-        //let urlLocals = baseUrl + "/locals"
-        let urlLocals = URL(string:"https://5de010c2bb46ce001434c034.mockapi.io/locals")!
+        let urlLocals = URL(string: baseUrl + "/search")!
+        //let urlLocals = URL(string:"https://5de010c2bb46ce001434c034.mockapi.io/locals")!
 
         let localsTask = URLSession.shared.dataTask(with: urlLocals) { data, response, responseError in
             let error = getServerError(responseData: data, response: response, responseError: responseError)
@@ -412,12 +413,15 @@ class NetworkHandler {
             }
 
             var locals = [Local]()
+
             if let data = data {
                 let decoder = JSONDecoder()
                 do {
+                    //print(String(data: data, encoding: .utf8) ?? "no body data")
                     locals = try decoder.decode([Local].self, from: data)
+                    
                 } catch let exception {
-                    completionHandler(nil, error)
+                    completionHandler(nil, exception.localizedDescription)
                     return
                 }
 

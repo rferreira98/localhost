@@ -10,10 +10,11 @@ import Foundation
 
 
 class Review: Decodable {
-    private var user:String
-    private var review:String
+    private var user:UserReviewer
+    private var text:String
     private var rating:Float
-    
+    private var url:URL
+
     required convenience init(from decoder: Decoder) throws
         {
             var container:KeyedDecodingContainer<Review.CodingKeys>
@@ -25,28 +26,31 @@ class Review: Decodable {
             {
                 throw error
             }
-            
-            var user:String
-            var review:String
+
+            var user:UserReviewer
+            var text:String
             var rating:Float
-            
+            var url:URL
+
             do
             {
-                user = try container.decode(String.self, forKey: .user)
-                review = try container.decode(String.self, forKey: .review)
+                user = try container.decode(UserReviewer.self, forKey: .user)
+                text = try container.decode(String.self, forKey: .text)
                 rating = try container.decode(Float.self, forKey: .rating)
-                
-                
+                url = try container.decode(URL.self, forKey: .url)
+
+
             }
-            self.init(user, review, rating)
+            self.init(user, text, rating, url)
         }
-        
-    
-        init(_  user: String, _ review: String, _ rating: Float) {
+
+
+    init(_  user: UserReviewer, _ text: String, _ rating: Float, _ url: URL) {
             self.user = user
-            self.review = review
+            self.text = text
             self.rating = rating
-            
+            self.url = url
+
         }
     }
 
@@ -54,8 +58,9 @@ class Review: Decodable {
     {
         enum CodingKeys: String, CodingKey {
             case user = "user"
-            case review = "review"
+            case text = "text"
             case rating = "rating"
+            case url = "url"
         }
-        
+
     }

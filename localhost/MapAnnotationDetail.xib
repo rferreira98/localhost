@@ -15,15 +15,42 @@
             <rect key="frame" x="0.0" y="0.0" width="213" height="240"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Hotel X" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EHc-KJ-2c4">
-                    <rect key="frame" x="85" y="10" width="57" height="21"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EHc-KJ-2c4">
+                    <rect key="frame" x="16" y="11" width="45" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="City" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1EH-N1-HnE">
+                    <rect key="frame" x="16" y="44" width="31" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Avg Rating" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JvS-1D-dcF">
+                    <rect key="frame" x="17" y="73" width="82" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bsu-ra-Dpj">
+                    <rect key="frame" x="165" y="194" width="32" height="30"/>
+                    <state key="normal" title="Mais">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                </button>
             </subviews>
             <color key="backgroundColor" name="AppGreenDark"/>
+            <constraints>
+                <constraint firstItem="JvS-1D-dcF" firstAttribute="top" secondItem="1EH-N1-HnE" secondAttribute="bottom" constant="8" id="8s4-Zi-fRI"/>
+                <constraint firstItem="D7M-a6-wCx" firstAttribute="bottom" secondItem="bsu-ra-Dpj" secondAttribute="bottom" constant="16" id="IfW-Q4-2eX"/>
+                <constraint firstItem="D7M-a6-wCx" firstAttribute="top" secondItem="EHc-KJ-2c4" secondAttribute="top" constant="33" id="WRY-j7-nZA"/>
+                <constraint firstItem="EHc-KJ-2c4" firstAttribute="leading" secondItem="D7M-a6-wCx" secondAttribute="leading" constant="16" id="dEN-bj-uCw"/>
+                <constraint firstItem="D7M-a6-wCx" firstAttribute="trailing" secondItem="bsu-ra-Dpj" secondAttribute="trailing" constant="16" id="jOf-X4-Z8Q"/>
+                <constraint firstItem="1EH-N1-HnE" firstAttribute="leading" secondItem="D7M-a6-wCx" secondAttribute="leading" constant="16" id="u28-Yk-oMh"/>
+                <constraint firstItem="1EH-N1-HnE" firstAttribute="top" secondItem="EHc-KJ-2c4" secondAttribute="bottom" constant="12" id="xbT-1y-W0G"/>
+                <constraint firstItem="JvS-1D-dcF" firstAttribute="leading" secondItem="D7M-a6-wCx" secondAttribute="leading" constant="17" id="yAB-bi-y5R"/>
+            </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="D7M-a6-wCx"/>
             <point key="canvasLocation" x="54" y="-118"/>

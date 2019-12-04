@@ -1,5 +1,6 @@
 PODS:
   - Alamofire (4.9.1)
+  - Cosmos (20.0.1)
   - InitialsImageView (0.6.0)
   - RSKImageCropper (2.2.3)
   - SDWebImage (5.3.0):
@@ -9,6 +10,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire
+  - Cosmos
   - InitialsImageView
   - RSKImageCropper
   - SDWebImage
@@ -17,6 +19,7 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - Alamofire
+    - Cosmos
     - InitialsImageView
     - RSKImageCropper
     - SDWebImage
@@ -24,11 +27,12 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
+  Cosmos: b47fddf2102bb48580cd3025d9ce0a5c658a65da
   InitialsImageView: 09a5a30bdfaad2a8d9bb31b43257ae6ebcc8b52a
   RSKImageCropper: a446db0e8444a036b34f3c43db01b2373baa4b2a
   SDWebImage: f1afa74b86587c2c63f4e80dfd39b21e3c17b45b
   SwiftHTTP: e94f1aa8cde58637dcc0100f6349de31a3337fde
 
-PODFILE CHECKSUM: 620710344cf10bd197cb4e7383eae4cfe92c07d0
+PODFILE CHECKSUM: 58f50bd6056cc52a674e4804f46811d27c8ce08a
 
 COCOAPODS: 1.8.4

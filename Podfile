@@ -11,6 +11,7 @@ target 'localhost' do
   pod 'SDWebImage'
   pod 'SwiftHTTP'
   pod 'Alamofire'
+  pod 'Cosmos'
   
   target 'localhostTests' do
     inherit! :search_paths

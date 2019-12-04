@@ -21,6 +21,7 @@
 		C711AD82239045E300A58DE7 /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = C711AD81239045E300A58DE7 /* Review.swift */; };
 		C72BAED8236FC2A40022C461 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72BAED7236FC2A40022C461 /* MapViewController.swift */; };
 		C72BAEDA236FC4240022C461 /* LocationSearchTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72BAED9236FC4240022C461 /* LocationSearchTableController.swift */; };
+		C75321DB239688CC003BB49C /* CustomAnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75321DA239688CC003BB49C /* CustomAnotation.swift */; };
 		C766EC58236FD1120006A248 /* MapFiltersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C766EC57236FD1120006A248 /* MapFiltersController.swift */; };
 		C766EC5A236FD4D20006A248 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C766EC59236FD4D20006A248 /* SettingsViewController.swift */; };
 		C766EC5C236FD4FC0006A248 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C766EC5B236FD4FC0006A248 /* InfoViewController.swift */; };
@@ -32,6 +33,8 @@
 		C766EC69236FDE5E0006A248 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C766EC68236FDE5E0006A248 /* RegisterViewController.swift */; };
 		C769DE812383953200020527 /* KeychainPasswordItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C769DE802383953200020527 /* KeychainPasswordItem.swift */; };
 		C769DE8323839C9400020527 /* BiometricAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = C769DE8223839C9400020527 /* BiometricAuth.swift */; };
+		C776DE632395220E00EA1767 /* UserReviewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C776DE622395220E00EA1767 /* UserReviewer.swift */; };
+		C776DE652395268D00EA1767 /* LocalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C776DE642395268D00EA1767 /* LocalTableViewCell.swift */; };
 		C78DA8492381EE8500CCD60C /* NetworkHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C78DA8482381EE8500CCD60C /* NetworkHandler.swift */; };
 		C78DA84B2382145F00CCD60C /* NetworkErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = C78DA84A2382145F00CCD60C /* NetworkErrors.swift */; };
 		C78DA84D2382263400CCD60C /* Cities.swift in Sources */ = {isa = PBXBuildFile; fileRef = C78DA84C2382263400CCD60C /* Cities.swift */; };
@@ -82,6 +85,7 @@
 		C711AD81239045E300A58DE7 /* Review.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
 		C72BAED7236FC2A40022C461 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		C72BAED9236FC4240022C461 /* LocationSearchTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchTableController.swift; sourceTree = "<group>"; };
+		C75321DA239688CC003BB49C /* CustomAnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAnotation.swift; sourceTree = "<group>"; };
 		C75996462388C2D100E23CE5 /* Localhost.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Localhost.entitlements; sourceTree = "<group>"; };
 		C766EC57236FD1120006A248 /* MapFiltersController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapFiltersController.swift; sourceTree = "<group>"; };
 		C766EC59236FD4D20006A248 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -94,6 +98,8 @@
 		C766EC68236FDE5E0006A248 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		C769DE802383953200020527 /* KeychainPasswordItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainPasswordItem.swift; sourceTree = "<group>"; };
 		C769DE8223839C9400020527 /* BiometricAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricAuth.swift; sourceTree = "<group>"; };
+		C776DE622395220E00EA1767 /* UserReviewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserReviewer.swift; sourceTree = "<group>"; };
+		C776DE642395268D00EA1767 /* LocalTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalTableViewCell.swift; sourceTree = "<group>"; };
 		C78DA8482381EE8500CCD60C /* NetworkHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkHandler.swift; sourceTree = "<group>"; };
 		C78DA84A2382145F00CCD60C /* NetworkErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkErrors.swift; sourceTree = "<group>"; };
 		C78DA84C2382263400CCD60C /* Cities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cities.swift; sourceTree = "<group>"; };
@@ -233,6 +239,8 @@
 				C766EC59236FD4D20006A248 /* SettingsViewController.swift */,
 				C7B62394236FE1B900CF4CF6 /* TabBarController.swift */,
 				C711AD7D238D7E4000A58DE7 /* MapAnnotationDetailController.swift */,
+				C776DE642395268D00EA1767 /* LocalTableViewCell.swift */,
+				C75321DA239688CC003BB49C /* CustomAnotation.swift */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -256,6 +264,7 @@
 				C7B62397236FE20700CF4CF6 /* User.swift */,
 				C711AD7F239040AF00A58DE7 /* Local.swift */,
 				C711AD81239045E300A58DE7 /* Review.swift */,
+				C776DE622395220E00EA1767 /* UserReviewer.swift */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -500,6 +509,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C75321DB239688CC003BB49C /* CustomAnotation.swift in Sources */,
 				C766EC58236FD1120006A248 /* MapFiltersController.swift in Sources */,
 				C766EC69236FDE5E0006A248 /* RegisterViewController.swift in Sources */,
 				C766EC67236FDE530006A248 /* LoginViewController.swift in Sources */,
@@ -523,7 +533,9 @@
 				C72BAED8236FC2A40022C461 /* MapViewController.swift in Sources */,
 				C711AD7E238D7E4000A58DE7 /* MapAnnotationDetailController.swift in Sources */,
 				C711AD80239040AF00A58DE7 /* Local.swift in Sources */,
+				C776DE652395268D00EA1767 /* LocalTableViewCell.swift in Sources */,
 				C78DA84B2382145F00CCD60C /* NetworkErrors.swift in Sources */,
+				C776DE632395220E00EA1767 /* UserReviewer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

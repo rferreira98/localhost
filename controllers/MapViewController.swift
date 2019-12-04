@@ -18,8 +18,15 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
 
     @IBOutlet weak var map: MKMapView!
     
+    var locals = [Local]()
+    
     var resultSearchController: UISearchController!
 
+    
+    //Custom map pins
+    var pointAnnotation:CustomAnnotation!
+    var pinAnnotationView:MKPinAnnotationView!
+    //Location
     let locationManager = CLLocationManager()
     var currentLocation:CLLocationCoordinate2D?
     
@@ -73,6 +80,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         let buttonFilter = UIBarButtonItem(image: UIImage(named: "Filter"), style: .plain, target: self, action: #selector(segueFilters))
         self.navigationItem.rightBarButtonItem  = buttonFilter
         //-----------------------------------------------------------------
+        
+        
     }
     
     @objc func segueFilters(){
@@ -88,10 +97,53 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     override func viewWillAppear(_ animated: Bool) {
         locationManager.startUpdatingLocation()
+        
+        getLocals()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         locationManager.stopUpdatingLocation()
+    }
+    
+    private func getLocals(){
+        NetworkHandler.getLocals() {
+            (locals, error) in OperationQueue.main.addOperation {
+                if error != nil {
+                    let alert = Utils.triggerAlert(title: "Erro", error: error)
+                    self.present(alert, animated: true, completion: nil)
+                }
+                else{
+                    
+                    for local in locals!{
+                        self.locals.append(local)
+                    }
+                    
+                    self.drawLocalPins()
+                }
+            }
+        }
+    }
+    
+    private func drawLocalPins(){
+        for local in locals{
+            let latitude = local.latitude
+            let longitude = local.longitude
+                pointAnnotation = CustomAnnotation()
+                pointAnnotation.pinCustomImageName = "MapMarker"
+                //pointAnnotation.offer = offer
+                //pointAnnotation.search = nil
+                pointAnnotation.local = local
+                pointAnnotation.coordinate = CLLocationCoordinate2D(latitude: latitude ,
+                                                                    longitude: longitude)
+                //pointAnnotation.title = local.name as! String
+                
+                
+                pinAnnotationView = MKPinAnnotationView(annotation: pointAnnotation, reuseIdentifier: "pin")
+                map.addAnnotation(pinAnnotationView.annotation!)
+            
+            print(local.imageUrl)
+            
+        }
     }
     
     
@@ -121,7 +173,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     
         //MARK: - Custom Annotation
-    /*private func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if annotation is MKUserLocation{
             return nil
         }else{
@@ -141,7 +193,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             return annotationView
         }
         
-    }*/
+    }
     
     
     
@@ -165,20 +217,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         view.addSubview(calloutView)
         mapView.setCenter((view.annotation?.coordinate)!, animated: true)
     }*/
-    
-    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        if annotation is MKUserLocation { return nil }
-        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "pin")
-        
-        if annotationView == nil {
-            /*annotationView = ListingMapAnnotationView(annotation: annotation, reuseIdentifier: "pin")
-            (annotationView as! ListingMapAnnotationView).mapListingDetailDelegate = self*/
-        }
-        else {
-            annotationView!.annotation = annotation
-        }
-        return annotationView
-    }
+
 
 }
 extension MapViewController: HandleMapSearch {

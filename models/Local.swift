@@ -8,15 +8,16 @@
 
 import Foundation
 class Local: Decodable {
-    private var type:String
-    private var name:String
-    private var address:String
-    private var city:String
-    private var latitude:Double
-    private var longitude:Double
-    private var avgRating:Float
-    private var photos:[String]
-    private var reviews:Review?
+    var types:[String]
+    var name:String
+    var address:String
+    var city:String
+    var latitude:Double
+    var longitude:Double
+    var avgRating:Float
+    var imageUrl:String
+    //private var photos:[String]
+    var reviews:Review?
     
     
     required convenience init(from decoder: Decoder) throws
@@ -31,42 +32,49 @@ class Local: Decodable {
             throw error
         }
         
-        var type:String
+        var types:[String]
         var name:String
         var address:String
         var city:String
         var avgRating:Float
-        var photos:[String]
+        var imageUrl:String
+        //var photos:[String]
         var reviews:Review?
         var latitude:Double
         var longitude:Double
         
         do
         {
-            type = try container.decode(String.self, forKey: .type)
+            types = try container.decode([String].self, forKey: .types)
             name = try container.decode(String.self, forKey: .name)
             address = try container.decode(String.self, forKey: .address)
             city = try container.decode(String.self, forKey: .city)
             avgRating = try container.decode(Float.self, forKey: .avgRating)
-            photos = try container.decode([String].self, forKey: .photos)
+            imageUrl = try container.decode(String.self, forKey: .imageUrl)
+            //photos = try container.decode([String].self, forKey: .photos)
             reviews = try? container.decode(Review.self, forKey: .reviews)
             latitude = try container.decode(Double.self, forKey: .latitude)
             longitude = try container.decode(Double.self, forKey: .longitude)
             
         }
-        self.init(type, name, address, city, avgRating, photos, reviews, latitude, longitude)
+        //self.init(types, name, address, city, avgRating, photos, reviews, latitude, longitude)
+        self.init(types, name, address, city, avgRating, imageUrl, reviews, latitude, longitude)
     }
     
-    convenience init(_  type: String, _ name: String, _ address: String, _ city: String, _ avgRating: Float, _ photos: [String], _ latitude:Double, _ longitude: Double) {
-        self.init(type, name, address, city, avgRating, photos, nil, latitude, longitude)
+    /*convenience init(_  types: [String], _ name: String, _ address: String, _ city: String, _ avgRating: Float, _ photos: [String], _ latitude:Double, _ longitude: Double) {
+        self.init(types, name, address, city, avgRating, photos, nil, latitude, longitude)*/
+    convenience init(_  types: [String], _ name: String, _ address: String, _ city: String, _ avgRating: Float, _ imageUrl: String, _ latitude:Double, _ longitude: Double) {
+    self.init(types, name, address, city, avgRating, imageUrl, nil, latitude, longitude)
     }
-    init(_  type: String, _ name: String, _ address: String, _ city: String, _ avgRating: Float, _ photos: [String], _ reviews:Review?, _ latitude:Double, _ longitude: Double) {
-        self.type = type
+    //init(_  types: [String], _ name: String, _ address: String, _ city: String, _ avgRating: Float, _ photos: [String], _ reviews:Review?, _ latitude:Double, _ longitude: Double) {
+    init(_  types: [String], _ name: String, _ address: String, _ city: String, _ avgRating: Float, _ imageUrl: String, _ reviews:Review?, _ latitude:Double, _ longitude: Double) {
+        self.types = types
         self.name = name
         self.address = address
         self.city = city
         self.avgRating = avgRating
-        self.photos = photos
+        self.imageUrl = imageUrl
+        //self.photos = photos
         self.reviews = reviews
         self.latitude = latitude
         self.longitude = longitude
@@ -77,12 +85,13 @@ class Local: Decodable {
 extension Local
 {
     enum CodingKeys: String, CodingKey {
-        case type = "type"
+        case types = "types"
         case name = "name"
         case address = "address"
         case city = "city"
-        case avgRating = "avgRating"
-        case photos = "photos"
+        case avgRating = "average_rating"
+        case imageUrl = "image_url"
+        //case photos = "photos"
         case reviews = "reviews"
         case latitude = "latitude"
         case longitude = "longitude"
