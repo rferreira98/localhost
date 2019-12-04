@@ -10,12 +10,13 @@ import UIKit
 
 class TabBarController : UITabBarController, UITabBarControllerDelegate{
     
-    
+    var locals = [Local]()
     override func viewWillAppear(_ animated: Bool) {
         
         
     }
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         self.delegate = self
         
@@ -24,7 +25,9 @@ class TabBarController : UITabBarController, UITabBarControllerDelegate{
     
     
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
-
+        
+               
+        
        if !User.hasUserLoggedIn(){
             if viewController == tabBarController.viewControllers?[2] || viewController == tabBarController.viewControllers?[3] {
                 return false
@@ -49,6 +52,8 @@ class TabBarController : UITabBarController, UITabBarControllerDelegate{
             
             
         }*/
+        print("TAB")
+
         
          if item == tabBar.items?[2] || item == tabBar.items?[3] {
             

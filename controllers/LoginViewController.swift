@@ -187,9 +187,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     func goToMainScreen() {
         let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let loginViewController = storyBoard.instantiateViewController(withIdentifier: "tabBarController")
-        self.dismiss(animated: true, completion: nil)
-        self.present(loginViewController, animated: true, completion: nil)
+        let profileViewController = storyBoard.instantiateViewController(withIdentifier: "tabBarController")
+        //self.dismiss(animated: true, completion: nil)
+        self.present(profileViewController, animated: true, completion: nil)
     }
     
     func displayActionSheet(){

@@ -36,6 +36,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.locals = Items.sharedInstance.locals
+        
         map.delegate = self
         map.showsUserLocation = true
         locationManager.delegate = self
@@ -83,6 +85,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         //-----------------------------------------------------------------
         
         
+        self.drawLocalPins()
+        
     }
     
     @objc func segueFilters(){
@@ -99,7 +103,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     override func viewWillAppear(_ animated: Bool) {
         locationManager.startUpdatingLocation()
         
-        getLocals()
+        //getLocals()
     }
     
     override func viewDidDisappear(_ animated: Bool) {

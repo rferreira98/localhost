@@ -19,6 +19,8 @@
 		C711AD7E238D7E4000A58DE7 /* MapAnnotationDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C711AD7D238D7E4000A58DE7 /* MapAnnotationDetailController.swift */; };
 		C711AD80239040AF00A58DE7 /* Local.swift in Sources */ = {isa = PBXBuildFile; fileRef = C711AD7F239040AF00A58DE7 /* Local.swift */; };
 		C711AD82239045E300A58DE7 /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = C711AD81239045E300A58DE7 /* Review.swift */; };
+		C720D48C239844220039A433 /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C720D48B239844220039A433 /* InitialViewController.swift */; };
+		C720D49023984E7E0039A433 /* Items.swift in Sources */ = {isa = PBXBuildFile; fileRef = C720D48F23984E7E0039A433 /* Items.swift */; };
 		C72BAED8236FC2A40022C461 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72BAED7236FC2A40022C461 /* MapViewController.swift */; };
 		C72BAEDA236FC4240022C461 /* LocationSearchTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72BAED9236FC4240022C461 /* LocationSearchTableController.swift */; };
 		C75321DB239688CC003BB49C /* CustomAnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75321DA239688CC003BB49C /* CustomAnotation.swift */; };
@@ -83,6 +85,8 @@
 		C711AD7D238D7E4000A58DE7 /* MapAnnotationDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAnnotationDetailController.swift; sourceTree = "<group>"; };
 		C711AD7F239040AF00A58DE7 /* Local.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Local.swift; sourceTree = "<group>"; };
 		C711AD81239045E300A58DE7 /* Review.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
+		C720D48B239844220039A433 /* InitialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialViewController.swift; sourceTree = "<group>"; };
+		C720D48F23984E7E0039A433 /* Items.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Items.swift; sourceTree = "<group>"; };
 		C72BAED7236FC2A40022C461 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		C72BAED9236FC4240022C461 /* LocationSearchTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchTableController.swift; sourceTree = "<group>"; };
 		C75321DA239688CC003BB49C /* CustomAnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAnotation.swift; sourceTree = "<group>"; };
@@ -241,6 +245,7 @@
 				C711AD7D238D7E4000A58DE7 /* MapAnnotationDetailController.swift */,
 				C776DE642395268D00EA1767 /* LocalTableViewCell.swift */,
 				C75321DA239688CC003BB49C /* CustomAnotation.swift */,
+				C720D48B239844220039A433 /* InitialViewController.swift */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -254,6 +259,7 @@
 				C78DA84C2382263400CCD60C /* Cities.swift */,
 				C769DE802383953200020527 /* KeychainPasswordItem.swift */,
 				C769DE8223839C9400020527 /* BiometricAuth.swift */,
+				C720D48F23984E7E0039A433 /* Items.swift */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -511,6 +517,7 @@
 			files = (
 				C75321DB239688CC003BB49C /* CustomAnotation.swift in Sources */,
 				C766EC58236FD1120006A248 /* MapFiltersController.swift in Sources */,
+				C720D49023984E7E0039A433 /* Items.swift in Sources */,
 				C766EC69236FDE5E0006A248 /* RegisterViewController.swift in Sources */,
 				C766EC67236FDE530006A248 /* LoginViewController.swift in Sources */,
 				C769DE8323839C9400020527 /* BiometricAuth.swift in Sources */,
@@ -524,6 +531,7 @@
 				C7B62398236FE20700CF4CF6 /* User.swift in Sources */,
 				C766EC61236FD9AD0006A248 /* RecommendationsViewController.swift in Sources */,
 				C766EC65236FDCDD0006A248 /* ListFiltersController.swift in Sources */,
+				C720D48C239844220039A433 /* InitialViewController.swift in Sources */,
 				C78DA84D2382263400CCD60C /* Cities.swift in Sources */,
 				C766EC5C236FD4FC0006A248 /* InfoViewController.swift in Sources */,
 				C769DE812383953200020527 /* KeychainPasswordItem.swift in Sources */,

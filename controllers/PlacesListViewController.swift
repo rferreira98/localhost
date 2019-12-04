@@ -18,6 +18,7 @@ class PlacesListViewController: UITableViewController {
     var tapGesture: UITapGestureRecognizer?
     
     override func viewDidLoad() {
+        self.locals = Items.sharedInstance.locals
         let locationSearchTable = storyboard!.instantiateViewController(withIdentifier: "LocationSearchTable") as! LocationSearchTableController
         resultSearchController = UISearchController(searchResultsController: locationSearchTable)
         resultSearchController.searchResultsUpdater = locationSearchTable
@@ -28,6 +29,9 @@ class PlacesListViewController: UITableViewController {
         definesPresentationContext = true
         searchBar.tintColor = UIColor(named: "AppGreenPrimary")
         searchBar.showsCancelButton = false
+        DispatchQueue.main.async { [unowned self] in
+            self.searchBar.becomeFirstResponder()
+        }
         
         
         let buttonFilter = UIBarButtonItem(image: UIImage(named: "Filter"), style: .plain, target: self, action: #selector(segueFilters))
@@ -40,7 +44,7 @@ class PlacesListViewController: UITableViewController {
         self.refreshControl?.addTarget(self, action: #selector(self.refresh(_:)), for: UIControl.Event.valueChanged)
         
         //----------------
-        getLocals()
+        //getLocals()
     }
     
     @objc func refresh(_ sender: AnyObject) {
