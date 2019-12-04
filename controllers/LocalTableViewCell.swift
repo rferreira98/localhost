@@ -13,7 +13,11 @@ class LocalTableViewCell: UITableViewCell {
     
     
     @IBOutlet weak var ratingView: CosmosView!
-
+    @IBOutlet weak var localName: UILabel!
+    @IBOutlet weak var localType: UILabel!
+    @IBOutlet weak var localAddress: UILabel!
+    @IBOutlet weak var localPhoto: UIImageView!
+    
     
         override func awakeFromNib() {
         super.awakeFromNib()

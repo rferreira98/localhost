@@ -175,7 +175,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="gray" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="offerCell" rowHeight="120" id="SkL-zb-RX7" userLabel="localListCell" customClass="LocalTableViewCell">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="gray" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="localCell" rowHeight="120" id="SkL-zb-RX7" userLabel="localListCell" customClass="LocalTableViewCell" customModule="Localhost" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="120"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="SkL-zb-RX7" id="HML-MQ-ZMq">
@@ -189,25 +189,25 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aBO-B4-QdN" userLabel="Label Local">
-                                            <rect key="frame" x="16" y="60" width="60" height="20"/>
+                                            <rect key="frame" x="16" y="38" width="60" height="20"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Classificação" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iNG-ft-MPN" userLabel="Label Classificacao">
-                                            <rect key="frame" x="16" y="86" width="96" height="20"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tipo" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M5b-WC-DTM" userLabel="Label Nome">
-                                            <rect key="frame" x="16" y="35" width="33" height="20"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tipo" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M5b-WC-DTM" userLabel="Label Type">
+                                            <rect key="frame" x="104" y="11" width="33" height="20"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="btz-bV-oYG" customClass="CosmosView" customModule="Cosmos">
-                                            <rect key="frame" x="144" y="84" width="120" height="20"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Classificação" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iNG-ft-MPN" userLabel="Label Classificacao">
+                                            <rect key="frame" x="16" y="66" width="96" height="20"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="btz-bV-oYG" customClass="CosmosView" customModule="Cosmos">
+                                            <rect key="frame" x="120" y="69" width="120" height="20"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <userDefinedRuntimeAttributes>
                                                 <userDefinedRuntimeAttribute type="number" keyPath="rating">
@@ -228,33 +228,45 @@
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
                                         </view>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dqs-ga-VcG">
+                                            <rect key="frame" x="248" y="15" width="90" height="90"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="90" id="CS0-Ky-FXI"/>
+                                                <constraint firstAttribute="height" constant="90" id="FfN-dP-FKV"/>
+                                            </constraints>
+                                        </imageView>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="2Ox-o2-Xof" firstAttribute="top" secondItem="HML-MQ-ZMq" secondAttribute="top" constant="11" id="2PL-1G-NCB"/>
+                                        <constraint firstItem="dqs-ga-VcG" firstAttribute="leading" secondItem="btz-bV-oYG" secondAttribute="trailing" constant="8" id="2Tb-sq-rCK"/>
+                                        <constraint firstItem="btz-bV-oYG" firstAttribute="leading" secondItem="iNG-ft-MPN" secondAttribute="trailing" constant="8" id="5sx-kT-sOp"/>
+                                        <constraint firstAttribute="trailing" secondItem="dqs-ga-VcG" secondAttribute="trailing" constant="10" id="CPg-8J-Ah5"/>
                                         <constraint firstItem="2Ox-o2-Xof" firstAttribute="leading" secondItem="HML-MQ-ZMq" secondAttribute="leading" constant="16" id="FUG-U2-Gwd"/>
-                                        <constraint firstItem="iNG-ft-MPN" firstAttribute="top" secondItem="aBO-B4-QdN" secondAttribute="bottom" constant="6" id="Qba-Jt-VT6"/>
-                                        <constraint firstItem="M5b-WC-DTM" firstAttribute="top" secondItem="2Ox-o2-Xof" secondAttribute="bottom" constant="5" id="R1V-HR-uIQ"/>
+                                        <constraint firstItem="iNG-ft-MPN" firstAttribute="top" secondItem="aBO-B4-QdN" secondAttribute="bottom" constant="8" id="GPZ-Mb-y6g"/>
+                                        <constraint firstItem="M5b-WC-DTM" firstAttribute="leading" secondItem="2Ox-o2-Xof" secondAttribute="trailing" constant="12" id="J7w-kk-XXO"/>
+                                        <constraint firstAttribute="bottom" secondItem="iNG-ft-MPN" secondAttribute="bottom" constant="34" id="V0k-Ap-I3Z"/>
                                         <constraint firstItem="aBO-B4-QdN" firstAttribute="leading" secondItem="HML-MQ-ZMq" secondAttribute="leading" constant="16" id="bFm-9U-0DF"/>
-                                        <constraint firstItem="M5b-WC-DTM" firstAttribute="leading" secondItem="HML-MQ-ZMq" secondAttribute="leading" constant="16" id="f23-S3-2uN"/>
-                                        <constraint firstItem="btz-bV-oYG" firstAttribute="top" secondItem="HML-MQ-ZMq" secondAttribute="top" constant="84" id="geJ-kH-fSW"/>
-                                        <constraint firstItem="btz-bV-oYG" firstAttribute="leading" secondItem="iNG-ft-MPN" secondAttribute="trailing" constant="32" id="lCN-xH-9Ys"/>
+                                        <constraint firstAttribute="bottom" secondItem="btz-bV-oYG" secondAttribute="bottom" constant="31" id="e2P-z6-Ug7"/>
+                                        <constraint firstAttribute="bottom" secondItem="dqs-ga-VcG" secondAttribute="bottom" constant="15" id="h22-Jf-gUD"/>
                                         <constraint firstItem="iNG-ft-MPN" firstAttribute="leading" secondItem="HML-MQ-ZMq" secondAttribute="leading" constant="16" id="pQO-Hn-099"/>
-                                        <constraint firstItem="aBO-B4-QdN" firstAttribute="top" secondItem="M5b-WC-DTM" secondAttribute="bottom" constant="5" id="vLX-mA-5GG"/>
+                                        <constraint firstItem="M5b-WC-DTM" firstAttribute="top" secondItem="HML-MQ-ZMq" secondAttribute="top" constant="11" id="qmt-yn-cpH"/>
+                                        <constraint firstItem="aBO-B4-QdN" firstAttribute="top" secondItem="2Ox-o2-Xof" secondAttribute="bottom" constant="8" id="qqK-ra-ES3"/>
+                                        <constraint firstItem="dqs-ga-VcG" firstAttribute="top" secondItem="HML-MQ-ZMq" secondAttribute="top" constant="15" id="yuN-Ha-ExS"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="labelScientificArea" destination="2Ox-o2-Xof" id="fR5-bH-66a"/>
+                                    <outlet property="localAddress" destination="aBO-B4-QdN" id="bFT-k3-WKE"/>
+                                    <outlet property="localName" destination="2Ox-o2-Xof" id="8fA-nP-mmY"/>
+                                    <outlet property="localPhoto" destination="dqs-ga-VcG" id="gax-cD-Rxv"/>
+                                    <outlet property="localType" destination="M5b-WC-DTM" id="47I-ao-nFg"/>
                                     <outlet property="ratingView" destination="btz-bV-oYG" id="GUX-UT-TUd"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="Ep5-V4-vVc" id="u5t-w3-NEX"/>
-                            <outlet property="delegate" destination="Ep5-V4-vVc" id="Vnp-D2-Zij"/>
-                        </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="grr-Kf-1ry"/>
                     <connections>
+                        <outlet property="tableView" destination="757-M7-byy" id="Rp1-aU-YOq"/>
                         <segue destination="edd-hC-9MA" kind="show" identifier="listFiltersButton" id="9w1-LV-PVR"/>
                     </connections>
                 </tableViewController>
@@ -766,7 +778,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" image="LocalhostIcon" translatesAutoresizingMaskIntoConstraints="NO" id="nGb-ea-EiD">
-                                <rect key="frame" x="87.666666666666686" y="88" width="200" height="200"/>
+                                <rect key="frame" x="87.666666666666686" y="88" width="200" height="200.00000000000011"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="KDX-yo-zpz"/>
                                     <constraint firstAttribute="height" constant="200" id="i8F-VJ-211"/>
@@ -1269,7 +1281,7 @@
         <image name="NoAvatar" width="256" height="256"/>
         <image name="Recommendation" width="25" height="25"/>
         <image name="Settings" width="25" height="25"/>
-        <image name="chevron.left" catalog="system" width="48" height="64"/>
+        <image name="chevron.left" catalog="system" width="32" height="32"/>
         <namedColor name="AppGreenPrimary">
             <color red="0.33300000429153442" green="0.54500001668930054" blue="0.18400000035762787" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

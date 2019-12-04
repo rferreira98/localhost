@@ -11,12 +11,16 @@ import UIKit
 class PlacesListViewController: UITableViewController {
     
     var resultSearchController: UISearchController!
+    var locals = [Local]()
+    var searchBar: UISearchBar!
+    
+    var tapGesture: UITapGestureRecognizer?
     
     override func viewDidLoad() {
         let locationSearchTable = storyboard!.instantiateViewController(withIdentifier: "LocationSearchTable") as! LocationSearchTableController
         resultSearchController = UISearchController(searchResultsController: locationSearchTable)
         resultSearchController.searchResultsUpdater = locationSearchTable
-        let searchBar = resultSearchController!.searchBar
+        searchBar = resultSearchController!.searchBar
         //navigationItem.searchController = resultSearchController
         self.navigationItem.titleView = searchBar
         resultSearchController.hidesNavigationBarDuringPresentation = false
@@ -27,9 +31,104 @@ class PlacesListViewController: UITableViewController {
         
         let buttonFilter = UIBarButtonItem(image: UIImage(named: "Filter"), style: .plain, target: self, action: #selector(segueFilters))
         self.navigationItem.rightBarButtonItem  = buttonFilter
+        
+        
+        //pull to refresh
+        
+        self.refreshControl?.attributedTitle = NSAttributedString(string: "Puxe para atualizar")
+        self.refreshControl?.addTarget(self, action: #selector(self.refresh(_:)), for: UIControl.Event.valueChanged)
+        
+        //----------------
+        getLocals()
     }
     
+    @objc func refresh(_ sender: AnyObject) {
+        getLocals()
+    }
+        
     @objc func segueFilters(){
         performSegue(withIdentifier: "listFiltersButton", sender: nil)
     }
+    
+    private func getLocals(){
+        NetworkHandler.getLocals() {
+            (locals, error) in OperationQueue.main.addOperation {
+                if error != nil {
+                    let alert = Utils.triggerAlert(title: "Erro", error: error)
+                    self.present(alert, animated: true, completion: nil)
+                }
+                else{
+                    
+                    for local in locals!{
+                        self.locals.append(local)
+                    }
+                    
+                    DispatchQueue.main.async { self.tableView.reloadData() }
+                    print("GOT LOCALS")
+                    
+                    //self.drawLocalPins()
+                }
+            }
+        }
+    }
+    
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        print("touch")
+        self.searchBar.endEditing(true)
+        view.endEditing(true)
+    }
+    
+    /*override func numberOfSections(in tableView: UITableView) -> Int {
+        // #warning Incomplete implementation, return the number of sections
+        return 1
+    }*/
+    
+
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print(locals.count)
+        return locals.count
+    }
+
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "localCell", for: indexPath) as! LocalTableViewCell
+
+        let local = locals[indexPath.row]
+        print(local)
+        cell.localName.text = local.name
+        var typesStr: String = ""
+        for type in local.types {
+            typesStr += type+" "
+        }
+        cell.localType.text = typesStr
+        cell.localAddress.text = local.address
+        cell.ratingView.isHidden = false
+        cell.ratingView.isUserInteractionEnabled = false
+        cell.ratingView.rating = local.avgRating
+        cell.localPhoto.sd_setImage(with: URL(string: local.imageUrl), placeholderImage: UIImage(named: "NoAvatar"))
+    
+        return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        getLocals()
+    }
+    
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        tapGesture = UITapGestureRecognizer(target: self, action: #selector(PlacesListViewController.viewTapped(gestureRecognizer:)))
+        view.addGestureRecognizer(tapGesture!)
+    }
+
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        view.removeGestureRecognizer(tapGesture!)
+    }
+    
+    @objc func viewTapped(gestureRecognizer: UIGestureRecognizer) {
+        view.endEditing(true)
+    }
 }
+
+
+
+

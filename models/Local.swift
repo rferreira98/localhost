@@ -14,7 +14,7 @@ class Local: Decodable {
     var city:String
     var latitude:Double
     var longitude:Double
-    var avgRating:Float
+    var avgRating:Double
     var imageUrl:String
     //private var photos:[String]
     var reviews:Review?
@@ -36,7 +36,7 @@ class Local: Decodable {
         var name:String
         var address:String
         var city:String
-        var avgRating:Float
+        var avgRating:Double
         var imageUrl:String
         //var photos:[String]
         var reviews:Review?
@@ -49,7 +49,7 @@ class Local: Decodable {
             name = try container.decode(String.self, forKey: .name)
             address = try container.decode(String.self, forKey: .address)
             city = try container.decode(String.self, forKey: .city)
-            avgRating = try container.decode(Float.self, forKey: .avgRating)
+            avgRating = try container.decode(Double.self, forKey: .avgRating)
             imageUrl = try container.decode(String.self, forKey: .imageUrl)
             //photos = try container.decode([String].self, forKey: .photos)
             reviews = try? container.decode(Review.self, forKey: .reviews)
@@ -63,11 +63,11 @@ class Local: Decodable {
     
     /*convenience init(_  types: [String], _ name: String, _ address: String, _ city: String, _ avgRating: Float, _ photos: [String], _ latitude:Double, _ longitude: Double) {
         self.init(types, name, address, city, avgRating, photos, nil, latitude, longitude)*/
-    convenience init(_  types: [String], _ name: String, _ address: String, _ city: String, _ avgRating: Float, _ imageUrl: String, _ latitude:Double, _ longitude: Double) {
+    convenience init(_  types: [String], _ name: String, _ address: String, _ city: String, _ avgRating: Double, _ imageUrl: String, _ latitude:Double, _ longitude: Double) {
     self.init(types, name, address, city, avgRating, imageUrl, nil, latitude, longitude)
     }
     //init(_  types: [String], _ name: String, _ address: String, _ city: String, _ avgRating: Float, _ photos: [String], _ reviews:Review?, _ latitude:Double, _ longitude: Double) {
-    init(_  types: [String], _ name: String, _ address: String, _ city: String, _ avgRating: Float, _ imageUrl: String, _ reviews:Review?, _ latitude:Double, _ longitude: Double) {
+    init(_  types: [String], _ name: String, _ address: String, _ city: String, _ avgRating: Double, _ imageUrl: String, _ reviews:Review?, _ latitude:Double, _ longitude: Double) {
         self.types = types
         self.name = name
         self.address = address

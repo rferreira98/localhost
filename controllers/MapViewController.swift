@@ -141,7 +141,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
                 pinAnnotationView = MKPinAnnotationView(annotation: pointAnnotation, reuseIdentifier: "pin")
                 map.addAnnotation(pinAnnotationView.annotation!)
             
-            print(local.imageUrl)
+            
             
         }
     }
