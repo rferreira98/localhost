@@ -64,7 +64,8 @@ class PlacesListViewController: UITableViewController {
                         self.locals.append(local)
                     }
                     
-                    DispatchQueue.main.async { self.tableView.reloadData() }
+                    //DispatchQueue.main.async { self.tableView.reloadData() }
+                    self.tableView.reloadData()
                     print("GOT LOCALS")
                     
                     //self.drawLocalPins()
@@ -112,10 +113,6 @@ class PlacesListViewController: UITableViewController {
         
         
         return cell
-    }
-    
-    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        getLocals()
     }
     
     
