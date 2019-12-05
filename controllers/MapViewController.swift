@@ -15,13 +15,13 @@ protocol HandleMapSearch: class {
 }
 
 class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, MKLocalSearchCompleterDelegate{
-
+    
     @IBOutlet weak var map: MKMapView!
     
     var locals = [Local]()
     
     var resultSearchController: UISearchController!
-
+    
     
     //Custom map pins
     var pointAnnotation:CustomAnnotation!
@@ -129,20 +129,35 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     }
     
     private func drawLocalPins(){
+        
         for local in locals{
+            
             let latitude = local.latitude
             let longitude = local.longitude
-                pointAnnotation = CustomAnnotation()
-                pointAnnotation.pinCustomImageName = "MapMarker"
-                //pointAnnotation.offer = offer
-                //pointAnnotation.search = nil
-                pointAnnotation.local = local
-                pointAnnotation.coordinate = CLLocationCoordinate2D(latitude: latitude ,
-                                                                    longitude: longitude)
-                //pointAnnotation.title = local.name as! String
-
-                pinAnnotationView = MKPinAnnotationView(annotation: pointAnnotation, reuseIdentifier: "pin")
-                map.addAnnotation(pinAnnotationView.annotation!)
+            pointAnnotation = CustomAnnotation()
+            pointAnnotation.pinCustomImageName = "MapMarker"
+            //pointAnnotation.local = local
+            pointAnnotation.coordinate = CLLocationCoordinate2D(latitude: latitude ,
+                                                                longitude: longitude)
+            //pointAnnotation.title = local.name as! String
+            pinAnnotationView = MKPinAnnotationView(annotation: pointAnnotation, reuseIdentifier: "pin")
+            //map.addAnnotation(pinAnnotationView.annotation!)
+            
+            
+            
+            let artwork = Artwork(
+                title: local.name,
+             locationName: local.address,
+             coordinate: CLLocationCoordinate2D(latitude: latitude, longitude: longitude),
+             localRating: local.avgRating)
+             
+             map.addAnnotation(artwork)
+            
+            map.register(ArtworkView.self,
+            forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
+            
+            
+            
             
         }
     }
@@ -150,7 +165,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         //if status == CLAuthorizationStatus.authorizedWhenInUse{
-            locationManager.startUpdatingLocation()
+        locationManager.startUpdatingLocation()
         //}
     }
     
@@ -170,9 +185,17 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         }
     }
     
-        
-        //MARK: - Custom Annotation
-    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView,
+        calloutAccessoryControlTapped control: UIControl) {
+      let location = view.annotation as! Artwork
+      let launchOptions = [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving]
+
+      location.mapItem().openInMaps(launchOptions: launchOptions)
+    }
+    
+    
+    //MARK: - Custom Annotation
+    /*func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if annotation is MKUserLocation{
             return nil
         }else{
@@ -192,41 +215,41 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             return annotationView
         }
         
-    }
+    }*/
     
     
     
     
     /*func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView)
-    {
-        
-        let annotation = view.annotation as! CustomAnnotation
-        
-        if view.annotation is MKUserLocation
-        {
-            // Don't proceed with custom callout
-            return
-        }else {
-            
-        }
-        let views = Bundle.main.loadNibNamed("ListingMapDetailView", owner: nil, options: nil)
-        let calloutView = views?[0] as! ListingMapDetailViewController
-        calloutView.labelName.text = annotation.listing.curricularUnit["name"] as! String
-        calloutView.center = CGPoint(x: view.bounds.size.width / 2, y: -calloutView.bounds.size.height*0.52)
-        view.addSubview(calloutView)
-        mapView.setCenter((view.annotation?.coordinate)!, animated: true)
-    }*/
-
-
+     {
+     
+     let annotation = view.annotation as! CustomAnnotation
+     
+     if view.annotation is MKUserLocation
+     {
+     // Don't proceed with custom callout
+     return
+     }else {
+     
+     }
+     let views = Bundle.main.loadNibNamed("ListingMapDetailView", owner: nil, options: nil)
+     let calloutView = views?[0] as! ListingMapDetailViewController
+     calloutView.labelName.text = annotation.listing.curricularUnit["name"] as! String
+     calloutView.center = CGPoint(x: view.bounds.size.width / 2, y: -calloutView.bounds.size.height*0.52)
+     view.addSubview(calloutView)
+     mapView.setCenter((view.annotation?.coordinate)!, animated: true)
+     }*/
+    
+    
 }
 extension MapViewController: HandleMapSearch {
-
+    
     //When a searched location is clicked the map will zomm on it
     func zoomLocation(_ placemark: MKPlacemark){
         let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
         let region = MKCoordinateRegion(center: placemark.coordinate, span: span)
         map.setRegion(region, animated: true)
-    
+        
     }
-
+    
 }

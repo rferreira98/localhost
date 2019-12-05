@@ -7,10 +7,11 @@
 //
 
 import UIKit
-
+import MapKit
 
 class InitialViewController: UIViewController{
     var locals = [Local]()
+    let locationManager = CLLocationManager()
     
     override func viewWillAppear(_ animated: Bool) {
         getLocals()

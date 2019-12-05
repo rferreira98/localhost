@@ -12,6 +12,8 @@ import SDWebImage
 
 class MapAnnotationDetailController: UIView {
     
-    
+    class func instanceFromNib() -> MapAnnotationDetailController {
+        return UINib(nibName: "MapAnnotationDetail", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! MapAnnotationDetailController
+    }
     
 }

@@ -22,6 +22,7 @@
 		C711AD82239045E300A58DE7 /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = C711AD81239045E300A58DE7 /* Review.swift */; };
 		C720D48C239844220039A433 /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C720D48B239844220039A433 /* InitialViewController.swift */; };
 		C720D49023984E7E0039A433 /* Items.swift in Sources */ = {isa = PBXBuildFile; fileRef = C720D48F23984E7E0039A433 /* Items.swift */; };
+		C720D492239879C50039A433 /* Artwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = C720D491239879C50039A433 /* Artwork.swift */; };
 		C72BAED8236FC2A40022C461 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72BAED7236FC2A40022C461 /* MapViewController.swift */; };
 		C72BAEDA236FC4240022C461 /* LocationSearchTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72BAED9236FC4240022C461 /* LocationSearchTableController.swift */; };
 		C75321DB239688CC003BB49C /* CustomAnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75321DA239688CC003BB49C /* CustomAnotation.swift */; };
@@ -41,11 +42,13 @@
 		C78DA8492381EE8500CCD60C /* NetworkHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C78DA8482381EE8500CCD60C /* NetworkHandler.swift */; };
 		C78DA84B2382145F00CCD60C /* NetworkErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = C78DA84A2382145F00CCD60C /* NetworkErrors.swift */; };
 		C78DA84D2382263400CCD60C /* Cities.swift in Sources */ = {isa = PBXBuildFile; fileRef = C78DA84C2382263400CCD60C /* Cities.swift */; };
+		C7A81B9D239883BB00B59A7A /* ArtworkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A81B9C239883BB00B59A7A /* ArtworkView.swift */; };
 		C7B62395236FE1B900CF4CF6 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B62394236FE1B900CF4CF6 /* TabBarController.swift */; };
 		C7B62398236FE20700CF4CF6 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B62397236FE20700CF4CF6 /* User.swift */; };
 		C7CA1DFB236FE5F200A1A72A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7CA1DF9236FE5F200A1A72A /* Main.storyboard */; };
 		C7D6EF6223711B6300D33E4B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D6EF6123711B6200D33E4B /* SceneDelegate.swift */; };
 		C7E9E67A23710082004BB27C /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E9E67923710082004BB27C /* ProfileViewController.swift */; };
+		C7F805F12399351C005E1212 /* LocalDetailedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F805F02399351C005E1212 /* LocalDetailedViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,6 +92,7 @@
 		C711AD81239045E300A58DE7 /* Review.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
 		C720D48B239844220039A433 /* InitialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialViewController.swift; sourceTree = "<group>"; };
 		C720D48F23984E7E0039A433 /* Items.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Items.swift; sourceTree = "<group>"; };
+		C720D491239879C50039A433 /* Artwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Artwork.swift; sourceTree = "<group>"; };
 		C72BAED7236FC2A40022C461 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		C72BAED9236FC4240022C461 /* LocationSearchTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchTableController.swift; sourceTree = "<group>"; };
 		C75321DA239688CC003BB49C /* CustomAnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAnotation.swift; sourceTree = "<group>"; };
@@ -109,11 +113,13 @@
 		C78DA8482381EE8500CCD60C /* NetworkHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkHandler.swift; sourceTree = "<group>"; };
 		C78DA84A2382145F00CCD60C /* NetworkErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkErrors.swift; sourceTree = "<group>"; };
 		C78DA84C2382263400CCD60C /* Cities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cities.swift; sourceTree = "<group>"; };
+		C7A81B9C239883BB00B59A7A /* ArtworkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtworkView.swift; sourceTree = "<group>"; };
 		C7B62394236FE1B900CF4CF6 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		C7B62397236FE20700CF4CF6 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		C7CA1DFA236FE5F200A1A72A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C7D6EF6123711B6200D33E4B /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		C7E9E67923710082004BB27C /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		C7F805F02399351C005E1212 /* LocalDetailedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDetailedViewController.swift; sourceTree = "<group>"; };
 		D7D700F0C14C9D7F9D4CB253 /* Pods-localhost-localhostUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-localhost-localhostUITests.debug.xcconfig"; path = "Target Support Files/Pods-localhost-localhostUITests/Pods-localhost-localhostUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		DB2C673CDC94E2B79A1C4DB8 /* Pods-localhost.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-localhost.debug.xcconfig"; path = "Target Support Files/Pods-localhost/Pods-localhost.debug.xcconfig"; sourceTree = "<group>"; };
 		EABC756ECEE2BDCF6FCFAE9D /* Pods_localhost.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_localhost.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -249,6 +255,7 @@
 				C75321DA239688CC003BB49C /* CustomAnotation.swift */,
 				C720D48B239844220039A433 /* InitialViewController.swift */,
 				230E0E8423986944001AB7E6 /* FiltersTableViewController.swift */,
+				C7F805F02399351C005E1212 /* LocalDetailedViewController.swift */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -263,6 +270,8 @@
 				C769DE802383953200020527 /* KeychainPasswordItem.swift */,
 				C769DE8223839C9400020527 /* BiometricAuth.swift */,
 				C720D48F23984E7E0039A433 /* Items.swift */,
+				C720D491239879C50039A433 /* Artwork.swift */,
+				C7A81B9C239883BB00B59A7A /* ArtworkView.swift */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -518,6 +527,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C720D492239879C50039A433 /* Artwork.swift in Sources */,
 				C75321DB239688CC003BB49C /* CustomAnotation.swift in Sources */,
 				C766EC58236FD1120006A248 /* MapFiltersController.swift in Sources */,
 				C720D49023984E7E0039A433 /* Items.swift in Sources */,
@@ -534,6 +544,7 @@
 				C78DA8492381EE8500CCD60C /* NetworkHandler.swift in Sources */,
 				C7B62398236FE20700CF4CF6 /* User.swift in Sources */,
 				C766EC61236FD9AD0006A248 /* RecommendationsViewController.swift in Sources */,
+				C7A81B9D239883BB00B59A7A /* ArtworkView.swift in Sources */,
 				C766EC65236FDCDD0006A248 /* ListFiltersController.swift in Sources */,
 				C720D48C239844220039A433 /* InitialViewController.swift in Sources */,
 				C78DA84D2382263400CCD60C /* Cities.swift in Sources */,
@@ -544,6 +555,7 @@
 				C766EC63236FDB4D0006A248 /* PlacesListViewController.swift in Sources */,
 				C72BAED8236FC2A40022C461 /* MapViewController.swift in Sources */,
 				C711AD7E238D7E4000A58DE7 /* MapAnnotationDetailController.swift in Sources */,
+				C7F805F12399351C005E1212 /* LocalDetailedViewController.swift in Sources */,
 				C711AD80239040AF00A58DE7 /* Local.swift in Sources */,
 				C776DE652395268D00EA1767 /* LocalTableViewCell.swift in Sources */,
 				C78DA84B2382145F00CCD60C /* NetworkErrors.swift in Sources */,
