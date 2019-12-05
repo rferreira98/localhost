@@ -111,7 +111,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     }
     
     private func getLocals(){
-        NetworkHandler.getLocals() {
+        /*NetworkHandler.getLocals() {
             (locals, error) in OperationQueue.main.addOperation {
                 if error != nil {
                     let alert = Utils.triggerAlert(title: "Erro", error: error)
@@ -125,7 +125,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
                     self.drawLocalPins()
                 }
             }
-        }
+        }*/
     }
     
     private func drawLocalPins(){

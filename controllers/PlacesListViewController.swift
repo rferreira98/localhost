@@ -56,7 +56,7 @@ class PlacesListViewController: UITableViewController {
     }
     
     private func getLocals(){
-        NetworkHandler.getLocals() {
+        /*NetworkHandler.getLocals() {
             (locals, error) in OperationQueue.main.addOperation {
                 if error != nil {
                     let alert = Utils.triggerAlert(title: "Erro", error: error)
@@ -75,7 +75,7 @@ class PlacesListViewController: UITableViewController {
                     //self.drawLocalPins()
                 }
             }
-        }
+        }*/
     }
     
     

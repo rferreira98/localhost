@@ -9,21 +9,55 @@
 import UIKit
 import MapKit
 
-class InitialViewController: UIViewController{
+class InitialViewController: UIViewController, CLLocationManagerDelegate{
     var locals = [Local]()
     let locationManager = CLLocationManager()
     
     override func viewWillAppear(_ animated: Bool) {
-        getLocals()
-        self.showSpinner(onView: self.view)
+        
+        locationManager.delegate = self
+        
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.distanceFilter = kCLDistanceFilterNone
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.requestLocation()
+        
+        locationManager.startUpdatingLocation()
+        
+        
+        
+        
     }
     
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        //if status == CLAuthorizationStatus.authorizedWhenInUse{
+        locationManager.startUpdatingLocation()
+        
+        //}
+    }
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        getLocals()
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print(error)
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        locationManager.stopUpdatingLocation()
+    }
+    
+    
     private func getLocals(){
-        NetworkHandler.getLocals() {
+        self.showSpinner(onView: self.view)
+
+        NetworkHandler.getLocals(latitude: Double((locationManager.location?.coordinate.latitude)!), longitude: Double((locationManager.location?.coordinate.longitude)!)) {
             (locals, error) in OperationQueue.main.addOperation {
                 if error != nil {
                     let alert = Utils.triggerAlert(title: "Erro", error: error)
                     self.present(alert, animated: true, completion: nil)
+                    self.removeSpinner()
+                    self.goToMainScreen()
                 }
                 else{
                     
@@ -32,7 +66,6 @@ class InitialViewController: UIViewController{
                     }
                     
                     self.goToMainScreen()
-                    
                     
                 }
             }

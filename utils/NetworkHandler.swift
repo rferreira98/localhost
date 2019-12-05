@@ -395,15 +395,22 @@ class NetworkHandler {
         task.resume()
     }
 
-    static func getLocals(completionHandler: @escaping ([Local]?, _ error: String?) -> Void) {
+    static func getLocals(latitude: Double?, longitude: Double?, completionHandler: @escaping ([Local]?, _ error: String?) -> Void) {
         if !NetworkHandler.appDelegate.isNetworkOn {
             completionHandler(nil, "Sem ligação à internet")
             return
         }
         
+        var urlLocals: URL
+        
+        if latitude != nil && longitude != nil {
+            urlLocals = URL(string: baseUrl + "/search?latitude="+String(latitude!)+"&longitude="+String(longitude!)+"&radius=2000")!
+        }else {
+            urlLocals = URL(string: baseUrl + "/search")!
+        }
         
         
-        let urlLocals = URL(string: baseUrl + "/search")!
+        
         //let urlLocals = URL(string:"https://5de010c2bb46ce001434c034.mockapi.io/locals")!
 
         let localsTask = URLSession.shared.dataTask(with: urlLocals) { data, response, responseError in

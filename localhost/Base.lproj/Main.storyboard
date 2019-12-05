@@ -259,6 +259,7 @@
                                         <constraint firstItem="M5b-WC-DTM" firstAttribute="top" secondItem="HML-MQ-ZMq" secondAttribute="top" constant="15" id="4Mp-S3-CuL"/>
                                         <constraint firstItem="btz-bV-oYG" firstAttribute="leading" secondItem="iNG-ft-MPN" secondAttribute="trailing" constant="8" id="5sx-kT-sOp"/>
                                         <constraint firstAttribute="bottom" secondItem="iNG-ft-MPN" secondAttribute="bottom" constant="25" id="BHH-Ry-WUW"/>
+                                        <constraint firstItem="btz-bV-oYG" firstAttribute="top" secondItem="M5b-WC-DTM" secondAttribute="bottom" constant="33" id="DjW-3P-obX"/>
                                         <constraint firstItem="iNG-ft-MPN" firstAttribute="top" secondItem="aBO-B4-QdN" secondAttribute="bottom" constant="8" id="GPZ-Mb-y6g"/>
                                         <constraint firstItem="M5b-WC-DTM" firstAttribute="leading" secondItem="2Ox-o2-Xof" secondAttribute="trailing" constant="12" id="J7w-kk-XXO"/>
                                         <constraint firstItem="2Ox-o2-Xof" firstAttribute="leading" secondItem="dqs-ga-VcG" secondAttribute="trailing" constant="10" id="QWp-cn-TQH"/>
@@ -266,6 +267,7 @@
                                         <constraint firstItem="iNG-ft-MPN" firstAttribute="leading" secondItem="dqs-ga-VcG" secondAttribute="trailing" constant="10" id="kHT-fG-dRc"/>
                                         <constraint firstItem="aBO-B4-QdN" firstAttribute="top" secondItem="2Ox-o2-Xof" secondAttribute="bottom" constant="8" id="qqK-ra-ES3"/>
                                         <constraint firstItem="aBO-B4-QdN" firstAttribute="leading" secondItem="dqs-ga-VcG" secondAttribute="trailing" constant="10" id="qsY-gT-P5R"/>
+                                        <constraint firstItem="btz-bV-oYG" firstAttribute="trailing" secondItem="HML-MQ-ZMq" secondAttribute="trailingMargin" id="yzp-qt-jkX"/>
                                         <constraint firstItem="2Ox-o2-Xof" firstAttribute="top" secondItem="HML-MQ-ZMq" secondAttribute="top" constant="15" id="zSm-z6-O6n"/>
                                     </constraints>
                                 </tableViewCellContentView>
