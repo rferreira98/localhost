@@ -186,6 +186,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     
     func goToMainScreen() {
+        UserDefaults.standard.set(0, forKey: "metricUnit")
         let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let profileViewController = storyBoard.instantiateViewController(withIdentifier: "tabBarController")
         //self.dismiss(animated: true, completion: nil)

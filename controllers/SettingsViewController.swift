@@ -16,6 +16,7 @@ class SettingsViewController: UITableViewController, MFMailComposeViewController
     @IBOutlet weak var switchDarkMode: UISwitch!
     @IBOutlet weak var imageViewAvatar: UIImageView!
     @IBOutlet weak var switchAuth: UISwitch!
+    @IBOutlet weak var segmentedControl: UISegmentedControl!
     
     override func viewDidAppear(_ animated: Bool) {
         //removes the separator/line on the table cell
@@ -25,6 +26,7 @@ class SettingsViewController: UITableViewController, MFMailComposeViewController
         
         switchAuth.setOn(UserDefaults.standard.bool(forKey: "usesBiometricAuth"), animated: true)
         
+        segmentedControl.selectedSegmentIndex = UserDefaults.standard.integer(forKey: "metricUnit")
         
         let authLabel = tableView.cellForRow(at: IndexPath(row: 1, section: 1))?.contentView.subviews[0] as! UILabel
         authLabel.text = "Autenticação com "+Utils.getBiometricSensor()
@@ -75,32 +77,32 @@ class SettingsViewController: UITableViewController, MFMailComposeViewController
     
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-           self.tableView.deselectRow(at: indexPath, animated: true)
-            //if the selected cell is the "contact" cell at index 2, opens the system mail app
-            if indexPath.section == 2 {
-               if MFMailComposeViewController.canSendMail() {
-                   let mail = MFMailComposeViewController()
-                   mail.mailComposeDelegate = self
-                   mail.setToRecipients(["team.localh@gmail.com"])
-                   mail.setSubject("App Contact")
-                   
-                   
-                   present(mail, animated: true)
-               } else {
-                   let alert = Utils.triggerAlert(title: "Error", error: "Error opening e-mail app")
-                   self.present(alert, animated: true, completion: nil)
-               }
-               
-            }else if indexPath.section == 1{
-                if indexPath.row == 1{
-                    UIApplication.shared.open(URL(string:"App-Prefs:root=NOTIFICATIONS_ID")!, options: [:], completionHandler: nil)
-                }
+        self.tableView.deselectRow(at: indexPath, animated: true)
+        //if the selected cell is the "contact" cell at index 2, opens the system mail app
+        if indexPath.section == 2 {
+            if MFMailComposeViewController.canSendMail() {
+                let mail = MFMailComposeViewController()
+                mail.mailComposeDelegate = self
+                mail.setToRecipients(["team.localh@gmail.com"])
+                mail.setSubject("App Contact")
+                
+                
+                present(mail, animated: true)
+            } else {
+                let alert = Utils.triggerAlert(title: "Error", error: "Error opening e-mail app")
+                self.present(alert, animated: true, completion: nil)
             }
-       }
-       
-       func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
-           controller.dismiss(animated: true)
-       }
+            
+        }else if indexPath.section == 1{
+            if indexPath.row == 1{
+                UIApplication.shared.open(URL(string:"App-Prefs:root=NOTIFICATIONS_ID")!, options: [:], completionHandler: nil)
+            }
+        }
+    }
+    
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true)
+    }
     
     @IBAction func darkModeSwitcher(_ sender: Any) {
         if switchDarkMode.isOn {
@@ -121,6 +123,17 @@ class SettingsViewController: UITableViewController, MFMailComposeViewController
         }
     }
     
+    @IBAction func onValueSegmentedControlMetricUnitChange(_ sender: Any) {
+        switch segmentedControl.selectedSegmentIndex
+        {
+        case 0:
+            UserDefaults.standard.set(0, forKey: "metricUnit")
+        case 1:
+            UserDefaults.standard.set(1, forKey: "metricUnit")
+        default:
+            break
+        }
+    }
     
 }
 
