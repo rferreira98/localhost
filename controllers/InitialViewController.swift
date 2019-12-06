@@ -24,26 +24,29 @@ class InitialViewController: UIViewController, CLLocationManagerDelegate{
         
         locationManager.startUpdatingLocation()
         
+        
     }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         if status == CLAuthorizationStatus.authorizedWhenInUse || status == CLAuthorizationStatus.authorizedAlways{
-            locationManager.startUpdatingLocation()
+            //locationManager.startUpdatingLocation()
             getLocals()
         }else {
-            let alertController = UIAlertController(title: "Erro", message: "Por favor autorize a utilização da localização para o correto funcionamento da aplicação nas Definições.", preferredStyle: .alert)
-            let settingsAction = UIAlertAction(title: "Definições", style: .default) { (_) -> Void in
-                guard let settingsUrl = URL(string: "App-Prefs:root=Privacy&path=LOCATION_SERVICES")  else {
-                    return
+            if(UserDefaults.standard.bool(forKey: "hasBeenLaunched")){
+                let alertController = UIAlertController(title: "Erro", message: "Por favor autorize a utilização da localização para o correto funcionamento da aplicação nas Definições.", preferredStyle: .alert)
+                let settingsAction = UIAlertAction(title: "Definições", style: .default) { (_) -> Void in
+                    guard let settingsUrl = URL(string: "App-Prefs:root=Privacy&path=LOCATION_SERVICES")  else {
+                        return
+                    }
+                    if UIApplication.shared.canOpenURL(settingsUrl) {
+                        UIApplication.shared.open(settingsUrl, completionHandler: { (success) in })
+                     }
                 }
-                if UIApplication.shared.canOpenURL(settingsUrl) {
-                    UIApplication.shared.open(settingsUrl, completionHandler: { (success) in })
-                 }
+                let cancelAction = UIAlertAction(title: "Cancelar", style: .default, handler: nil)
+                alertController.addAction(cancelAction)
+                alertController.addAction(settingsAction)
+                self.present(alertController, animated: true, completion: nil)
             }
-            let cancelAction = UIAlertAction(title: "Cancelar", style: .default, handler: nil)
-            alertController.addAction(cancelAction)
-            alertController.addAction(settingsAction)
-            self.present(alertController, animated: true, completion: nil)
             
         }
         
@@ -92,6 +95,9 @@ class InitialViewController: UIViewController, CLLocationManagerDelegate{
     
     func goToMainScreen() {
         //go to first screen
+        UserDefaults.standard.set(true, forKey: "hasBeenLaunched")
+        UserDefaults.standard.synchronize()
+        
         let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let first = storyBoard.instantiateViewController(withIdentifier: "tabBarController")
         //let mvc = MapViewController()

@@ -15,12 +15,14 @@ class Artwork: NSObject, MKAnnotation {
     let locationName: String
     let coordinate: CLLocationCoordinate2D
     let localRating: Double
+    let local: Local
     
-    init(title: String, locationName: String, coordinate: CLLocationCoordinate2D, localRating: Double) {
+    init(title: String, locationName: String, coordinate: CLLocationCoordinate2D, localRating: Double, local: Local) {
         self.title = title
         self.locationName = locationName
         self.coordinate = coordinate
         self.localRating = localRating
+        self.local = local
         
         super.init()
     }

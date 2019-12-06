@@ -47,6 +47,7 @@
 		C7B62398236FE20700CF4CF6 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B62397236FE20700CF4CF6 /* User.swift */; };
 		C7CA1DFB236FE5F200A1A72A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7CA1DF9236FE5F200A1A72A /* Main.storyboard */; };
 		C7D6EF6223711B6300D33E4B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D6EF6123711B6200D33E4B /* SceneDelegate.swift */; };
+		C7D9339A2399F98300CC5464 /* ReviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D933992399F98300CC5464 /* ReviewTableViewCell.swift */; };
 		C7E9E67A23710082004BB27C /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E9E67923710082004BB27C /* ProfileViewController.swift */; };
 		C7F805F12399351C005E1212 /* LocalDetailedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F805F02399351C005E1212 /* LocalDetailedViewController.swift */; };
 /* End PBXBuildFile section */
@@ -118,6 +119,7 @@
 		C7B62397236FE20700CF4CF6 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		C7CA1DFA236FE5F200A1A72A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C7D6EF6123711B6200D33E4B /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		C7D933992399F98300CC5464 /* ReviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewTableViewCell.swift; sourceTree = "<group>"; };
 		C7E9E67923710082004BB27C /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		C7F805F02399351C005E1212 /* LocalDetailedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDetailedViewController.swift; sourceTree = "<group>"; };
 		D7D700F0C14C9D7F9D4CB253 /* Pods-localhost-localhostUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-localhost-localhostUITests.debug.xcconfig"; path = "Target Support Files/Pods-localhost-localhostUITests/Pods-localhost-localhostUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -256,6 +258,7 @@
 				C720D48B239844220039A433 /* InitialViewController.swift */,
 				230E0E8423986944001AB7E6 /* FiltersTableViewController.swift */,
 				C7F805F02399351C005E1212 /* LocalDetailedViewController.swift */,
+				C7D933992399F98300CC5464 /* ReviewTableViewCell.swift */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -558,6 +561,7 @@
 				C7F805F12399351C005E1212 /* LocalDetailedViewController.swift in Sources */,
 				C711AD80239040AF00A58DE7 /* Local.swift in Sources */,
 				C776DE652395268D00EA1767 /* LocalTableViewCell.swift in Sources */,
+				C7D9339A2399F98300CC5464 /* ReviewTableViewCell.swift in Sources */,
 				C78DA84B2382145F00CCD60C /* NetworkErrors.swift in Sources */,
 				C776DE632395220E00EA1767 /* UserReviewer.swift in Sources */,
 			);

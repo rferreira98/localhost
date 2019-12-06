@@ -9,8 +9,8 @@
 import Foundation
 
 class UserReviewer: Decodable {
-    private var profile_url:URL
-    private var image_url:URL?
+    private var profile_url:String
+    private var image_url:String?
     private var name:String
     
     required convenience init(from decoder: Decoder) throws
@@ -25,14 +25,14 @@ class UserReviewer: Decodable {
             throw error
         }
         
-        var profile_url:URL
-        var image_url:URL
+        var profile_url:String
+        var image_url:String?
         var name:String
         
         do
         {
-            profile_url = try container.decode(URL.self, forKey: .profile_url)
-            image_url = try container.decode(URL.self, forKey: .image_url)
+            profile_url = try container.decode(String.self, forKey: .profile_url)
+            image_url = try? container.decode(String?.self, forKey: .image_url) ?? nil
             name = try container.decode(String.self, forKey: .name)
             
             
@@ -42,7 +42,7 @@ class UserReviewer: Decodable {
     }
     
 
-    init(_  profile_url: URL, _ image_url: URL?, _ name: String) {
+    init(_  profile_url: String, _ image_url: String?, _ name: String) {
         self.profile_url = profile_url
         self.image_url = image_url
         self.name = name

@@ -10,10 +10,10 @@ import Foundation
 
 
 class Review: Decodable {
-    private var user:UserReviewer
-    private var text:String
-    private var rating:Float
-    private var url:URL
+     var user:UserReviewer
+     var text:String
+     var rating:Double
+     var url:String
 
     required convenience init(from decoder: Decoder) throws
         {
@@ -29,15 +29,15 @@ class Review: Decodable {
 
             var user:UserReviewer
             var text:String
-            var rating:Float
-            var url:URL
+            var rating:Double
+            var url:String
 
             do
             {
                 user = try container.decode(UserReviewer.self, forKey: .user)
                 text = try container.decode(String.self, forKey: .text)
-                rating = try container.decode(Float.self, forKey: .rating)
-                url = try container.decode(URL.self, forKey: .url)
+                rating = try container.decode(Double.self, forKey: .rating)
+                url = try container.decode(String.self, forKey: .url)
 
 
             }
@@ -45,7 +45,7 @@ class Review: Decodable {
         }
 
 
-    init(_  user: UserReviewer, _ text: String, _ rating: Float, _ url: URL) {
+    init(_  user: UserReviewer, _ text: String, _ rating: Double, _ url: String) {
             self.user = user
             self.text = text
             self.rating = rating

@@ -32,6 +32,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     var lastLocationObj: CLLocation?
     
+    var localToSend:Local!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -149,7 +151,9 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
                 title: local.name,
              locationName: local.address,
              coordinate: CLLocationCoordinate2D(latitude: latitude, longitude: longitude),
-             localRating: local.avgRating)
+             localRating: local.avgRating,
+             local: local
+            )
              
              map.addAnnotation(artwork)
             
@@ -191,8 +195,16 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
       let launchOptions = [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving]
 
       location.mapItem().openInMaps(launchOptions: launchOptions)*/
+        let artwork = view.annotation as! Artwork
+        localToSend = artwork.local
         
         performSegue(withIdentifier: "segueMapLocalDetail", sender: nil)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let smld=segue.destination as? LocalDetailedViewController {
+            smld.local = self.localToSend
+        }
     }
     
     
