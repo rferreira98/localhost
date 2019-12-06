@@ -532,6 +532,41 @@ class NetworkHandler {
         
         localsTask.resume()
     }
+    
+    static func getLocalsFilteredByDistance(currentLocationLatitude: Double, currentLocationLongitude: Double, radius: Double, completionHandler: @escaping ([Local]?, _ error: String?) -> Void) {
+        if !NetworkHandler.appDelegate.isNetworkOn {
+            completionHandler(nil, "Sem ligação à internet")
+            return
+        }
+        
+        let urlLocals = URL(string: baseUrl + "/search?latitude=\(currentLocationLatitude)&longitude=\(currentLocationLongitude)&radius=\(radius)")!
+        //let urlLocals = URL(string:"https://5de010c2bb46ce001434c034.mockapi.io/locals")!
+
+        let localsTask = URLSession.shared.dataTask(with: urlLocals) { data, response, responseError in
+            let error = getServerError(responseData: data, response: response, responseError: responseError)
+            guard error == nil else {
+                return completionHandler(nil, error)
+            }
+
+            var locals = [Local]()
+
+            if let data = data {
+                let decoder = JSONDecoder()
+                do {
+                    //print(String(data: data, encoding: .utf8) ?? "no body data")
+                    locals = try decoder.decode([Local].self, from: data)
+                    
+                } catch let exception {
+                    completionHandler(nil, exception.localizedDescription)
+                    return
+                }
+
+            }
+            completionHandler(locals, nil)
+        }
+
+        localsTask.resume()
+    }
 }
 
 class PostRequest {
