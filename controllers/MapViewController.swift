@@ -136,13 +136,15 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             
             let latitude = local.latitude
             let longitude = local.longitude
-            pointAnnotation = CustomAnnotation()
+            
+            
+            /*pointAnnotation = CustomAnnotation()
             pointAnnotation.pinCustomImageName = "MapMarker"
-            //pointAnnotation.local = local
+            pointAnnotation.local = local
             pointAnnotation.coordinate = CLLocationCoordinate2D(latitude: latitude ,
                                                                 longitude: longitude)
-            //pointAnnotation.title = local.name as! String
-            pinAnnotationView = MKPinAnnotationView(annotation: pointAnnotation, reuseIdentifier: "pin")
+            pointAnnotation.title = local.name as! String
+            pinAnnotationView = MKPinAnnotationView(annotation: pointAnnotation, reuseIdentifier: "pin")*/
             //map.addAnnotation(pinAnnotationView.annotation!)
             
             

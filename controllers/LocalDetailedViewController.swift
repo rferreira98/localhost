@@ -9,6 +9,7 @@
 import UIKit
 import MapKit
 import Contacts
+import Cosmos
 
 class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableViewDelegate, UITableViewDataSource {
     
@@ -22,14 +23,16 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
     @IBOutlet weak var buttonMapDirections: UIButton!
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var reviewsTableView: UITableView!
+    @IBOutlet weak var ratingView: CosmosView!
+    @IBOutlet weak var labelQtReviews: UILabel!
     
     override func viewDidLoad() {
         mapView.delegate = self
         mapView.userTrackingMode = .follow
-        mapView.showsUserLocation = true
-        mapView.showsScale = true
-        mapView.showsCompass = true
-        mapView.showsPointsOfInterest = false
+        mapView.showsUserLocation = false
+        mapView.showsScale = false
+        mapView.showsCompass = false
+        mapView.showsPointsOfInterest = true
         mapView.isUserInteractionEnabled = false
         
         reviews = local.reviews
@@ -45,7 +48,11 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
             typesStr += type+" "
         }
         self.labelLocalType.text = typesStr
+        self.labelLocalAddress.numberOfLines = 0
         self.labelLocalAddress.text = local.address
+        self.ratingView.isUserInteractionEnabled = false
+        self.ratingView.rating = self.local.avgRating
+        self.labelQtReviews.text = String(local.qtReviews)
         
     }
     
@@ -58,7 +65,7 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
             }
         }*/
 
-        let region = MKCoordinateRegion(center: selectedCoordinate, latitudinalMeters: 1000, longitudinalMeters: 1000)
+        let region = MKCoordinateRegion(center: selectedCoordinate, latitudinalMeters: 700, longitudinalMeters: 700)
         mapView.setRegion(region, animated: true)
         mapView.isZoomEnabled = false
         mapView.isPitchEnabled = false
@@ -80,10 +87,14 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
          local: local
         )
          
-         mapView.addAnnotation(artwork)
+        mapView.addAnnotation(artwork)
+        mapView.register(ArtworkView.self,
+        forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
+        
         reviewsTableView.delegate=self
         reviewsTableView.dataSource=self
         reviewsTableView.tableFooterView = UIView()
+        
     }
     
     @IBAction func buttonMapClicked(_ sender: Any) {
@@ -113,8 +124,18 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
         let review = reviews[indexPath.row]
         
         cell.labelReview.text = review?.text
+        cell.labelReview.numberOfLines = 0
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection
+                                section: Int) -> String? {
+        if section == 0 {
+            return "Reviews"
+        }
+        
+        return ""
     }
     
     
