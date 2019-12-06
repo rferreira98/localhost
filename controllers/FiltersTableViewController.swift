@@ -16,10 +16,19 @@ class FiltersTableViewController: UITableViewController, CLLocationManagerDelega
     
     let locationManager = CLLocationManager()
     
+    var lastLocationObj: CLLocationCoordinate2D?
     var currentRadiusValue: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyBest
+            locationManager.distanceFilter = kCLDistanceFilterNone
+            locationManager.requestWhenInUseAuthorization()
+            locationManager.requestLocation()
+        }
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -107,100 +116,110 @@ class FiltersTableViewController: UITableViewController, CLLocationManagerDelega
         if UserDefaults.standard.integer(forKey: "metricUnit") == 0 {
             lblDistance.text = "\(currentRadiusValue) km"
         }else if UserDefaults.standard.integer(forKey: "metricUnit") == 1 {
-            lblDistance.text = "\(currentRadiusValue) miles"
+            if currentRadiusValue == 1{
+                lblDistance.text = "\(currentRadiusValue) mile"
+            }else{
+                lblDistance.text = "\(currentRadiusValue) miles"
+            }
         }
     }
     
     @IBAction func onClickApplyFilterButtonClick(_ sender: Any) {
-        //goToMainScreen()
+        print("locations = \(lastLocationObj!.latitude) \(lastLocationObj!.longitude)")
         
-        if CLLocationManager.locationServicesEnabled() {
-            locationManager.delegate = self
-            locationManager.desiredAccuracy = kCLLocationAccuracyBest
-            locationManager.distanceFilter = kCLDistanceFilterNone
-            locationManager.requestWhenInUseAuthorization()
-            locationManager.requestLocation()
+        if UserDefaults.standard.integer(forKey: "metricUnit") == 0 {
+            //print("current miles radius: \(currentRadiusValue * 1000)")
+            getLocals(currentLocationLatitude: lastLocationObj!.latitude, currentLocationLongitude: lastLocationObj!.longitude, radius: Double(currentRadiusValue) * 1000)
+        }else if UserDefaults.standard.integer(forKey: "metricUnit") == 1 {
+            var currentRadius = 0.0
+            if currentRadiusValue >= 24 {
+                currentRadius = 24.0 * 1609.34
+            } else {
+                currentRadius = Double(currentRadiusValue) * 1609.34
+            }
+            getLocals(currentLocationLatitude: lastLocationObj!.latitude, currentLocationLongitude: lastLocationObj!.longitude, radius: currentRadius)
         }
+        
+        //goToMainScreen()
         
         //get current location
         //send the request with the radius
         
         /*
-        let firstName = textFieldFirstName.text!
-        let lastName = textFieldLastName.text!
-        let password = textFieldPassword.text!
-        let passwordConfirm = textFieldConfirmPassword.text!
-        let email = textFieldEmail.text!
-        let local = textFieldLocal.text!
-        var image: UIImage!
-        
-        if textFieldFirstName.text!.isEmpty || textFieldLastName.text!.isEmpty || textFieldEmail.text!.isEmpty || textFieldPassword.text!.isEmpty || textFieldConfirmPassword.text!.isEmpty || textFieldLocal.text!.isEmpty{
-            
-            let alert = Utils.triggerAlert(title: "Error", error: "Alguns campos estão vazios.")
-            self.present(alert, animated: true, completion: nil)
-        }else{
-            if !isValid(email){
-                let alert = Utils.triggerAlert(title: "Erro", error: "E-mail Inválido")
-                self.present(alert, animated: true, completion: nil)
-            }else{
-                let postRegist = NetworkHandler.PostRegister(first_name: firstName, last_name: lastName, password: password, password_confirmation: passwordConfirm, email: email, local: local)
-                
-                NetworkHandler.register(post: postRegist) { (success, error) in
-                    OperationQueue.main.addOperation {
-                        
-                        if error != nil {
-                            let alert = Utils.triggerAlert(title: "Erro", error: error)
-                            self.present(alert, animated: true, completion: nil)
-                        }
-                        else{
-                            
-                            //------
-                            
-                            let postLogin = NetworkHandler.PostLogin(password: password, email: email)
-                            NetworkHandler.login(post: postLogin) { (success, error) in
-                                OperationQueue.main.addOperation {
-                                    
-                                    if error != nil {
-                                        let alert = Utils.triggerAlert(title: "Erro", error: error)
-                                        self.present(alert, animated: true, completion: nil)
-                                    } else {
-                                        //Upload Avatar
-                                        
-                                        
-                                        NetworkHandler.uploadAvatar(avatar: self.imageViewAvatar.image!.resized(toWidth: 200)!){ (success, error) in
-                                            OperationQueue.main.addOperation {
-                                                if error != nil{
-                                                    let alert = Utils.triggerAlert(title: "Erro", error: error)
-                                                    self.present(alert, animated: true, completion: nil)
-                                                }else{
-                                                    //go to first screen
-                                                    if UserDefaults.standard.bool(forKey: "biometricPrompted") {
-                                                        self.goToMainScreen()
-                                                    }else{
-                                                        if !self.usesBiometricAuth {
-                                                            self.displayActionSheet();
-                                                        }else {
-                                                            self.goToMainScreen()
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }*/
+         let firstName = textFieldFirstName.text!
+         let lastName = textFieldLastName.text!
+         let password = textFieldPassword.text!
+         let passwordConfirm = textFieldConfirmPassword.text!
+         let email = textFieldEmail.text!
+         let local = textFieldLocal.text!
+         var image: UIImage!
+         
+         if textFieldFirstName.text!.isEmpty || textFieldLastName.text!.isEmpty || textFieldEmail.text!.isEmpty || textFieldPassword.text!.isEmpty || textFieldConfirmPassword.text!.isEmpty || textFieldLocal.text!.isEmpty{
+         
+         let alert = Utils.triggerAlert(title: "Error", error: "Alguns campos estão vazios.")
+         self.present(alert, animated: true, completion: nil)
+         }else{
+         if !isValid(email){
+         let alert = Utils.triggerAlert(title: "Erro", error: "E-mail Inválido")
+         self.present(alert, animated: true, completion: nil)
+         }else{
+         let postRegist = NetworkHandler.PostRegister(first_name: firstName, last_name: lastName, password: password, password_confirmation: passwordConfirm, email: email, local: local)
+         
+         NetworkHandler.register(post: postRegist) { (success, error) in
+         OperationQueue.main.addOperation {
+         
+         if error != nil {
+         let alert = Utils.triggerAlert(title: "Erro", error: error)
+         self.present(alert, animated: true, completion: nil)
+         }
+         else{
+         
+         //------
+         
+         let postLogin = NetworkHandler.PostLogin(password: password, email: email)
+         NetworkHandler.login(post: postLogin) { (success, error) in
+         OperationQueue.main.addOperation {
+         
+         if error != nil {
+         let alert = Utils.triggerAlert(title: "Erro", error: error)
+         self.present(alert, animated: true, completion: nil)
+         } else {
+         //Upload Avatar
+         
+         
+         NetworkHandler.uploadAvatar(avatar: self.imageViewAvatar.image!.resized(toWidth: 200)!){ (success, error) in
+         OperationQueue.main.addOperation {
+         if error != nil{
+         let alert = Utils.triggerAlert(title: "Erro", error: error)
+         self.present(alert, animated: true, completion: nil)
+         }else{
+         //go to first screen
+         if UserDefaults.standard.bool(forKey: "biometricPrompted") {
+         self.goToMainScreen()
+         }else{
+         if !self.usesBiometricAuth {
+         self.displayActionSheet();
+         }else {
+         self.goToMainScreen()
+         }
+         }
+         }
+         }
+         }
+         }
+         }
+         }
+         }
+         }
+         }
+         }
+         }*/
     }
     
-    func goToMainScreen(){
-        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let placesListController = storyBoard.instantiateViewController(withIdentifier: "placesListController")
-        self.dismiss(animated: true, completion: nil)
-        self.present(placesListController, animated: true, completion: nil)
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
+        
+        lastLocationObj = locValue
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
@@ -210,11 +229,10 @@ class FiltersTableViewController: UITableViewController, CLLocationManagerDelega
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
         
-        getLocals(currentLocationLatitude: locValue.latitude, currentLocationLongitude: locValue.longitude, radius: currentRadiusValue)
-        print("locations = \(locValue.latitude) \(locValue.longitude)")
+        lastLocationObj = locValue
     }
     
-    private func getLocals(currentLocationLatitude: Double, currentLocationLongitude: Double, radius: Int){
+    private func getLocals(currentLocationLatitude: Double, currentLocationLongitude: Double, radius: Double){
         NetworkHandler.getLocalsFilteredByDistance(currentLocationLatitude: currentLocationLatitude, currentLocationLongitude: currentLocationLongitude, radius: radius){
             (locals, error) in OperationQueue.main.addOperation {
                 if error != nil {
@@ -222,14 +240,11 @@ class FiltersTableViewController: UITableViewController, CLLocationManagerDelega
                     self.present(alert, animated: true, completion: nil)
                 }
                 else{
-                    print(locals!)
-                    /*
+                    Items.sharedInstance.locals.removeAll()
                     for local in locals!{
                         Items.sharedInstance.locals.append(local)
                     }
-                    
-                    self.goToMainScreen()
- */
+                    self.navigationController?.popViewController(animated: true)
                 }
             }
         }
@@ -237,9 +252,13 @@ class FiltersTableViewController: UITableViewController, CLLocationManagerDelega
     
     private func verifyMetricUnit() {
         if UserDefaults.standard.integer(forKey: "metricUnit") == 0 {
-            lblDistance.text = "0 km"
+            sliderDistance.value = 1
+            sliderDistance.maximumValue = 40
+            lblDistance.text = "1 km"
         }else if UserDefaults.standard.integer(forKey: "metricUnit") == 1 {
-            lblDistance.text = "0 miles"
+            sliderDistance.value = 1
+            sliderDistance.maximumValue = 25
+            lblDistance.text = "1 mile"
         }
     }
 }

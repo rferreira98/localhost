@@ -307,7 +307,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.666667938232422"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="25" translatesAutoresizingMaskIntoConstraints="NO" id="2Jj-0S-JBU">
+                                                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="1" maxValue="25" translatesAutoresizingMaskIntoConstraints="NO" id="2Jj-0S-JBU">
                                                     <rect key="frame" x="97" y="6.9999999999999982" width="120" height="31.333333333333329"/>
                                                     <connections>
                                                         <action selector="sliderValueChanged:" destination="BRN-j1-ho4" eventType="valueChanged" id="VJ3-gk-mMy"/>
