@@ -24,24 +24,40 @@ class InitialViewController: UIViewController, CLLocationManagerDelegate{
         
         locationManager.startUpdatingLocation()
         
-        
-        
-        
     }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        //if status == CLAuthorizationStatus.authorizedWhenInUse{
-        locationManager.startUpdatingLocation()
+        if status == CLAuthorizationStatus.authorizedWhenInUse || status == CLAuthorizationStatus.authorizedAlways{
+            locationManager.startUpdatingLocation()
+            getLocals()
+        }else {
+            let alertController = UIAlertController(title: "Erro", message: "Por favor autorize a utilização da localização para o correto funcionamento da aplicação nas Definições.", preferredStyle: .alert)
+            let settingsAction = UIAlertAction(title: "Definições", style: .default) { (_) -> Void in
+                guard let settingsUrl = URL(string: "App-Prefs:root=Privacy&path=LOCATION_SERVICES")  else {
+                    return
+                }
+                if UIApplication.shared.canOpenURL(settingsUrl) {
+                    UIApplication.shared.open(settingsUrl, completionHandler: { (success) in })
+                 }
+            }
+            let cancelAction = UIAlertAction(title: "Cancelar", style: .default, handler: nil)
+            alertController.addAction(cancelAction)
+            alertController.addAction(settingsAction)
+            self.present(alertController, animated: true, completion: nil)
+            
+        }
         
-        //}
+        
     }
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        getLocals()
+        
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error)
+        
     }
+    
 
     override func viewDidDisappear(_ animated: Bool) {
         locationManager.stopUpdatingLocation()
@@ -49,6 +65,8 @@ class InitialViewController: UIViewController, CLLocationManagerDelegate{
     
     
     private func getLocals(){
+        locationManager.requestLocation()
+        
         self.showSpinner(onView: self.view)
 
         NetworkHandler.getLocals(latitude: Double((locationManager.location?.coordinate.latitude)!), longitude: Double((locationManager.location?.coordinate.longitude)!)) {

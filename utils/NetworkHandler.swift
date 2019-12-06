@@ -409,7 +409,7 @@ class NetworkHandler {
             urlLocals = URL(string: baseUrl + "/search")!
         }
         
-        
+        print(urlLocals)
         
         //let urlLocals = URL(string:"https://5de010c2bb46ce001434c034.mockapi.io/locals")!
 

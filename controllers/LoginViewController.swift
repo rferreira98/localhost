@@ -186,10 +186,19 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     
     func goToMainScreen() {
-        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        /*let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let profileViewController = storyBoard.instantiateViewController(withIdentifier: "tabBarController")
         //self.dismiss(animated: true, completion: nil)
-        self.present(profileViewController, animated: true, completion: nil)
+        self.present(profileViewController, animated: true, completion: nil)*/
+        
+        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let first = storyBoard.instantiateViewController(withIdentifier: "tabBarController")
+        //let mvc = MapViewController()
+        //mvc.locals = self.locals
+        
+        first.modalPresentationStyle = .fullScreen
+        //self.dismiss(animated: true, completion: nil)
+        self.present(first, animated: true, completion: nil)
     }
     
     func displayActionSheet(){

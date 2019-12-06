@@ -187,10 +187,12 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView,
         calloutAccessoryControlTapped control: UIControl) {
-      let location = view.annotation as! Artwork
+      /*let location = view.annotation as! Artwork
       let launchOptions = [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving]
 
-      location.mapItem().openInMaps(launchOptions: launchOptions)
+      location.mapItem().openInMaps(launchOptions: launchOptions)*/
+        
+        performSegue(withIdentifier: "segueMapLocalDetail", sender: nil)
     }
     
     

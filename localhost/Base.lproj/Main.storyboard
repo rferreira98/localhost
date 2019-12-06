@@ -53,6 +53,7 @@
                     <connections>
                         <outlet property="map" destination="YvO-n6-nAY" id="Veg-BZ-9HH"/>
                         <segue destination="XDj-Rr-iDh" kind="show" identifier="mapFiltersButton" id="m1D-6b-4cE"/>
+                        <segue destination="giU-1i-neb" kind="show" identifier="segueMapLocalDetail" id="bZz-3g-4gq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="O6L-1v-tVL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1400,9 +1401,6 @@
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lg5-Zg-gHv">
                                                     <rect key="frame" x="156" y="253.00000000000003" width="63" height="30.333333333333343"/>
                                                     <state key="normal" title="Ver Perfil"/>
-                                                    <connections>
-                                                        <action selector="viewProfileClick:" destination="giU-1i-neb" eventType="touchUpInside" id="lSv-GF-2nX"/>
-                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -1429,13 +1427,6 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="Dpm-lw-3jL"/>
-                    <connections>
-                        <outlet property="buttonViewProfile" destination="Lg5-Zg-gHv" id="SUq-lo-stV"/>
-                        <outlet property="imageViewAvatar" destination="rXt-A1-ylT" id="QaH-XD-sYg"/>
-                        <outlet property="labelMail" destination="fDw-6m-WaD" id="ORy-cT-ItN"/>
-                        <outlet property="labelMobilePhone" destination="OtV-HA-hGa" id="gtH-XC-zKL"/>
-                        <outlet property="labelName" destination="VBd-uR-DF9" id="CfI-kS-0bv"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TFF-jg-zVp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1458,5 +1449,8 @@
             <color red="0.33300000429153442" green="0.54500001668930054" blue="0.18400000035762787" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="bZz-3g-4gq"/>
+    </inferredMetricsTieBreakers>
     <color key="tintColor" name="AppGreenPrimary"/>
 </document>
