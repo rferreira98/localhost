@@ -15,6 +15,8 @@ class PlacesListViewController: UITableViewController {
     var locals = [Local]()
     var searchBar: UISearchBar!
     
+    var localToSend: Local!
+    
     var tapGesture: UITapGestureRecognizer?
     
     override func viewDidLoad() {
@@ -29,9 +31,9 @@ class PlacesListViewController: UITableViewController {
         definesPresentationContext = true
         searchBar.tintColor = UIColor(named: "AppGreenPrimary")
         searchBar.showsCancelButton = false
-        DispatchQueue.main.async { [unowned self] in
-            self.searchBar.becomeFirstResponder()
-        }
+        /*DispatchQueue.main.async { [unowned self] in
+         self.searchBar.becomeFirstResponder()
+         }*/
         
         
         let buttonFilter = UIBarButtonItem(image: UIImage(named: "Filter"), style: .plain, target: self, action: #selector(segueFilters))
@@ -50,32 +52,32 @@ class PlacesListViewController: UITableViewController {
     @objc func refresh(_ sender: AnyObject) {
         getLocals()
     }
-        
+    
     @objc func segueFilters(){
         performSegue(withIdentifier: "listFiltersButton", sender: nil)
     }
     
     private func getLocals(){
         /*NetworkHandler.getLocals() {
-            (locals, error) in OperationQueue.main.addOperation {
-                if error != nil {
-                    let alert = Utils.triggerAlert(title: "Erro", error: error)
-                    self.present(alert, animated: true, completion: nil)
-                }
-                else{
-                    
-                    for local in locals!{
-                        self.locals.append(local)
-                    }
-                    
-                    //DispatchQueue.main.async { self.tableView.reloadData() }
-                    self.tableView.reloadData()
-                    print("GOT LOCALS")
-                    
-                    //self.drawLocalPins()
-                }
-            }
-        }*/
+         (locals, error) in OperationQueue.main.addOperation {
+         if error != nil {
+         let alert = Utils.triggerAlert(title: "Erro", error: error)
+         self.present(alert, animated: true, completion: nil)
+         }
+         else{
+         
+         for local in locals!{
+         self.locals.append(local)
+         }
+         
+         //DispatchQueue.main.async { self.tableView.reloadData() }
+         self.tableView.reloadData()
+         print("GOT LOCALS")
+         
+         //self.drawLocalPins()
+         }
+         }
+         }*/
     }
     
     
@@ -86,19 +88,28 @@ class PlacesListViewController: UITableViewController {
     }
     
     /*override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 1
-    }*/
+     // #warning Incomplete implementation, return the number of sections
+     return 1
+     }*/
     
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         print(locals.count)
         return locals.count
     }
-
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        
+        let local = locals[indexPath.row]
+        localToSend = local
+        
+        performSegue(withIdentifier: "segueLocalDetail", sender: nil)
+    }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "localCell", for: indexPath) as! LocalTableViewCell
-
+        
         let local = locals[indexPath.row]
         print(local)
         cell.localName.text = local.name
@@ -124,13 +135,20 @@ class PlacesListViewController: UITableViewController {
         tapGesture = UITapGestureRecognizer(target: self, action: #selector(PlacesListViewController.viewTapped(gestureRecognizer:)))
         view.addGestureRecognizer(tapGesture!)
     }
-
+    
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         view.removeGestureRecognizer(tapGesture!)
     }
     
     @objc func viewTapped(gestureRecognizer: UIGestureRecognizer) {
         view.endEditing(true)
+    }
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let smld=segue.destination as? LocalDetailedViewController {
+            smld.local = self.localToSend
+        }
     }
     
     

@@ -22,6 +22,7 @@ class SettingsViewController: UITableViewController, MFMailComposeViewController
         //removes the separator/line on the table cell
         tableView.cellForRow(at: IndexPath(row: 0, section: 3))?.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: .greatestFiniteMagnitude)
         //if the user has dark mode enable in the system the button is set to on, otherwise to off
+        
         switchDarkMode.setOn(traitCollection.userInterfaceStyle == .dark, animated: true)
         
         switchAuth.setOn(UserDefaults.standard.bool(forKey: "usesBiometricAuth"), animated: true)
@@ -31,6 +32,11 @@ class SettingsViewController: UITableViewController, MFMailComposeViewController
         let authLabel = tableView.cellForRow(at: IndexPath(row: 1, section: 1))?.contentView.subviews[0] as! UILabel
         authLabel.text = "Autenticação com "+Utils.getBiometricSensor()
         
+        
+        
+        tableView.cellForRow(at: IndexPath(row: 0, section: 1))?.isUserInteractionEnabled = false
+        tableView.cellForRow(at: IndexPath(row: 0, section: 2))?.isUserInteractionEnabled = false
+        tableView.cellForRow(at: IndexPath(row: 0, section: 4))?.isUserInteractionEnabled = false
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -94,7 +100,7 @@ class SettingsViewController: UITableViewController, MFMailComposeViewController
             }
             
         }else if indexPath.section == 1{
-            if indexPath.row == 1{
+            if indexPath.row == 2{
                 UIApplication.shared.open(URL(string:"App-Prefs:root=NOTIFICATIONS_ID")!, options: [:], completionHandler: nil)
             }
         }

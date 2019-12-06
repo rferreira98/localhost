@@ -247,7 +247,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                                 let alert = Utils.triggerAlert(title: "Erro", error: error)
                                 self!.present(alert, animated: true, completion: nil)
                             } else {
-                                    self!.goToMainScreen()
+                                self!.goToMainScreen()
                             }
                         }
                         
