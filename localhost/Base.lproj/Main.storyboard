@@ -1373,29 +1373,48 @@
                                 <rect key="frame" x="0.0" y="373.66666666666674" width="375" height="301.33333333333326"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="reviewCell" rowHeight="70" id="w7f-93-dLS" customClass="ReviewTableViewCell" customModule="Localhost" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="70"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="reviewCell" rowHeight="100" id="w7f-93-dLS" customClass="ReviewTableViewCell" customModule="Localhost" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="w7f-93-dLS" id="QCm-A8-ZFe">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hz8-8a-fgb">
-                                                    <rect key="frame" x="15" y="11" width="345" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <rect key="frame" x="15" y="63.000000000000007" width="345" height="19.333333333333336"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6QD-e3-4mu">
+                                                    <rect key="frame" x="15" y="5" width="50" height="50"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="50" id="TGw-Tx-NPZ"/>
+                                                        <constraint firstAttribute="width" constant="50" id="p7R-RQ-oP4"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b5S-6g-lU0">
+                                                    <rect key="frame" x="79" y="19" width="45" height="21"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="Hz8-8a-fgb" firstAttribute="top" secondItem="QCm-A8-ZFe" secondAttribute="top" constant="11" id="NS4-LO-zHh"/>
+                                                <constraint firstItem="6QD-e3-4mu" firstAttribute="leading" secondItem="QCm-A8-ZFe" secondAttribute="leading" constant="15" id="28Q-pV-YUk"/>
+                                                <constraint firstItem="b5S-6g-lU0" firstAttribute="top" secondItem="QCm-A8-ZFe" secondAttribute="top" constant="19" id="JoQ-XE-s6a"/>
+                                                <constraint firstAttribute="bottom" secondItem="Hz8-8a-fgb" secondAttribute="bottom" constant="17.666666666666671" id="QdB-iD-tr5"/>
+                                                <constraint firstItem="b5S-6g-lU0" firstAttribute="leading" secondItem="6QD-e3-4mu" secondAttribute="trailing" constant="14" id="TiO-j6-0Rr"/>
                                                 <constraint firstItem="Hz8-8a-fgb" firstAttribute="leading" secondItem="QCm-A8-ZFe" secondAttribute="leading" constant="15" id="bFy-6y-eFl"/>
+                                                <constraint firstItem="Hz8-8a-fgb" firstAttribute="top" secondItem="6QD-e3-4mu" secondAttribute="bottom" constant="8.0000000000000071" id="hSM-nH-l45"/>
                                                 <constraint firstAttribute="trailing" secondItem="Hz8-8a-fgb" secondAttribute="trailing" constant="15" id="oqm-k0-jV6"/>
-                                                <constraint firstAttribute="bottom" secondItem="Hz8-8a-fgb" secondAttribute="bottom" constant="38" id="rhT-s6-eKK"/>
+                                                <constraint firstItem="6QD-e3-4mu" firstAttribute="top" secondItem="QCm-A8-ZFe" secondAttribute="top" constant="5" id="qRv-jC-NMm"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="imageViewUserReviewer" destination="6QD-e3-4mu" id="Ynp-is-dGL"/>
                                             <outlet property="labelReview" destination="Hz8-8a-fgb" id="HNa-fU-Kxl"/>
+                                            <outlet property="labelReviewUser" destination="b5S-6g-lU0" id="x0l-LC-78M"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

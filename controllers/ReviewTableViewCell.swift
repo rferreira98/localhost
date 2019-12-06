@@ -10,10 +10,14 @@
 import UIKit
 class ReviewTableViewCell: UITableViewCell{
     
+    @IBOutlet weak var labelReviewUser: UILabel!
     @IBOutlet weak var labelReview: UILabel!
+    @IBOutlet weak var imageViewUserReviewer: UIImageView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        self.imageViewUserReviewer.layer.cornerRadius = self.imageViewUserReviewer.frame.size.height / 2
+        self.imageViewUserReviewer.clipsToBounds = true
     }
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)

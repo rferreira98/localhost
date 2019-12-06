@@ -10,6 +10,7 @@ import UIKit
 import MapKit
 import Contacts
 import Cosmos
+import SDWebImage
 
 class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableViewDelegate, UITableViewDataSource {
     
@@ -123,8 +124,18 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
         
         let review = reviews[indexPath.row]
         
+        cell.isUserInteractionEnabled = false
         cell.labelReview.text = review?.text
         cell.labelReview.numberOfLines = 0
+        cell.labelReviewUser.text = review?.user.name
+        cell.imageViewUserReviewer.contentMode = .scaleAspectFill
+        if review?.user.image_url != nil {
+            cell.imageViewUserReviewer.sd_setImage(with: URL(string: (review?.user.image_url)!), placeholderImage: UIImage(named: "NoAvatar"))
+        }
+        else{
+            cell.imageViewUserReviewer.image = UIImage(named: "NoAvatar")
+        }
+        
         
         return cell
     }

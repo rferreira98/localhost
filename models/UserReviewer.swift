@@ -9,9 +9,9 @@
 import Foundation
 
 class UserReviewer: Decodable {
-    private var profile_url:String
-    private var image_url:String?
-    private var name:String
+    var profile_url:String
+    var image_url:String?
+    var name:String
     
     required convenience init(from decoder: Decoder) throws
     {
