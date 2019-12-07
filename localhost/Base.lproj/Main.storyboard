@@ -346,16 +346,15 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.666667938232422"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Escolher" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4R5-cN-SxE">
-                                                    <rect key="frame" x="154" y="11.666666666666664" width="67" height="21"/>
+                                                <textField opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Escolher" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yta-nK-qMX">
+                                                    <rect key="frame" x="139" y="5" width="97" height="34"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="4R5-cN-SxE" firstAttribute="centerY" secondItem="orO-ui-ueD" secondAttribute="centerY" id="Day-Gm-fZl"/>
-                                                <constraint firstItem="4R5-cN-SxE" firstAttribute="centerX" secondItem="orO-ui-ueD" secondAttribute="centerX" id="ZHP-Mb-Bca"/>
+                                                <constraint firstItem="yta-nK-qMX" firstAttribute="centerX" secondItem="orO-ui-ueD" secondAttribute="centerX" id="3MV-Fy-37c"/>
+                                                <constraint firstItem="yta-nK-qMX" firstAttribute="centerY" secondItem="orO-ui-ueD" secondAttribute="centerY" id="A0D-nJ-3aV"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -377,6 +376,7 @@
                     <connections>
                         <outlet property="lblDistance" destination="5mN-dP-2ft" id="wMz-sC-XaA"/>
                         <outlet property="sliderDistance" destination="2Jj-0S-JBU" id="HUs-KY-If8"/>
+                        <outlet property="textFieldPickerLocal" destination="yta-nK-qMX" id="pWg-DU-Zds"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="r0A-7h-kUg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
