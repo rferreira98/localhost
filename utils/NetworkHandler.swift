@@ -441,7 +441,7 @@ class NetworkHandler {
         localsTask.resume()
     }
     
-    static func getLocalsFilteredByDistance(currentLocationLatitude: Double, currentLocationLongitude: Double, radius: Double, completionHandler: @escaping ([Local]?, _ error: String?) -> Void) {
+    static func getLocalsFilteredByDistance(currentLocationLatitude: Double, currentLocationLongitude: Double, radius: Int, completionHandler: @escaping ([Local]?, _ error: String?) -> Void) {
         if !NetworkHandler.appDelegate.isNetworkOn {
             completionHandler(nil, "Sem ligação à internet")
             return

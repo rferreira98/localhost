@@ -16,7 +16,7 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
     
     var reviews = [Review?]()
     
-    var favorite = 1
+    var favorite = 0
     
     var coordinate: CLLocationCoordinate2D!
     var local:Local!
@@ -28,7 +28,7 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
     @IBOutlet weak var reviewsTableView: UITableView!
     @IBOutlet weak var ratingView: CosmosView!
     @IBOutlet weak var labelQtReviews: UILabel!
-    @IBOutlet weak var btnFavorite: UIImageView!
+    @IBOutlet var btnFavoriteBarItem: UIBarButtonItem!
     
     override func viewDidLoad() {
         mapView.delegate = self
@@ -58,20 +58,19 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
         self.ratingView.rating = self.local.avgRating
         self.labelQtReviews.text = String(local.qtReviews)
         
-        if User.hasUserLoggedIn(){
-            self.btnFavorite.isHidden = false
+        if !User.hasUserLoggedIn(){
+            self.navigationItem.rightBarButtonItem = nil
         } else {
-            self.btnFavorite.isHidden = true
-        }
-        
-        if (favorite == 1){
-            if let myImage = UIImage(named: "Favorite_full") {
-                let tintableImage = myImage.withRenderingMode(.alwaysTemplate)
-                self.btnFavorite.image = tintableImage
-                self.btnFavorite.tintColor = UIColor.red
+            self.navigationItem.rightBarButtonItem = self.btnFavoriteBarItem
+            if (favorite == 1){
+                if let myImage = UIImage(named: "Favorite_full") {
+                    let tintableImage = myImage.withRenderingMode(.alwaysTemplate)
+                    self.btnFavoriteBarItem.image = tintableImage
+                    self.btnFavoriteBarItem.tintColor = UIColor.red
+                }
+            } else {
+                self.btnFavoriteBarItem.image = UIImage(named: "Favorite_empty")
             }
-        } else {
-            self.btnFavorite.image = UIImage(named: "Favorite_empty")
         }
     }
     
@@ -168,15 +167,15 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
     }
     
     
-    @IBAction func onClickFavoriteImageView(_ sender: UITapGestureRecognizer) {
-        if self.btnFavorite.image == UIImage(named: "Favorite_empty") {
+    @IBAction func onClickFavoriteButtonBarItem(_ sender: Any) {
+        if self.btnFavoriteBarItem.image == UIImage(named: "Favorite_empty") {
              let alert = UIAlertController(title: "Deseja adicionar \(local.name) aos favoritos?", message: "O \(local.name) vai ser adicionado a sua lista de favoritos para consultar mais tarde", preferredStyle: .alert)
             
             alert.addAction(UIAlertAction(title: "Sim", style: .default, handler: { action in
                 if let myImage = UIImage(named: "Favorite_full") {
                     let tintableImage = myImage.withRenderingMode(.alwaysTemplate)
-                    self.btnFavorite.image = tintableImage
-                    self.btnFavorite.tintColor = UIColor.red
+                    self.btnFavoriteBarItem.image = tintableImage
+                    self.btnFavoriteBarItem.tintColor = UIColor.red
                 }
             }))
             alert.addAction(UIAlertAction(title: "Não", style: .cancel, handler: nil))
@@ -187,8 +186,8 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
             alert.addAction(UIAlertAction(title: "Sim", style: .default, handler: { action in
                 if let myImage = UIImage(named: "Favorite_empty") {
                     let tintableImage = myImage.withRenderingMode(.alwaysTemplate)
-                    self.btnFavorite.image = tintableImage
-                    self.btnFavorite.tintColor = UIColor.black
+                    self.btnFavoriteBarItem.image = tintableImage
+                    self.btnFavoriteBarItem.tintColor = UIColor.black
                 }
             }))
             alert.addAction(UIAlertAction(title: "Não", style: .cancel, handler: nil))

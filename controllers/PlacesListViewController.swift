@@ -9,10 +9,10 @@
 import UIKit
 import SDWebImage
 
-class PlacesListViewController: UITableViewController, UISearchBarDelegate, UISearchResultsUpdating {
-    var resultSearchController: UISearchController!
+class PlacesListViewController: UITableViewController, UISearchBarDelegate {
+    //var resultSearchController: UISearchController!
     var locals = [Local]()
-    var searchBar: UISearchBar!
+    //var searchBar: UISearchBar!
     
     var searchController = UISearchController(searchResultsController: nil)
     
@@ -37,18 +37,22 @@ class PlacesListViewController: UITableViewController, UISearchBarDelegate, UISe
         // 2
         searchController.obscuresBackgroundDuringPresentation = false
         
-        let searchBar = searchController.searchBar
         // 3
-        searchBar.placeholder = "Search Places"
+        searchController.searchBar.placeholder = "Search Places"
         // 4
         navigationItem.searchController = searchController
         // 5
         definesPresentationContext = true
         
-        searchBar.scopeButtonTitles = ["Places", "Favorites"]
-        searchBar.showsScopeBar = true
-        searchBar.delegate = self
-        filterContentForSearchText(searchBar.text!)
+        
+        if User.hasUserLoggedIn(){
+            searchController.searchBar.scopeButtonTitles = ["Places", "Favorites"]
+            searchController.searchBar.showsScopeBar = true
+        } else {
+            searchController.searchBar.showsScopeBar = false
+        }
+            
+        searchController.searchBar.delegate = self
         /*
          let locationSearchTable = storyboard!.instantiateViewController(withIdentifier: "LocationSearchTable") as! LocationSearchTableController
          resultSearchController = UISearchController(searchResultsController: locationSearchTable)
@@ -121,16 +125,13 @@ class PlacesListViewController: UITableViewController, UISearchBarDelegate, UISe
          }*/
     }
     
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        print("touch")
-        self.searchBar.endEditing(true)
-        view.endEditing(true)
-    }
-    
-    func updateSearchResults(for searchController: UISearchController) {
-        
-    }
+    /*
+     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+     print("touch")
+     self.searchBar.endEditing(true)
+     view.endEditing(true)
+     }
+     */
     
     /*override func numberOfSections(in tableView: UITableView) -> Int {
      // #warning Incomplete implementation, return the number of sections
@@ -138,18 +139,34 @@ class PlacesListViewController: UITableViewController, UISearchBarDelegate, UISe
      }*/
     
     func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
+        switch selectedScope {
+        case 0:
+            self.locals = Items.sharedInstance.locals
+        case 1:
+            self.locals = []
+        default:
+            return
+        }
+        tableView.reloadData()
         print("New scope index is now \(selectedScope)")
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if isFiltering {
-          return locals.count
+            return filteredLocals.count
         }
         return locals.count
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let local = locals[indexPath.row]
+        let local:Local
+        
+        if isFiltering {
+            local = filteredLocals[indexPath.row]
+        } else {
+            local = locals[indexPath.row]
+        }
+        
         localToSend = local
         
         performSegue(withIdentifier: "segueLocalDetail", sender: nil)
@@ -161,11 +178,10 @@ class PlacesListViewController: UITableViewController, UISearchBarDelegate, UISe
         let local:Local
         
         if isFiltering {
-          local = filteredLocals[indexPath.row]
+            local = filteredLocals[indexPath.row]
         } else {
-          local = locals[indexPath.row]
+            local = locals[indexPath.row]
         }
-        print(local)
         cell.localName.text = local.name
         var typesStr: String = ""
         for type in local.types {
@@ -205,6 +221,13 @@ class PlacesListViewController: UITableViewController, UISearchBarDelegate, UISe
     }
     
     
+}
+
+extension PlacesListViewController: UISearchResultsUpdating{
+    func updateSearchResults(for searchController: UISearchController) {
+        let searchBar = searchController.searchBar
+        filterContentForSearchText(searchBar.text!)
+    }
 }
 
 
