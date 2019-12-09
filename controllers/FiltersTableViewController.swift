@@ -17,6 +17,7 @@ class FiltersTableViewController: UITableViewController, UITextFieldDelegate, CL
     
     var localPicker = UIPickerView()
     var selectedCity: String = ""
+    var lastSelectedCity: String = ""
     
     let locationManager = CLLocationManager()
     
@@ -140,8 +141,24 @@ class FiltersTableViewController: UITableViewController, UITextFieldDelegate, CL
     }
     
     private func getLocalsByCity(city: String){
-        
-        //FALTA FAZER CHAMADA A API ETC
+//        searchByCity
+               
+         NetworkHandler.getLocalsFilteredByCity(city: city){
+                   (locals, error) in OperationQueue.main.addOperation {
+                       if error != nil {
+                           let alert = Utils.triggerAlert(title: "Erro", error: error)
+                           self.present(alert, animated: true, completion: nil)
+                       }
+                       else{
+                           Items.sharedInstance.locals.removeAll()
+                           for local in locals!{
+                               Items.sharedInstance.locals.append(local)
+                           }
+                           self.removeSpinner()
+                           self.navigationController?.popViewController(animated: true)
+                       }
+                   }
+            }
     }
     
     
@@ -185,7 +202,7 @@ class FiltersTableViewController: UITableViewController, UITextFieldDelegate, CL
         } else {
             label = UILabel()
         }
-
+        lastSelectedCity = selectedCity
         
         label.textAlignment = .center
         label.text = Cities.cities[row]
@@ -225,10 +242,15 @@ class FiltersTableViewController: UITableViewController, UITextFieldDelegate, CL
         resetPicker()
     }
     func resetPicker() {
-        self.textFieldPickerLocal.text = ""
+        if self.lastSelectedCity == ""
+    {
+        self.textFieldPickerLocal.text = "Escolher"
         self.selectedCity = ""
-        
-    }
+    } else {
+        self.textFieldPickerLocal.text = self.lastSelectedCity
+        }
+}
+    
 }
 
 
