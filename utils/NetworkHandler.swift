@@ -404,7 +404,7 @@ class NetworkHandler {
         var urlLocals: URL
         
         if latitude != nil && longitude != nil {
-            urlLocals = URL(string: baseUrl + "/search?latitude="+String(latitude!)+"&longitude="+String(longitude!)+"&radius=2000")!
+            urlLocals = URL(string: baseUrl + "/search?latitude="+String(latitude!)+"&longitude="+String(longitude!)+"&radius=3000")!
         }else {
             urlLocals = URL(string: baseUrl + "/search")!
         }
@@ -420,105 +420,13 @@ class NetworkHandler {
             }
             
             var locals = [Local]()
-            
-            let strJson = """
-            [
-            {
-            "name":"O Casarao",
-            "image_url":"https://s3-medi",
-            "address":"Estrada da Maceira, 10",
-            "average_rating":5,
-            "latitude":39.7152786,
-            "longitude":-8.8324003,
-            "city":"leiria",
-            "types":[
-            "cafes",
-            "portuguese"
-            ],
-            "reviews":[
-            
-            {
-            "id":"RL0tlJHfC-7OEq8al1hYvg",
-            "url":"https",
-            "text":"Amazing. Service was fantastic and this, by far, was the best meal we had in Portugal.",
-            "rating":5,
-            "time_created":"2018-10-07 07:22:36",
-            "user":{
-               "id":"8bwQwSJAdoNlNjxnZLiaeQ",
-               "profile_url":"https:",
-               "image_url":"https:",
-               "name":"Gina S."
-            }
-            },
-            {
-            "id":"RL0tlJHfC-7OEq8al1hYvg",
-            "url":"https",
-            "text":"Amazing. Service was fantastic and this, by far, was the best meal we had in Portugal.",
-            "rating":5,
-            "time_created":"2018-10-07 07:22:36",
-            "user":{
-               "id":"8bwQwSJAdoNlNjxnZLiaeQ",
-               "profile_url":"https:",
-               "image_url":"https:",
-               "name":"Gina S."
-            }
-            }
-            ],
-            "qt_reviews":2
-            }
-                        ]
-            """
-            
-            let json2="""
-            [
-            {
-               "name":"O Casa00e3o",
-               "image_url":"httpsg",
-               "address":"Estrada da Maceira, 10",
-               "average_rating":5,
-               "latitude":39.7152786,
-               "longitude":-8.8324003,
-               "city":"leiria",
-               "types":["teste"  ],
-               "reviews":[
-                  {
-                     "id":"PqWqBxV_68SbnDlZgVvEkw",
-                     "url":"ht",
-                     "text":"Very good place. Service in nice and helpful. Food is traditional and tasty.  We had soft cheese as appetizer, with cold pig ears salad, green mussels and...",
-                     "rating":5,
-                     "time_created":"2019-09-12 07:12:02",
-                     "user":{
-                        "id":"KGdsjqWK06BLtn0f4vUxuQ",
-                        "profile_url":"https:w.yelp",
-                        "image_url":null,
-                        "name":"Chef Vlad H."
-                     }
-                  },
-                  {
-                     "id":"RL0tlJHfC-7OEq8al1hYvg",
-                     "url":"https:w",
-                     "text":"Amazing. Service was fantastic and this, by far, was the best meal we had in Portugal.",
-                     "rating":5,
-                     "time_created":"2018-10-07 07:22:36",
-                     "user":{
-                        "id":"8bwQwSJAdoNlNjxnZLiaeQ",
-                        "profile_url":"https:",
-                        "image_url":"https:",
-                        "name":"Gina S."
-                     }
-                  }
-               ],
-               "qt_reviews":2
-            },
-            ]
-            """.data(using: .utf8)
-            
-            let dta = strJson.data(using: .utf8)
+
             
             if let data = data {
                 let decoder = JSONDecoder()
                 do {
                     //print(String(data: data, encoding: .utf8) ?? "no body data")
+                    print(data)
                     locals = try decoder.decode([Local].self, from: data)
                     
                 } catch let exception {

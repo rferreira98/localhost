@@ -16,6 +16,8 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
     
     var reviews = [Review?]()
     
+    var favorite = 0
+    
     var coordinate: CLLocationCoordinate2D!
     var local:Local!
     @IBOutlet weak var labelLocalName: UILabel!
@@ -26,6 +28,8 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
     @IBOutlet weak var reviewsTableView: UITableView!
     @IBOutlet weak var ratingView: CosmosView!
     @IBOutlet weak var labelQtReviews: UILabel!
+    @IBOutlet weak var btnFavorite: UIImageView!
+    @IBOutlet weak var btnFavorite_Button: UIButton!
     
     override func viewDidLoad() {
         mapView.delegate = self
@@ -36,8 +40,8 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
         mapView.showsPointsOfInterest = true
         mapView.isUserInteractionEnabled = false
         
-        reviews = local.reviews
-        print(local.reviews.count)
+        //reviews = local.reviews
+        //print(local.reviews.count)
         print(reviews.count)
         self.coordinate = CLLocationCoordinate2D(latitude: CLLocationDegrees(exactly: CLLocationDegrees(local.latitude))!,
                                                  longitude: CLLocationDegrees(exactly: CLLocationDegrees(local.longitude))!)
@@ -54,6 +58,8 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
         self.ratingView.isUserInteractionEnabled = false
         self.ratingView.rating = self.local.avgRating
         self.labelQtReviews.text = String(local.qtReviews)
+        
+        self.btnFavorite_Button.setImage(UIImage(named: "Map"), for: .normal)
         
     }
     
@@ -150,4 +156,38 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
     }
     
     
+    @IBAction func onClickFavoriteImageView(_ sender: UITapGestureRecognizer) {
+        let alert = UIAlertController(title: "Did you bring your towel?", message: "It's recommended you bring your towel before continuing.", preferredStyle: .alert)
+
+        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { action in
+            self.btnFavorite.image = UIImage(named: "FacebookLogo")
+        }))
+        alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
+
+        self.present(alert, animated: true)
+    }
+    
+    
+    
+    @IBAction func btnClicked(_ sender: UIButton) {
+        //self.btnFavorite_Button.setImage(UIImage(named: "FacebookLogo"), for: .normal)
+        
+        let alert = UIAlertController(title: "Did you bring your towel?", message: "It's recommended you bring your towel before continuing.", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { action in
+            print(sender.state)
+            sender.setImage(UIImage(named: "FacebookLogo"), for: .normal)
+            /*
+            self.btnFavorite_Button.setImage(UIImage(named: "FacebookLogo"), for: .normal)
+            self.btnFavorite_Button.setImage(UIImage(named: "FacebookLogo"), for: .highlighted)
+            self.btnFavorite_Button.setImage(UIImage(named: "FacebookLogo"), for: .selected)
+            self.btnFavorite_Button.setNeedsDisplay()
+ */
+        }))
+        
+        alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
+
+        self.present(alert, animated: true)
+    }
 }
+		
