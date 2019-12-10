@@ -311,9 +311,6 @@ class NetworkHandler {
         
     }
     
-    
-    
-    
     struct PostUserData: Codable {
         let first_name: String
         let last_name: String
@@ -420,7 +417,7 @@ class NetworkHandler {
             }
             
             var locals = [Local]()
-
+            
             
             if let data = data {
                 let decoder = JSONDecoder()
@@ -449,15 +446,15 @@ class NetworkHandler {
         
         let urlLocals = URL(string: baseUrl + "/search?latitude=\(currentLocationLatitude)&longitude=\(currentLocationLongitude)&radius=\(radius)")!
         //let urlLocals = URL(string:"https://5de010c2bb46ce001434c034.mockapi.io/locals")!
-
+        
         let localsTask = URLSession.shared.dataTask(with: urlLocals) { data, response, responseError in
             let error = getServerError(responseData: data, response: response, responseError: responseError)
             guard error == nil else {
                 return completionHandler(nil, error)
             }
-
+            
             var locals = [Local]()
-
+            
             if let data = data {
                 let decoder = JSONDecoder()
                 do {
@@ -468,12 +465,91 @@ class NetworkHandler {
                     completionHandler(nil, exception.localizedDescription)
                     return
                 }
-
+                
             }
             completionHandler(locals, nil)
         }
-
+        
         localsTask.resume()
+    }
+    
+    static func storeFavorite(local_id:Int ,completion: @escaping (_ success: Bool, _ error: String?) -> Void) {
+        if !NetworkHandler.appDelegate.isNetworkOn {
+            completion(false, "Sem conexão de Internet")
+            return
+        }
+        let postRequest = prepareRequest(nil as String? ,needsToken: true, urlString: "/favorite/\(local_id)", request_type: "POST", completion: completion)!
+        let task = postRequest.session.dataTask(with: postRequest.request) { (responseData, response, responseError) in
+            let error = getServerError(responseData: responseData, response: response, responseError: responseError)
+            guard error == nil else {
+                return completion(false, error)
+            }
+            
+            completion(true, nil)
+        }
+        task.resume()
+    }
+    
+    static func deleteFavorite(local_id:Int ,completion: @escaping (_ success: Bool, _ error: String?) -> Void) {
+        if !NetworkHandler.appDelegate.isNetworkOn {
+            completion(false, "Sem conexão de Internet")
+            return
+        }
+        let postRequest = prepareRequest(nil as String? ,needsToken: true, urlString: "/favorite/\(local_id)", request_type: "DELETE", completion: completion)!
+        let task = postRequest.session.dataTask(with: postRequest.request) { (responseData, response, responseError) in
+            let error = getServerError(responseData: responseData, response: response, responseError: responseError)
+            guard error == nil else {
+                return completion(false, error)
+            }
+            
+            completion(true, nil)
+        }
+        task.resume()
+    }
+    
+    static func getFavorites(completion: @escaping ([Local]?, _ error: String?) -> Void) {
+        if !NetworkHandler.appDelegate.isNetworkOn {
+            completion(nil, "Sem conexão de Internet")
+            return
+        }
+        
+        // Specify this request as being a POST method
+        let url = URL(string: baseUrl + "/favorites")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        // Make sure that headers are included specifying that our request HTTP body will be JSON encoded
+        var headers = request.allHTTPHeaderFields ?? [:]
+        headers["Content-Type"] = "application/json"
+        let token = UserDefaults.standard.value(forKey: "Token") as? String
+        headers["Authorization"] = "Bearer " + token!
+        request.allHTTPHeaderFields = headers
+        
+        // Create and run a URLSession data task with JSON encoded POST request
+        let config = URLSessionConfiguration.default
+        let session = URLSession(configuration: config)
+        
+        let postRequest = PostRequest(session: session, request: request)
+        let task = postRequest.session.dataTask(with: postRequest.request) { (responseData, response, responseError) in
+            let error = getServerError(responseData: responseData, response: response, responseError: responseError)
+            guard error == nil else {
+                return completion(nil, error)
+            }
+            var locals = [Local]()
+            
+            if let data = responseData {
+                let decoder = JSONDecoder()
+                do {
+                    //print(String(data: data, encoding: .utf8) ?? "no body data")
+                    locals = try decoder.decode([Local].self, from: data)
+                } catch let exception {
+                    completion(nil, exception.localizedDescription)
+                    return
+                }
+                
+            }
+            completion(locals, nil)
+        }
+        task.resume()
     }
 }
 

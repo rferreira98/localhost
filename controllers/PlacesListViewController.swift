@@ -82,8 +82,13 @@ class PlacesListViewController: UITableViewController, UISearchBarDelegate {
         self.refreshControl?.addTarget(self, action: #selector(self.refresh(_:)), for: UIControl.Event.valueChanged)
         
         //----------------
-        //getLocals()
+        getFavorites()
     }
+    /*
+    override func viewDidAppear(_ animated: Bool) {
+        getFavorites()
+        tableView.reloadData()
+    }*/
     
     func filterContentForSearchText(_ searchText: String) {
         filteredLocals = locals.filter { (local: Local) -> Bool in
@@ -138,16 +143,36 @@ class PlacesListViewController: UITableViewController, UISearchBarDelegate {
      return 1
      }*/
     
+    private func getFavorites() {
+        NetworkHandler.getFavorites(completion: {
+            (locals, error) in OperationQueue.main.addOperation {
+                if error != nil {
+                    let alert = Utils.triggerAlert(title: "Erro", error: error)
+                    self.present(alert, animated: true, completion: nil)
+                }
+                else{
+                    Items.sharedInstance.favorites.removeAll()
+                    for local in locals!{
+                        Items.sharedInstance.favorites.append(local)
+                    }
+                }
+            }
+        })
+    }
+    
     func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
         switch selectedScope {
         case 0:
             self.locals = Items.sharedInstance.locals
+            tableView.reloadData()
         case 1:
-            self.locals = []
+            getFavorites()
+            self.locals = Items.sharedInstance.favorites
+            tableView.reloadData()
         default:
             return
         }
-        tableView.reloadData()
+        
         print("New scope index is now \(selectedScope)")
     }
     

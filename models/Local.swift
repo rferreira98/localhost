@@ -8,6 +8,7 @@
 
 import Foundation
 class Local: Decodable {
+    var id:Int
     var types:[String]
     var name:String
     var address:String
@@ -33,6 +34,7 @@ class Local: Decodable {
             throw error
         }
         
+        var id:Int
         var types:[String]
         var name:String
         var address:String
@@ -47,6 +49,7 @@ class Local: Decodable {
         
         do
         {
+            id = try container.decode(Int.self, forKey: .id)
             types = try container.decode([String].self, forKey: .types)
             name = try container.decode(String.self, forKey: .name)
             address = try container.decode(String.self, forKey: .address)
@@ -61,7 +64,7 @@ class Local: Decodable {
             
         }
         //self.init(types, name, address, city, avgRating, photos, reviews, latitude, longitude)
-        self.init(types, name, address, city, avgRating, imageUrl, /*reviews,*/ latitude, longitude, qtReviews)
+        self.init(id, types, name, address, city, avgRating, imageUrl, /*reviews,*/ latitude, longitude, qtReviews)
     }
     
     /*convenience init(_  types: [String], _ name: String, _ address: String, _ city: String, _ avgRating: Float, _ photos: [String], _ latitude:Double, _ longitude: Double) {
@@ -71,7 +74,8 @@ class Local: Decodable {
     }
  */
     //init(_  types: [String], _ name: String, _ address: String, _ city: String, _ avgRating: Float, _ photos: [String], _ reviews:Review?, _ latitude:Double, _ longitude: Double) {
-    init(_  types: [String], _ name: String, _ address: String, _ city: String, _ avgRating: Double, _ imageUrl: String, /*_ reviews:[Review?],*/ _ latitude:Double, _ longitude: Double, _ qtReviews: Int) {
+    init(_ id:Int, _  types: [String], _ name: String, _ address: String, _ city: String, _ avgRating: Double, _ imageUrl: String, /*_ reviews:[Review?],*/ _ latitude:Double, _ longitude: Double, _ qtReviews: Int) {
+        self.id = id
         self.types = types
         self.name = name
         self.address = address
@@ -90,6 +94,7 @@ class Local: Decodable {
 extension Local
 {
     enum CodingKeys: String, CodingKey {
+        case id = "id"
         case types = "types"
         case name = "name"
         case address = "address"

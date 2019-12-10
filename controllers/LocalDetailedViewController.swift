@@ -62,14 +62,17 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
             self.navigationItem.rightBarButtonItem = nil
         } else {
             self.navigationItem.rightBarButtonItem = self.btnFavoriteBarItem
-            if (favorite == 1){
-                if let myImage = UIImage(named: "Favorite_full") {
-                    let tintableImage = myImage.withRenderingMode(.alwaysTemplate)
-                    self.btnFavoriteBarItem.image = tintableImage
-                    self.btnFavoriteBarItem.tintColor = UIColor.red
+            for favorite in Items.sharedInstance.favorites {
+                if(favorite.id == local.id){
+                    if let myImage = UIImage(named: "Favorite_full") {
+                        let tintableImage = myImage.withRenderingMode(.alwaysTemplate)
+                        self.btnFavoriteBarItem.image = tintableImage
+                        self.btnFavoriteBarItem.tintColor = UIColor.red
+                    }
+                    break
+                }else{
+                   self.btnFavoriteBarItem.image = UIImage(named: "Favorite_empty")
                 }
-            } else {
-                self.btnFavoriteBarItem.image = UIImage(named: "Favorite_empty")
             }
         }
     }
@@ -78,11 +81,11 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
         coordinate = selectedCoordinate
         
         /*if let pinAnnotationView = self.pinAnnotationView {
-            if let annotation = pinAnnotationView.annotation {
-                map.removeAnnotation(annotation)
-            }
-        }*/
-
+         if let annotation = pinAnnotationView.annotation {
+         map.removeAnnotation(annotation)
+         }
+         }*/
+        
         let region = MKCoordinateRegion(center: selectedCoordinate, latitudinalMeters: 700, longitudinalMeters: 700)
         mapView.setRegion(region, animated: true)
         mapView.isZoomEnabled = false
@@ -91,23 +94,23 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
         mapView.isScrollEnabled = false
         
         /*pointAnnotation = CustomAnnotation()
-        pointAnnotation.pinCustomImageName = "GeneralMarker"
-        pointAnnotation.coordinate = selectedCoordinate
-        pointAnnotation.title = "Localização Selecionada"
-        pinAnnotationView = MKPinAnnotationView(annotation: pointAnnotation, reuseIdentifier: "pin")
-        map.addAnnotation(pinAnnotationView!.annotation!)*/
+         pointAnnotation.pinCustomImageName = "GeneralMarker"
+         pointAnnotation.coordinate = selectedCoordinate
+         pointAnnotation.title = "Localização Selecionada"
+         pinAnnotationView = MKPinAnnotationView(annotation: pointAnnotation, reuseIdentifier: "pin")
+         map.addAnnotation(pinAnnotationView!.annotation!)*/
         
         let artwork = Artwork(
             title: local.name,
-         locationName: local.address,
-         coordinate: CLLocationCoordinate2D(latitude: local.latitude, longitude: local.longitude),
-         localRating: local.avgRating,
-         local: local
+            locationName: local.address,
+            coordinate: CLLocationCoordinate2D(latitude: local.latitude, longitude: local.longitude),
+            localRating: local.avgRating,
+            local: local
         )
-         
+        
         mapView.addAnnotation(artwork)
         mapView.register(ArtworkView.self,
-        forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
+                         forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
         
         reviewsTableView.delegate=self
         reviewsTableView.dataSource=self
@@ -118,16 +121,16 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
     @IBAction func buttonMapClicked(_ sender: Any) {
         
         let launchOptions = [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving]
-
+        
         self.mapItem().openInMaps(launchOptions: launchOptions)
     }
     
     func mapItem() -> MKMapItem {
         let addressDict = [CNPostalAddressStreetKey: local.address]
-      let placemark = MKPlacemark(coordinate: coordinate, addressDictionary: addressDict)
-      let mapItem = MKMapItem(placemark: placemark)
+        let placemark = MKPlacemark(coordinate: coordinate, addressDictionary: addressDict)
+        let mapItem = MKMapItem(placemark: placemark)
         mapItem.name = local.name
-      return mapItem
+        return mapItem
     }
     
     
@@ -158,7 +161,7 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection
-                                section: Int) -> String? {
+        section: Int) -> String? {
         if section == 0 {
             return "Reviews"
         }
@@ -169,30 +172,54 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
     
     @IBAction func onClickFavoriteButtonBarItem(_ sender: Any) {
         if self.btnFavoriteBarItem.image == UIImage(named: "Favorite_empty") {
-             let alert = UIAlertController(title: "Deseja adicionar \(local.name) aos favoritos?", message: "O \(local.name) vai ser adicionado a sua lista de favoritos para consultar mais tarde", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Deseja adicionar \(local.name) aos favoritos?", message: "O \(local.name) vai ser adicionado a sua lista de favoritos para consultar mais tarde", preferredStyle: .alert)
             
             alert.addAction(UIAlertAction(title: "Sim", style: .default, handler: { action in
-                if let myImage = UIImage(named: "Favorite_full") {
-                    let tintableImage = myImage.withRenderingMode(.alwaysTemplate)
-                    self.btnFavoriteBarItem.image = tintableImage
-                    self.btnFavoriteBarItem.tintColor = UIColor.red
+                NetworkHandler.storeFavorite(local_id: self.local.id, completion: { (success, error) in
+                    OperationQueue.main.addOperation {
+                        if error != nil {
+                            let alert = Utils.triggerAlert(title: "Erro", error: error)
+                            self.present(alert, animated: true, completion: nil)
+                        } else {
+                            if let myImage = UIImage(named: "Favorite_full") {
+                                let tintableImage = myImage.withRenderingMode(.alwaysTemplate)
+                                self.btnFavoriteBarItem.image = tintableImage
+                                self.btnFavoriteBarItem.tintColor = UIColor.red
+                            }
+                        }
+                    }
                 }
-            }))
+            )}))
             alert.addAction(UIAlertAction(title: "Não", style: .cancel, handler: nil))
             self.present(alert, animated: true)
         } else {
             let alert = UIAlertController(title: "Deseja remover \(local.name) dos favoritos?", message: "O \(local.name) vai ser removido da sua lista de favoritos, esta operação é definitiva", preferredStyle: .alert)
             
             alert.addAction(UIAlertAction(title: "Sim", style: .default, handler: { action in
-                if let myImage = UIImage(named: "Favorite_empty") {
-                    let tintableImage = myImage.withRenderingMode(.alwaysTemplate)
-                    self.btnFavoriteBarItem.image = tintableImage
-                    self.btnFavoriteBarItem.tintColor = UIColor.black
-                }
-            }))
+                NetworkHandler.deleteFavorite(local_id: self.local.id, completion: { (success, error) in
+                        OperationQueue.main.addOperation {
+                            if error != nil {
+                                let alert = Utils.triggerAlert(title: "Erro", error: error)
+                                self.present(alert, animated: true, completion: nil)
+                            } else {
+                                /*for (index, favorite) in Items.sharedInstance.favorites.enumerated() {
+                                    if(favorite.id == self.local.id){
+                                        Items.sharedInstance.favorites.remove(at: index)
+                                        break
+                                    }
+                                }*/
+                                if let myImage = UIImage(named: "Favorite_empty") {
+                                    let tintableImage = myImage.withRenderingMode(.alwaysTemplate)
+                                    self.btnFavoriteBarItem.image = tintableImage
+                                    self.btnFavoriteBarItem.tintColor = UIColor(named: "AppGreenDark")
+                                }
+                            }
+                        }
+                    }
+                )}))
             alert.addAction(UIAlertAction(title: "Não", style: .cancel, handler: nil))
             self.present(alert, animated: true)
         }
     }
 }
-		
+
