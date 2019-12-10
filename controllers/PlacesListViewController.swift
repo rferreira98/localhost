@@ -82,7 +82,7 @@ class PlacesListViewController: UITableViewController, UISearchBarDelegate {
         self.refreshControl?.addTarget(self, action: #selector(self.refresh(_:)), for: UIControl.Event.valueChanged)
         
         //----------------
-        getFavorites()
+        getFavorites(reset_data: false)
     }
     /*
     override func viewDidAppear(_ animated: Bool) {
@@ -143,7 +143,7 @@ class PlacesListViewController: UITableViewController, UISearchBarDelegate {
      return 1
      }*/
     
-    private func getFavorites() {
+    private func getFavorites(reset_data: Bool) {
         NetworkHandler.getFavorites(completion: {
             (locals, error) in OperationQueue.main.addOperation {
                 if error != nil {
@@ -154,6 +154,10 @@ class PlacesListViewController: UITableViewController, UISearchBarDelegate {
                     Items.sharedInstance.favorites.removeAll()
                     for local in locals!{
                         Items.sharedInstance.favorites.append(local)
+                    }
+                    if(reset_data){
+                        self.locals = Items.sharedInstance.favorites
+                        self.tableView.reloadData()
                     }
                 }
             }
@@ -166,9 +170,7 @@ class PlacesListViewController: UITableViewController, UISearchBarDelegate {
             self.locals = Items.sharedInstance.locals
             tableView.reloadData()
         case 1:
-            getFavorites()
-            self.locals = Items.sharedInstance.favorites
-            tableView.reloadData()
+            getFavorites(reset_data: true)
         default:
             return
         }
