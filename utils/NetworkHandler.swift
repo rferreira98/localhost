@@ -11,8 +11,8 @@ import SwiftHTTP
 import Alamofire
 
 class NetworkHandler {
-    //static var domainUrl = "http://hostlocal.sytes.net"
-    static var domainUrl = "http://178.62.5.112"
+    static var domainUrl = "http://hostlocal.sytes.net"
+    //static var domainUrl = "http://178.62.5.112"
     
     static var baseUrl = domainUrl + "/api"
     static let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -417,7 +417,7 @@ class NetworkHandler {
             }
             
             var locals = [Local]()
-            
+            /*
             var str = """
             [
             {
@@ -459,13 +459,14 @@ class NetworkHandler {
             },
             ]
             """.data(using: .utf8)
+ */
                     
             if let data = data {
                 let decoder = JSONDecoder()
                 do {
                     print(String(data: data, encoding: .utf8) ?? "no body data")
                     print(data)
-                    locals = try decoder.decode([Local].self, from: str!)
+                    locals = try decoder.decode([Local].self, from: data)
                     
                 } catch let exception {
                     completionHandler(nil, exception.localizedDescription)

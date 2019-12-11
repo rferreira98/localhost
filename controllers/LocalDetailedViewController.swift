@@ -62,16 +62,20 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
             self.navigationItem.rightBarButtonItem = nil
         } else {
             self.navigationItem.rightBarButtonItem = self.btnFavoriteBarItem
-            for favorite in Items.sharedInstance.favorites {
-                if(favorite.id == local.id){
-                    if let myImage = UIImage(named: "Favorite_full") {
-                        let tintableImage = myImage.withRenderingMode(.alwaysTemplate)
-                        self.btnFavoriteBarItem.image = tintableImage
-                        self.btnFavoriteBarItem.tintColor = UIColor.red
+            if Items.sharedInstance.favorites.isEmpty {
+                self.btnFavoriteBarItem.image = UIImage(named: "Favorite_empty")
+            } else {
+                for favorite in Items.sharedInstance.favorites {
+                    if(favorite.id == local.id){
+                        if let myImage = UIImage(named: "Favorite_full") {
+                            let tintableImage = myImage.withRenderingMode(.alwaysTemplate)
+                            self.btnFavoriteBarItem.image = tintableImage
+                            self.btnFavoriteBarItem.tintColor = UIColor.red
+                        }
+                        break
+                    }else{
+                        self.btnFavoriteBarItem.image = UIImage(named: "Favorite_empty")
                     }
-                    break
-                }else{
-                   self.btnFavoriteBarItem.image = UIImage(named: "Favorite_empty")
                 }
             }
         }
@@ -189,7 +193,7 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
                         }
                     }
                 }
-            )}))
+                )}))
             alert.addAction(UIAlertAction(title: "Não", style: .cancel, handler: nil))
             self.present(alert, animated: true)
         } else {
@@ -197,25 +201,25 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
             
             alert.addAction(UIAlertAction(title: "Sim", style: .default, handler: { action in
                 NetworkHandler.deleteFavorite(local_id: self.local.id, completion: { (success, error) in
-                        OperationQueue.main.addOperation {
-                            if error != nil {
-                                let alert = Utils.triggerAlert(title: "Erro", error: error)
-                                self.present(alert, animated: true, completion: nil)
-                            } else {
-                                for (index, favorite) in Items.sharedInstance.favorites.enumerated() {
-                                    if(favorite.id == self.local.id){
-                                        Items.sharedInstance.favorites.remove(at: index)
-                                        break
-                                    }
+                    OperationQueue.main.addOperation {
+                        if error != nil {
+                            let alert = Utils.triggerAlert(title: "Erro", error: error)
+                            self.present(alert, animated: true, completion: nil)
+                        } else {
+                            for (index, favorite) in Items.sharedInstance.favorites.enumerated() {
+                                if(favorite.id == self.local.id){
+                                    Items.sharedInstance.favorites.remove(at: index)
+                                    break
                                 }
-                                if let myImage = UIImage(named: "Favorite_empty") {
-                                    let tintableImage = myImage.withRenderingMode(.alwaysTemplate)
-                                    self.btnFavoriteBarItem.image = tintableImage
-                                    self.btnFavoriteBarItem.tintColor = UIColor(named: "AppGreenDark")
-                                }
+                            }
+                            if let myImage = UIImage(named: "Favorite_empty") {
+                                let tintableImage = myImage.withRenderingMode(.alwaysTemplate)
+                                self.btnFavoriteBarItem.image = tintableImage
+                                self.btnFavoriteBarItem.tintColor = UIColor(named: "AppGreenDark")
                             }
                         }
                     }
+                }
                 )}))
             alert.addAction(UIAlertAction(title: "Não", style: .cancel, handler: nil))
             self.present(alert, animated: true)

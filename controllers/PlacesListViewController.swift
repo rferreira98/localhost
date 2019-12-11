@@ -82,14 +82,18 @@ class PlacesListViewController: UITableViewController, UISearchBarDelegate {
         self.refreshControl?.addTarget(self, action: #selector(self.refresh(_:)), for: UIControl.Event.valueChanged)
         
         //----------------
-        getFavorites(reset_data: false)
+        if User.hasUserLoggedIn() {
+            getFavorites(reset_data: false)
+        }
     }
     
-    override func viewDidAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         let searchBar = searchController.searchBar.selectedScopeButtonIndex
         if searchBar == 1{
-            print("Passei aqui")
             self.locals = Items.sharedInstance.favorites
+            tableView.reloadData()
+        } else {
+            self.locals = Items.sharedInstance.locals
             tableView.reloadData()
         }
     }
