@@ -202,12 +202,12 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
                                 let alert = Utils.triggerAlert(title: "Erro", error: error)
                                 self.present(alert, animated: true, completion: nil)
                             } else {
-                                /*for (index, favorite) in Items.sharedInstance.favorites.enumerated() {
+                                for (index, favorite) in Items.sharedInstance.favorites.enumerated() {
                                     if(favorite.id == self.local.id){
                                         Items.sharedInstance.favorites.remove(at: index)
                                         break
                                     }
-                                }*/
+                                }
                                 if let myImage = UIImage(named: "Favorite_empty") {
                                     let tintableImage = myImage.withRenderingMode(.alwaysTemplate)
                                     self.btnFavoriteBarItem.image = tintableImage

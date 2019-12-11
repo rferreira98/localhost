@@ -11,8 +11,8 @@ import SwiftHTTP
 import Alamofire
 
 class NetworkHandler {
-    static var domainUrl = "http://hostlocal.sytes.net"
-    //static var domainUrl = "http://178.62.5.112"
+    //static var domainUrl = "http://hostlocal.sytes.net"
+    static var domainUrl = "http://178.62.5.112"
     
     static var baseUrl = domainUrl + "/api"
     static let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -418,13 +418,54 @@ class NetworkHandler {
             
             var locals = [Local]()
             
-            
+            var str = """
+            [
+            {
+              "id": 1,
+              "name": "Mooo Hamburgueria",
+              "image_url": "https://s3-media3.fl.yelpcdn.com/bphoto/tQXdMBkDtezM6lj-jeFufw/o.jpg",
+              "address": "R. de Alcobaça, 7",
+              "city": "leiria",
+              "average_rating": 4.5,
+              "latitude": 39.742876,
+              "longitude": -8.810679,
+              "qt_reviews": 0,
+              "provider": "yelp",
+              "created_at": "2019-12-07 12:50:22",
+              "updated_at": "2019-12-07 12:50:22",
+              "deleted_at": null,
+              "types": [
+                "burgers"
+              ]
+            },
+            {
+              "id": 2,
+              "name": "O Feijão Branco - Actividades Hoteleiras",
+              "image_url": "",
+              "address": "Av. Marquês de Pombal, Lote 1 Bloco B.",
+              "city": "leiria",
+              "average_rating": 3,
+              "latitude": 39.739445,
+              "longitude": -8.80791,
+              "qt_reviews": 0,
+              "provider": "yelp",
+              "created_at": "2019-12-07 12:50:22",
+              "updated_at": "2019-12-07 12:50:22",
+              "deleted_at": null,
+              "types": [
+                "bars",
+                "restaurants"
+              ]
+            },
+            ]
+            """.data(using: .utf8)
+                    
             if let data = data {
                 let decoder = JSONDecoder()
                 do {
-                    //print(String(data: data, encoding: .utf8) ?? "no body data")
+                    print(String(data: data, encoding: .utf8) ?? "no body data")
                     print(data)
-                    locals = try decoder.decode([Local].self, from: data)
+                    locals = try decoder.decode([Local].self, from: str!)
                     
                 } catch let exception {
                     completionHandler(nil, exception.localizedDescription)

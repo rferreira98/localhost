@@ -84,11 +84,15 @@ class PlacesListViewController: UITableViewController, UISearchBarDelegate {
         //----------------
         getFavorites(reset_data: false)
     }
-    /*
+    
     override func viewDidAppear(_ animated: Bool) {
-        getFavorites()
-        tableView.reloadData()
-    }*/
+        let searchBar = searchController.searchBar.selectedScopeButtonIndex
+        if searchBar == 1{
+            print("Passei aqui")
+            self.locals = Items.sharedInstance.favorites
+            tableView.reloadData()
+        }
+    }
     
     func filterContentForSearchText(_ searchText: String) {
         filteredLocals = locals.filter { (local: Local) -> Bool in
