@@ -72,7 +72,7 @@ class FiltersTableViewController: UITableViewController, CLLocationManagerDelega
         
         if UserDefaults.standard.integer(forKey: "metricUnit") == 0 {
             //print("current miles radius: \(currentRadiusValue * 1000)")
-            getLocals(currentLocationLatitude: lastLocationObj!.latitude, currentLocationLongitude: lastLocationObj!.longitude, radius: Double(currentRadiusValue) * 1000)
+            getLocals(currentLocationLatitude: lastLocationObj!.latitude, currentLocationLongitude: lastLocationObj!.longitude, radius: currentRadiusValue * 1000)
         }else if UserDefaults.standard.integer(forKey: "metricUnit") == 1 {
             var currentRadius = 0.0
             if currentRadiusValue >= 24 {
@@ -80,7 +80,7 @@ class FiltersTableViewController: UITableViewController, CLLocationManagerDelega
             } else {
                 currentRadius = Double(currentRadiusValue) * 1609.34
             }
-            getLocals(currentLocationLatitude: lastLocationObj!.latitude, currentLocationLongitude: lastLocationObj!.longitude, radius: currentRadius)
+            getLocals(currentLocationLatitude: lastLocationObj!.latitude, currentLocationLongitude: lastLocationObj!.longitude, radius: Int(currentRadius.rounded()))
         }
         
         
@@ -102,7 +102,7 @@ class FiltersTableViewController: UITableViewController, CLLocationManagerDelega
         lastLocationObj = locValue
     }
     
-    private func getLocals(currentLocationLatitude: Double, currentLocationLongitude: Double, radius: Double){
+    private func getLocals(currentLocationLatitude: Double, currentLocationLongitude: Double, radius: Int){
         
         self.showSpinner(onView: self.view)
         
@@ -126,13 +126,13 @@ class FiltersTableViewController: UITableViewController, CLLocationManagerDelega
     
     private func verifyMetricUnit() {
         if UserDefaults.standard.integer(forKey: "metricUnit") == 0 {
-            sliderDistance.value = 1
+            sliderDistance.value = 0
             sliderDistance.maximumValue = 40
-            lblDistance.text = "1 km"
+            lblDistance.text = "0 km"
         }else if UserDefaults.standard.integer(forKey: "metricUnit") == 1 {
-            sliderDistance.value = 1
+            sliderDistance.value = 0
             sliderDistance.maximumValue = 25
-            lblDistance.text = "1 mile"
+            lblDistance.text = "0 miles"
         }
     }
 }

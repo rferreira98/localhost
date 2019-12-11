@@ -9,35 +9,71 @@
 import UIKit
 import SDWebImage
 
-class PlacesListViewController: UITableViewController {
-    
-    var resultSearchController: UISearchController!
+class PlacesListViewController: UITableViewController, UISearchBarDelegate {
+    //var resultSearchController: UISearchController!
     var locals = [Local]()
-    var searchBar: UISearchBar!
+    //var searchBar: UISearchBar!
+    
+    var searchController = UISearchController(searchResultsController: nil)
     
     var localToSend: Local!
     
     var tapGesture: UITapGestureRecognizer?
     
+    var filteredLocals: [Local] = []
+    
+    var isSearchBarEmpty: Bool {
+        return searchController.searchBar.text?.isEmpty ?? true
+    }
+    
+    var isFiltering: Bool {
+        return searchController.isActive && !isSearchBarEmpty
+    }
+    
     override func viewDidLoad() {
         self.locals = Items.sharedInstance.locals
-        let locationSearchTable = storyboard!.instantiateViewController(withIdentifier: "LocationSearchTable") as! LocationSearchTableController
-        resultSearchController = UISearchController(searchResultsController: locationSearchTable)
-        resultSearchController.searchResultsUpdater = locationSearchTable
-        searchBar = resultSearchController!.searchBar
-        //navigationItem.searchController = resultSearchController
-        self.navigationItem.titleView = searchBar
-        resultSearchController.hidesNavigationBarDuringPresentation = false
+        
+        searchController.searchResultsUpdater = self
+        // 2
+        searchController.obscuresBackgroundDuringPresentation = false
+        
+        // 3
+        searchController.searchBar.placeholder = "Search Places"
+        // 4
+        navigationItem.searchController = searchController
+        // 5
         definesPresentationContext = true
-        searchBar.tintColor = UIColor(named: "AppGreenPrimary")
-        searchBar.showsCancelButton = false
+        
+        
+        if User.hasUserLoggedIn(){
+            searchController.searchBar.scopeButtonTitles = ["Places", "Favorites"]
+            searchController.searchBar.showsScopeBar = true
+        } else {
+            searchController.searchBar.showsScopeBar = false
+        }
+            
+        searchController.searchBar.delegate = self
+        /*
+         let locationSearchTable = storyboard!.instantiateViewController(withIdentifier: "LocationSearchTable") as! LocationSearchTableController
+         resultSearchController = UISearchController(searchResultsController: locationSearchTable)
+         resultSearchController.searchResultsUpdater = locationSearchTable
+         searchBar = resultSearchController!.searchBar
+         //navigationItem.searchController = resultSearchController
+         self.navigationItem.titleView = searchBar
+         resultSearchController.hidesNavigationBarDuringPresentation = false
+         definesPresentationContext = true
+         searchBar.showsCancelButton = false
+         searchBar.scopeButtonTitles = ["Perguntas", "Questões"]
+         searchBar.showsScopeBar = true
+         */
         /*DispatchQueue.main.async { [unowned self] in
          self.searchBar.becomeFirstResponder()
          }*/
         
-        
-        let buttonFilter = UIBarButtonItem(image: UIImage(named: "Filter"), style: .plain, target: self, action: #selector(segueFilters))
-        self.navigationItem.rightBarButtonItem  = buttonFilter
+        /*
+         let buttonFilter = UIBarButtonItem(image: UIImage(named: "Filter"), style: .plain, target: self, action: #selector(segueFilters))
+         self.navigationItem.rightBarButtonItem  = buttonFilter
+         */
         
         
         //pull to refresh
@@ -46,8 +82,30 @@ class PlacesListViewController: UITableViewController {
         self.refreshControl?.addTarget(self, action: #selector(self.refresh(_:)), for: UIControl.Event.valueChanged)
         
         //----------------
-        //getLocals()
+        if User.hasUserLoggedIn() {
+            getFavorites(reset_data: false)
+        }
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        let searchBar = searchController.searchBar.selectedScopeButtonIndex
+        if searchBar == 1{
+            self.locals = Items.sharedInstance.favorites
+            tableView.reloadData()
+        } else {
+            self.locals = Items.sharedInstance.locals
+            tableView.reloadData()
+        }
+    }
+    
+    func filterContentForSearchText(_ searchText: String) {
+        filteredLocals = locals.filter { (local: Local) -> Bool in
+            return local.name.lowercased().contains(searchText.lowercased())
+        }
+        
+        tableView.reloadData()
+    }
+    
     
     @objc func refresh(_ sender: AnyObject) {
         getLocals()
@@ -80,28 +138,70 @@ class PlacesListViewController: UITableViewController {
          }*/
     }
     
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        print("touch")
-        self.searchBar.endEditing(true)
-        view.endEditing(true)
-    }
+    /*
+     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+     print("touch")
+     self.searchBar.endEditing(true)
+     view.endEditing(true)
+     }
+     */
     
     /*override func numberOfSections(in tableView: UITableView) -> Int {
      // #warning Incomplete implementation, return the number of sections
      return 1
      }*/
     
+    private func getFavorites(reset_data: Bool) {
+        NetworkHandler.getFavorites(completion: {
+            (locals, error) in OperationQueue.main.addOperation {
+                if error != nil {
+                    let alert = Utils.triggerAlert(title: "Erro", error: error)
+                    self.present(alert, animated: true, completion: nil)
+                }
+                else{
+                    Items.sharedInstance.favorites.removeAll()
+                    for local in locals!{
+                        Items.sharedInstance.favorites.append(local)
+                    }
+                    if(reset_data){
+                        self.locals = Items.sharedInstance.favorites
+                        self.tableView.reloadData()
+                    }
+                }
+            }
+        })
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
+        switch selectedScope {
+        case 0:
+            self.locals = Items.sharedInstance.locals
+            tableView.reloadData()
+        case 1:
+            getFavorites(reset_data: true)
+        default:
+            return
+        }
+        
+        print("New scope index is now \(selectedScope)")
+    }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(locals.count)
+        if isFiltering {
+            return filteredLocals.count
+        }
         return locals.count
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let local:Local
         
+        if isFiltering {
+            local = filteredLocals[indexPath.row]
+        } else {
+            local = locals[indexPath.row]
+        }
         
-        let local = locals[indexPath.row]
         localToSend = local
         
         performSegue(withIdentifier: "segueLocalDetail", sender: nil)
@@ -110,8 +210,13 @@ class PlacesListViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "localCell", for: indexPath) as! LocalTableViewCell
         
-        let local = locals[indexPath.row]
-        print(local)
+        let local:Local
+        
+        if isFiltering {
+            local = filteredLocals[indexPath.row]
+        } else {
+            local = locals[indexPath.row]
+        }
         cell.localName.text = local.name
         var typesStr: String = ""
         for type in local.types {
@@ -125,7 +230,6 @@ class PlacesListViewController: UITableViewController {
         cell.localPhoto.contentMode = .scaleAspectFill
         cell.localPhoto.sd_setImage(with: URL(string: local.imageUrl), placeholderImage: UIImage(named: "NoAvatar"))
         //cell.localPhoto.image = cropToBounds(image: cell.localPhoto.image!, width: 80, height: 80)
-        
         
         return cell
     }
@@ -152,6 +256,13 @@ class PlacesListViewController: UITableViewController {
     }
     
     
+}
+
+extension PlacesListViewController: UISearchResultsUpdating{
+    func updateSearchResults(for searchController: UISearchController) {
+        let searchBar = searchController.searchBar
+        filterContentForSearchText(searchBar.text!)
+    }
 }
 
 

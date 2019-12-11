@@ -11,4 +11,5 @@ import Foundation
 class Items{
     static let sharedInstance = Items()
     var locals = [Local]()
+    var favorites = [Local]()
 }

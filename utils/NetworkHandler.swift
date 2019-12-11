@@ -311,9 +311,6 @@ class NetworkHandler {
         
     }
     
-    
-    
-    
     struct PostUserData: Codable {
         let first_name: String
         let last_name: String
@@ -404,7 +401,7 @@ class NetworkHandler {
         var urlLocals: URL
         
         if latitude != nil && longitude != nil {
-            urlLocals = URL(string: baseUrl + "/search?latitude="+String(latitude!)+"&longitude="+String(longitude!)+"&radius=2000")!
+            urlLocals = URL(string: baseUrl + "/search?latitude="+String(latitude!)+"&longitude="+String(longitude!)+"&radius=3000")!
         }else {
             urlLocals = URL(string: baseUrl + "/search")!
         }
@@ -420,100 +417,85 @@ class NetworkHandler {
             }
             
             var locals = [Local]()
-            
-            let strJson = """
+            /*
+            var str = """
             [
             {
-            "name":"O Casarao",
-            "image_url":"https://s3-medi",
-            "address":"Estrada da Maceira, 10",
-            "average_rating":5,
-            "latitude":39.7152786,
-            "longitude":-8.8324003,
-            "city":"leiria",
-            "types":[
-            "cafes",
-            "portuguese"
-            ],
-            "reviews":[
-            
-            {
-            "id":"RL0tlJHfC-7OEq8al1hYvg",
-            "url":"https",
-            "text":"Amazing. Service was fantastic and this, by far, was the best meal we had in Portugal.",
-            "rating":5,
-            "time_created":"2018-10-07 07:22:36",
-            "user":{
-               "id":"8bwQwSJAdoNlNjxnZLiaeQ",
-               "profile_url":"https:",
-               "image_url":"https:",
-               "name":"Gina S."
-            }
+              "id": 1,
+              "name": "Mooo Hamburgueria",
+              "image_url": "https://s3-media3.fl.yelpcdn.com/bphoto/tQXdMBkDtezM6lj-jeFufw/o.jpg",
+              "address": "R. de Alcobaça, 7",
+              "city": "leiria",
+              "average_rating": 4.5,
+              "latitude": 39.742876,
+              "longitude": -8.810679,
+              "qt_reviews": 0,
+              "provider": "yelp",
+              "created_at": "2019-12-07 12:50:22",
+              "updated_at": "2019-12-07 12:50:22",
+              "deleted_at": null,
+              "types": [
+                "burgers"
+              ]
             },
             {
-            "id":"RL0tlJHfC-7OEq8al1hYvg",
-            "url":"https",
-            "text":"Amazing. Service was fantastic and this, by far, was the best meal we had in Portugal.",
-            "rating":5,
-            "time_created":"2018-10-07 07:22:36",
-            "user":{
-               "id":"8bwQwSJAdoNlNjxnZLiaeQ",
-               "profile_url":"https:",
-               "image_url":"https:",
-               "name":"Gina S."
-            }
-            }
-            ],
-            "qt_reviews":2
-            }
-                        ]
-            """
-            
-            let json2="""
-            [
-            {
-               "name":"O Casa00e3o",
-               "image_url":"httpsg",
-               "address":"Estrada da Maceira, 10",
-               "average_rating":5,
-               "latitude":39.7152786,
-               "longitude":-8.8324003,
-               "city":"leiria",
-               "types":["teste"  ],
-               "reviews":[
-                  {
-                     "id":"PqWqBxV_68SbnDlZgVvEkw",
-                     "url":"ht",
-                     "text":"Very good place. Service in nice and helpful. Food is traditional and tasty.  We had soft cheese as appetizer, with cold pig ears salad, green mussels and...",
-                     "rating":5,
-                     "time_created":"2019-09-12 07:12:02",
-                     "user":{
-                        "id":"KGdsjqWK06BLtn0f4vUxuQ",
-                        "profile_url":"https:w.yelp",
-                        "image_url":null,
-                        "name":"Chef Vlad H."
-                     }
-                  },
-                  {
-                     "id":"RL0tlJHfC-7OEq8al1hYvg",
-                     "url":"https:w",
-                     "text":"Amazing. Service was fantastic and this, by far, was the best meal we had in Portugal.",
-                     "rating":5,
-                     "time_created":"2018-10-07 07:22:36",
-                     "user":{
-                        "id":"8bwQwSJAdoNlNjxnZLiaeQ",
-                        "profile_url":"https:",
-                        "image_url":"https:",
-                        "name":"Gina S."
-                     }
-                  }
-               ],
-               "qt_reviews":2
+              "id": 2,
+              "name": "O Feijão Branco - Actividades Hoteleiras",
+              "image_url": "",
+              "address": "Av. Marquês de Pombal, Lote 1 Bloco B.",
+              "city": "leiria",
+              "average_rating": 3,
+              "latitude": 39.739445,
+              "longitude": -8.80791,
+              "qt_reviews": 0,
+              "provider": "yelp",
+              "created_at": "2019-12-07 12:50:22",
+              "updated_at": "2019-12-07 12:50:22",
+              "deleted_at": null,
+              "types": [
+                "bars",
+                "restaurants"
+              ]
             },
             ]
             """.data(using: .utf8)
+ */
+                    
+            if let data = data {
+                let decoder = JSONDecoder()
+                do {
+                    print(String(data: data, encoding: .utf8) ?? "no body data")
+                    print(data)
+                    locals = try decoder.decode([Local].self, from: data)
+                    
+                } catch let exception {
+                    completionHandler(nil, exception.localizedDescription)
+                    return
+                }
+                
+            }
+            completionHandler(locals, nil)
+        }
+        
+        localsTask.resume()
+    }
+    
+    static func getLocalsFilteredByDistance(currentLocationLatitude: Double, currentLocationLongitude: Double, radius: Int, completionHandler: @escaping ([Local]?, _ error: String?) -> Void) {
+        if !NetworkHandler.appDelegate.isNetworkOn {
+            completionHandler(nil, "Sem ligação à internet")
+            return
+        }
+        
+        let urlLocals = URL(string: baseUrl + "/search?latitude=\(currentLocationLatitude)&longitude=\(currentLocationLongitude)&radius=\(radius)")!
+        //let urlLocals = URL(string:"https://5de010c2bb46ce001434c034.mockapi.io/locals")!
+        
+        let localsTask = URLSession.shared.dataTask(with: urlLocals) { data, response, responseError in
+            let error = getServerError(responseData: data, response: response, responseError: responseError)
+            guard error == nil else {
+                return completionHandler(nil, error)
+            }
             
-            let dta = strJson.data(using: .utf8)
+            var locals = [Local]()
             
             if let data = data {
                 let decoder = JSONDecoder()
@@ -533,39 +515,83 @@ class NetworkHandler {
         localsTask.resume()
     }
     
-    static func getLocalsFilteredByDistance(currentLocationLatitude: Double, currentLocationLongitude: Double, radius: Double, completionHandler: @escaping ([Local]?, _ error: String?) -> Void) {
+    static func storeFavorite(local_id:Int ,completion: @escaping (_ success: Bool, _ error: String?) -> Void) {
         if !NetworkHandler.appDelegate.isNetworkOn {
-            completionHandler(nil, "Sem ligação à internet")
+            completion(false, "Sem conexão de Internet")
+            return
+        }
+        let postRequest = prepareRequest(nil as String? ,needsToken: true, urlString: "/favorite/\(local_id)", request_type: "POST", completion: completion)!
+        let task = postRequest.session.dataTask(with: postRequest.request) { (responseData, response, responseError) in
+            let error = getServerError(responseData: responseData, response: response, responseError: responseError)
+            guard error == nil else {
+                return completion(false, error)
+            }
+            
+            completion(true, nil)
+        }
+        task.resume()
+    }
+    
+    static func deleteFavorite(local_id:Int ,completion: @escaping (_ success: Bool, _ error: String?) -> Void) {
+        if !NetworkHandler.appDelegate.isNetworkOn {
+            completion(false, "Sem conexão de Internet")
+            return
+        }
+        let postRequest = prepareRequest(nil as String? ,needsToken: true, urlString: "/favorite/\(local_id)", request_type: "DELETE", completion: completion)!
+        let task = postRequest.session.dataTask(with: postRequest.request) { (responseData, response, responseError) in
+            let error = getServerError(responseData: responseData, response: response, responseError: responseError)
+            guard error == nil else {
+                return completion(false, error)
+            }
+            
+            completion(true, nil)
+        }
+        task.resume()
+    }
+    
+    static func getFavorites(completion: @escaping ([Local]?, _ error: String?) -> Void) {
+        if !NetworkHandler.appDelegate.isNetworkOn {
+            completion(nil, "Sem conexão de Internet")
             return
         }
         
-        let urlLocals = URL(string: baseUrl + "/search?latitude=\(currentLocationLatitude)&longitude=\(currentLocationLongitude)&radius=\(radius)")!
-        //let urlLocals = URL(string:"https://5de010c2bb46ce001434c034.mockapi.io/locals")!
-
-        let localsTask = URLSession.shared.dataTask(with: urlLocals) { data, response, responseError in
-            let error = getServerError(responseData: data, response: response, responseError: responseError)
+        // Specify this request as being a POST method
+        let url = URL(string: baseUrl + "/favorites")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        // Make sure that headers are included specifying that our request HTTP body will be JSON encoded
+        var headers = request.allHTTPHeaderFields ?? [:]
+        headers["Content-Type"] = "application/json"
+        let token = UserDefaults.standard.value(forKey: "Token") as? String
+        headers["Authorization"] = "Bearer " + token!
+        request.allHTTPHeaderFields = headers
+        
+        // Create and run a URLSession data task with JSON encoded POST request
+        let config = URLSessionConfiguration.default
+        let session = URLSession(configuration: config)
+        
+        let postRequest = PostRequest(session: session, request: request)
+        let task = postRequest.session.dataTask(with: postRequest.request) { (responseData, response, responseError) in
+            let error = getServerError(responseData: responseData, response: response, responseError: responseError)
             guard error == nil else {
-                return completionHandler(nil, error)
+                return completion(nil, error)
             }
-
             var locals = [Local]()
-
-            if let data = data {
+            
+            if let data = responseData {
                 let decoder = JSONDecoder()
                 do {
                     //print(String(data: data, encoding: .utf8) ?? "no body data")
                     locals = try decoder.decode([Local].self, from: data)
-                    
                 } catch let exception {
-                    completionHandler(nil, exception.localizedDescription)
+                    completion(nil, exception.localizedDescription)
                     return
                 }
-
+                
             }
-            completionHandler(locals, nil)
+            completion(locals, nil)
         }
-
-        localsTask.resume()
+        task.resume()
     }
 }
 
