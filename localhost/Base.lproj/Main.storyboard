@@ -1545,7 +1545,7 @@
         <image name="AvatarExample" width="300" height="300"/>
         <image name="FaceIcon" width="69.666664123535156" height="69.666664123535156"/>
         <image name="FacebookLogo" width="128" height="128"/>
-        <image name="Favorite_empty" width="36" height="36"/>
+        <image name="Favorite_empty" width="24" height="24"/>
         <image name="Filter" width="25" height="25"/>
         <image name="List" width="24" height="24"/>
         <image name="LocalHostIcon" width="375" height="394"/>
@@ -1560,7 +1560,7 @@
         </namedColor>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="4EN-OP-ix2"/>
+        <segue reference="omm-TA-kpH"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" name="AppGreenPrimary"/>
 </document>

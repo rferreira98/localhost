@@ -75,6 +75,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
         //Style textFieldEmail
         textFieldEmail.backgroundColor = UIColor.white
+        textFieldEmail.tintColor = UIColor(named: "AppGreenDark")
         textFieldEmail.textColor = UIColor.black
         textFieldEmail.attributedPlaceholder = NSAttributedString(string: "E-Mail",
                                                                   attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
@@ -88,6 +89,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
         //Style textFieldPassword
         textFieldPassword.backgroundColor = UIColor.white
+        textFieldPassword.tintColor = UIColor(named: "AppGreenDark")
         textFieldPassword.textColor = UIColor.black
         textFieldPassword.attributedPlaceholder = NSAttributedString(string: "Password",
                                                                      attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
