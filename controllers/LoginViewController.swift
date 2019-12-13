@@ -23,6 +23,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var biometricLoginButton: UIButton!
     
+    @IBOutlet weak var recoverPasswordBtn: UIButton!
     
     let usesBiometricAuth = UserDefaults.standard.bool(forKey: "usesBiometricAuth")
     var biometricType = ""
@@ -32,7 +33,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
         textFieldEmail.delegate = self
         textFieldPassword.delegate = self
-
+        
         
         //TouchID And Face ID Code --------------------------------------------------------------
         
@@ -50,7 +51,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         }
         
         
-            
+        
         if !usesBiometricAuth {
             biometricLoginButton.translatesAutoresizingMaskIntoConstraints = false
             biometricLoginButton.widthAnchor.constraint(equalToConstant: 0).isActive = true
@@ -190,9 +191,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     func goToMainScreen() {
         UserDefaults.standard.set(0, forKey: "metricUnit")
         /*let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let profileViewController = storyBoard.instantiateViewController(withIdentifier: "tabBarController")
-        //self.dismiss(animated: true, completion: nil)
-        self.present(profileViewController, animated: true, completion: nil)*/
+         let profileViewController = storyBoard.instantiateViewController(withIdentifier: "tabBarController")
+         //self.dismiss(animated: true, completion: nil)
+         self.present(profileViewController, animated: true, completion: nil)*/
         
         let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let first = storyBoard.instantiateViewController(withIdentifier: "tabBarController")
@@ -205,32 +206,32 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     func displayActionSheet(){
-    
+        
         let actionBiometric = UIAlertController(title: "Autenticação com "+biometricType, message: "Deseja que futuros logins na sua conta possam ser feitos através de "+biometricType+" ?", preferredStyle: .actionSheet)
-                
-            let noAction = UIAlertAction(title: "Não", style: .cancel, handler: {
-                (alert: UIAlertAction!) -> Void in
+        
+        let noAction = UIAlertAction(title: "Não", style: .cancel, handler: {
+            (alert: UIAlertAction!) -> Void in
+            UserDefaults.standard.set(true, forKey: "biometricPrompted")
+            self.goToMainScreen()
+        })
+        let yesAction = UIAlertAction(title: "Sim", style: .default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            //If user accepts, save his login data on the KeyChain
+            do {
+                let email = self.textFieldEmail.text!
+                let passwd : Data? = self.textFieldPassword.text!.data(using: .utf8)
+                let status = KeychainPasswordItem.save(key: email, data: passwd!)
+                UserDefaults.standard.set(true, forKey: "usesBiometricAuth")
                 UserDefaults.standard.set(true, forKey: "biometricPrompted")
                 self.goToMainScreen()
-            })
-            let yesAction = UIAlertAction(title: "Sim", style: .default, handler: {
-                (alert: UIAlertAction!) -> Void in
-                //If user accepts, save his login data on the KeyChain
-                do {
-                    let email = self.textFieldEmail.text!
-                    let passwd : Data? = self.textFieldPassword.text!.data(using: .utf8)
-                    let status = KeychainPasswordItem.save(key: email, data: passwd!)
-                    UserDefaults.standard.set(true, forKey: "usesBiometricAuth")
-                    UserDefaults.standard.set(true, forKey: "biometricPrompted")
-                    self.goToMainScreen()
-                } catch {
-                  fatalError("Error updating keychain - \(error)")
-                }
-                
-            })
-            actionBiometric.addAction(noAction)
-            actionBiometric.addAction(yesAction)
-            self.present(actionBiometric, animated: true, completion: nil)
+            } catch {
+                fatalError("Error updating keychain - \(error)")
+            }
+            
+        })
+        actionBiometric.addAction(noAction)
+        actionBiometric.addAction(yesAction)
+        self.present(actionBiometric, animated: true, completion: nil)
         
     }
     
@@ -240,22 +241,69 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         biometric.authenticateUser() { [weak self] in
             if let receivedData = KeychainPasswordItem.load(key: email) {
                 let pwd = String(decoding: receivedData, as: UTF8.self)
-                    let myPost = NetworkHandler.PostLogin(password: pwd, email: email)
-                    
-                    NetworkHandler.login(post: myPost) { (success, error) in
-                        OperationQueue.main.addOperation {
-                            
-                            if error != nil {
-                                let alert = Utils.triggerAlert(title: "Erro", error: error)
-                                self!.present(alert, animated: true, completion: nil)
-                            } else {
-                                self!.goToMainScreen()
-                            }
-                        }
+                let myPost = NetworkHandler.PostLogin(password: pwd, email: email)
+                
+                NetworkHandler.login(post: myPost) { (success, error) in
+                    OperationQueue.main.addOperation {
                         
+                        if error != nil {
+                            let alert = Utils.triggerAlert(title: "Erro", error: error)
+                            self!.present(alert, animated: true, completion: nil)
+                        } else {
+                            self!.goToMainScreen()
+                        }
                     }
+                    
+                }
             }
         }
+    }
+    
+    @IBAction func onClickRecoverPasswordBtn(_ sender: Any) {
+        let alert = UIAlertController(title: "Insert the email connected to your account.", message: nil, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        alert.addTextField(configurationHandler: { textField in
+            textField.placeholder = "Input your email here..."
+        })
+        
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+            
+            if let email = alert.textFields?.first?.text {
+                print("Your name: \(email)")
+                alert.dismiss(animated: false, completion: {
+                    let alert = UIAlertController(title: nil, message: "Please wait...", preferredStyle: .alert)
+                    
+                    let loadingIndicator = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 50, height: 50))
+                    loadingIndicator.hidesWhenStopped = true
+                    loadingIndicator.style = UIActivityIndicatorView.Style.gray
+                    loadingIndicator.startAnimating();
+                    
+                    alert.view.addSubview(loadingIndicator)
+                    self.present(alert, animated: true, completion: nil)
+                    
+                    let postResetPass = NetworkHandler.PostResetPassword(email: email)
+                    
+                    NetworkHandler.resetPassword(post: postResetPass) { (success, error) in
+                        OperationQueue.main.addOperation {
+                            if error != nil {
+                                let alert = Utils.triggerAlert(title: "Erro", error: error)
+                                self.present(alert, animated: true, completion: nil)
+                            } else {
+                                alert.dismiss(animated: false, completion: nil)
+                                let success = UIAlertController(title: "Reset Password", message: "Check your email for instructions on how to reset your password.", preferredStyle: .alert)
+                                success.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                                self.present(success, animated: true, completion: nil)
+                            }
+                        }
+                    }
+                })
+            }
+        }))
+        
+        self.present(alert, animated: true)
+        
+        
     }
     
 }

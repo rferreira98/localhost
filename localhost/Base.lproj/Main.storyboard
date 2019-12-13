@@ -911,7 +911,7 @@
                                     <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <action selector="passwordRecoveryClicked:" destination="X1K-Wl-KBG" eventType="touchUpInside" id="nE1-gY-YQ8"/>
+                                    <action selector="onClickRecoverPasswordBtn:" destination="X1K-Wl-KBG" eventType="touchUpInside" id="EmV-eg-4e5"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="79k-mR-A9w">
@@ -973,6 +973,7 @@
                     <connections>
                         <outlet property="biometricLoginButton" destination="79k-mR-A9w" id="Lfv-x5-eRM"/>
                         <outlet property="loginButton" destination="DUj-nm-94h" id="765-vL-Xyc"/>
+                        <outlet property="recoverPasswordBtn" destination="fbl-lr-va4" id="Q3G-aX-clA"/>
                         <outlet property="textFieldEmail" destination="z72-Fn-9mD" id="zr0-7W-SeK"/>
                         <outlet property="textFieldPassword" destination="7Qj-qP-oFx" id="jaA-sS-Xy8"/>
                     </connections>

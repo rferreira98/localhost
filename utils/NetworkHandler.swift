@@ -365,29 +365,11 @@ class NetworkHandler {
         let postRequest = prepareRequest(post, needsToken: false, urlString: "/reset/password", request_type: "POST", completion: completion)!
         let task = postRequest.session.dataTask(with: postRequest.request) { (responseData, response, responseError) in
             let error = getServerError(responseData: responseData, response: response, responseError: responseError)
-            /*guard error == nil else {
-             return completion(false, error)
-             }*/
-            
-            do {
-                
-                
-                let jsonResponse = try JSONSerialization.jsonObject(with:
-                    responseData!, options: .allowFragments) as? [[String: Any]]
-                let str = String(data: responseData!, encoding: String.Encoding.utf8) ?? "Data could not be printed"
-                print(str);
-                
-                if let dictionary = jsonResponse as? [String: Any] {
-                    
-                    print(jsonResponse);
-                    let saved = saveUserInStorage(userJson: dictionary)
-                    completion(saved, nil)
-                }
-                
-            } catch let parsingError {
-                print("Error", parsingError)
-                completion(false, "Erro no parse JSON no Update")
+            guard error == nil else {
+                return completion(false, error)
             }
+            
+            completion(true, nil)
         }
         task.resume()
     }
@@ -418,49 +400,49 @@ class NetworkHandler {
             
             var locals = [Local]()
             /*
-            var str = """
-            [
-            {
-              "id": 1,
-              "name": "Mooo Hamburgueria",
-              "image_url": "https://s3-media3.fl.yelpcdn.com/bphoto/tQXdMBkDtezM6lj-jeFufw/o.jpg",
-              "address": "R. de Alcobaça, 7",
-              "city": "leiria",
-              "average_rating": 4.5,
-              "latitude": 39.742876,
-              "longitude": -8.810679,
-              "qt_reviews": 0,
-              "provider": "yelp",
-              "created_at": "2019-12-07 12:50:22",
-              "updated_at": "2019-12-07 12:50:22",
-              "deleted_at": null,
-              "types": [
-                "burgers"
-              ]
-            },
-            {
-              "id": 2,
-              "name": "O Feijão Branco - Actividades Hoteleiras",
-              "image_url": "",
-              "address": "Av. Marquês de Pombal, Lote 1 Bloco B.",
-              "city": "leiria",
-              "average_rating": 3,
-              "latitude": 39.739445,
-              "longitude": -8.80791,
-              "qt_reviews": 0,
-              "provider": "yelp",
-              "created_at": "2019-12-07 12:50:22",
-              "updated_at": "2019-12-07 12:50:22",
-              "deleted_at": null,
-              "types": [
-                "bars",
-                "restaurants"
-              ]
-            },
-            ]
-            """.data(using: .utf8)
- */
-                    
+             var str = """
+             [
+             {
+             "id": 1,
+             "name": "Mooo Hamburgueria",
+             "image_url": "https://s3-media3.fl.yelpcdn.com/bphoto/tQXdMBkDtezM6lj-jeFufw/o.jpg",
+             "address": "R. de Alcobaça, 7",
+             "city": "leiria",
+             "average_rating": 4.5,
+             "latitude": 39.742876,
+             "longitude": -8.810679,
+             "qt_reviews": 0,
+             "provider": "yelp",
+             "created_at": "2019-12-07 12:50:22",
+             "updated_at": "2019-12-07 12:50:22",
+             "deleted_at": null,
+             "types": [
+             "burgers"
+             ]
+             },
+             {
+             "id": 2,
+             "name": "O Feijão Branco - Actividades Hoteleiras",
+             "image_url": "",
+             "address": "Av. Marquês de Pombal, Lote 1 Bloco B.",
+             "city": "leiria",
+             "average_rating": 3,
+             "latitude": 39.739445,
+             "longitude": -8.80791,
+             "qt_reviews": 0,
+             "provider": "yelp",
+             "created_at": "2019-12-07 12:50:22",
+             "updated_at": "2019-12-07 12:50:22",
+             "deleted_at": null,
+             "types": [
+             "bars",
+             "restaurants"
+             ]
+             },
+             ]
+             """.data(using: .utf8)
+             */
+            
             if let data = data {
                 let decoder = JSONDecoder()
                 do {
