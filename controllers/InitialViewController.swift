@@ -21,15 +21,11 @@ class InitialViewController: UIViewController, CLLocationManagerDelegate{
         locationManager.distanceFilter = kCLDistanceFilterNone
         locationManager.requestWhenInUseAuthorization()
         locationManager.requestLocation()
-        
-        
     }
 
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-       
         if status == CLAuthorizationStatus.authorizedWhenInUse || status == CLAuthorizationStatus.authorizedAlways{
             getLocals()
-             
         }else {
             if(UserDefaults.standard.bool(forKey: "hasBeenLaunched")){
                 let alertController = UIAlertController(title: "Erro", message: "Por favor autorize a utilização da localização para o correto funcionamento da aplicação nas Definições.", preferredStyle: .alert)
@@ -52,7 +48,7 @@ class InitialViewController: UIViewController, CLLocationManagerDelegate{
         
     }
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        getLocals()
+        //getLocals()
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {

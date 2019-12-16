@@ -13,6 +13,7 @@ import MapKit
 class FiltersTableViewController: UITableViewController, CLLocationManagerDelegate {
     @IBOutlet weak var sliderDistance: UISlider!
     @IBOutlet weak var lblDistance: UILabel!
+    @IBOutlet var resetFiltersBtn: UIButton!
     
     let locationManager = CLLocationManager()
     
@@ -44,7 +45,7 @@ class FiltersTableViewController: UITableViewController, CLLocationManagerDelega
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 2
+        return 3
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -53,12 +54,22 @@ class FiltersTableViewController: UITableViewController, CLLocationManagerDelega
     }
     
     
+    fileprivate func checkCurrentRadiusValue() {
+        if self.currentRadiusValue == 0 {
+            self.navigationItem.rightBarButtonItem?.isEnabled = false
+        } else {
+            self.navigationItem.rightBarButtonItem?.isEnabled = true
+        }
+    }
+    
     @IBAction func sliderValueChanged(_ sender: UISlider) {
         self.currentRadiusValue = Int(sender.value)
         
         if UserDefaults.standard.integer(forKey: "metricUnit") == 0 {
+            checkCurrentRadiusValue()
             lblDistance.text = "\(currentRadiusValue) km"
         }else if UserDefaults.standard.integer(forKey: "metricUnit") == 1 {
+            checkCurrentRadiusValue()
             if currentRadiusValue == 1{
                 lblDistance.text = "\(currentRadiusValue) mile"
             }else{
@@ -124,12 +135,20 @@ class FiltersTableViewController: UITableViewController, CLLocationManagerDelega
         }
     }
     
+    
+    @IBAction func onClickResetFiltersBtn(_ sender: Any) {
+        self.currentRadiusValue = 0	
+        verifyMetricUnit()
+    }
+    
     private func verifyMetricUnit() {
         if UserDefaults.standard.integer(forKey: "metricUnit") == 0 {
+            self.navigationItem.rightBarButtonItem?.isEnabled = false
             sliderDistance.value = 0
             sliderDistance.maximumValue = 40
             lblDistance.text = "0 km"
         }else if UserDefaults.standard.integer(forKey: "metricUnit") == 1 {
+            self.navigationItem.rightBarButtonItem?.isEnabled = false
             sliderDistance.value = 0
             sliderDistance.maximumValue = 25
             lblDistance.text = "0 miles"

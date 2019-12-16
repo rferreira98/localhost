@@ -399,7 +399,7 @@ class NetworkHandler {
             }
             
             var locals = [Local]()
-            /*
+            
              var str = """
              [
              {
@@ -441,14 +441,14 @@ class NetworkHandler {
              },
              ]
              """.data(using: .utf8)
-             */
+             
             
             if let data = data {
                 let decoder = JSONDecoder()
                 do {
-                    //print(String(data: data, encoding: .utf8) ?? "no body data")
+                    print(String(data: data, encoding: .utf8) ?? "no body data")
                     //print(data)
-                    locals = try decoder.decode([Local].self, from: data)
+                    locals = try decoder.decode([Local].self, from: str!)
                     
                 } catch let exception {
                     completionHandler(nil, exception.localizedDescription)
