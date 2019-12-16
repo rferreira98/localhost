@@ -10,11 +10,7 @@ import UIKit
 
 class TabBarController : UITabBarController, UITabBarControllerDelegate{
     
-    var locals = [Local]()
-    override func viewWillAppear(_ animated: Bool) {
-        
-        
-    }
+   
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -25,8 +21,6 @@ class TabBarController : UITabBarController, UITabBarControllerDelegate{
     
     
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
-        
-               
         
        if !User.hasUserLoggedIn(){
             if viewController == tabBarController.viewControllers?[2] || viewController == tabBarController.viewControllers?[3] {
@@ -40,21 +34,6 @@ class TabBarController : UITabBarController, UITabBarControllerDelegate{
     
     
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
-        /*if item == tabBar.items?[3]{
-            if !User.hasUserLoggedIn() {
-                
-                //self.performSegue(withIdentifier: "segueLogged", sender: nil)
-                let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                let loginViewController = storyBoard.instantiateViewController(withIdentifier: "loginViewController")
-                self.present(loginViewController, animated: true, completion: nil)
-            }
-            
-            
-            
-        }*/
-        print("TAB")
-
-        
          if item == tabBar.items?[2] || item == tabBar.items?[3] {
             
             if !User.hasUserLoggedIn(){
@@ -78,11 +57,5 @@ class TabBarController : UITabBarController, UITabBarControllerDelegate{
         
     }
     
-    
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        
-    }
 }
 

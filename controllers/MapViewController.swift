@@ -88,7 +88,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         
         
         self.drawLocalPins()
-        
     }
     
     @objc func segueFilters(){
@@ -103,8 +102,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     
     override func viewWillAppear(_ animated: Bool) {
-        locationManager.startUpdatingLocation()
         
+        locationManager.startUpdatingLocation()
         //getLocals()
     }
     
@@ -161,10 +160,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             
             map.register(ArtworkView.self,
             forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
-            
-            
-            
-            
         }
     }
     
@@ -265,7 +260,6 @@ extension MapViewController: HandleMapSearch {
         let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
         let region = MKCoordinateRegion(center: placemark.coordinate, span: span)
         map.setRegion(region, animated: true)
-        
     }
     
 }

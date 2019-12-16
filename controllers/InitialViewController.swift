@@ -22,15 +22,14 @@ class InitialViewController: UIViewController, CLLocationManagerDelegate{
         locationManager.requestWhenInUseAuthorization()
         locationManager.requestLocation()
         
-        locationManager.startUpdatingLocation()
-        
         
     }
 
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+       
         if status == CLAuthorizationStatus.authorizedWhenInUse || status == CLAuthorizationStatus.authorizedAlways{
-            locationManager.startUpdatingLocation()
-            //getLocals()
+            getLocals()
+             
         }else {
             if(UserDefaults.standard.bool(forKey: "hasBeenLaunched")){
                 let alertController = UIAlertController(title: "Erro", message: "Por favor autorize a utilização da localização para o correto funcionamento da aplicação nas Definições.", preferredStyle: .alert)
@@ -58,7 +57,6 @@ class InitialViewController: UIViewController, CLLocationManagerDelegate{
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error)
-        
     }
     
 
@@ -68,10 +66,9 @@ class InitialViewController: UIViewController, CLLocationManagerDelegate{
     
     
     private func getLocals(){
-        locationManager.requestLocation()
-        
         self.showSpinner(onView: self.view)
         //todo wrong location is not available yet
+        
         NetworkHandler.getLocals(latitude: Double((locationManager.location?.coordinate.latitude)!), longitude: Double((locationManager.location?.coordinate.longitude)!)) {
             (locals, error) in OperationQueue.main.addOperation {
                 if error != nil {

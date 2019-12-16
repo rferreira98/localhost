@@ -446,8 +446,8 @@ class NetworkHandler {
             if let data = data {
                 let decoder = JSONDecoder()
                 do {
-                    print(String(data: data, encoding: .utf8) ?? "no body data")
-                    print(data)
+                    //print(String(data: data, encoding: .utf8) ?? "no body data")
+                    //print(data)
                     locals = try decoder.decode([Local].self, from: data)
                     
                 } catch let exception {

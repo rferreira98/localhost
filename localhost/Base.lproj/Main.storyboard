@@ -283,7 +283,7 @@
                         </prototypes>
                     </tableView>
                     <navigationItem key="navigationItem" title="Locais" largeTitleDisplayMode="always" id="grr-Kf-1ry">
-                        <barButtonItem key="rightBarButtonItem" image="Filter" id="mKh-TZ-qbz">
+                        <barButtonItem key="rightBarButtonItem" title="Filters" id="mKh-TZ-qbz">
                             <connections>
                                 <segue destination="BRN-j1-ho4" kind="show" identifier="listFiltersButton" id="Bzt-6p-OWk"/>
                             </connections>
@@ -1257,7 +1257,7 @@
                             </tableViewSection>
                             <tableViewSection id="aQb-0i-Oc7">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="YWY-he-GwH">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="44" id="YWY-he-GwH">
                                         <rect key="frame" x="0.0" y="496" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="YWY-he-GwH" id="oA8-ab-V71">
@@ -1265,7 +1265,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7ur-dd-zhl">
-                                                    <rect key="frame" x="163.66666666666666" y="6" width="48" height="30"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="370" height="44"/>
                                                     <state key="normal" title="Logout">
                                                         <color key="titleColor" name="systemRedColor" catalog="System" colorSpace="catalog"/>
                                                     </state>
@@ -1275,13 +1275,15 @@
                                                 </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="7ur-dd-zhl" firstAttribute="centerX" secondItem="oA8-ab-V71" secondAttribute="centerX" id="3L1-1y-dHx"/>
-                                                <constraint firstItem="7ur-dd-zhl" firstAttribute="top" secondItem="oA8-ab-V71" secondAttribute="top" constant="6" id="3gw-dX-n6g"/>
+                                                <constraint firstAttribute="bottom" secondItem="7ur-dd-zhl" secondAttribute="bottom" id="2RJ-Aa-kRj"/>
+                                                <constraint firstItem="7ur-dd-zhl" firstAttribute="top" secondItem="oA8-ab-V71" secondAttribute="top" id="8sv-aj-4Rv"/>
+                                                <constraint firstItem="7ur-dd-zhl" firstAttribute="leading" secondItem="oA8-ab-V71" secondAttribute="leading" id="FvA-mN-LdC"/>
+                                                <constraint firstAttribute="trailing" secondItem="7ur-dd-zhl" secondAttribute="trailing" constant="5" id="Vfz-nk-bFM"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="DQb-O8-338">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="44" id="DQb-O8-338">
                                         <rect key="frame" x="0.0" y="540" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="DQb-O8-338" id="xpw-oy-HXm">
@@ -1289,7 +1291,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JOF-kL-14d">
-                                                    <rect key="frame" x="72" y="6" width="231" height="30"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                                     <state key="normal" title="Logout and Delete Biometric Data">
                                                         <color key="titleColor" name="systemRedColor" catalog="System" colorSpace="catalog"/>
                                                     </state>
@@ -1299,13 +1301,15 @@
                                                 </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="JOF-kL-14d" firstAttribute="top" secondItem="xpw-oy-HXm" secondAttribute="top" constant="6" id="dmS-6j-Mnj"/>
-                                                <constraint firstItem="JOF-kL-14d" firstAttribute="centerX" secondItem="xpw-oy-HXm" secondAttribute="centerX" id="eGd-kV-oFT"/>
+                                                <constraint firstAttribute="trailing" secondItem="JOF-kL-14d" secondAttribute="trailing" id="Z4Z-kB-tfc"/>
+                                                <constraint firstAttribute="bottom" secondItem="JOF-kL-14d" secondAttribute="bottom" id="jUc-Dd-0DM"/>
+                                                <constraint firstItem="JOF-kL-14d" firstAttribute="leading" secondItem="xpw-oy-HXm" secondAttribute="leading" id="siW-C3-gOG"/>
+                                                <constraint firstItem="JOF-kL-14d" firstAttribute="top" secondItem="xpw-oy-HXm" secondAttribute="top" id="yuj-Vi-19p"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="ynW-P9-2W9">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="44" id="ynW-P9-2W9">
                                         <rect key="frame" x="0.0" y="584" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ynW-P9-2W9" id="XdK-k0-rew">
@@ -1313,7 +1317,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BWK-lY-s0b">
-                                                    <rect key="frame" x="133" y="6" width="109" height="30"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                                     <state key="normal" title="Reset Password">
                                                         <color key="titleColor" name="systemRedColor" catalog="System" colorSpace="catalog"/>
                                                     </state>
@@ -1324,8 +1328,10 @@
                                                 </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="BWK-lY-s0b" firstAttribute="top" secondItem="XdK-k0-rew" secondAttribute="top" constant="6" id="1R3-08-ojZ"/>
-                                                <constraint firstItem="BWK-lY-s0b" firstAttribute="centerX" secondItem="XdK-k0-rew" secondAttribute="centerX" id="bgT-1U-QTg"/>
+                                                <constraint firstItem="BWK-lY-s0b" firstAttribute="leading" secondItem="XdK-k0-rew" secondAttribute="leading" id="0Lt-af-9Ad"/>
+                                                <constraint firstAttribute="trailing" secondItem="BWK-lY-s0b" secondAttribute="trailing" id="3Kz-eA-uut"/>
+                                                <constraint firstAttribute="bottom" secondItem="BWK-lY-s0b" secondAttribute="bottom" id="hrV-ye-dhT"/>
+                                                <constraint firstItem="BWK-lY-s0b" firstAttribute="top" secondItem="XdK-k0-rew" secondAttribute="top" id="ozR-yV-dBG"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
@@ -1479,10 +1485,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kCk-Lh-io8">
-                                <rect key="frame" x="67" y="134" width="35" height="35"/>
+                                <rect key="frame" x="324" y="134" width="35" height="35"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="35" id="L9u-w9-436"/>
-                                    <constraint firstAttribute="width" constant="35" id="y4d-9j-Z1M"/>
+                                    <constraint firstAttribute="width" constant="35" id="a4J-bq-U7B"/>
+                                    <constraint firstAttribute="height" constant="35" id="a5I-Nx-DVM"/>
                                 </constraints>
                                 <state key="normal" title="Button" image="MapsIconNative"/>
                                 <connections>
@@ -1493,7 +1499,6 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="fAV-BR-fSB" firstAttribute="top" secondItem="ZV2-Xc-IDO" secondAttribute="bottom" constant="10" id="0Bd-4Z-sq3"/>
-                            <constraint firstItem="kCk-Lh-io8" firstAttribute="leading" secondItem="rq7-Zq-dyV" secondAttribute="trailing" constant="9" id="1TW-8P-Pws"/>
                             <constraint firstItem="fAV-BR-fSB" firstAttribute="leading" secondItem="GDm-RU-3CA" secondAttribute="leading" constant="16" id="2Yq-At-cCA"/>
                             <constraint firstItem="kCk-Lh-io8" firstAttribute="top" secondItem="fAV-BR-fSB" secondAttribute="bottom" constant="8.3333333333333286" id="5HA-Kc-2ig"/>
                             <constraint firstItem="ZV2-Xc-IDO" firstAttribute="leading" secondItem="GDm-RU-3CA" secondAttribute="leading" constant="16" id="5px-T9-e7h"/>
@@ -1511,6 +1516,7 @@
                             <constraint firstItem="T5m-Gk-DsF" firstAttribute="top" secondItem="Wkc-f0-T2I" secondAttribute="bottom" constant="20" id="jwz-co-hMj"/>
                             <constraint firstItem="bGj-rn-9dL" firstAttribute="top" secondItem="kCk-Lh-io8" secondAttribute="bottom" constant="10" id="poF-Rr-pIM"/>
                             <constraint firstItem="llT-ON-Nue" firstAttribute="leading" secondItem="GDm-RU-3CA" secondAttribute="leading" id="qCY-tm-QxP"/>
+                            <constraint firstItem="GDm-RU-3CA" firstAttribute="trailing" secondItem="kCk-Lh-io8" secondAttribute="trailing" constant="16" id="qYW-Zk-bwe"/>
                             <constraint firstItem="Wkc-f0-T2I" firstAttribute="leading" secondItem="GDm-RU-3CA" secondAttribute="leading" constant="16" id="seV-NB-Tiy"/>
                             <constraint firstItem="T5m-Gk-DsF" firstAttribute="leading" secondItem="GDm-RU-3CA" secondAttribute="leading" constant="16" id="xll-O5-rM5"/>
                             <constraint firstItem="rq7-Zq-dyV" firstAttribute="top" secondItem="fAV-BR-fSB" secondAttribute="bottom" constant="15" id="xo0-tb-gMp"/>
@@ -1547,7 +1553,6 @@
         <image name="FaceIcon" width="69.666664123535156" height="69.666664123535156"/>
         <image name="FacebookLogo" width="128" height="128"/>
         <image name="Favorite_empty" width="24" height="24"/>
-        <image name="Filter" width="25" height="25"/>
         <image name="List" width="24" height="24"/>
         <image name="LocalHostIcon" width="375" height="394"/>
         <image name="Map" width="20" height="20"/>

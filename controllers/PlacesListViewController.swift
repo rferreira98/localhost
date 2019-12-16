@@ -75,7 +75,6 @@ class PlacesListViewController: UITableViewController, UISearchBarDelegate {
          self.navigationItem.rightBarButtonItem  = buttonFilter
          */
         
-        
         //pull to refresh
         
         self.refreshControl?.attributedTitle = NSAttributedString(string: "Puxe para atualizar")
@@ -114,6 +113,8 @@ class PlacesListViewController: UITableViewController, UISearchBarDelegate {
     @objc func segueFilters(){
         performSegue(withIdentifier: "listFiltersButton", sender: nil)
     }
+    
+    
     
     private func getLocals(){
         /*NetworkHandler.getLocals() {
@@ -246,7 +247,20 @@ class PlacesListViewController: UITableViewController, UISearchBarDelegate {
     
     @objc func viewTapped(gestureRecognizer: UIGestureRecognizer) {
         view.endEditing(true)
+        self.searchController.searchBar.endEditing(true)
+        if(self.isSearchBarEmpty){
+            self.searchController.isActive = false
+        }
     }
+    
+    
+    override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        self.searchController.searchBar.endEditing(true)
+        if(self.isSearchBarEmpty){
+            self.searchController.isActive = false
+        }
+    }
+ 
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -254,8 +268,7 @@ class PlacesListViewController: UITableViewController, UISearchBarDelegate {
             smld.local = self.localToSend
         }
     }
-    
-    
+
 }
 
 extension PlacesListViewController: UISearchResultsUpdating{

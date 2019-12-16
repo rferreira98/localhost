@@ -21,7 +21,7 @@ class ArtworkView: MKAnnotationView {
             
             let mapsButton = UIButton(frame: CGRect(origin: CGPoint.zero,
                size: CGSize(width: 30, height: 30)))
-            mapsButton.setBackgroundImage(UIImage(named: "AddButton"), for: UIControl.State())
+            mapsButton.setBackgroundImage(UIImage(named: "Info"), for: UIControl.State())
             
             rightCalloutAccessoryView = mapsButton
             image = UIImage(named: "MapMarker")
