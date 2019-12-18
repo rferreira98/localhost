@@ -253,7 +253,7 @@ class PlacesListViewController: UITableViewController, UISearchBarDelegate {
         }
     }
     
-    
+                        
     override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         self.searchController.searchBar.endEditing(true)
         if(self.isSearchBarEmpty){
