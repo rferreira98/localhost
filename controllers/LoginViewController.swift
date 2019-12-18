@@ -183,7 +183,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     
     @IBAction func inicioClicked(_ sender: Any) {
-        self.goToMainScreen()
+        self.navigationController?.popViewController(animated: true)
+        dismiss(animated: true, completion: nil)
     }
     
     
@@ -194,7 +195,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
          let profileViewController = storyBoard.instantiateViewController(withIdentifier: "tabBarController")
          //self.dismiss(animated: true, completion: nil)
          self.present(profileViewController, animated: true, completion: nil)*/
-        
+        /*
         let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let first = storyBoard.instantiateViewController(withIdentifier: "tabBarController")
         //let mvc = MapViewController()
@@ -202,7 +203,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
         first.modalPresentationStyle = .fullScreen
         //self.dismiss(animated: true, completion: nil)
-        self.present(first, animated: true, completion: nil)
+        self.present(first, animated: true, completion: nil)*/
+        self.navigationController?.popViewController(animated: true)
+        dismiss(animated: true, completion: nil)
     }
     
     func displayActionSheet(){
