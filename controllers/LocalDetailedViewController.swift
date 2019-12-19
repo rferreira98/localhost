@@ -39,9 +39,10 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
         mapView.showsPointsOfInterest = true
         mapView.isUserInteractionEnabled = false
         
-        //reviews = local.reviews
-        //print(local.reviews.count)
-        //print(reviews.count)
+        
+            //reviews = local.reviews
+            //print(local.reviews.count)
+            //print(reviews.count)
         self.coordinate = CLLocationCoordinate2D(latitude: CLLocationDegrees(exactly: CLLocationDegrees(local.latitude))!,
                                                  longitude: CLLocationDegrees(exactly: CLLocationDegrees(local.longitude))!)
         self.drawMapWithLocation(selectedCoordinate: self.coordinate!)
@@ -57,6 +58,8 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
         self.ratingView.isUserInteractionEnabled = false
         self.ratingView.rating = self.local.avgRating
         self.labelQtReviews.text = String(local.qtReviews)
+        
+        getReviews(local.id)
         
         if !User.hasUserLoggedIn(){
             self.navigationItem.rightBarButtonItem = nil
@@ -79,6 +82,21 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
                 }
             }
         }
+    }
+    
+    public func getReviews(_ local_id:Int) {
+        NetworkHandler.getReviews(local_id: self.local.id, completion: { (reviews, error) in
+            OperationQueue.main.addOperation {
+                if error != nil {
+                    let alert = Utils.triggerAlert(title: "Erro", error: error)
+                    self.present(alert, animated: true, completion: nil)
+                } else {
+                    self.reviews = reviews!
+                    print(reviews!)
+                    self.reviewsTableView.reloadData()
+                }
+            }
+        })
     }
     
     public func drawMapWithLocation(selectedCoordinate: CLLocationCoordinate2D) {
@@ -137,10 +155,8 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
         return mapItem
     }
     
-    
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.reviews.count
+        return reviews.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -149,12 +165,13 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
         let review = reviews[indexPath.row]
         
         cell.isUserInteractionEnabled = false
+        cell.ratingReview.rating = review?.rating ?? 0
         cell.labelReview.text = review?.text
         cell.labelReview.numberOfLines = 0
-        cell.labelReviewUser.text = review?.user.name
+        cell.labelReviewUser.text = review?.user_name
         cell.imageViewUserReviewer.contentMode = .scaleAspectFill
-        if review?.user.image_url != nil {
-            cell.imageViewUserReviewer.sd_setImage(with: URL(string: (review?.user.image_url)!), placeholderImage: UIImage(named: "NoAvatar"))
+        if review?.user_image != nil {
+            cell.imageViewUserReviewer.sd_setImage(with: URL(string: (review?.user_image)!), placeholderImage: UIImage(named: "NoAvatar"))
         }
         else{
             cell.imageViewUserReviewer.image = UIImage(named: "NoAvatar")
@@ -163,6 +180,7 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
         
         return cell
     }
+    
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection
         section: Int) -> String? {
