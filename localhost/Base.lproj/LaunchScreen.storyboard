@@ -30,10 +30,9 @@
                         <color key="backgroundColor" name="AppGreenPrimary"/>
                         <constraints>
                             <constraint firstItem="tiv-05-3gw" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="J1b-kJ-ox7"/>
+                            <constraint firstItem="A7Y-h1-SKT" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="S9i-bO-0et"/>
                             <constraint firstItem="tiv-05-3gw" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="cEN-Cd-Sxc"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="A7Y-h1-SKT" secondAttribute="trailing" constant="69" id="xV6-EI-ZJw"/>
                             <constraint firstItem="A7Y-h1-SKT" firstAttribute="top" secondItem="tiv-05-3gw" secondAttribute="bottom" constant="10" id="xuM-eJ-NVl"/>
-                            <constraint firstItem="A7Y-h1-SKT" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="70" id="zrR-uL-dk1"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>

@@ -29,6 +29,7 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
     @IBOutlet weak var ratingView: CosmosView!
     @IBOutlet weak var labelQtReviews: UILabel!
     @IBOutlet var btnFavoriteBarItem: UIBarButtonItem!
+    @IBOutlet weak var imageViewLocal: UIImageView!
     
     override func viewDidLoad() {
         mapView.delegate = self
@@ -57,6 +58,8 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
         self.ratingView.isUserInteractionEnabled = false
         self.ratingView.rating = self.local.avgRating
         self.labelQtReviews.text = String(local.qtReviews)
+        self.imageViewLocal.contentMode = .scaleAspectFill
+        self.imageViewLocal.sd_setImage(with: URL(string: local.imageUrl), placeholderImage: UIImage(named: "NoAvatar"))
         
         if !User.hasUserLoggedIn(){
             self.navigationItem.rightBarButtonItem = nil

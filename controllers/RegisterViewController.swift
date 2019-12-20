@@ -31,6 +31,8 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIImagePick
     @IBOutlet weak var textFieldConfirmPassword: UITextField!
     @IBOutlet weak var textFieldLocal: UITextField!
     @IBOutlet weak var imageViewAvatar: UIImageView!
+    @IBOutlet weak var backButton: UIBarButtonItem!
+    
     
     var hasAddedAvatar: Bool = false
    
@@ -426,6 +428,9 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIImagePick
         self.textFieldLocal.text = ""
         self.selectedCity = ""
         
+    }
+    @IBAction func buttonBackClicked(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
     }
     
 }

@@ -66,10 +66,16 @@ class TabBarController : UITabBarController, UITabBarControllerDelegate{
                 alert.addAction(UIAlertAction(title: "Login", style: UIAlertAction.Style.default, handler: {
                     action in
                     let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                    let registerViewController = storyBoard.instantiateViewController(withIdentifier: "loginViewController")
+                    let loginViewController = storyBoard.instantiateViewController(withIdentifier: "loginViewController")
+                    self.present(loginViewController, animated: true, completion: nil)
+                }))
+                alert.addAction(UIAlertAction(title: "Registar", style: UIAlertAction.Style.default, handler: { action in
+                    let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                    let registerViewController = storyBoard.instantiateViewController(withIdentifier: "registerViewController")
                     self.present(registerViewController, animated: true, completion: nil)
                 }))
                 alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
+                
                 
                 // show the alert
                 self.present(alert, animated: true, completion: nil)
