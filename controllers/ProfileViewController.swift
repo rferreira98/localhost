@@ -11,15 +11,15 @@ import RSKImageCropper
 
 
 class ProfileViewController: UITableViewController, UIImagePickerControllerDelegate & UINavigationControllerDelegate, RSKImageCropViewControllerDelegate,
-        UIPickerViewDelegate, UIPickerViewDataSource{
-
+UIPickerViewDelegate, UIPickerViewDataSource{
+    
     func imageCropViewControllerDidCancelCrop(_ controller: RSKImageCropViewController) {
         _ = self.navigationController?.popViewController(animated: true)
     }
-
+    
     func imageCropViewController(_ controller: RSKImageCropViewController, didCropImage croppedImage: UIImage, usingCropRect cropRect: CGRect, rotationAngle: CGFloat) {
         self.hasChangedAvatar = true
-
+        
         self.avatarImageView.image = croppedImage
         _ = self.navigationController?.popViewController(animated: true)
     }
@@ -30,7 +30,7 @@ class ProfileViewController: UITableViewController, UIImagePickerControllerDeleg
     var profile: User?
     var localPicker = UIPickerView()
     var selectedCity = ""
-        
+    
     @IBOutlet weak var avatarImageView: UIImageView!
     @IBOutlet weak var firstNameTextField: UITextField!
     @IBOutlet weak var lastNameTextField: UITextField!
@@ -45,12 +45,12 @@ class ProfileViewController: UITableViewController, UIImagePickerControllerDeleg
     
     override func viewDidAppear(_ animated: Bool) {
         let rows = [0, 1, 2, 3, 4]
-
+        
         for row in rows {
             let indexPath = IndexPath(row: row, section: 0)
             let cell = tableView.cellForRow(at: indexPath)
             cell?.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: .greatestFiniteMagnitude)
-
+            
             let indexPath2 = IndexPath(row: 4, section: 1)
             let cell2 = tableView.cellForRow(at: indexPath2)
             cell2?.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: .greatestFiniteMagnitude)
@@ -69,7 +69,7 @@ class ProfileViewController: UITableViewController, UIImagePickerControllerDeleg
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
-
+    
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 0 {
             return 0.0
@@ -88,24 +88,24 @@ class ProfileViewController: UITableViewController, UIImagePickerControllerDeleg
         super.viewDidLoad()
         
         createPicker();
-
+        
         self.firstNameTextField.delegate = self
         self.lastNameTextField.delegate = self
         self.emailTextField.delegate = self
         self.localTextField.delegate = self
         
-    
-
+        
+        
         tableProfile.delegate = self
         tableView.dataSource = self
         tableView.delegate = self
         if let token = UserDefaults.standard.value(forKey: "Token") as? String {
             self.profile = User(token,
-                    UserDefaults.standard.value(forKey: "FirstName") as! String,
-                    UserDefaults.standard.value(forKey: "LastName") as! String,
-                    UserDefaults.standard.value(forKey: "Email") as! String,
-                    UserDefaults.standard.value(forKey: "Local") as! String,
-                    UserDefaults.standard.value(forKey: "AvatarURL") as! String)
+                                UserDefaults.standard.value(forKey: "FirstName") as! String,
+                                UserDefaults.standard.value(forKey: "LastName") as! String,
+                                UserDefaults.standard.value(forKey: "Email") as! String,
+                                UserDefaults.standard.value(forKey: "Local") as! String,
+                                UserDefaults.standard.value(forKey: "AvatarURL") as! String)
             
             self.firstNameTextField.text = self.profile!.firstName
             self.lastNameTextField.text = self.profile!.lastName
@@ -127,7 +127,7 @@ class ProfileViewController: UITableViewController, UIImagePickerControllerDeleg
             let strUrl = NetworkHandler.domainUrl + "/storage/profiles/"+avatarName
             self.avatarImageView.sd_setImage(with: URL(string: strUrl), placeholderImage: UIImage(named: "NoAvatar"))
         }
-            
+        
     }
     
     
@@ -152,12 +152,12 @@ class ProfileViewController: UITableViewController, UIImagePickerControllerDeleg
         self.avatarImageView.isUserInteractionEnabled = isEditingFields
         
         if isEditingFields {
-
-                   self.avatarImageView.image = UIImage(named: "AddAvatar")
-                   let tapImage = UITapGestureRecognizer(target: self, action: #selector(ProfileViewController.avatarUpload(_:)))
-                   avatarImageView.isUserInteractionEnabled = isEditingFields
-                   avatarImageView.addGestureRecognizer(tapImage)
-               }
+            
+            self.avatarImageView.image = UIImage(named: "AddAvatar")
+            let tapImage = UITapGestureRecognizer(target: self, action: #selector(ProfileViewController.avatarUpload(_:)))
+            avatarImageView.isUserInteractionEnabled = isEditingFields
+            avatarImageView.addGestureRecognizer(tapImage)
+        }
         
         //User clicked "Done"
         if !isEditingFields {
@@ -204,7 +204,7 @@ class ProfileViewController: UITableViewController, UIImagePickerControllerDeleg
                     self.avatarImageView.sd_setImage(with: URL(string: strUrl), placeholderImage: UIImage(named: "NoAvatar"))
                 }
             }
-
+            
             if self.hasChangedAvatar {
                 NetworkHandler.uploadAvatar(avatar: self.avatarImageView.image!.resized(toWidth: 200)!){ (success, error) in
                     OperationQueue.main.addOperation {
@@ -231,7 +231,7 @@ class ProfileViewController: UITableViewController, UIImagePickerControllerDeleg
                 let postUserData = NetworkHandler.PostUserData(first_name: userProfile.firstName, last_name: userProfile.lastName, local: userProfile.local)
                 NetworkHandler.updateUser(post: postUserData) { (success, error) in
                     OperationQueue.main.addOperation {
-
+                        
                         if error != nil {
                             let alert = Utils.triggerAlert(title: "Erro", error: error)
                             self.present(alert, animated: true, completion: nil)
@@ -239,7 +239,7 @@ class ProfileViewController: UITableViewController, UIImagePickerControllerDeleg
                             self.goToMainScreen()
                         }
                     }
-
+                    
                 }
             }
         }
@@ -249,10 +249,10 @@ class ProfileViewController: UITableViewController, UIImagePickerControllerDeleg
     
     @objc func avatarUpload(_ sender: UITapGestureRecognizer) {
         view.endEditing(true)
-
+        
         let controller = UIImagePickerController()
         controller.delegate = self
-
+        
         let actionsheet = UIAlertController(title: "Select Photo", message: "Choose A Photo", preferredStyle: .actionSheet)
         
         actionsheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (action:UIAlertAction)in
@@ -275,20 +275,20 @@ class ProfileViewController: UITableViewController, UIImagePickerControllerDeleg
         self.present(actionsheet,animated: true, completion: nil)
         
     }
-
+    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         let image: UIImage = (info[UIImagePickerController.InfoKey.originalImage] as? UIImage)!
-
+        
         picker.dismiss(animated: true, completion: { () -> Void in
-
+            
             var imageCropVC: RSKImageCropViewController!
-
+            
             imageCropVC = RSKImageCropViewController(image: image, cropMode: RSKImageCropMode.circle)
-
+            
             imageCropVC.delegate = self
-                        
+            
             self.navigationController?.pushViewController(imageCropVC, animated: true)
-
+            
         })
     }
     
@@ -302,7 +302,7 @@ class ProfileViewController: UITableViewController, UIImagePickerControllerDeleg
         //UserDefaults.standard.removeObject(forKey: "Email")
         UserDefaults.standard.removeObject(forKey: "Local")
         UserDefaults.standard.synchronize()
-
+        
         //go to first screen
         let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let first = storyBoard.instantiateViewController(withIdentifier: "tabBarController")        
@@ -322,7 +322,7 @@ class ProfileViewController: UITableViewController, UIImagePickerControllerDeleg
         UserDefaults.standard.set(false, forKey: "usesBiometricAuth")
         UserDefaults.standard.set(false, forKey: "biometricPrompted")
         UserDefaults.standard.synchronize()
-
+        
         //go to first screen
         let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let first = storyBoard.instantiateViewController(withIdentifier: "tabBarController")
@@ -338,43 +338,41 @@ class ProfileViewController: UITableViewController, UIImagePickerControllerDeleg
             // Respond to user selection of the action.
             let email = self.profile?.email as! String
             
+            let alert = UIAlertController(title: nil, message: "Please wait...", preferredStyle: .alert)
+            
+            let loadingIndicator = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 50, height: 50))
+            loadingIndicator.hidesWhenStopped = true
+            loadingIndicator.style = UIActivityIndicatorView.Style.gray
+            loadingIndicator.startAnimating();
+            
+            alert.view.addSubview(loadingIndicator)
+            self.present(alert, animated: true, completion: nil)
+            
             let postResetPass = NetworkHandler.PostResetPassword(email: email)
             
-            NetworkHandler.resetPassword(post: postResetPass) { (success, error) in             OperationQueue.main.addOperation {
-                if error != nil {
-                    let alert = Utils.triggerAlert(title: "Erro", error: error)
-                    self.present(alert, animated: true, completion: nil)
-                } else {
-                    
-                }
+            NetworkHandler.resetPassword(post: postResetPass) { (success, error) in
+                OperationQueue.main.addOperation {
+                    if error != nil {
+                        let alert = Utils.triggerAlert(title: "Erro", error: error)
+                        self.present(alert, animated: true, completion: nil)
+                    } else {
+                        alert.dismiss(animated: false, completion: nil)
+                        let success = UIAlertController(title: "Reset Password", message: "Check your email for instructions on how to reset your password.", preferredStyle: .alert)
+                        success.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                        self.present(success, animated: true, completion: nil)
+                    }
                 }
             }
-            
-            let success = UIAlertController(title: "Success", message: "E-mail sent!", preferredStyle: .alert)
-            success.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "ok"), style: .default, handler: { _ in
-            NSLog("The email was sent successfuly.")
-            }))
-            self.present(success, animated: true, completion: nil)
-            
-            
-        }
-            
-        let cancelAction = UIAlertAction(title: "Cancel",
-                             style: .cancel) { (action) in
-         // Respond to user selection of the action.
-                                
         }
         
         // Create and configure the alert controller.
         let alert = UIAlertController(title: "Reset Password",
-              message: "Do you really want to reset password?",
-              preferredStyle: .alert)
+                                      message: "Do you really want to reset password?",
+                                      preferredStyle: .alert)
         alert.addAction(defaultAction)
-        alert.addAction(cancelAction)
-             
-        self.present(alert, animated: true) {
-           // The alert was presented
-        }
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        self.present(alert, animated: true, completion: nil)
         
     }
     
@@ -398,19 +396,19 @@ class ProfileViewController: UITableViewController, UIImagePickerControllerDeleg
     }
     
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
-
+        
         var label: UILabel
-
+        
         if let view = view as? UILabel {
             label = view
         } else {
             label = UILabel()
         }
-
+        
         
         label.textAlignment = .center
         label.text = Cities.cities[row]
-
+        
         return label
     }
     
@@ -426,11 +424,11 @@ class ProfileViewController: UITableViewController, UIImagePickerControllerDeleg
         toolBar.isTranslucent = true
         toolBar.tintColor = UIColor(red: 76/255, green: 217/255, blue: 100/255, alpha: 1)
         toolBar.sizeToFit()
-
+        
         let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.done, target: self, action: #selector (self.dimissPicker))
         let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
         let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItem.Style.plain, target: self, action: #selector (self.dimissPickerReset))
-
+        
         toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
         toolBar.isUserInteractionEnabled = true
         
@@ -438,7 +436,7 @@ class ProfileViewController: UITableViewController, UIImagePickerControllerDeleg
         
         //localPicker.backgroundColor = UIColor(named: "AppDarkBackground")
         //------------------------------------------------
-
+        
     }
     
     func resetPicker() {
