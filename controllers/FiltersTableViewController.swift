@@ -9,6 +9,7 @@
 import UIKit
 import CoreLocation
 import MapKit
+import Cosmos
 
 class FiltersTableViewController: UITableViewController, UITextFieldDelegate, CLLocationManagerDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
     @IBOutlet weak var sliderDistance: UISlider!
@@ -21,8 +22,12 @@ class FiltersTableViewController: UITableViewController, UITextFieldDelegate, CL
     
     let locationManager = CLLocationManager()
     
+    @IBOutlet weak var ratingView: CosmosView!
+    
     var lastLocationObj: CLLocationCoordinate2D?
     var currentRadiusValue: Int = 0
+    
+    var selectedRating:Double? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +39,9 @@ class FiltersTableViewController: UITableViewController, UITextFieldDelegate, CL
             locationManager.requestWhenInUseAuthorization()
             locationManager.requestLocation()
         }
+        
+        ratingView.settings.fillMode = .half
+        
         
         createPicker();
         
@@ -51,19 +59,27 @@ class FiltersTableViewController: UITableViewController, UITextFieldDelegate, CL
     
     override func viewWillAppear(_ animated: Bool) {
         verifyMetricUnit()
+        
+        ratingView.didFinishTouchingCosmos = {
+            rating in
+            self.selectedRating = rating
+            print(rating)
+        }
     }
     
     // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 2
+        return 3
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return 1
     }
+    
+    
     
     
     @IBAction func sliderValueChanged(_ sender: UISlider) {
@@ -94,6 +110,13 @@ class FiltersTableViewController: UITableViewController, UITextFieldDelegate, CL
             }
             getLocals(currentLocationLatitude: lastLocationObj!.latitude, currentLocationLongitude: lastLocationObj!.longitude, radius: Int(currentRadius.rounded()))
         }
+        
+        if selectedRating != nil {
+            getLocalsByRating(selectedRating!, lastLocationObj!.latitude, lastLocationObj!.longitude)
+        }
+        
+        
+        
         
     }
     
@@ -126,6 +149,28 @@ class FiltersTableViewController: UITableViewController, UITextFieldDelegate, CL
                 else{
                     Items.sharedInstance.locals.removeAll()
                     for local in locals!{
+                        Items.sharedInstance.locals.append(local)
+                    }
+                    self.removeSpinner()
+                    self.navigationController?.popViewController(animated: true)
+                }
+            }
+        }
+    }
+    
+    private func getLocalsByRating(_ rating: Double, _ latitude: Double, _ longitude: Double){
+        //        searchByRating
+        
+        NetworkHandler.getLocalsFilteredByRating(rating: rating, latitude: latitude, longitude: longitude){
+            (locals, error) in OperationQueue.main.addOperation {
+                if error != nil {
+                    let alert = Utils.triggerAlert(title: "Erro", error: error)
+                    self.present(alert, animated: true, completion: nil)
+                }
+                else{
+                    Items.sharedInstance.locals.removeAll()
+                    for local in locals!{
+                        print(local)
                         Items.sharedInstance.locals.append(local)
                     }
                     self.removeSpinner()
@@ -248,6 +293,8 @@ class FiltersTableViewController: UITableViewController, UITextFieldDelegate, CL
             self.textFieldPickerLocal.text = self.lastSelectedCity
         }
     }
+    
+    
     
 }
 

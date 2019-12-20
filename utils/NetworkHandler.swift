@@ -611,6 +611,41 @@ class NetworkHandler {
 
         localsTask.resume()
     }
+    
+    static func getLocalsFilteredByRating(rating: Double, latitude: Double, longitude: Double, completionHandler: @escaping ([Local]?, _ error: String?) -> Void) {
+        if !NetworkHandler.appDelegate.isNetworkOn {
+            completionHandler(nil, "Sem ligação à internet")
+            return
+        }
+        
+        let urlLocals = URL(string: baseUrl + "/searchByRanking?ranking=\(rating)"+"&latitude=\(latitude)"+"&longitude=\(longitude)")!
+        print(urlLocals)
+        let localsTask = URLSession.shared.dataTask(with: urlLocals) { data, response, responseError in
+            let error = getServerError(responseData: data, response: response, responseError: responseError)
+            print(data)
+            guard error == nil else {
+                return completionHandler(nil, error)
+            }
+
+            var locals = [Local]()
+
+            if let data = data {
+                let decoder = JSONDecoder()
+                do {
+                    //print(String(data: data, encoding: .utf8) ?? "no body data")
+                    locals = try decoder.decode([Local].self, from: data)
+                    
+                } catch let exception {
+                    completionHandler(nil, exception.localizedDescription)
+                    return
+                }
+
+            }
+            completionHandler(locals, nil)
+        }
+
+        localsTask.resume()
+    }
 }
 
 class PostRequest {
