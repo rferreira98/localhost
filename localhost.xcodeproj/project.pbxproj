@@ -740,14 +740,14 @@
 				CODE_SIGN_ENTITLEMENTS = localhost/Localhost.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = H6KNDJLHPK;
+				DEVELOPMENT_TEAM = 9BAAJ9ZBNU;
 				INFOPLIST_FILE = localhost/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = ipleiria.ios2.localhost;
+				PRODUCT_BUNDLE_IDENTIFIER = ipleiria.ios1.localhost;
 				PRODUCT_NAME = Localhost;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;

@@ -10,10 +10,15 @@ import UIKit
 import CoreLocation
 import MapKit
 
-class FiltersTableViewController: UITableViewController, CLLocationManagerDelegate {
+class FiltersTableViewController: UITableViewController, UITextFieldDelegate, CLLocationManagerDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
     @IBOutlet weak var sliderDistance: UISlider!
     @IBOutlet weak var lblDistance: UILabel!
+    @IBOutlet weak var textFieldPickerLocal: UITextField!
     @IBOutlet var resetFiltersBtn: UIButton!
+    
+    var localPicker = UIPickerView()
+    var selectedCity: String = ""
+    var lastSelectedCity: String = ""
     
     let locationManager = CLLocationManager()
     
@@ -31,8 +36,16 @@ class FiltersTableViewController: UITableViewController, CLLocationManagerDelega
             locationManager.requestLocation()
         }
         
+        createPicker();
+        
+        textFieldPickerLocal.delegate = self
         
         verifyMetricUnit()
+        
+        //Dismiss keyboard with a tap.
+        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
+        tap.cancelsTouchesInView = false
+        self.view.addGestureRecognizer(tap)
     }
     
     
@@ -80,7 +93,6 @@ class FiltersTableViewController: UITableViewController, CLLocationManagerDelega
     
     @IBAction func onClickApplyFilterButtonClick(_ sender: Any) {
         print("locations = \(lastLocationObj!.latitude) \(lastLocationObj!.longitude)")
-        
         if UserDefaults.standard.integer(forKey: "metricUnit") == 0 {
             //print("current miles radius: \(currentRadiusValue * 1000)")
             getLocals(currentLocationLatitude: lastLocationObj!.latitude, currentLocationLongitude: lastLocationObj!.longitude, radius: currentRadiusValue * 1000)
@@ -93,7 +105,6 @@ class FiltersTableViewController: UITableViewController, CLLocationManagerDelega
             }
             getLocals(currentLocationLatitude: lastLocationObj!.latitude, currentLocationLongitude: lastLocationObj!.longitude, radius: Int(currentRadius.rounded()))
         }
-        
         
     }
     
@@ -135,6 +146,29 @@ class FiltersTableViewController: UITableViewController, CLLocationManagerDelega
         }
     }
     
+    private func getLocalsByCity(city: String){
+        //        searchByCity
+        
+        NetworkHandler.getLocalsFilteredByCity(city: city){
+            (locals, error) in OperationQueue.main.addOperation {
+                if error != nil {
+                    let alert = Utils.triggerAlert(title: "Erro", error: error)
+                    self.present(alert, animated: true, completion: nil)
+                }
+                else{
+                    Items.sharedInstance.locals.removeAll()
+                    for local in locals!{
+                        print(local)
+                        Items.sharedInstance.locals.append(local)
+                    }
+                    self.removeSpinner()
+                    self.navigationController?.popViewController(animated: true)
+                }
+            }
+        }
+    }
+    
+    
     
     @IBAction func onClickResetFiltersBtn(_ sender: Any) {
         self.currentRadiusValue = 0	
@@ -154,6 +188,86 @@ class FiltersTableViewController: UITableViewController, CLLocationManagerDelega
             lblDistance.text = "0 miles"
         }
     }
+    
+    //Local picker methods
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1;
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return Cities.cities.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return Cities.cities[row]
+        
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        selectedCity = Cities.cities[row]
+        textFieldPickerLocal.text = selectedCity
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+        
+        var label: UILabel
+        
+        if let view = view as? UILabel {
+            label = view
+        } else {
+            label = UILabel()
+        }
+        lastSelectedCity = selectedCity
+        
+        label.textAlignment = .center
+        label.text = Cities.cities[row]
+        
+        return label
+    }
+    
+    func createPicker() {
+        localPicker.delegate = self
+        textFieldPickerLocal.inputView = localPicker
+        localPicker.showsSelectionIndicator = true
+        
+        let toolBar = UIToolbar()
+        toolBar.barStyle = UIBarStyle.default
+        toolBar.isTranslucent = true
+        toolBar.tintColor = UIColor(red: 76/255, green: 217/255, blue: 100/255, alpha: 1)
+        toolBar.sizeToFit()
+        
+        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.done, target: self, action: #selector (self.dimissPicker))
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItem.Style.plain, target: self, action: #selector (self.dimissPickerReset))
+        
+        toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
+        toolBar.isUserInteractionEnabled = true
+        
+        textFieldPickerLocal.inputAccessoryView = toolBar
+    }
+    
+    @objc func dimissPicker(){
+        self.view.endEditing(true)
+        if self.selectedCity != "" {
+            getLocalsByCity(city: self.selectedCity)
+        }
+    }
+    
+    @objc func dimissPickerReset(){
+        self.view.endEditing(true)
+        resetPicker()
+    }
+    
+    func resetPicker() {
+        if self.lastSelectedCity == ""
+        {
+            self.textFieldPickerLocal.text = "Escolher"
+            self.selectedCity = ""
+        } else {
+            self.textFieldPickerLocal.text = self.lastSelectedCity
+        }
+    }
+    
 }
 
 
