@@ -39,6 +39,7 @@ class FiltersTableViewController: UITableViewController, UITextFieldDelegate, CL
         createPicker();
         
         textFieldPickerLocal.delegate = self
+        textFieldPickerLocal.tintColor = .clear
         
         verifyMetricUnit()
         
@@ -248,7 +249,7 @@ class FiltersTableViewController: UITableViewController, UITextFieldDelegate, CL
     
     @objc func dimissPicker(){
         self.view.endEditing(true)
-        if self.selectedCity != "" {
+        if self.selectedCity != "" && self.selectedCity != "Choose local"{
             getLocalsByCity(city: self.selectedCity)
         }
     }
@@ -261,7 +262,7 @@ class FiltersTableViewController: UITableViewController, UITextFieldDelegate, CL
     func resetPicker() {
         if self.lastSelectedCity == ""
         {
-            self.textFieldPickerLocal.text = "Escolher"
+            self.textFieldPickerLocal.text = "Choose local"
             self.selectedCity = ""
         } else {
             self.textFieldPickerLocal.text = self.lastSelectedCity

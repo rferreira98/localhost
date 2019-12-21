@@ -10,6 +10,7 @@ import Foundation
 
 struct Cities {
     static var cities = [
+    "Choose local",
     "Abrantes",
     "Agualva-Cacém",
     "Águeda",

@@ -23,7 +23,8 @@ class ArtworkView: MKAnnotationView {
             mapsButton.setBackgroundImage(UIImage(named: "Info"), for: UIControl.State())
             
             rightCalloutAccessoryView = mapsButton
-            image = UIImage(named: "MapMarker")
+            image = UIImage(named: "NewMarker")
+            
             
             let detailLabel = UILabel()
             detailLabel.numberOfLines = 0
