@@ -30,6 +30,7 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
     @IBOutlet weak var labelQtReviews: UILabel!
     @IBOutlet var btnFavoriteBarItem: UIBarButtonItem!
     @IBOutlet weak var imageViewLocal: UIImageView!
+    @IBOutlet weak var scrollview: UIScrollView!
     
     override func viewDidLoad() {
         mapView.delegate = self
@@ -97,6 +98,10 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
                     self.reviews = reviews!
                     print(reviews!)
                     self.reviewsTableView.reloadData()
+                    //let height = self.reviewsTableView.content
+                    //self.view.intrinsicContentSize.height
+                    //self.scrollview.contentSize.height = height + 758
+                    //print(height)
                 }
             }
         })

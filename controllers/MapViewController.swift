@@ -34,6 +34,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     var localToSend:Local!
     
+    var goingForwards:Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -100,6 +101,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     @objc func segueFilters(){
         //Used to perform the segue for the screen with the filters when filters button is pressed
+        goingForwards = true
         performSegue(withIdentifier: "mapFiltersButton", sender: nil)
     }
     
@@ -108,12 +110,24 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         let region = MKCoordinateRegion(center: (view.annotation?.coordinate)!, span: span)
         mapView.setRegion(region, animated: true)
     }
-    
+
+    func getCoordinateFrom(address: String, completion: @escaping(_ coordinate: CLLocationCoordinate2D?, _ error: Error?) -> Void ) {
+        CLGeocoder().geocodeAddressString(address) { completion($0?.first?.location?.coordinate, $1) }
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         
         locationManager.startUpdatingLocation()
-        //getLocals()
+        if goingForwards == true {
+            goingForwards = false
+            getCoordinateFrom(address: Items.sharedInstance.locals[0].city, completion: {coordinates, error in
+                let span = MKCoordinateSpan(latitudeDelta: 0.15, longitudeDelta: 0.15)
+                let region = MKCoordinateRegion(center: coordinates!, span: span)
+                self.map.setRegion(region, animated: true)
+                self.locals = Items.sharedInstance.locals
+                self.drawLocalPins()
+            })
+        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -139,6 +153,10 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     }
     
     private func drawLocalPins(){
+        
+        if !map.annotations.isEmpty{
+            map.removeAnnotations(map.annotations)
+        }
         
         for local in locals{
             

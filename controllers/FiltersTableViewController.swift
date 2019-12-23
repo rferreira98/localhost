@@ -149,7 +149,7 @@ class FiltersTableViewController: UITableViewController, UITextFieldDelegate, CL
     
     private func getLocalsByCity(city: String){
         //        searchByCity
-        
+        self.showSpinner(onView: self.view)
         NetworkHandler.getLocalsFilteredByCity(city: city){
             (locals, error) in OperationQueue.main.addOperation {
                 if error != nil {
