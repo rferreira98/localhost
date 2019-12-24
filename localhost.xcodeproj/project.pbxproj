@@ -16,7 +16,6 @@
 		5B1748E923634BB5004532AE /* localhostTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1748E823634BB5004532AE /* localhostTests.swift */; };
 		5B1748F423634BB6004532AE /* localhostUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1748F323634BB6004532AE /* localhostUITests.swift */; };
 		9FFF675A78A806AB3504979F /* Pods_localhostTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DB14336AA67FCAA43C22716 /* Pods_localhostTests.framework */; };
-		C711AD7C238D7D5F00A58DE7 /* MapAnnotationDetail.xib in Resources */ = {isa = PBXBuildFile; fileRef = C711AD7B238D7D5F00A58DE7 /* MapAnnotationDetail.xib */; };
 		C711AD7E238D7E4000A58DE7 /* MapAnnotationDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C711AD7D238D7E4000A58DE7 /* MapAnnotationDetailController.swift */; };
 		C711AD80239040AF00A58DE7 /* Local.swift in Sources */ = {isa = PBXBuildFile; fileRef = C711AD7F239040AF00A58DE7 /* Local.swift */; };
 		C711AD82239045E300A58DE7 /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = C711AD81239045E300A58DE7 /* Review.swift */; };
@@ -87,7 +86,6 @@
 		8310D0417BE2BF3022CAE98E /* Pods_localhost_localhostUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_localhost_localhostUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		854FD002A07AE702A8ADB2E0 /* Pods-localhost.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-localhost.release.xcconfig"; path = "Target Support Files/Pods-localhost/Pods-localhost.release.xcconfig"; sourceTree = "<group>"; };
 		A8E9A9CBCA1B3BECDAADC893 /* Pods-localhostTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-localhostTests.release.xcconfig"; path = "Target Support Files/Pods-localhostTests/Pods-localhostTests.release.xcconfig"; sourceTree = "<group>"; };
-		C711AD7B238D7D5F00A58DE7 /* MapAnnotationDetail.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MapAnnotationDetail.xib; sourceTree = "<group>"; };
 		C711AD7D238D7E4000A58DE7 /* MapAnnotationDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAnnotationDetailController.swift; sourceTree = "<group>"; };
 		C711AD7F239040AF00A58DE7 /* Local.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Local.swift; sourceTree = "<group>"; };
 		C711AD81239045E300A58DE7 /* Review.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
@@ -214,7 +212,6 @@
 				5B1748DC23634BB5004532AE /* LaunchScreen.storyboard */,
 				C7CA1DF9236FE5F200A1A72A /* Main.storyboard */,
 				5B1748DF23634BB5004532AE /* Info.plist */,
-				C711AD7B238D7D5F00A58DE7 /* MapAnnotationDetail.xib */,
 			);
 			path = localhost;
 			sourceTree = "<group>";
@@ -399,7 +396,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C711AD7C238D7D5F00A58DE7 /* MapAnnotationDetail.xib in Resources */,
 				C7CA1DFB236FE5F200A1A72A /* Main.storyboard in Resources */,
 				5B1748DE23634BB5004532AE /* LaunchScreen.storyboard in Resources */,
 				5B1748DB23634BB5004532AE /* Assets.xcassets in Resources */,
@@ -740,14 +736,14 @@
 				CODE_SIGN_ENTITLEMENTS = localhost/Localhost.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = H6KNDJLHPK;
+				DEVELOPMENT_TEAM = 9BAAJ9ZBNU;
 				INFOPLIST_FILE = localhost/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = ipleiria.ios2.localhost;
+				PRODUCT_BUNDLE_IDENTIFIER = ipleiria.ios4.localhost;
 				PRODUCT_NAME = Localhost;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;

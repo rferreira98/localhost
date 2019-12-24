@@ -221,10 +221,35 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
       let launchOptions = [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving]
 
       location.mapItem().openInMaps(launchOptions: launchOptions)*/
-        let artwork = view.annotation as! Artwork
-        localToSend = artwork.local
         
-        performSegue(withIdentifier: "segueMapLocalDetail", sender: nil)
+        if User.hasUserLoggedIn(){
+            let artwork = view.annotation as! Artwork
+            localToSend = artwork.local
+            
+            performSegue(withIdentifier: "segueMapLocalDetail", sender: nil)
+        }else {
+            let alert = UIAlertController(title: "Not Logged In", message: "To perform more actions you need to be logged in", preferredStyle: UIAlertController.Style.alert)
+            
+            // add the actions (buttons)
+            alert.addAction(UIAlertAction(title: "Login", style: UIAlertAction.Style.default, handler: {
+                action in
+                let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                let loginViewController = storyBoard.instantiateViewController(withIdentifier: "loginViewController")
+                self.present(loginViewController, animated: true, completion: nil)
+            }))
+            alert.addAction(UIAlertAction(title: "Registar", style: UIAlertAction.Style.default, handler: { action in
+                let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                let registerViewController = storyBoard.instantiateViewController(withIdentifier: "registerViewController")
+                self.present(registerViewController, animated: true, completion: nil)
+            }))
+            alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
+            
+            
+            // show the alert
+            self.present(alert, animated: true, completion: nil)
+        }
+        
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
