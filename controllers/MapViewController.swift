@@ -34,6 +34,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     var localToSend:Local!
     
+    var goingForwards:Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,30 +83,51 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         //----------------------------------------------
         
         //Since we wanted the searchbar on the navbar and we added it programmaticaly, we need to also add the filter button programmaticaly and place it to the right
-        let buttonFilter = UIBarButtonItem(image: UIImage(named: "Filter"), style: .plain, target: self, action: #selector(segueFilters))
-        self.navigationItem.rightBarButtonItem  = buttonFilter
+        
+        if #available(iOS 13.0, *) {
+            let buttonFilter = UIBarButtonItem(image: UIImage(systemName: "slider.horizontal.3"), style: .plain, target: self, action: #selector(segueFilters))
+            self.navigationItem.rightBarButtonItem  = buttonFilter
+        } else {
+            // Fallback on earlier versions
+            let buttonFilter = UIBarButtonItem(image: UIImage(named: "Filter"), style: .plain, target: self, action: #selector(segueFilters))
+            self.navigationItem.rightBarButtonItem  = buttonFilter
+        }
+
         //-----------------------------------------------------------------
         
         
         self.drawLocalPins()
-        
     }
     
     @objc func segueFilters(){
         //Used to perform the segue for the screen with the filters when filters button is pressed
+        goingForwards = true
         performSegue(withIdentifier: "mapFiltersButton", sender: nil)
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        let region=MKCoordinateRegion(center: (view.annotation?.coordinate)!, latitudinalMeters: 1000, longitudinalMeters: 1000)
+        let span = MKCoordinateSpan(latitudeDelta: 0.002, longitudeDelta: 0.002)
+        let region = MKCoordinateRegion(center: (view.annotation?.coordinate)!, span: span)
         mapView.setRegion(region, animated: true)
     }
-    
+
+    func getCoordinateFrom(address: String, completion: @escaping(_ coordinate: CLLocationCoordinate2D?, _ error: Error?) -> Void ) {
+        CLGeocoder().geocodeAddressString(address) { completion($0?.first?.location?.coordinate, $1) }
+    }
     
     override func viewWillAppear(_ animated: Bool) {
-        locationManager.startUpdatingLocation()
         
-        //getLocals()
+        locationManager.startUpdatingLocation()
+        if goingForwards == true {
+            goingForwards = false
+            getCoordinateFrom(address: Items.sharedInstance.locals[0].city, completion: {coordinates, error in
+                let span = MKCoordinateSpan(latitudeDelta: 0.15, longitudeDelta: 0.15)
+                let region = MKCoordinateRegion(center: coordinates!, span: span)
+                self.map.setRegion(region, animated: true)
+                self.locals = Items.sharedInstance.locals
+                self.drawLocalPins()
+            })
+        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -132,6 +154,10 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     private func drawLocalPins(){
         
+        if !map.annotations.isEmpty{
+            map.removeAnnotations(map.annotations)
+        }
+        
         for local in locals{
             
             let latitude = local.latitude
@@ -151,22 +177,20 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             
             let artwork = Artwork(
                 title: local.name,
-             locationName: local.address,
-             coordinate: CLLocationCoordinate2D(latitude: latitude, longitude: longitude),
-             localRating: local.avgRating,
-             local: local
+                 locationName: local.address,
+                 coordinate: CLLocationCoordinate2D(latitude: latitude, longitude: longitude),
+                 localRating: local.avgRating,
+                 local: local
             )
              
-             map.addAnnotation(artwork)
+            map.addAnnotation(artwork)
+            
             
             map.register(ArtworkView.self,
             forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
-            
-            
-            
-            
         }
     }
+    
     
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
@@ -262,10 +286,9 @@ extension MapViewController: HandleMapSearch {
     
     //When a searched location is clicked the map will zomm on it
     func zoomLocation(_ placemark: MKPlacemark){
-        let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
+        let span = MKCoordinateSpan(latitudeDelta: 0.002, longitudeDelta: 0.002)
         let region = MKCoordinateRegion(center: placemark.coordinate, span: span)
         map.setRegion(region, animated: true)
-        
     }
     
 }

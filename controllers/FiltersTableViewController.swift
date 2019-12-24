@@ -15,6 +15,7 @@ class FiltersTableViewController: UITableViewController, UITextFieldDelegate, CL
     @IBOutlet weak var sliderDistance: UISlider!
     @IBOutlet weak var lblDistance: UILabel!
     @IBOutlet weak var textFieldPickerLocal: UITextField!
+    @IBOutlet var resetFiltersBtn: UIButton!
     
     var localPicker = UIPickerView()
     var selectedCity: String = ""
@@ -46,6 +47,7 @@ class FiltersTableViewController: UITableViewController, UITextFieldDelegate, CL
         createPicker();
         
         textFieldPickerLocal.delegate = self
+        textFieldPickerLocal.tintColor = .clear
         
         verifyMetricUnit()
         
@@ -64,6 +66,11 @@ class FiltersTableViewController: UITableViewController, UITextFieldDelegate, CL
             rating in
             self.selectedRating = rating
             print(rating)
+            if (rating > 0 && rating <= 5){
+                self.navigationItem.rightBarButtonItem?.isEnabled = true
+            }else{
+                self.navigationItem.rightBarButtonItem?.isEnabled = false
+            }
         }
     }
     
@@ -80,14 +87,22 @@ class FiltersTableViewController: UITableViewController, UITextFieldDelegate, CL
     }
     
     
-    
+    fileprivate func checkCurrentRadiusValue() {
+        if self.currentRadiusValue == 0 {
+            self.navigationItem.rightBarButtonItem?.isEnabled = false
+        } else {
+            self.navigationItem.rightBarButtonItem?.isEnabled = true
+        }
+    }
     
     @IBAction func sliderValueChanged(_ sender: UISlider) {
         self.currentRadiusValue = Int(sender.value)
         
         if UserDefaults.standard.integer(forKey: "metricUnit") == 0 {
+            checkCurrentRadiusValue()
             lblDistance.text = "\(currentRadiusValue) km"
         }else if UserDefaults.standard.integer(forKey: "metricUnit") == 1 {
+            checkCurrentRadiusValue()
             if currentRadiusValue == 1{
                 lblDistance.text = "\(currentRadiusValue) mile"
             }else{
@@ -182,7 +197,7 @@ class FiltersTableViewController: UITableViewController, UITextFieldDelegate, CL
     
     private func getLocalsByCity(city: String){
         //        searchByCity
-        
+        self.showSpinner(onView: self.view)
         NetworkHandler.getLocalsFilteredByCity(city: city){
             (locals, error) in OperationQueue.main.addOperation {
                 if error != nil {
@@ -203,12 +218,20 @@ class FiltersTableViewController: UITableViewController, UITextFieldDelegate, CL
     }
     
     
+    
+    @IBAction func onClickResetFiltersBtn(_ sender: Any) {
+        self.currentRadiusValue = 0	
+        verifyMetricUnit()
+    }
+    
     private func verifyMetricUnit() {
         if UserDefaults.standard.integer(forKey: "metricUnit") == 0 {
+            self.navigationItem.rightBarButtonItem?.isEnabled = false
             sliderDistance.value = 0
             sliderDistance.maximumValue = 40
             lblDistance.text = "0 km"
         }else if UserDefaults.standard.integer(forKey: "metricUnit") == 1 {
+            self.navigationItem.rightBarButtonItem?.isEnabled = false
             sliderDistance.value = 0
             sliderDistance.maximumValue = 25
             lblDistance.text = "0 miles"
@@ -274,7 +297,7 @@ class FiltersTableViewController: UITableViewController, UITextFieldDelegate, CL
     
     @objc func dimissPicker(){
         self.view.endEditing(true)
-        if self.selectedCity != "" {
+        if self.selectedCity != "" && self.selectedCity != "Choose local"{
             getLocalsByCity(city: self.selectedCity)
         }
     }
@@ -287,7 +310,7 @@ class FiltersTableViewController: UITableViewController, UITextFieldDelegate, CL
     func resetPicker() {
         if self.lastSelectedCity == ""
         {
-            self.textFieldPickerLocal.text = "Escolher"
+            self.textFieldPickerLocal.text = "Choose local"
             self.selectedCity = ""
         } else {
             self.textFieldPickerLocal.text = self.lastSelectedCity

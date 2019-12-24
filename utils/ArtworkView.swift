@@ -18,13 +18,13 @@ class ArtworkView: MKAnnotationView {
             canShowCallout = true
             calloutOffset = CGPoint(x: 0, y: 5)
             
-            
             let mapsButton = UIButton(frame: CGRect(origin: CGPoint.zero,
                size: CGSize(width: 30, height: 30)))
-            mapsButton.setBackgroundImage(UIImage(named: "AddButton"), for: UIControl.State())
+            mapsButton.setBackgroundImage(UIImage(named: "Info"), for: UIControl.State())
             
             rightCalloutAccessoryView = mapsButton
-            image = UIImage(named: "MapMarker")
+            image = UIImage(named: "NewMarker")
+            
             
             let detailLabel = UILabel()
             detailLabel.numberOfLines = 0

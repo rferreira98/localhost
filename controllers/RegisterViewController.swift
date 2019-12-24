@@ -244,7 +244,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIImagePick
         let local = textFieldLocal.text!
         var image: UIImage!
         
-        if textFieldFirstName.text!.isEmpty || textFieldLastName.text!.isEmpty || textFieldEmail.text!.isEmpty || textFieldPassword.text!.isEmpty || textFieldConfirmPassword.text!.isEmpty || textFieldLocal.text!.isEmpty{
+        if textFieldFirstName.text!.isEmpty || textFieldLastName.text!.isEmpty || textFieldEmail.text!.isEmpty || textFieldPassword.text!.isEmpty || textFieldConfirmPassword.text!.isEmpty || (textFieldLocal.text!.isEmpty && textFieldLocal.text! == "Choose local"){
             
             let alert = Utils.triggerAlert(title: "Error", error: "Alguns campos estão vazios.")
             self.present(alert, animated: true, completion: nil)
@@ -427,8 +427,8 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIImagePick
     func resetPicker() {
         self.textFieldLocal.text = ""
         self.selectedCity = ""
-        
     }
+    
     @IBAction func buttonBackClicked(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }

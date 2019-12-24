@@ -388,8 +388,6 @@ class NetworkHandler {
             urlLocals = URL(string: baseUrl + "/search")!
         }
         
-        
-        
         //let urlLocals = URL(string:"https://5de010c2bb46ce001434c034.mockapi.io/locals")!
         
         let localsTask = URLSession.shared.dataTask(with: urlLocals) { data, response, responseError in
@@ -447,7 +445,7 @@ class NetworkHandler {
                 let decoder = JSONDecoder()
                 do {
                     print(String(data: data, encoding: .utf8) ?? "no body data")
-                    print(data)
+                    //print(data)
                     locals = try decoder.decode([Local].self, from: data)
                     
                 } catch let exception {
@@ -572,6 +570,51 @@ class NetworkHandler {
                 
             }
             completion(locals, nil)
+        }
+        task.resume()
+    }
+    
+    static func getReviews(local_id: Int, completion: @escaping ([Review]?, _ error: String?) -> Void) {
+        if !NetworkHandler.appDelegate.isNetworkOn {
+            completion(nil, "Sem conexão de Internet")
+            return
+        }
+        
+        // Specify this request as being a POST method
+        let url = URL(string: baseUrl + "/reviews/\(local_id)")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        // Make sure that headers are included specifying that our request HTTP body will be JSON encoded
+        var headers = request.allHTTPHeaderFields ?? [:]
+        headers["Content-Type"] = "application/json"
+        let token = UserDefaults.standard.value(forKey: "Token") as? String
+        headers["Authorization"] = "Bearer " + token!
+        request.allHTTPHeaderFields = headers
+        
+        // Create and run a URLSession data task with JSON encoded POST request
+        let config = URLSessionConfiguration.default
+        let session = URLSession(configuration: config)
+        
+        let postRequest = PostRequest(session: session, request: request)
+        let task = postRequest.session.dataTask(with: postRequest.request) { (responseData, response, responseError) in
+            let error = getServerError(responseData: responseData, response: response, responseError: responseError)
+            guard error == nil else {
+                return completion(nil, error)
+            }
+            var reviews = [Review]()
+            
+            if let data = responseData {
+                let decoder = JSONDecoder()
+                do {
+                    //print(String(data: data, encoding: .utf8) ?? "no body data")
+                    reviews = try decoder.decode([Review].self, from: data)
+                } catch let exception {
+                    completion(nil, exception.localizedDescription)
+                    return
+                }
+                
+            }
+            completion(reviews, nil)
         }
         task.resume()
     }
