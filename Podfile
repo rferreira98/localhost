@@ -12,6 +12,8 @@ target 'localhost' do
   pod 'SwiftHTTP'
   pod 'Alamofire'
   pod 'Cosmos'
+  pod 'Firebase/Firestore'
+  pod 'MessageKit'
   
   target 'localhostTests' do
     inherit! :search_paths
