@@ -10,9 +10,7 @@ import Foundation
 import UIKit
 
 class RecommendationsViewController: UITableViewController, UISearchBarDelegate{
-    
-    
-    
+
     var resultSearchController: UISearchController!
     
     
