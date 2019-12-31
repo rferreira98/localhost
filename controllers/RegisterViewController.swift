@@ -310,19 +310,22 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIImagePick
     }
     
     func goToMainScreen(){
+        UserDefaults.standard.set(0, forKey: "metricUnit")
         /*let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let loginViewController = storyBoard.instantiateViewController(withIdentifier: "tabBarController")
         self.dismiss(animated: true, completion: nil)
         self.present(loginViewController, animated: true, completion: nil)*/
         
-        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let first = storyBoard.instantiateViewController(withIdentifier: "tabBarController")
+        //let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        //let first = storyBoard.instantiateViewController(withIdentifier: "tabBarController")
         //let mvc = MapViewController()
         //mvc.locals = self.locals
         
-        first.modalPresentationStyle = .fullScreen
-        //self.dismiss(animated: true, completion: nil)
-        self.present(first, animated: true, completion: nil)
+        //first.modalPresentationStyle = .fullScreen
+        
+        self.navigationController?.popViewController(animated: true)
+        self.dismiss(animated: true, completion: nil)
+        //self.present(first, animated: true, completion: nil)
     }
     
     
@@ -431,6 +434,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIImagePick
     
     @IBAction func buttonBackClicked(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
+        dismiss(animated: true, completion: nil)
     }
     
 }

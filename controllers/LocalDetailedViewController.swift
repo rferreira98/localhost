@@ -199,6 +199,12 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
         return ""
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let smld=segue.destination as? AskAdviceViewController {
+            smld.local = self.local
+        }
+    }
+    
     
     @IBAction func onClickFavoriteButtonBarItem(_ sender: Any) {
         if self.btnFavoriteBarItem.image == UIImage(named: "Favorite_empty") {

@@ -46,11 +46,13 @@ class TabBarController : UITabBarController, UITabBarControllerDelegate{
                     action in
                     let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
                     let loginViewController = storyBoard.instantiateViewController(withIdentifier: "loginViewController")
+                    loginViewController.modalPresentationStyle = .fullScreen
                     self.present(loginViewController, animated: true, completion: nil)
                 }))
                 alert.addAction(UIAlertAction(title: "Registar", style: UIAlertAction.Style.default, handler: { action in
                     let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
                     let registerViewController = storyBoard.instantiateViewController(withIdentifier: "registerViewController")
+                    registerViewController.modalPresentationStyle = .fullScreen
                     self.present(registerViewController, animated: true, completion: nil)
                 }))
                 alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))

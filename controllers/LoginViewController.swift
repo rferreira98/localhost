@@ -128,7 +128,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 
                 NetworkHandler.login(post: myPost) { (success, error) in
                     OperationQueue.main.addOperation {
-                        
                         if error != nil {
                             let alert = Utils.triggerAlert(title: "Erro", error: error)
                             self.present(alert, animated: true, completion: nil)
