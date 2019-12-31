@@ -207,8 +207,8 @@ class NetworkHandler {
         var dataJson: [String: Any]
         dataJson = userJson["data"] as! [String : Any]
         
-        
         guard
+            let id = dataJson["id"] as? Int,
             let firstName = dataJson["first_name"] as? String,
             let lastName = dataJson["last_name"] as? String,
             let email = dataJson["email"] as? String,
@@ -220,6 +220,7 @@ class NetworkHandler {
                 return false
         }
         
+        UserDefaults.standard.setValue(id, forKey: "Id")
         UserDefaults.standard.setValue(firstName, forKey: "FirstName")
         UserDefaults.standard.setValue(lastName, forKey: "LastName")
         UserDefaults.standard.setValue(email, forKey: "Email")
@@ -634,9 +635,9 @@ class NetworkHandler {
             guard error == nil else {
                 return completionHandler(nil, error)
             }
-
+            
             var locals = [Local]()
-
+            
             if let data = data {
                 let decoder = JSONDecoder()
                 do {
@@ -647,11 +648,11 @@ class NetworkHandler {
                     completionHandler(nil, exception.localizedDescription)
                     return
                 }
-
+                
             }
             completionHandler(locals, nil)
         }
-
+        
         localsTask.resume()
     }
     
@@ -669,9 +670,9 @@ class NetworkHandler {
             guard error == nil else {
                 return completionHandler(nil, error)
             }
-
+            
             var locals = [Local]()
-
+            
             if let data = data {
                 let decoder = JSONDecoder()
                 do {
@@ -682,12 +683,118 @@ class NetworkHandler {
                     completionHandler(nil, exception.localizedDescription)
                     return
                 }
-
+                
             }
             completionHandler(locals, nil)
         }
-
+        
         localsTask.resume()
+    }
+    
+    //Questions
+    struct PostStoreQuestion: Codable {
+        let question: String
+    }
+    
+    static func storeQuestion(post: PostStoreQuestion, local_id: Int, completion: @escaping (_ question_id: Int, _ error: String?) -> Void) {
+        if !NetworkHandler.appDelegate.isNetworkOn {
+            completion(-1, "Sem conexão de Internet")
+            return
+        }
+        
+        // Specify this request as being a POST method
+        let url = URL(string: baseUrl + "/question/\(local_id)")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        // Make sure that headers are included specifying that our request HTTP body will be JSON encoded
+        var headers = request.allHTTPHeaderFields ?? [:]
+        headers["Content-Type"] = "application/json"
+        let token = UserDefaults.standard.value(forKey: "Token") as? String
+        headers["Authorization"] = "Bearer " + token!
+        request.allHTTPHeaderFields = headers
+        
+        let encoder = JSONEncoder()
+           do {
+               let jsonData = try encoder.encode(post)
+               // ... and set our request's HTTP body
+               request.httpBody = jsonData
+               //print("jsonData: ", String(data: request.httpBody!, encoding: .utf8) ?? "no body data")
+           } catch {
+               completion(-1, "Erro ao encodificar JSON")
+           }
+        
+        // Create and run a URLSession data task with JSON encoded POST request
+        let config = URLSessionConfiguration.default
+        let session = URLSession(configuration: config)
+        
+        let postRequest = PostRequest(session: session, request: request)
+        let task = postRequest.session.dataTask(with: postRequest.request) { (responseData, response, responseError) in
+            let error = getServerError(responseData: responseData, response: response, responseError: responseError)
+            guard error == nil else {
+                return completion(-1, error)
+            }
+            
+            var question_id:Int = -1
+            
+            if let data = responseData {
+                let decoder = JSONDecoder()
+                do {
+                    //print(String(data: data, encoding: .utf8) ?? "no body data")
+                    question_id = try decoder.decode(Int.self, from: data)
+                } catch let exception {
+                    completion(-1, exception.localizedDescription)
+                    return
+                }
+                
+            }
+            completion(question_id, nil)
+        }
+        task.resume()
+    }
+    
+    static func getQuestions(completion: @escaping ([Question]?, _ error: String?) -> Void) {
+        if !NetworkHandler.appDelegate.isNetworkOn {
+            completion(nil, "Sem conexão de Internet")
+            return
+        }
+        
+        // Specify this request as being a POST method
+        let url = URL(string: baseUrl + "/questions")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        // Make sure that headers are included specifying that our request HTTP body will be JSON encoded
+        var headers = request.allHTTPHeaderFields ?? [:]
+        headers["Content-Type"] = "application/json"
+        let token = UserDefaults.standard.value(forKey: "Token") as? String
+        headers["Authorization"] = "Bearer " + token!
+        request.allHTTPHeaderFields = headers
+        
+        // Create and run a URLSession data task with JSON encoded POST request
+        let config = URLSessionConfiguration.default
+        let session = URLSession(configuration: config)
+        
+        let postRequest = PostRequest(session: session, request: request)
+        let task = postRequest.session.dataTask(with: postRequest.request) { (responseData, response, responseError) in
+            let error = getServerError(responseData: responseData, response: response, responseError: responseError)
+            guard error == nil else {
+                return completion(nil, error)
+            }
+            var questions = [Question]()
+            
+            if let data = responseData {
+                let decoder = JSONDecoder()
+                do {
+                    //print(String(data: data, encoding: .utf8) ?? "no body data")
+                    questions = try decoder.decode([Question].self, from: data)
+                } catch let exception {
+                    completion(nil, exception.localizedDescription)
+                    return
+                }
+                
+            }
+            completion(questions, nil)
+        }
+        task.resume()
     }
 }
 

@@ -100,12 +100,14 @@ UIPickerViewDelegate, UIPickerViewDataSource{
         tableView.dataSource = self
         tableView.delegate = self
         if let token = UserDefaults.standard.value(forKey: "Token") as? String {
-            self.profile = User(token,
+            self.profile = User(UserDefaults.standard.value(forKey: "Id") as! Int,
+                                token,
                                 UserDefaults.standard.value(forKey: "FirstName") as! String,
                                 UserDefaults.standard.value(forKey: "LastName") as! String,
                                 UserDefaults.standard.value(forKey: "Email") as! String,
                                 UserDefaults.standard.value(forKey: "Local") as! String,
                                 UserDefaults.standard.value(forKey: "AvatarURL") as! String)
+            
             
             self.firstNameTextField.text = self.profile!.firstName
             self.lastNameTextField.text = self.profile!.lastName
@@ -181,7 +183,7 @@ UIPickerViewDelegate, UIPickerViewDataSource{
                 }
             }
             if let local = self.localTextField.text {
-                if local.isEmpty {
+                if local.isEmpty || local == "Choose Local"{
                     self.localTextField.text = userProfile.local
                 } else {
                     userProfile.local = local

@@ -15,6 +15,13 @@
 		5B1748DE23634BB5004532AE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B1748DC23634BB5004532AE /* LaunchScreen.storyboard */; };
 		5B1748E923634BB5004532AE /* localhostTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1748E823634BB5004532AE /* localhostTests.swift */; };
 		5B1748F423634BB6004532AE /* localhostUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1748F323634BB6004532AE /* localhostUITests.swift */; };
+		9996804D23B6873B00724F45 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9996804C23B6873B00724F45 /* ChatViewController.swift */; };
+		9996804F23B6886A00724F45 /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9996804E23B6886A00724F45 /* Chat.swift */; };
+		9996805123B6887600724F45 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9996805023B6887600724F45 /* Message.swift */; };
+		9996805323B6963900724F45 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9996805223B6963800724F45 /* GoogleService-Info.plist */; };
+		99D4020423B803060093ADBC /* AskAdviceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D4020323B803060093ADBC /* AskAdviceViewController.swift */; };
+		99D4020623BA3BA50093ADBC /* QuestionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D4020523BA3BA50093ADBC /* QuestionTableViewCell.swift */; };
+		99D4020823BA3F070093ADBC /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D4020723BA3F070093ADBC /* Question.swift */; };
 		9FFF675A78A806AB3504979F /* Pods_localhostTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DB14336AA67FCAA43C22716 /* Pods_localhostTests.framework */; };
 		C711AD7E238D7E4000A58DE7 /* MapAnnotationDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C711AD7D238D7E4000A58DE7 /* MapAnnotationDetailController.swift */; };
 		C711AD80239040AF00A58DE7 /* Local.swift in Sources */ = {isa = PBXBuildFile; fileRef = C711AD7F239040AF00A58DE7 /* Local.swift */; };
@@ -85,6 +92,13 @@
 		7F954917C992F384FB4FCEF7 /* Pods-localhostTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-localhostTests.debug.xcconfig"; path = "Target Support Files/Pods-localhostTests/Pods-localhostTests.debug.xcconfig"; sourceTree = "<group>"; };
 		8310D0417BE2BF3022CAE98E /* Pods_localhost_localhostUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_localhost_localhostUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		854FD002A07AE702A8ADB2E0 /* Pods-localhost.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-localhost.release.xcconfig"; path = "Target Support Files/Pods-localhost/Pods-localhost.release.xcconfig"; sourceTree = "<group>"; };
+		9996804C23B6873B00724F45 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		9996804E23B6886A00724F45 /* Chat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
+		9996805023B6887600724F45 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		9996805223B6963800724F45 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		99D4020323B803060093ADBC /* AskAdviceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AskAdviceViewController.swift; sourceTree = "<group>"; };
+		99D4020523BA3BA50093ADBC /* QuestionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionTableViewCell.swift; sourceTree = "<group>"; };
+		99D4020723BA3F070093ADBC /* Question.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
 		A8E9A9CBCA1B3BECDAADC893 /* Pods-localhostTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-localhostTests.release.xcconfig"; path = "Target Support Files/Pods-localhostTests/Pods-localhostTests.release.xcconfig"; sourceTree = "<group>"; };
 		C711AD7D238D7E4000A58DE7 /* MapAnnotationDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAnnotationDetailController.swift; sourceTree = "<group>"; };
 		C711AD7F239040AF00A58DE7 /* Local.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Local.swift; sourceTree = "<group>"; };
@@ -209,6 +223,7 @@
 				C7D6EF6123711B6200D33E4B /* SceneDelegate.swift */,
 				5B1748D123634BB3004532AE /* AppDelegate.swift */,
 				5B1748DA23634BB5004532AE /* Assets.xcassets */,
+				9996805223B6963800724F45 /* GoogleService-Info.plist */,
 				5B1748DC23634BB5004532AE /* LaunchScreen.storyboard */,
 				C7CA1DF9236FE5F200A1A72A /* Main.storyboard */,
 				5B1748DF23634BB5004532AE /* Info.plist */,
@@ -256,6 +271,9 @@
 				230E0E8423986944001AB7E6 /* FiltersTableViewController.swift */,
 				C7F805F02399351C005E1212 /* LocalDetailedViewController.swift */,
 				C7D933992399F98300CC5464 /* ReviewTableViewCell.swift */,
+				9996804C23B6873B00724F45 /* ChatViewController.swift */,
+				99D4020323B803060093ADBC /* AskAdviceViewController.swift */,
+				99D4020523BA3BA50093ADBC /* QuestionTableViewCell.swift */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -283,6 +301,9 @@
 				C711AD7F239040AF00A58DE7 /* Local.swift */,
 				C711AD81239045E300A58DE7 /* Review.swift */,
 				C776DE622395220E00EA1767 /* UserReviewer.swift */,
+				9996804E23B6886A00724F45 /* Chat.swift */,
+				9996805023B6887600724F45 /* Message.swift */,
+				99D4020723BA3F070093ADBC /* Question.swift */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -397,6 +418,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C7CA1DFB236FE5F200A1A72A /* Main.storyboard in Resources */,
+				9996805323B6963900724F45 /* GoogleService-Info.plist in Resources */,
 				5B1748DE23634BB5004532AE /* LaunchScreen.storyboard in Resources */,
 				5B1748DB23634BB5004532AE /* Assets.xcassets in Resources */,
 			);
@@ -539,8 +561,10 @@
 				C72BAEDA236FC4240022C461 /* LocationSearchTableController.swift in Sources */,
 				C7E9E67A23710082004BB27C /* ProfileViewController.swift in Sources */,
 				C7D6EF6223711B6300D33E4B /* SceneDelegate.swift in Sources */,
+				9996804F23B6886A00724F45 /* Chat.swift in Sources */,
 				5B1748D223634BB3004532AE /* AppDelegate.swift in Sources */,
 				C78DA8492381EE8500CCD60C /* NetworkHandler.swift in Sources */,
+				99D4020423B803060093ADBC /* AskAdviceViewController.swift in Sources */,
 				C7B62398236FE20700CF4CF6 /* User.swift in Sources */,
 				C766EC61236FD9AD0006A248 /* RecommendationsViewController.swift in Sources */,
 				C7A81B9D239883BB00B59A7A /* ArtworkView.swift in Sources */,
@@ -549,16 +573,20 @@
 				C78DA84D2382263400CCD60C /* Cities.swift in Sources */,
 				C766EC5C236FD4FC0006A248 /* InfoViewController.swift in Sources */,
 				C769DE812383953200020527 /* KeychainPasswordItem.swift in Sources */,
+				99D4020823BA3F070093ADBC /* Question.swift in Sources */,
 				C711AD82239045E300A58DE7 /* Review.swift in Sources */,
 				C7B62395236FE1B900CF4CF6 /* TabBarController.swift in Sources */,
+				99D4020623BA3BA50093ADBC /* QuestionTableViewCell.swift in Sources */,
 				C766EC63236FDB4D0006A248 /* PlacesListViewController.swift in Sources */,
 				C72BAED8236FC2A40022C461 /* MapViewController.swift in Sources */,
+				9996805123B6887600724F45 /* Message.swift in Sources */,
 				C711AD7E238D7E4000A58DE7 /* MapAnnotationDetailController.swift in Sources */,
 				C7F805F12399351C005E1212 /* LocalDetailedViewController.swift in Sources */,
 				C711AD80239040AF00A58DE7 /* Local.swift in Sources */,
 				C776DE652395268D00EA1767 /* LocalTableViewCell.swift in Sources */,
 				C7D9339A2399F98300CC5464 /* ReviewTableViewCell.swift in Sources */,
 				C78DA84B2382145F00CCD60C /* NetworkErrors.swift in Sources */,
+				9996804D23B6873B00724F45 /* ChatViewController.swift in Sources */,
 				C776DE632395220E00EA1767 /* UserReviewer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -766,7 +794,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = ipleiria.ios.localhost;
+				PRODUCT_BUNDLE_IDENTIFIER = ipleiria.ios2.localhost;
 				PRODUCT_NAME = Localhost;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
