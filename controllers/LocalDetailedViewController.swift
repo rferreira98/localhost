@@ -52,7 +52,7 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
         self.labelLocalName.text = local.name
         var typesStr: String = ""
         for type in local.types {
-            typesStr += type+" "
+            typesStr += type + " "
         }
         self.labelLocalType.text = typesStr
         self.labelLocalAddress.numberOfLines = 0
@@ -149,9 +149,7 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
     }
     
     @IBAction func buttonMapClicked(_ sender: Any) {
-        
         let launchOptions = [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving]
-        
         self.mapItem().openInMaps(launchOptions: launchOptions)
     }
     

@@ -15,6 +15,7 @@
 		5B1748DE23634BB5004532AE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B1748DC23634BB5004532AE /* LaunchScreen.storyboard */; };
 		5B1748E923634BB5004532AE /* localhostTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1748E823634BB5004532AE /* localhostTests.swift */; };
 		5B1748F423634BB6004532AE /* localhostUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1748F323634BB6004532AE /* localhostUITests.swift */; };
+		5BAA241523BE545F007F7146 /* MapAnnotationModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAA241423BE545F007F7146 /* MapAnnotationModalViewController.swift */; };
 		9996804D23B6873B00724F45 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9996804C23B6873B00724F45 /* ChatViewController.swift */; };
 		9996804F23B6886A00724F45 /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9996804E23B6886A00724F45 /* Chat.swift */; };
 		9996805123B6887600724F45 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9996805023B6887600724F45 /* Message.swift */; };
@@ -89,6 +90,7 @@
 		5B1748EF23634BB5004532AE /* localhostUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = localhostUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B1748F323634BB6004532AE /* localhostUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = localhostUITests.swift; sourceTree = "<group>"; };
 		5B1748F523634BB6004532AE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5BAA241423BE545F007F7146 /* MapAnnotationModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAnnotationModalViewController.swift; sourceTree = "<group>"; };
 		7F954917C992F384FB4FCEF7 /* Pods-localhostTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-localhostTests.debug.xcconfig"; path = "Target Support Files/Pods-localhostTests/Pods-localhostTests.debug.xcconfig"; sourceTree = "<group>"; };
 		8310D0417BE2BF3022CAE98E /* Pods_localhost_localhostUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_localhost_localhostUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		854FD002A07AE702A8ADB2E0 /* Pods-localhost.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-localhost.release.xcconfig"; path = "Target Support Files/Pods-localhost/Pods-localhost.release.xcconfig"; sourceTree = "<group>"; };
@@ -274,6 +276,7 @@
 				9996804C23B6873B00724F45 /* ChatViewController.swift */,
 				99D4020323B803060093ADBC /* AskAdviceViewController.swift */,
 				99D4020523BA3BA50093ADBC /* QuestionTableViewCell.swift */,
+				5BAA241423BE545F007F7146 /* MapAnnotationModalViewController.swift */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -580,6 +583,7 @@
 				C766EC63236FDB4D0006A248 /* PlacesListViewController.swift in Sources */,
 				C72BAED8236FC2A40022C461 /* MapViewController.swift in Sources */,
 				9996805123B6887600724F45 /* Message.swift in Sources */,
+				5BAA241523BE545F007F7146 /* MapAnnotationModalViewController.swift in Sources */,
 				C711AD7E238D7E4000A58DE7 /* MapAnnotationDetailController.swift in Sources */,
 				C7F805F12399351C005E1212 /* LocalDetailedViewController.swift in Sources */,
 				C711AD80239040AF00A58DE7 /* Local.swift in Sources */,
@@ -764,14 +768,14 @@
 				CODE_SIGN_ENTITLEMENTS = localhost/Localhost.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = H6KNDJLHPK;
+				DEVELOPMENT_TEAM = 5KB4ZY99NU;
 				INFOPLIST_FILE = localhost/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = ipleiria.ios2.localhost;
+				PRODUCT_BUNDLE_IDENTIFIER = ipleiria.ios10.localhost;
 				PRODUCT_NAME = Localhost;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -787,14 +791,14 @@
 				CODE_SIGN_ENTITLEMENTS = localhost/Localhost.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = H6KNDJLHPK;
+				DEVELOPMENT_TEAM = 5KB4ZY99NU;
 				INFOPLIST_FILE = localhost/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = ipleiria.ios2.localhost;
+				PRODUCT_BUNDLE_IDENTIFIER = ipleiria.ios10.localhost;
 				PRODUCT_NAME = Localhost;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;

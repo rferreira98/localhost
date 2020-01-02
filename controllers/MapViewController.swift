@@ -109,8 +109,12 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         let span = MKCoordinateSpan(latitudeDelta: 0.002, longitudeDelta: 0.002)
         let region = MKCoordinateRegion(center: (view.annotation?.coordinate)!, span: span)
         mapView.setRegion(region, animated: true)
+        let artwork = view.annotation as! Artwork
+        localToSend = artwork.local
+        performSegue(withIdentifier: "mapAnnotationView", sender: nil)
     }
-
+    
+    
     func getCoordinateFrom(address: String, completion: @escaping(_ coordinate: CLLocationCoordinate2D?, _ error: Error?) -> Void ) {
         CLGeocoder().geocodeAddressString(address) { completion($0?.first?.location?.coordinate, $1) }
     }
@@ -254,6 +258,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let smld=segue.destination as? LocalDetailedViewController {
+            smld.local = self.localToSend
+        }else if let smld=segue.destination as? MapAnnotationModalViewController {
             smld.local = self.localToSend
         }
     }
