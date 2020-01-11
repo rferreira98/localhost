@@ -14,6 +14,7 @@ target 'localhost' do
   pod 'Cosmos'
   pod 'Firebase/Firestore'
   pod 'MessageKit'
+  pod 'MaterialComponents/BottomSheet'
   
   target 'localhostTests' do
     inherit! :search_paths

@@ -9,6 +9,7 @@
 import UIKit
 import MapKit
 import CoreLocation
+import MaterialComponents.MaterialBottomSheet
 
 protocol HandleMapSearch: class {
     func zoomLocation(_ placemark:MKPlacemark)
@@ -109,9 +110,22 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         let span = MKCoordinateSpan(latitudeDelta: 0.002, longitudeDelta: 0.002)
         let region = MKCoordinateRegion(center: (view.annotation?.coordinate)!, span: span)
         mapView.setRegion(region, animated: true)
-        let artwork = view.annotation as! Artwork
+        /*let viewController: MapAnnotationModalViewController = MapAnnotationModalViewController()
+        let viewController1 = storyboard!.instantiateViewController(withIdentifier: "ola") as MapAnnotationModalViewController?
+        viewController.addChild(viewController1)
         localToSend = artwork.local
-        performSegue(withIdentifier: "mapAnnotationView", sender: nil)
+        viewController1.local = localToSend
+        // Initialize the bottom sheet with the view controller just created
+        let bottomSheet: MDCBottomSheetController = MDCBottomSheetController(contentViewController: viewController1)
+        // Present the bottom sheet
+        present(bottomSheet, animated: true, completion: nil)
+ */
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
+            // Put your code which should be executed with a delay here
+            let artwork = view.annotation as! Artwork
+            self.localToSend = artwork.local
+            self.performSegue(withIdentifier: "mapAnnotationView", sender: nil)
+        })
     }
     
     
@@ -120,7 +134,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
         locationManager.startUpdatingLocation()
         if goingForwards == true {
             goingForwards = false

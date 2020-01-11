@@ -223,6 +223,32 @@ PODS:
   - InitialsImageView (0.6.0)
   - InputBarAccessoryView (4.2.2)
   - leveldb-library (1.22)
+  - MaterialComponents/BottomSheet (100.0.0):
+    - MaterialComponents/Elevation
+    - MaterialComponents/private/KeyboardWatcher
+    - MaterialComponents/private/Math
+    - MaterialComponents/ShadowElevations
+    - MaterialComponents/ShadowLayer
+    - MaterialComponents/ShapeLibrary
+    - MaterialComponents/Shapes
+  - MaterialComponents/Elevation (100.0.0):
+    - MaterialComponents/private/Color
+    - MaterialComponents/private/Math
+  - MaterialComponents/private/Application (100.0.0)
+  - MaterialComponents/private/Color (100.0.0)
+  - MaterialComponents/private/KeyboardWatcher (100.0.0):
+    - MaterialComponents/private/Application
+  - MaterialComponents/private/Math (100.0.0)
+  - MaterialComponents/ShadowElevations (100.0.0)
+  - MaterialComponents/ShadowLayer (100.0.0):
+    - MaterialComponents/ShadowElevations
+  - MaterialComponents/ShapeLibrary (100.0.0):
+    - MaterialComponents/private/Math
+    - MaterialComponents/Shapes
+  - MaterialComponents/Shapes (100.0.0):
+    - MaterialComponents/private/Color
+    - MaterialComponents/private/Math
+    - MaterialComponents/ShadowLayer
   - MessageKit (3.0.0):
     - InputBarAccessoryView (~> 4.2.2)
   - nanopb (0.3.9011):
@@ -241,6 +267,7 @@ DEPENDENCIES:
   - Cosmos
   - Firebase/Firestore
   - InitialsImageView
+  - MaterialComponents/BottomSheet
   - MessageKit
   - RSKImageCropper
   - SDWebImage
@@ -266,6 +293,7 @@ SPEC REPOS:
     - InitialsImageView
     - InputBarAccessoryView
     - leveldb-library
+    - MaterialComponents
     - MessageKit
     - nanopb
     - RSKImageCropper
@@ -291,12 +319,13 @@ SPEC CHECKSUMS:
   InitialsImageView: 09a5a30bdfaad2a8d9bb31b43257ae6ebcc8b52a
   InputBarAccessoryView: 2b937602598e2fab3149f37f51dd7ad795653812
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
+  MaterialComponents: b4cc6c1649a566d70bd72096f3e1aae2c3701e4f
   MessageKit: e892a9ca49ebe6d82684d3a93ad84021fa23e2c6
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   RSKImageCropper: a446db0e8444a036b34f3c43db01b2373baa4b2a
   SDWebImage: f1afa74b86587c2c63f4e80dfd39b21e3c17b45b
   SwiftHTTP: e94f1aa8cde58637dcc0100f6349de31a3337fde
 
-PODFILE CHECKSUM: cd2843f7cd5169236926fed9e6095d7fdecffef8
+PODFILE CHECKSUM: adf237c3934c80ab0c6921810edda06b491029d3
 
 COCOAPODS: 1.8.4

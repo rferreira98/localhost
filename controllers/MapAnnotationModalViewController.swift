@@ -16,6 +16,7 @@ class MapAnnotationModalViewController: UIViewController, MKMapViewDelegate {
     var local: Local!
     var coordinate: CLLocationCoordinate2D!
     
+    
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var dragDownButton: UIButton!
     @IBOutlet weak var imageViewLocal: UIImageView!
@@ -23,12 +24,14 @@ class MapAnnotationModalViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var gMapsButton: UIButton!
     @IBOutlet weak var mapView: MKMapView!
-
+    @IBOutlet weak var ratingView: CosmosView!
+    @IBOutlet weak var quantityReviewsLbl: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.titleLabel.text = local.name
-        self.imageViewLocal.contentMode = .scaleAspectFill
-        self.imageViewLocal.sd_setImage(with: URL(string: local.imageUrl), placeholderImage: UIImage(named: "No image available"))
+        self.imageViewLocal.contentMode = .scaleAspectFit
+        self.imageViewLocal.sd_setImage(with: URL(string: local.imageUrl), placeholderImage: UIImage(named: "NoPhotoRestaurant"))
         
         var typesStr: String = ""
         if (local.types.count > 0){
@@ -38,8 +41,10 @@ class MapAnnotationModalViewController: UIViewController, MKMapViewDelegate {
         }
         self.typesLabel.text = typesStr
         self.addressLabel.text = local.address
-        self.coordinate = CLLocationCoordinate2D(latitude: CLLocationDegrees(exactly: CLLocationDegrees(local.latitude))!,
-        longitude: CLLocationDegrees(exactly: CLLocationDegrees(local.longitude))!)
+        self.ratingView.isUserInteractionEnabled = false
+        self.ratingView.settings.fillMode = .precise
+        self.ratingView.rating = self.local.avgRating
+        self.quantityReviewsLbl.text = String(local.qtReviews)
         
         mapView.delegate = self
         mapView.userTrackingMode = .follow
@@ -49,15 +54,11 @@ class MapAnnotationModalViewController: UIViewController, MKMapViewDelegate {
         mapView.showsPointsOfInterest = true
         mapView.isUserInteractionEnabled = false
         
+        self.coordinate = CLLocationCoordinate2D(latitude: CLLocationDegrees(exactly: CLLocationDegrees(local.latitude))!,
+                                                 longitude: CLLocationDegrees(exactly: CLLocationDegrees(local.longitude))!)
+        self.drawMapWithLocation(selectedCoordinate: self.coordinate!)
     }
     
-    func mapItem() -> MKMapItem {
-        let addressDict = [CNPostalAddressStreetKey: local.address]
-        let placemark = MKPlacemark(coordinate: coordinate, addressDictionary: addressDict)
-        let mapItem = MKMapItem(placemark: placemark)
-        mapItem.name = local.name
-        return mapItem
-    }
     
     // MARK: Actions
     @IBAction func buttonTouched(_ sender: Any) {
@@ -108,7 +109,13 @@ class MapAnnotationModalViewController: UIViewController, MKMapViewDelegate {
         //reviewsTableView.delegate=self
         //reviewsTableView.dataSource=self
         //reviewsTableView.tableFooterView = UIView()
-        
     }
-        
+    
+    func mapItem() -> MKMapItem {
+        let addressDict = [CNPostalAddressStreetKey: local.address]
+        let placemark = MKPlacemark(coordinate: coordinate, addressDictionary: addressDict)
+        let mapItem = MKMapItem(placemark: placemark)
+        mapItem.name = local.name
+        return mapItem
+    }
 }
