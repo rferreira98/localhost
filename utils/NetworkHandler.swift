@@ -62,7 +62,7 @@ class NetworkHandler {
                 let jsonData = try encoder.encode(data)
                 // ... and set our request's HTTP body
                 request.httpBody = jsonData
-                //print("jsonData: ", String(data: request.httpBody!, encoding: .utf8) ?? "no body data")
+                print("jsonData: ", String(data: request.httpBody!, encoding: .utf8) ?? "no body data")
             } catch {
                 completion(false, "Erro ao encodificar JSON")
             }
@@ -107,6 +107,7 @@ class NetworkHandler {
         let password_confirmation: String
         let email: String
         let local: String
+        let messaging_token: String
     }
     
     static func register(post: PostRegister, completion: @escaping (_ success: Bool, _ error: String?) -> Void) {
@@ -136,6 +137,7 @@ class NetworkHandler {
                         UserDefaults.standard.setValue(post.last_name, forKey: "LastName")
                         UserDefaults.standard.setValue(post.email, forKey: "Email")
                         UserDefaults.standard.setValue(post.local, forKey: "Local")
+                        UserDefaults.standard.setValue(post.messaging_token, forKey: "MessagingToken")
                         UserDefaults.standard.synchronize()
                         //logs in the user
                         
@@ -157,7 +159,7 @@ class NetworkHandler {
                 
             } catch let parsingError {
                 print("Error", parsingError)
-                completion(false, "Erro no parse de JSON no Registo")
+                completion(false, "Erro no parse de JSON no Registo (resposta)")
             }
             
         }
@@ -214,7 +216,8 @@ class NetworkHandler {
             let email = dataJson["email"] as? String,
             let local = dataJson["local"] as? String,
             let token = dataJson["token"] as? String,
-            let avatarUrl = dataJson["avatar"] as? String
+            let avatarUrl = dataJson["avatar"] as? String,
+            let messaingToken = dataJson["messaging_token"] as? String
             else {
                 print("Invalid user received")
                 return false
@@ -227,6 +230,7 @@ class NetworkHandler {
         UserDefaults.standard.setValue(local, forKey: "Local")
         UserDefaults.standard.setValue(token, forKey: "Token")
         UserDefaults.standard.setValue(avatarUrl, forKey: "AvatarURL")
+        UserDefaults.standard.setValue(messaingToken, forKey:"MessagingToken")
         
         UserDefaults.standard.synchronize()
         return true

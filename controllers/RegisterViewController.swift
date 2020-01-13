@@ -9,6 +9,7 @@
 import UIKit
 import RSKImageCropper
 import InitialsImageView
+import FirebaseMessaging
 
 class RegisterViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate & UINavigationControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource, RSKImageCropViewControllerDelegate {
     
@@ -232,6 +233,13 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIImagePick
             self.present(alert, animated: true, completion: nil)
             textFieldConfirmPassword.text=""
         }
+        
+        if textFieldPassword.text!.count > 0 && textFieldPassword.text!.count < 6 || textFieldConfirmPassword.text!.count > 0 && textFieldConfirmPassword.text!.count < 6 {
+            let alert = Utils.triggerAlert(title: "Erro", error: "Passwords deve ter no minimo 6 caracteres.")
+            self.present(alert, animated: true, completion: nil)
+            textFieldConfirmPassword.text=""
+            textFieldPassword.text=""
+        }
     }
     
     
@@ -244,6 +252,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIImagePick
         let local = textFieldLocal.text!
         var image: UIImage!
         
+        
         if textFieldFirstName.text!.isEmpty || textFieldLastName.text!.isEmpty || textFieldEmail.text!.isEmpty || textFieldPassword.text!.isEmpty || textFieldConfirmPassword.text!.isEmpty || (textFieldLocal.text!.isEmpty && textFieldLocal.text! == "Choose local"){
             
             let alert = Utils.triggerAlert(title: "Error", error: "Alguns campos estão vazios.")
@@ -253,7 +262,9 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIImagePick
                 let alert = Utils.triggerAlert(title: "Erro", error: "E-mail Inválido")
                 self.present(alert, animated: true, completion: nil)
             }else{
-                let postRegist = NetworkHandler.PostRegister(first_name: firstName, last_name: lastName, password: password, password_confirmation: passwordConfirm, email: email, local: local)
+                let messagingToken = Messaging.messaging().fcmToken;
+                let postRegist = NetworkHandler.PostRegister(first_name: firstName, last_name: lastName, password: password, password_confirmation: passwordConfirm, email: email, local: local, messaging_token: messagingToken!)
+                
                 
                 NetworkHandler.register(post: postRegist) { (success, error) in
                     OperationQueue.main.addOperation {

@@ -106,7 +106,8 @@ UIPickerViewDelegate, UIPickerViewDataSource{
                                 UserDefaults.standard.value(forKey: "LastName") as! String,
                                 UserDefaults.standard.value(forKey: "Email") as! String,
                                 UserDefaults.standard.value(forKey: "Local") as! String,
-                                UserDefaults.standard.value(forKey: "AvatarURL") as! String)
+                                UserDefaults.standard.value(forKey: "AvatarURL") as! String,
+                                UserDefaults.standard.value(forKey: "MessagingToken") as! String)
             
             
             self.firstNameTextField.text = self.profile!.firstName

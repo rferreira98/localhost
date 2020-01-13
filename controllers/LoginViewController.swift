@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseMessaging
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
     
@@ -25,7 +26,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var recoverPasswordBtn: UIButton!
     
-    let usesBiometricAuth = UserDefaults.standard.bool(forKey: "usesBiometricAuth")
+    var usesBiometricAuth = UserDefaults.standard.bool(forKey: "usesBiometricAuth")
     var biometricType = ""
     
     override func viewDidLoad() {
@@ -126,6 +127,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             } else {
                 let myPost = NetworkHandler.PostLogin(password: password, email: email)
                 
+                                
                 NetworkHandler.login(post: myPost) { (success, error) in
                     OperationQueue.main.addOperation {
                         if error != nil {
@@ -134,6 +136,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                         } else {
                             if UserDefaults.standard.bool(forKey: "biometricPrompted") {
                                 self.goToMainScreen()
+                                print("ERRO")
                             }else{
                                 if !self.usesBiometricAuth {
                                     self.displayActionSheet();
@@ -149,6 +152,17 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             }
         }
         
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if (UserDefaults.standard.value(forKey: "Email") != nil) {
+            if textFieldEmail.text! != UserDefaults.standard.value(forKey: "Email") as! String {
+                biometricLoginButton.isHidden = true
+                self.usesBiometricAuth = false
+                UserDefaults.standard.set(false, forKey: "usesBiometricAuth")
+                UserDefaults.standard.removeObject(forKey: "biometricPrompted")
+            }
+        }
     }
     
     

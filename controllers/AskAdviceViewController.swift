@@ -17,7 +17,8 @@ class AskAdviceViewController: UIViewController, UITextViewDelegate {
     UserDefaults.standard.value(forKey: "LastName") as! String,
     UserDefaults.standard.value(forKey: "Email") as! String,
     UserDefaults.standard.value(forKey: "Local") as! String,
-    UserDefaults.standard.value(forKey: "AvatarURL") as? String)
+    UserDefaults.standard.value(forKey: "AvatarURL") as? String,
+    UserDefaults.standard.value(forKey: "MessagingToken") as! String)
 
     var local:Local!
     
@@ -63,6 +64,7 @@ class AskAdviceViewController: UIViewController, UITextViewDelegate {
             self.present(alert, animated: true, completion: nil)
         } else {
             let postStoreQuestion = NetworkHandler.PostStoreQuestion(question: textViewQuestion.text)
+            
             
             NetworkHandler.storeQuestion(post: postStoreQuestion, local_id: local.id) { (question_id, error) in
                 OperationQueue.main.addOperation {

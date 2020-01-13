@@ -19,7 +19,6 @@
 		9996804D23B6873B00724F45 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9996804C23B6873B00724F45 /* ChatViewController.swift */; };
 		9996804F23B6886A00724F45 /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9996804E23B6886A00724F45 /* Chat.swift */; };
 		9996805123B6887600724F45 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9996805023B6887600724F45 /* Message.swift */; };
-		9996805323B6963900724F45 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9996805223B6963800724F45 /* GoogleService-Info.plist */; };
 		99D4020423B803060093ADBC /* AskAdviceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D4020323B803060093ADBC /* AskAdviceViewController.swift */; };
 		99D4020623BA3BA50093ADBC /* QuestionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D4020523BA3BA50093ADBC /* QuestionTableViewCell.swift */; };
 		99D4020823BA3F070093ADBC /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D4020723BA3F070093ADBC /* Question.swift */; };
@@ -53,6 +52,9 @@
 		C7B62395236FE1B900CF4CF6 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B62394236FE1B900CF4CF6 /* TabBarController.swift */; };
 		C7B62398236FE20700CF4CF6 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B62397236FE20700CF4CF6 /* User.swift */; };
 		C7CA1DFB236FE5F200A1A72A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7CA1DF9236FE5F200A1A72A /* Main.storyboard */; };
+		C7CCE92023CCDDF6001F399E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C7CCE91F23CCDDF5001F399E /* GoogleService-Info.plist */; };
+		C7CCE92223CCE556001F399E /* PushNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7CCE92123CCE556001F399E /* PushNotificationManager.swift */; };
+		C7CCE92423CD1629001F399E /* PushNotificationSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7CCE92323CD1629001F399E /* PushNotificationSender.swift */; };
 		C7D6EF6223711B6300D33E4B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D6EF6123711B6200D33E4B /* SceneDelegate.swift */; };
 		C7D9339A2399F98300CC5464 /* ReviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D933992399F98300CC5464 /* ReviewTableViewCell.swift */; };
 		C7E9E67A23710082004BB27C /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E9E67923710082004BB27C /* ProfileViewController.swift */; };
@@ -97,7 +99,6 @@
 		9996804C23B6873B00724F45 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		9996804E23B6886A00724F45 /* Chat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
 		9996805023B6887600724F45 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
-		9996805223B6963800724F45 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		99D4020323B803060093ADBC /* AskAdviceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AskAdviceViewController.swift; sourceTree = "<group>"; };
 		99D4020523BA3BA50093ADBC /* QuestionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionTableViewCell.swift; sourceTree = "<group>"; };
 		99D4020723BA3F070093ADBC /* Question.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
@@ -132,6 +133,9 @@
 		C7B62394236FE1B900CF4CF6 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		C7B62397236FE20700CF4CF6 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		C7CA1DFA236FE5F200A1A72A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		C7CCE91F23CCDDF5001F399E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		C7CCE92123CCE556001F399E /* PushNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationManager.swift; sourceTree = "<group>"; };
+		C7CCE92323CD1629001F399E /* PushNotificationSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationSender.swift; sourceTree = "<group>"; };
 		C7D6EF6123711B6200D33E4B /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		C7D933992399F98300CC5464 /* ReviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewTableViewCell.swift; sourceTree = "<group>"; };
 		C7E9E67923710082004BB27C /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -225,7 +229,7 @@
 				C7D6EF6123711B6200D33E4B /* SceneDelegate.swift */,
 				5B1748D123634BB3004532AE /* AppDelegate.swift */,
 				5B1748DA23634BB5004532AE /* Assets.xcassets */,
-				9996805223B6963800724F45 /* GoogleService-Info.plist */,
+				C7CCE91F23CCDDF5001F399E /* GoogleService-Info.plist */,
 				5B1748DC23634BB5004532AE /* LaunchScreen.storyboard */,
 				C7CA1DF9236FE5F200A1A72A /* Main.storyboard */,
 				5B1748DF23634BB5004532AE /* Info.plist */,
@@ -293,6 +297,8 @@
 				C720D48F23984E7E0039A433 /* Items.swift */,
 				C720D491239879C50039A433 /* Artwork.swift */,
 				C7A81B9C239883BB00B59A7A /* ArtworkView.swift */,
+				C7CCE92123CCE556001F399E /* PushNotificationManager.swift */,
+				C7CCE92323CD1629001F399E /* PushNotificationSender.swift */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -421,7 +427,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C7CA1DFB236FE5F200A1A72A /* Main.storyboard in Resources */,
-				9996805323B6963900724F45 /* GoogleService-Info.plist in Resources */,
+				C7CCE92023CCDDF6001F399E /* GoogleService-Info.plist in Resources */,
 				5B1748DE23634BB5004532AE /* LaunchScreen.storyboard in Resources */,
 				5B1748DB23634BB5004532AE /* Assets.xcassets in Resources */,
 			);
@@ -551,12 +557,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C7CCE92223CCE556001F399E /* PushNotificationManager.swift in Sources */,
 				C720D492239879C50039A433 /* Artwork.swift in Sources */,
 				C75321DB239688CC003BB49C /* CustomAnotation.swift in Sources */,
 				C766EC58236FD1120006A248 /* MapFiltersController.swift in Sources */,
 				C720D49023984E7E0039A433 /* Items.swift in Sources */,
 				230E0E8523986944001AB7E6 /* FiltersTableViewController.swift in Sources */,
 				C766EC69236FDE5E0006A248 /* RegisterViewController.swift in Sources */,
+				C7CCE92423CD1629001F399E /* PushNotificationSender.swift in Sources */,
 				C766EC67236FDE530006A248 /* LoginViewController.swift in Sources */,
 				C769DE8323839C9400020527 /* BiometricAuth.swift in Sources */,
 				C766EC5F236FD5420006A248 /* Utils.swift in Sources */,
@@ -768,14 +776,14 @@
 				CODE_SIGN_ENTITLEMENTS = localhost/Localhost.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5KB4ZY99NU;
+				DEVELOPMENT_TEAM = H224JX9UQG;
 				INFOPLIST_FILE = localhost/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = ipleiria.ios10.localhost;
+				PRODUCT_BUNDLE_IDENTIFIER = pt.ipleiria.localhost;
 				PRODUCT_NAME = Localhost;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;

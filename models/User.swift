@@ -17,6 +17,7 @@ class User: Decodable {
     let token:String
     let email:String
     private var _local:String
+    private var _messagingToken:String
     
     var firstName:String{
         get{
@@ -72,6 +73,11 @@ class User: Decodable {
             }
         }
     }
+    var messagingToken:String{
+        get{
+            return self._messagingToken;
+        }
+    }
     
     required convenience init(from decoder: Decoder) throws
     {
@@ -92,6 +98,7 @@ class User: Decodable {
         var email:String
         var avatar:String?
         var local: String
+        var messagingToken: String
         do
         {
             id = try! container.decode(Int.self, forKey: .id)
@@ -101,13 +108,14 @@ class User: Decodable {
             email = (try? container.decode(String.self, forKey: .email)) ?? ""
             avatar = try? container.decode(String.self, forKey: .avatar)
             local = (try? container.decode(String.self, forKey: .local)) ?? ""
+            messagingToken = try! container.decode(String.self, forKey: .messagingToken)
         }
-        self.init(id, token, firstName, lastName, email ,local, avatar)
+        self.init(id, token, firstName, lastName, email ,local, avatar, messagingToken)
     }
     
     convenience init(){
         guard let token = UserDefaults.standard.value(forKey: "Token") as? String else {
-            self.init(-1,"","","", "", "",nil)
+            self.init(-1,"","","", "", "",nil, "")
             return
         }
         self.init(UserDefaults.standard.value(forKey: "Id") as! Int,
@@ -116,15 +124,16 @@ class User: Decodable {
                   UserDefaults.standard.value(forKey: "LastName") as! String,
                   UserDefaults.standard.value(forKey: "Email") as! String,
                   UserDefaults.standard.value(forKey: "Local") as! String,
-                  UserDefaults.standard.value(forKey: "AvatarString") as? String)
+                  UserDefaults.standard.value(forKey: "AvatarString") as? String,
+                  UserDefaults.standard.value(forKey: "MessagingToken") as! String)
     }
     
-    convenience init(_ id:Int,_ token: String, _ firstName:String, _ lastName:String, _ email:String, _ local:String) {
-        self.init(id, token, firstName, lastName, email, local, nil)
+    convenience init(_ id:Int,_ token: String, _ firstName:String, _ lastName:String, _ email:String, _ local:String, _ messagingToken: String) {
+        self.init(id, token, firstName, lastName, email, local, nil, messagingToken)
     }
     
 
-    init(_ id:Int, _ token:String, _ firstName:String, _ lastName:String, _ email:String, _ local:String, _ avatar:String?) {
+    init(_ id:Int, _ token:String, _ firstName:String, _ lastName:String, _ email:String, _ local:String, _ avatar:String?, _ messagingToken:String) {
         self.id=id
         self.token=token
         self._firstName = firstName
@@ -133,6 +142,7 @@ class User: Decodable {
         self._local = local
         self._avatar = avatar
         self.profileChanged = false
+        self._messagingToken = messagingToken
     }
 }
 
@@ -146,6 +156,7 @@ extension User:Encodable
         case email = "email"
         case local = "local"
         case avatar = "avatar"
+        case messagingToken = "messagingToken"
     }
     
     func encode(to encoder: Encoder) throws {
@@ -155,6 +166,7 @@ extension User:Encodable
         try container.encode(self.email, forKey: .email)
         try container.encode(self.local, forKey: .local)
         try container.encode(self._avatar, forKey: .avatar)
+        try container.encode(self._messagingToken, forKey: .messagingToken)
     }
 }
 

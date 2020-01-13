@@ -21,7 +21,8 @@ class ChatViewController: MessagesViewController {
                                  UserDefaults.standard.value(forKey: "LastName") as! String,
                                  UserDefaults.standard.value(forKey: "Email") as! String,
                                  UserDefaults.standard.value(forKey: "Local") as! String,
-                                 UserDefaults.standard.value(forKey: "AvatarURL") as? String)
+                                 UserDefaults.standard.value(forKey: "AvatarURL") as? String,
+                                 UserDefaults.standard.value(forKey: "MessagingToken") as! String)
     
     private var docReference: DocumentReference?
     var messages: [Message] = []

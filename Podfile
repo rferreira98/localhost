@@ -13,6 +13,7 @@ target 'localhost' do
   pod 'Alamofire'
   pod 'Cosmos'
   pod 'Firebase/Firestore'
+  pod 'Firebase/Messaging'
   pod 'MessageKit'
   pod 'MaterialComponents/BottomSheet'
   

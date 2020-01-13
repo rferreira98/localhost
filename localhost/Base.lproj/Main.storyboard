@@ -1095,6 +1095,7 @@
                     <navigationItem key="navigationItem" id="anR-39-fnw"/>
                     <connections>
                         <outlet property="imageViewAvatar" destination="41i-Gd-BiM" id="GlL-lu-q8d"/>
+                        <outlet property="perfilLabel" destination="nqj-Ys-RQY" id="X5P-8n-K3z"/>
                         <outlet property="segmentedControl" destination="syO-mh-O59" id="9Ma-2v-RZD"/>
                         <outlet property="switchAuth" destination="2pN-75-0OJ" id="noo-xp-q3r"/>
                         <outlet property="switchDarkMode" destination="cZl-JB-lwN" id="wkG-RL-te5"/>
@@ -1131,7 +1132,7 @@
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="E-Mail" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="z72-Fn-9mD">
                                 <rect key="frame" x="40" y="362" width="295" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="next" textContentType="email"/>
+                                <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="next" textContentType="email"/>
                             </textField>
                             <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7Qj-qP-oFx">
                                 <rect key="frame" x="40" y="420" width="295" height="34"/>
@@ -1730,7 +1731,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xg3-t8-KlD" customClass="CosmosView" customModule="Cosmos">
+                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xg3-t8-KlD" customClass="CosmosView" customModule="Cosmos">
                                         <rect key="frame" x="147" y="239" width="121" height="20"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="rating">

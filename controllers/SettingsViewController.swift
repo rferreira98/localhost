@@ -17,6 +17,7 @@ class SettingsViewController: UITableViewController, MFMailComposeViewController
     @IBOutlet weak var imageViewAvatar: UIImageView!
     @IBOutlet weak var switchAuth: UISwitch!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
+    @IBOutlet weak var perfilLabel: UILabel!
     
     override func viewDidAppear(_ animated: Bool) {
         //removes the separator/line on the table cell
@@ -32,7 +33,10 @@ class SettingsViewController: UITableViewController, MFMailComposeViewController
         let authLabel = tableView.cellForRow(at: IndexPath(row: 1, section: 1))?.contentView.subviews[0] as! UILabel
         authLabel.text = "Autenticação com "+Utils.getBiometricSensor()
         
+        let firstname = UserDefaults.standard.value(forKey: "FirstName") as! String
+        let lastname = UserDefaults.standard.value(forKey: "LastName") as! String
         
+        perfilLabel.text = firstname + " " + lastname
         
         tableView.cellForRow(at: IndexPath(row: 0, section: 1))?.isUserInteractionEnabled = false
         tableView.cellForRow(at: IndexPath(row: 0, section: 2))?.isUserInteractionEnabled = false
