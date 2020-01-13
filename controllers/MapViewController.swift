@@ -34,6 +34,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     var lastLocationObj: CLLocation?
     
     var localToSend:Local!
+    var regionToGo:MKCoordinateRegion!
     
     var goingForwards:Bool = false
     
@@ -50,7 +51,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         locationManager.distanceFilter = kCLDistanceFilterNone
         locationManager.requestWhenInUseAuthorization()
         locationManager.requestLocation()
-        
+        self.regionToGo = map.region
         
         //This code is used to render the table that will show the locations results when searched
         let locationSearchTable = storyboard!.instantiateViewController(withIdentifier: "LocationSearchTable") as! LocationSearchTableController
@@ -106,10 +107,20 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         performSegue(withIdentifier: "mapFiltersButton", sender: nil)
     }
     
+     
+    
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         let span = MKCoordinateSpan(latitudeDelta: 0.002, longitudeDelta: 0.002)
         let region = MKCoordinateRegion(center: (view.annotation?.coordinate)!, span: span)
-        mapView.setRegion(region, animated: true)
+        var isSameRegion:Bool = false
+        print(self.regionToGo.center.latitude)
+        print(self.regionToGo.center.longitude)
+        if(self.regionToGo.center.latitude != region.center.latitude ||
+            self.regionToGo.center.longitude != region.center.longitude){        mapView.setRegion(region, animated: true)
+            self.regionToGo = region
+        }else{
+            isSameRegion = true
+        }
         /*let viewController: MapAnnotationModalViewController = MapAnnotationModalViewController()
         let viewController1 = storyboard!.instantiateViewController(withIdentifier: "ola") as MapAnnotationModalViewController?
         viewController.addChild(viewController1)
@@ -120,18 +131,25 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         // Present the bottom sheet
         present(bottomSheet, animated: true, completion: nil)
  */
-        
+
         if((view.annotation?.isKind(of: Artwork.self))!){
-        
-        
-            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
-                // Put your code which should be executed with a delay here
+            mapView.deselectAnnotation(view.annotation, animated: false)
+            if(isSameRegion == true){
+                print("not async")
                 let artwork = view.annotation as! Artwork
                 self.localToSend = artwork.local
                 self.performSegue(withIdentifier: "mapAnnotationView", sender: nil)
-
-            })
+            }else{
+                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(750), execute: {
+                    print("async")
+                    // Put your code which should be executed with a delay here
+                    let artwork = view.annotation as! Artwork
+                    self.localToSend = artwork.local
+                    self.performSegue(withIdentifier: "mapAnnotationView", sender: nil)
+                })
+            }
         }
+        
     }
     
     
