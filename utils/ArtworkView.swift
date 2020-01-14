@@ -12,6 +12,18 @@ import Cosmos
 
 class ArtworkView: MKAnnotationView {
     
+    static let preferredClusteringIdentifier = Bundle.main.bundleIdentifier! + ".UserAnnotationView"
+
+    override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
+        super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
+        clusteringIdentifier = UserAnnotationView.preferredClusteringIdentifier
+        collisionMode = .circle
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override var annotation: MKAnnotation? {
         willSet {
             guard let artwork = newValue as? Artwork else {return}

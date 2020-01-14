@@ -34,6 +34,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     var lastLocationObj: CLLocation?
     
     var localToSend:Local!
+    var regionToGo:MKCoordinateRegion!
     
     var goingForwards:Bool = false
     
@@ -50,7 +51,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         locationManager.distanceFilter = kCLDistanceFilterNone
         locationManager.requestWhenInUseAuthorization()
         locationManager.requestLocation()
-        
+        self.regionToGo = map.region
         
         //This code is used to render the table that will show the locations results when searched
         let locationSearchTable = storyboard!.instantiateViewController(withIdentifier: "LocationSearchTable") as! LocationSearchTableController
@@ -106,10 +107,20 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         performSegue(withIdentifier: "mapFiltersButton", sender: nil)
     }
     
+     
+    
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         let span = MKCoordinateSpan(latitudeDelta: 0.002, longitudeDelta: 0.002)
         let region = MKCoordinateRegion(center: (view.annotation?.coordinate)!, span: span)
-        mapView.setRegion(region, animated: true)
+        var isSameRegion:Bool = false
+        print(self.regionToGo.center.latitude)
+        print(self.regionToGo.center.longitude)
+        if(self.regionToGo.center.latitude != region.center.latitude ||
+            self.regionToGo.center.longitude != region.center.longitude){        mapView.setRegion(region, animated: true)
+            self.regionToGo = region
+        }else{
+            isSameRegion = true
+        }
         /*let viewController: MapAnnotationModalViewController = MapAnnotationModalViewController()
         let viewController1 = storyboard!.instantiateViewController(withIdentifier: "ola") as MapAnnotationModalViewController?
         viewController.addChild(viewController1)
@@ -120,12 +131,25 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         // Present the bottom sheet
         present(bottomSheet, animated: true, completion: nil)
  */
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
-            // Put your code which should be executed with a delay here
-            let artwork = view.annotation as! Artwork
-            self.localToSend = artwork.local
-            self.performSegue(withIdentifier: "mapAnnotationView", sender: nil)
-        })
+
+        if((view.annotation?.isKind(of: Artwork.self))!){
+            mapView.deselectAnnotation(view.annotation, animated: false)
+            if(isSameRegion == true){
+                print("not async")
+                let artwork = view.annotation as! Artwork
+                self.localToSend = artwork.local
+                self.performSegue(withIdentifier: "mapAnnotationView", sender: nil)
+            }else{
+                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(750), execute: {
+                    print("async")
+                    // Put your code which should be executed with a delay here
+                    let artwork = view.annotation as! Artwork
+                    self.localToSend = artwork.local
+                    self.performSegue(withIdentifier: "mapAnnotationView", sender: nil)
+                })
+            }
+        }
+        
     }
     
     
@@ -203,8 +227,10 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             map.addAnnotation(artwork)
             
             
-            map.register(ArtworkView.self,
-            forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
+            
+            map.register(ArtworkView.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
+            map.register(UserClusterAnnotationView.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultClusterAnnotationViewReuseIdentifier)
+          
         }
     }
     
@@ -272,7 +298,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let smld=segue.destination as? LocalDetailedViewController {
             smld.local = self.localToSend
-        }else if let smld=segue.destination as? MapAnnotationModalViewController {
+        }else if let smld=segue.destination as? ModalDetailPageViewController {
             smld.local = self.localToSend
         }
     }
@@ -335,4 +361,83 @@ extension MapViewController: HandleMapSearch {
         map.setRegion(region, animated: true)
     }
     
+}
+
+class UserAnnotationView: MKMarkerAnnotationView {
+    static let preferredClusteringIdentifier = Bundle.main.bundleIdentifier! + ".UserAnnotationView"
+
+    override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
+        super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
+        clusteringIdentifier = UserAnnotationView.preferredClusteringIdentifier
+        collisionMode = .circle
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    override var annotation: MKAnnotation? {
+        willSet {
+            guard let artwork = newValue as? Artwork else {return}
+                       canShowCallout = false
+                       calloutOffset = CGPoint(x: 0, y: 5)
+                       image = UIImage(named: "NewMarker")
+            //clusteringIdentifier = UserAnnotationView.preferredClusteringIdentifier
+        }
+    }
+    
+    
+        
+}
+
+class UserClusterAnnotationView: MKAnnotationView {
+    static let preferredClusteringIdentifier = Bundle.main.bundleIdentifier! + ".UserClusterAnnotationView"
+
+    override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
+        super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
+        collisionMode = .circle
+        updateImage()
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    override var annotation: MKAnnotation? { didSet { updateImage() } }
+
+    private func updateImage() {
+        if let clusterAnnotation = annotation as? MKClusterAnnotation {
+            self.image = image(count: clusterAnnotation.memberAnnotations.count)
+        } else {
+            self.image = image(count: 1)
+        }
+    }
+
+    func image(count: Int) -> UIImage {
+        let bounds = CGRect(origin: .zero, size: CGSize(width: 40, height: 40))
+
+        let renderer = UIGraphicsImageRenderer(bounds: bounds)
+        return renderer.image { _ in
+            // Fill full circle with tricycle
+            let color = UIColor(named: "AppGreenPrimary")
+            color?.setFill()
+            UIBezierPath(ovalIn: bounds).fill()
+
+            // Fill inner circle with white color
+            UIColor.white.setFill()
+            UIBezierPath(ovalIn: bounds.insetBy(dx: 8, dy: 8)).fill()
+
+            // Finally draw count text vertically and horizontally centered
+            let attributes: [NSAttributedString.Key: Any] = [
+                .foregroundColor: UIColor.black,
+                .font: UIFont.boldSystemFont(ofSize: 20)
+            ]
+
+            let text = "\(count)"
+            let size = text.size(withAttributes: attributes)
+            let origin = CGPoint(x: bounds.midX - size.width / 2, y: bounds.midY - size.height / 2)
+            let rect = CGRect(origin: origin, size: size)
+            text.draw(in: rect, withAttributes: attributes)
+        }
+    }
 }
