@@ -15,6 +15,10 @@ import SDWebImage
 
 class ChatViewController: MessagesViewController {
     
+    
+    
+
+    
     var currentUser: User = User(UserDefaults.standard.value(forKey: "Id") as! Int,
                                  UserDefaults.standard.value(forKey: "Token") as! String,
                                  UserDefaults.standard.value(forKey: "FirstName") as! String,
@@ -29,10 +33,7 @@ class ChatViewController: MessagesViewController {
     //I've fetched the profile of user 2 in previous class from which
     //I'm navigating to chat view. So make sure you have the following
     //three variables information when you are on this class.
-    var user2Name: String?
-    var user2ImgUrl: String?
-    var user2UID: String?
-    
+ 
     var question: Question!
     
     override func viewDidLoad() {
@@ -43,11 +44,18 @@ class ChatViewController: MessagesViewController {
         navigationItem.largeTitleDisplayMode = .never
         maintainPositionOnKeyboardFrameChanged = true
         messageInputBar.inputTextView.tintColor = UIColor(named: "AppGreenPrimary")
+        if traitCollection.userInterfaceStyle == .dark {
+            messageInputBar.inputTextView.backgroundColor = UIColor.black
+            messagesCollectionView.backgroundColor = UIColor.black
+            messageInputBar.contentView.backgroundColor = UIColor.black
+            messageInputBar.backgroundView.backgroundColor = UIColor.black
+        }
         messageInputBar.sendButton.setTitleColor(UIColor(named: "AppGreenPrimary"), for: .normal)
         messageInputBar.delegate = self
         messagesCollectionView.messagesDataSource = self
         messagesCollectionView.messagesLayoutDelegate = self
         messagesCollectionView.messagesDisplayDelegate = self
+        
         loadChat()
     }
     
@@ -144,8 +152,10 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
         inputBar.inputTextView.text = ""
         messagesCollectionView.reloadData()
         messagesCollectionView.scrollToBottom(animated: true)
+        
     }
 }
+
 
 extension ChatViewController: MessagesDataSource {
     //This method return the current sender ID and name
@@ -191,12 +201,16 @@ extension ChatViewController: MessagesDataSource {
     }
 }
 
+
+
 extension ChatViewController: MessagesLayoutDelegate {
+    
     
     func avatarSize(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGSize {
         return .zero
     }
 }
+
 
 extension ChatViewController: MessagesDisplayDelegate {
     
