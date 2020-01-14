@@ -89,7 +89,7 @@ struct Cities {
     "Matosinhos",
     "Mealhada",
     "Mêda",
-    "Miranda do Douro / Miranda de l Douro",
+    "Miranda do Douro",
     "Mirandela",
     "Montemor-o-Novo",
     "Montijo",
