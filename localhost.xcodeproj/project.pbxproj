@@ -57,6 +57,7 @@
 		C7D9339A2399F98300CC5464 /* ReviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D933992399F98300CC5464 /* ReviewTableViewCell.swift */; };
 		C7E9E67A23710082004BB27C /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E9E67923710082004BB27C /* ProfileViewController.swift */; };
 		C7F805F12399351C005E1212 /* LocalDetailedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F805F02399351C005E1212 /* LocalDetailedViewController.swift */; };
+		EBBBBD2A23CD2958009B8496 /* ModalDetailPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBBBBD2923CD2958009B8496 /* ModalDetailPageViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -139,6 +140,7 @@
 		D7D700F0C14C9D7F9D4CB253 /* Pods-localhost-localhostUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-localhost-localhostUITests.debug.xcconfig"; path = "Target Support Files/Pods-localhost-localhostUITests/Pods-localhost-localhostUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		DB2C673CDC94E2B79A1C4DB8 /* Pods-localhost.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-localhost.debug.xcconfig"; path = "Target Support Files/Pods-localhost/Pods-localhost.debug.xcconfig"; sourceTree = "<group>"; };
 		EABC756ECEE2BDCF6FCFAE9D /* Pods_localhost.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_localhost.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EBBBBD2923CD2958009B8496 /* ModalDetailPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalDetailPageViewController.swift; sourceTree = "<group>"; };
 		F24F07567EAA7F6A8B6FE504 /* Pods-localhost-localhostUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-localhost-localhostUITests.release.xcconfig"; path = "Target Support Files/Pods-localhost-localhostUITests/Pods-localhost-localhostUITests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -277,6 +279,7 @@
 				99D4020323B803060093ADBC /* AskAdviceViewController.swift */,
 				99D4020523BA3BA50093ADBC /* QuestionTableViewCell.swift */,
 				5BAA241423BE545F007F7146 /* MapAnnotationModalViewController.swift */,
+				EBBBBD2923CD2958009B8496 /* ModalDetailPageViewController.swift */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -581,6 +584,7 @@
 				C7B62395236FE1B900CF4CF6 /* TabBarController.swift in Sources */,
 				99D4020623BA3BA50093ADBC /* QuestionTableViewCell.swift in Sources */,
 				C766EC63236FDB4D0006A248 /* PlacesListViewController.swift in Sources */,
+				EBBBBD2A23CD2958009B8496 /* ModalDetailPageViewController.swift in Sources */,
 				C72BAED8236FC2A40022C461 /* MapViewController.swift in Sources */,
 				9996805123B6887600724F45 /* Message.swift in Sources */,
 				5BAA241523BE545F007F7146 /* MapAnnotationModalViewController.swift in Sources */,

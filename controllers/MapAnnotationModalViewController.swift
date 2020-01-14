@@ -16,7 +16,6 @@ class MapAnnotationModalViewController: UIViewController, MKMapViewDelegate {
     var local: Local!
     var coordinate: CLLocationCoordinate2D!
     
-    
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var dragDownButton: UIButton!
     @IBOutlet weak var imageViewLocal: UIImageView!

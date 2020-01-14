@@ -298,7 +298,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let smld=segue.destination as? LocalDetailedViewController {
             smld.local = self.localToSend
-        }else if let smld=segue.destination as? MapAnnotationModalViewController {
+        }else if let smld=segue.destination as? ModalDetailPageViewController {
             smld.local = self.localToSend
         }
     }
