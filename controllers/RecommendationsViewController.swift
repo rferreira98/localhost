@@ -71,7 +71,7 @@ class RecommendationsViewController: UITableViewController, UISearchBarDelegate{
         let question: Question = questionsAux[indexPath.row]
         cell.restaurantNameLbl.text = question.place_name
         cell.restaurantCityLbl.text = question.place_city.capitalizingFirstLetter()
-        cell.restaurantImage.sd_setImage(with: URL(string: question.place_image_url), placeholderImage: UIImage(named: "NoAvatar"))
+        cell.restaurantImage.sd_setImage(with: URL(string: question.place_image_url), placeholderImage: UIImage(named: "NoPhotoRestaurant"))
         //cell.localPhoto.image = cropToBounds(image: cell.localPhoto.image!, width: 80, height: 80)
         
         return cell

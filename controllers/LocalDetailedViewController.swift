@@ -61,7 +61,7 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
         self.ratingView.rating = self.local.avgRating
         self.labelQtReviews.text = String(local.qtReviews)
         self.imageViewLocal.contentMode = .scaleAspectFill
-        self.imageViewLocal.sd_setImage(with: URL(string: local.imageUrl), placeholderImage: UIImage(named: "NoAvatar"))
+        self.imageViewLocal.sd_setImage(with: URL(string: local.imageUrl), placeholderImage: UIImage(named: "NoPhotoRestaurant"))
         
         getReviews(local.id)
         
