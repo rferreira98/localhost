@@ -22,11 +22,7 @@ class ModalDetailPageViewController: UIPageViewController, UIPageViewControllerD
         self.dataSource = self
         getReviews(self.local.id)
 
-        
-        
-        
-        self.delegate = self
-        
+        self.delegate = self        
     }
     
     
@@ -89,17 +85,18 @@ class ModalDetailPageViewController: UIPageViewController, UIPageViewControllerD
         if(viewController == "detailView"){	
             let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: viewController) as? MapAnnotationModalViewController
             vc?.local = self.local
+            
             return vc!
         }else if(viewController == "reviewsView") {
             let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: viewController) as? ReviewsViewController
-            print("REVIEWS")
-            print(self.reviews)
             vc?.reviews = self.reviews
+        
             return vc!
         }else{
             return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: viewController)
         }
     }
+    
     
     public func getReviews(_ local_id:Int) {
         print("pedido")

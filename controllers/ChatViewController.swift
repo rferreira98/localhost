@@ -15,10 +15,6 @@ import SDWebImage
 
 class ChatViewController: MessagesViewController {
     
-    
-    
-
-    
     var currentUser: User = User(UserDefaults.standard.value(forKey: "Id") as! Int,
                                  UserDefaults.standard.value(forKey: "Token") as! String,
                                  UserDefaults.standard.value(forKey: "FirstName") as! String,
@@ -35,6 +31,7 @@ class ChatViewController: MessagesViewController {
     //three variables information when you are on this class.
  
     var question: Question!
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,6 +52,13 @@ class ChatViewController: MessagesViewController {
         messagesCollectionView.messagesDataSource = self
         messagesCollectionView.messagesLayoutDelegate = self
         messagesCollectionView.messagesDisplayDelegate = self
+        
+        //Dismiss keyboard with a tap.
+        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
+        tap.cancelsTouchesInView = false
+        self.view.addGestureRecognizer(tap)
+        
+        
         
         loadChat()
     }
@@ -109,6 +113,37 @@ class ChatViewController: MessagesViewController {
         //}
         //}
     }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+
+        guard UIApplication.shared.applicationState == .inactive else {
+            return
+        }
+        
+        if traitCollection.userInterfaceStyle == .dark {
+            messageInputBar.inputTextView.backgroundColor = UIColor.black
+            messageInputBar.inputTextView.textColor = UIColor.white
+            messageInputBar.inputTextView.keyboardAppearance = .dark
+            messagesCollectionView.backgroundColor = UIColor.black
+            messageInputBar.contentView.backgroundColor = UIColor.black
+            messageInputBar.backgroundView.backgroundColor = UIColor.black
+        }else{
+            messageInputBar.inputTextView.backgroundColor = UIColor.white
+            messageInputBar.inputTextView.textColor = UIColor.black
+            messageInputBar.inputTextView.keyboardAppearance = .light
+            messagesCollectionView.backgroundColor = UIColor.white
+            messageInputBar.contentView.backgroundColor = UIColor.white
+            messageInputBar.backgroundView.backgroundColor = UIColor.white
+            
+        }
+        
+        
+        
+        
+        
+    }
+    
     
     private func insertNewMessage(_ message: Message) {
         //add the message to the messages array and reload it

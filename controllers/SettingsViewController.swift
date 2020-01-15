@@ -13,7 +13,6 @@ import SDWebImage
 
 class SettingsViewController: UITableViewController, MFMailComposeViewControllerDelegate{
     
-    @IBOutlet weak var switchDarkMode: UISwitch!
     @IBOutlet weak var imageViewAvatar: UIImageView!
     @IBOutlet weak var switchAuth: UISwitch!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
@@ -24,7 +23,6 @@ class SettingsViewController: UITableViewController, MFMailComposeViewController
         tableView.cellForRow(at: IndexPath(row: 0, section: 3))?.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: .greatestFiniteMagnitude)
         //if the user has dark mode enable in the system the button is set to on, otherwise to off
         
-        switchDarkMode.setOn(traitCollection.userInterfaceStyle == .dark, animated: true)
         
         switchAuth.setOn(UserDefaults.standard.bool(forKey: "usesBiometricAuth"), animated: true)
         
@@ -37,10 +35,7 @@ class SettingsViewController: UITableViewController, MFMailComposeViewController
         let lastname = UserDefaults.standard.value(forKey: "LastName") as! String
         
         perfilLabel.text = firstname + " " + lastname
-        
-        //tableView.cellForRow(at: IndexPath(row: 0, section: 1))?.isUserInteractionEnabled = false
-        //tableView.cellForRow(at: IndexPath(row: 0, section: 2))?.isUserInteractionEnabled = false
-        //tableView.cellForRow(at: IndexPath(row: 0, section: 4))?.isUserInteractionEnabled = false
+    
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -114,15 +109,6 @@ class SettingsViewController: UITableViewController, MFMailComposeViewController
         controller.dismiss(animated: true)
     }
     
-    @IBAction func darkModeSwitcher(_ sender: Any) {
-        if switchDarkMode.isOn {
-            //self.overrideUserInterfaceStyle = UIUserInterfaceStyle.dark;
-            
-        }
-        if !switchDarkMode.isOn {
-            //overrideUserInterfaceStyle = .light
-        }
-    }
     
     @IBAction func authSwitcher(_ sender: Any) {
         if switchAuth.isOn{
@@ -143,6 +129,20 @@ class SettingsViewController: UITableViewController, MFMailComposeViewController
         default:
             break
         }
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+
+        guard UIApplication.shared.applicationState == .inactive else {
+            return
+        }
+
+        setTheme()
+    }
+    
+    func setTheme(){
+        
     }
     
 }
