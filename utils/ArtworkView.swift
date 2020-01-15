@@ -35,7 +35,16 @@ class ArtworkView: MKAnnotationView {
             mapsButton.setBackgroundImage(UIImage(named: "Info"), for: UIControl.State())
             rightCalloutAccessoryView = mapsButton*/
             image = UIImage(named: "NewMarker")
+            let label = UILabel(frame: CGRect(x: -16, y: 30, width: 100, height: 30))
+            label.textColor = .black
+            label.shadowColor = .white
+            label.font = label.font.withSize(12)
+            label.backgroundColor = UIColor.clear
+            label.text = artwork.title // set text here
+            self.addSubview(label)
             
+
+
             /*
             let detailLabel = UILabel()
             detailLabel.numberOfLines = 0

@@ -218,10 +218,10 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             
             let artwork = Artwork(
                 title: local.name,
-                 locationName: local.address,
-                 coordinate: CLLocationCoordinate2D(latitude: latitude, longitude: longitude),
-                 localRating: local.avgRating,
-                 local: local
+                locationName: local.address,
+                coordinate: CLLocationCoordinate2D(latitude: latitude, longitude: longitude),
+                localRating: local.avgRating,
+                local: local
             )
              
             map.addAnnotation(artwork)
@@ -365,7 +365,7 @@ extension MapViewController: HandleMapSearch {
 
 class UserAnnotationView: MKMarkerAnnotationView {
     static let preferredClusteringIdentifier = Bundle.main.bundleIdentifier! + ".UserAnnotationView"
-
+    
     override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
         super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
         clusteringIdentifier = UserAnnotationView.preferredClusteringIdentifier
@@ -379,15 +379,12 @@ class UserAnnotationView: MKMarkerAnnotationView {
     override var annotation: MKAnnotation? {
         willSet {
             guard let artwork = newValue as? Artwork else {return}
-                       canShowCallout = false
+                       canShowCallout = true
                        calloutOffset = CGPoint(x: 0, y: 5)
                        image = UIImage(named: "NewMarker")
             //clusteringIdentifier = UserAnnotationView.preferredClusteringIdentifier
         }
     }
-    
-    
-        
 }
 
 class UserClusterAnnotationView: MKAnnotationView {

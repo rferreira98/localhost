@@ -15,18 +15,15 @@ class ReviewsViewController: UIViewController,UITableViewDelegate, UITableViewDa
     @IBOutlet weak var reviewsTableView: UITableView!
     
     
+    @IBAction func buttonTouched(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     override func viewDidLoad() {
         self.reviewsTableView.delegate = self
         self.reviewsTableView.dataSource = self
         self.reviewsTableView.reloadData()
-    }
-    
-    func tableView(_ tableView: UITableView, titleForHeaderInSection
-        section: Int) -> String? {
-        if section == 0 {
-            return "Reviews"
-        }
-        return ""
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
