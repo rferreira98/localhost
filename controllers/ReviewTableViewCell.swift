@@ -23,8 +23,8 @@ class ReviewTableViewCell: UITableViewCell{
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.imageViewUserReviewer.layer.cornerRadius = self.imageViewUserReviewer.frame.size.height / 2
-        self.imageViewUserReviewer.clipsToBounds = true
+        
+        
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
