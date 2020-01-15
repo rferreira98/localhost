@@ -10,6 +10,7 @@ import UIKit
 import Alamofire
 import Firebase
 
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
@@ -25,6 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.manager?.listener = { status in
             self.isNetworkOn = (status == .reachable(.ethernetOrWiFi) || status == .reachable(.wwan))
         }
+        
         
     }
     
