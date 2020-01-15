@@ -38,9 +38,9 @@ class SettingsViewController: UITableViewController, MFMailComposeViewController
         
         perfilLabel.text = firstname + " " + lastname
         
-        tableView.cellForRow(at: IndexPath(row: 0, section: 1))?.isUserInteractionEnabled = false
-        tableView.cellForRow(at: IndexPath(row: 0, section: 2))?.isUserInteractionEnabled = false
-        tableView.cellForRow(at: IndexPath(row: 0, section: 4))?.isUserInteractionEnabled = false
+        //tableView.cellForRow(at: IndexPath(row: 0, section: 1))?.isUserInteractionEnabled = false
+        //tableView.cellForRow(at: IndexPath(row: 0, section: 2))?.isUserInteractionEnabled = false
+        //tableView.cellForRow(at: IndexPath(row: 0, section: 4))?.isUserInteractionEnabled = false
     }
     
     override func viewWillAppear(_ animated: Bool) {
