@@ -31,6 +31,7 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
     @IBOutlet var btnFavoriteBarItem: UIBarButtonItem!
     @IBOutlet weak var imageViewLocal: UIImageView!
     @IBOutlet weak var scrollview: UIScrollView!
+    @IBOutlet weak var btnAskOrGoToQuestion: UIButton!
     
     override func viewDidLoad() {
         mapView.delegate = self
@@ -201,6 +202,11 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
         if let smld=segue.destination as? AskAdviceViewController {
             smld.local = self.local
         }
+    }
+    
+    @IBAction func onClickAskOrGoToQuestionBtn(_ sender: Any) {
+        //if text equals go to question perform chat segue
+        //else perform ask segue
     }
     
     

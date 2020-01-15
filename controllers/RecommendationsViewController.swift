@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import FirebaseFirestore
 
 class RecommendationsViewController: UITableViewController, UISearchBarDelegate{
     
@@ -39,17 +40,17 @@ class RecommendationsViewController: UITableViewController, UISearchBarDelegate{
         searchBar.delegate = self
         
         /*
-        
-        for subView in searchBar.subviews {
-            
-            if let scopeBar = subView as? UISegmentedControl {
-                scopeBar.backgroundColor = UIColor.blue
-                
-                scopeBar.addTarget(self, action: #selector(changeColor), for: .valueChanged)
-            }
-            
-        }
-        */
+         
+         for subView in searchBar.subviews {
+         
+         if let scopeBar = subView as? UISegmentedControl {
+         scopeBar.backgroundColor = UIColor.blue
+         
+         scopeBar.addTarget(self, action: #selector(changeColor), for: .valueChanged)
+         }
+         
+         }
+         */
         
         getQuestions()
     }
@@ -92,18 +93,18 @@ class RecommendationsViewController: UITableViewController, UISearchBarDelegate{
     }
     
     /*
-    @objc func changeColor(sender: UISegmentedControl) {
-        print("Changing Color to ")
-        switch sender.selectedSegmentIndex {
-        case 1:
-            print("Green")
-        case 2:
-            print("Blue")
-        default:
-            print("NONE")
-        }
-    }
- */
+     @objc func changeColor(sender: UISegmentedControl) {
+     print("Changing Color to ")
+     switch sender.selectedSegmentIndex {
+     case 1:
+     print("Green")
+     case 2:
+     print("Blue")
+     default:
+     print("NONE")
+     }
+     }
+     */
     
     func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
         switch selectedScope {
@@ -141,13 +142,84 @@ class RecommendationsViewController: UITableViewController, UISearchBarDelegate{
             smld.question = self.questionToSend
         }
     }
+    
+    override func tableView(_ tableView: UITableView,
+                            trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration?
+    {
+        let closeAction = UIContextualAction(style: .normal, title:  "Close", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
+            print("OK, marked as Closed")
+            let alert = UIAlertController(title: "Did you want to delete the question ?", message: "Deleting is a permanent action cannot be undone", preferredStyle: .alert)
+
+            alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { action in
+                let question: Question = self.questionsAux[indexPath.row]
+                print(question.id)
+                DispatchQueue.global(qos: .background).async {
+                    self.deleteFirebase(chat_id: question.id)
+                    self.tableView.reloadData()
+                }
+                
+                NetworkHandler.deleteChat(question_id: question.id, completion: { (success, error) in
+                    OperationQueue.main.addOperation {
+                        if error != nil {
+                            let alert = Utils.triggerAlert(title: "Erro", error: error)
+                            self.present(alert, animated: true, completion: nil)
+                        } else {
+                            //dizer que removeu
+                            let alert = UIAlertController(title: "Chat deleted successfully",
+                                                          message: nil, preferredStyle: .alert)
+
+                            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+
+                            self.present(alert, animated: true)
+                        }
+                    }
+                })
+                
+                self.questionsAux.remove(at: indexPath.row)
+            }))
+            alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
+
+            self.present(alert, animated: true)
+            success(true)
+        })
+        if #available(iOS 13.0, *) {
+            closeAction.image = UIImage(systemName: "trash")
+        } else {
+            // Fallback on earlier versions
+            closeAction.image = UIImage(named: "trash")
+        }
+        closeAction.backgroundColor = .red
+        
+        return UISwipeActionsConfiguration(actions: [closeAction])
+    }
+    
+    func deleteFirebase(chat_id:Int) -> Void {
+        let db = Firestore.firestore().collection("Chats")
+        self.delete(collection: db.document("\(chat_id)").collection("thread"))
+    }
+    
+    func delete(collection: CollectionReference, batchSize: Int = 100) {
+        // Limit query to avoid out-of-memory errors on large collections.
+        // When deleting a collection guaranteed to fit in memory, batching can be avoided entirely.
+        collection.limit(to: batchSize).getDocuments { (docset, error) in
+            // An error occurred.
+            let docset = docset
+            
+            let batch = collection.firestore.batch()
+            docset?.documents.forEach { batch.deleteDocument($0.reference) }
+            
+            batch.commit {_ in
+                self.delete(collection: collection, batchSize: batchSize)
+            }
+        }
+    }
 }
 
 extension String {
     func capitalizingFirstLetter() -> String {
         return prefix(1).capitalized + dropFirst()
     }
-
+    
     mutating func capitalizeFirstLetter() {
         self = self.capitalizingFirstLetter()
     }

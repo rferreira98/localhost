@@ -700,9 +700,9 @@ class NetworkHandler {
         let question: String
     }
     
-    static func storeQuestion(post: PostStoreQuestion, local_id: Int, completion: @escaping (_ question_id: Int, _ error: String?) -> Void) {
+    static func storeQuestion(post: PostStoreQuestion, local_id: Int, completion: @escaping (_ question: Question?, _ error: String?) -> Void) {
         if !NetworkHandler.appDelegate.isNetworkOn {
-            completion(-1, "Sem conexão de Internet")
+            completion(nil, "Sem conexão de Internet")
             return
         }
         
@@ -724,7 +724,7 @@ class NetworkHandler {
                request.httpBody = jsonData
                //print("jsonData: ", String(data: request.httpBody!, encoding: .utf8) ?? "no body data")
            } catch {
-               completion(-1, "Erro ao encodificar JSON")
+               completion(nil, "Erro ao encodificar JSON")
            }
         
         // Create and run a URLSession data task with JSON encoded POST request
@@ -735,23 +735,23 @@ class NetworkHandler {
         let task = postRequest.session.dataTask(with: postRequest.request) { (responseData, response, responseError) in
             let error = getServerError(responseData: responseData, response: response, responseError: responseError)
             guard error == nil else {
-                return completion(-1, error)
+                return completion(nil, error)
             }
             
-            var question_id:Int = -1
+            var question:Question? = nil
             
             if let data = responseData {
                 let decoder = JSONDecoder()
                 do {
                     //print(String(data: data, encoding: .utf8) ?? "no body data")
-                    question_id = try decoder.decode(Int.self, from: data)
+                    question = try decoder.decode(Question.self, from: data)
                 } catch let exception {
-                    completion(-1, exception.localizedDescription)
+                    completion(nil, exception.localizedDescription)
                     return
                 }
                 
             }
-            completion(question_id, nil)
+            completion(question, nil)
         }
         task.resume()
     }
@@ -797,6 +797,23 @@ class NetworkHandler {
                 
             }
             completion(questions, nil)
+        }
+        task.resume()
+    }
+    
+    static func deleteChat(question_id:Int ,completion: @escaping (_ success: Bool, _ error: String?) -> Void) {
+        if !NetworkHandler.appDelegate.isNetworkOn {
+            completion(false, "Sem conexão de Internet")
+            return
+        }
+        let postRequest = prepareRequest(nil as String? ,needsToken: true, urlString: "/questions/\(question_id)", request_type: "DELETE", completion: completion)!
+        let task = postRequest.session.dataTask(with: postRequest.request) { (responseData, response, responseError) in
+            let error = getServerError(responseData: responseData, response: response, responseError: responseError)
+            guard error == nil else {
+                return completion(false, error)
+            }
+            
+            completion(true, nil)
         }
         task.resume()
     }

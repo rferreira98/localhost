@@ -21,6 +21,7 @@ class AskAdviceViewController: UIViewController, UITextViewDelegate {
     UserDefaults.standard.value(forKey: "MessagingToken") as! String)
 
     var local:Local!
+    var questionToSend:Question!
     
     @IBOutlet weak var cancelBtn: UIButton!
     @IBOutlet weak var textViewQuestion: UITextView!
@@ -66,15 +67,17 @@ class AskAdviceViewController: UIViewController, UITextViewDelegate {
             let postStoreQuestion = NetworkHandler.PostStoreQuestion(question: textViewQuestion.text)
             
             
-            NetworkHandler.storeQuestion(post: postStoreQuestion, local_id: local.id) { (question_id, error) in
+            NetworkHandler.storeQuestion(post: postStoreQuestion, local_id: local.id) { (question, error) in
                 OperationQueue.main.addOperation {
                     if error != nil {
                         let alert = Utils.triggerAlert(title: "Erro", error: error)
                         self.present(alert, animated: true, completion: nil)
                     } else {
-                        self.createNewChat(question_id, self.textViewQuestion.text)
-                        self.navigationController?.popViewController(animated: true)
-                        self.dismiss(animated: true, completion: nil)
+                        self.createNewChat(question!.id, self.textViewQuestion.text)
+                        self.questionToSend = question
+                        //self.performSegue(withIdentifier: "goToChat", sender: nil)
+                        //self.navigationController?.popViewController(animated: true)
+                       // self.dismiss(animated: true, completion: nil)
                     }
                 }
             }
@@ -100,16 +103,18 @@ class AskAdviceViewController: UIViewController, UITextViewDelegate {
             }
         }
     }
-    
-    
-    /*
+
+
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
+        if let smld=segue.destination as? ChatViewController {
+            smld.question = self.questionToSend
+        }
     }
-    */
+    
 
 }
