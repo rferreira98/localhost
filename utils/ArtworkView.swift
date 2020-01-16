@@ -35,13 +35,21 @@ class ArtworkView: MKAnnotationView {
             mapsButton.setBackgroundImage(UIImage(named: "Info"), for: UIControl.State())
             rightCalloutAccessoryView = mapsButton*/
             image = UIImage(named: "NewMarker")
-            let label = UILabel(frame: CGRect(x: -16, y: 30, width: 100, height: 30))
+            let label = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: 30))
             label.textColor = .black
             label.shadowColor = .white
+            label.numberOfLines = 3
             label.font = label.font.withSize(12)
-            label.backgroundColor = UIColor.clear
             label.text = artwork.title // set text here
+            label.textAlignment = .center
+            label.preferredMaxLayoutWidth = 100
             self.addSubview(label)
+            label.translatesAutoresizingMaskIntoConstraints = false
+            let verticalSpace = NSLayoutConstraint(item: label, attribute: .top, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1, constant: 1)
+            let centerAlignment = NSLayoutConstraint(item: label, attribute: .centerX, relatedBy: .equal,toItem: self,attribute: .centerX, multiplier: 1, constant: 0)
+            // activate the constraints
+            NSLayoutConstraint.activate([verticalSpace, centerAlignment])
+            
             
 
 
