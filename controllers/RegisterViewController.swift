@@ -115,23 +115,8 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIImagePick
         attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
         
         
-        //NotificationCenter.default.addObserver(self, selector: #selector(RegisterViewController.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        //NotificationCenter.default.addObserver(self, selector: #selector(RegisterViewController.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-    @objc func keyboardWillShow(notification: NSNotification) {
-        guard let userInfo = notification.userInfo else {return}
-        guard let keyboardSize = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else {return}
-        let keyboardFrame = keyboardSize.cgRectValue
-        if self.view.frame.origin.y == 0{
-                self.view.frame.origin.y -= keyboardFrame.height
-        }
     }
     
-    @objc func keyboardWillHide(notification: NSNotification) {
-        if self.view.frame.origin.y != 0{
-            self.view.frame.origin.y = 0
-        }
-    }
     
     @objc func avatarUpload(_ sender: UITapGestureRecognizer){
         view.endEditing(true)

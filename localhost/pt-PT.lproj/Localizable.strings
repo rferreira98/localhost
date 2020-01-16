@@ -6,7 +6,8 @@
   Copyright © 2020 Ricardo Filipe Ribeiro Ferreira. All rights reserved.
 */
 "Map"="Mapa";
-"Places"="Lugares";
-"Recommendations"="Recomendações";
-"Settings"="Definições";
-"Filters"="Filtros";
+"Places"="Locais";
+"Search Places" = "Pesquisar Locais";
+"Favorites"="Favoritos";
+"English"="Inglês";
+"Portuguese"="Português";
