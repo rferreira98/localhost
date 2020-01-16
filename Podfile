@@ -16,6 +16,7 @@ target 'localhost' do
   pod 'Firebase/Messaging'
   pod 'MessageKit'
   pod 'MaterialComponents/BottomSheet'
+  pod 'IQKeyboardManager'
   
   target 'localhostTests' do
     inherit! :search_paths

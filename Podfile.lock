@@ -252,6 +252,7 @@ PODS:
   - gRPC-Core/Interface (1.21.0)
   - InitialsImageView (0.6.0)
   - InputBarAccessoryView (4.2.2)
+  - IQKeyboardManager (6.5.4)
   - leveldb-library (1.22)
   - MaterialComponents/BottomSheet (100.0.0):
     - MaterialComponents/Elevation
@@ -299,6 +300,7 @@ DEPENDENCIES:
   - Firebase/Firestore
   - Firebase/Messaging
   - InitialsImageView
+  - IQKeyboardManager
   - MaterialComponents/BottomSheet
   - MessageKit
   - RSKImageCropper
@@ -327,6 +329,7 @@ SPEC REPOS:
     - gRPC-Core
     - InitialsImageView
     - InputBarAccessoryView
+    - IQKeyboardManager
     - leveldb-library
     - MaterialComponents
     - MessageKit
@@ -357,6 +360,7 @@ SPEC CHECKSUMS:
   gRPC-Core: c9aef9a261a1247e881b18059b84d597293c9947
   InitialsImageView: 09a5a30bdfaad2a8d9bb31b43257ae6ebcc8b52a
   InputBarAccessoryView: 2b937602598e2fab3149f37f51dd7ad795653812
+  IQKeyboardManager: 72b359cd7e777e3a984cedbe05f8da45320cbb63
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
   MaterialComponents: b4cc6c1649a566d70bd72096f3e1aae2c3701e4f
   MessageKit: e892a9ca49ebe6d82684d3a93ad84021fa23e2c6
@@ -366,6 +370,6 @@ SPEC CHECKSUMS:
   SDWebImage: f1afa74b86587c2c63f4e80dfd39b21e3c17b45b
   SwiftHTTP: e94f1aa8cde58637dcc0100f6349de31a3337fde
 
-PODFILE CHECKSUM: 12ba7d33b78df37c85164a43fdf51321f521a36d
+PODFILE CHECKSUM: 0878aa98a83aee4b044670ea362ac66c4435e801
 
 COCOAPODS: 1.8.4

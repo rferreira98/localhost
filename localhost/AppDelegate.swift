@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import Firebase
+import IQKeyboardManager
 
 
 @UIApplicationMain
@@ -40,6 +41,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         pushManager.registerForPushNotifications()
         
         FirebaseApp.configure()
+        
+        IQKeyboardManager.shared().isEnabled = true
+        
         return true
     }
 
