@@ -11,12 +11,19 @@ import UIKit
 import MessageUI
 import SDWebImage
 
-class SettingsViewController: UITableViewController, MFMailComposeViewControllerDelegate{
+class SettingsViewController: UITableViewController, MFMailComposeViewControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate{
     
     @IBOutlet weak var imageViewAvatar: UIImageView!
     @IBOutlet weak var switchAuth: UISwitch!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var perfilLabel: UILabel!
+    @IBOutlet weak var currentLanguageText: UITextField!
+    let languages = [NSLocalizedString("English", comment: ""), NSLocalizedString("Portuguese", comment: "")]
+    var languagePicker = UIPickerView()
+    
+    deinit{
+        NotificationCenter.default.removeObserver(self)
+    }
     
     override func viewDidAppear(_ animated: Bool) {
         //removes the separator/line on the table cell
@@ -28,13 +35,19 @@ class SettingsViewController: UITableViewController, MFMailComposeViewController
         
         segmentedControl.selectedSegmentIndex = UserDefaults.standard.integer(forKey: "metricUnit")
         
-        let authLabel = tableView.cellForRow(at: IndexPath(row: 1, section: 1))?.contentView.subviews[0] as! UILabel
+        let authLabel = tableView.cellForRow(at: IndexPath(row: 0, section: 1))?.contentView.subviews[0] as! UILabel
         authLabel.text = "Autenticação com "+Utils.getBiometricSensor()
         
         let firstname = UserDefaults.standard.value(forKey: "FirstName") as! String
         let lastname = UserDefaults.standard.value(forKey: "LastName") as! String
         
         perfilLabel.text = firstname + " " + lastname
+        
+        
+        
+        
+        
+        
     
     }
     
@@ -55,10 +68,27 @@ class SettingsViewController: UITableViewController, MFMailComposeViewController
             let strUrl = NetworkHandler.domainUrl + "/storage/profiles/"+avatarName
             self.imageViewAvatar.sd_setImage(with: URL(string: strUrl), placeholderImage: UIImage(named: "NoAvatar"))
         }
+        
+        createPicker()
+        
+        currentLanguageText.delegate = self
+        currentLanguageText.tintColor = .clear
+        
+        if UserDefaults.standard.string(forKey: "AppLanguage") == "en"{
+            currentLanguageText.text = NSLocalizedString("English", comment: "")
+            languagePicker.selectRow(0, inComponent: 0, animated: false)
+        }else{
+            currentLanguageText.text = NSLocalizedString("Portuguese", comment: "")
+            languagePicker.selectRow(1, inComponent: 0, animated: false)
+        }
+        currentLanguageText.borderStyle = UITextField.BorderStyle.none
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(languageDidChangeNotification), name: NSNotification.Name(rawValue: "LANGUAGE_DID_CHANGE"), object: nil)
+        languageDidChange()
         
         var sectionColor: UIColor
         
@@ -80,6 +110,41 @@ class SettingsViewController: UITableViewController, MFMailComposeViewController
         
     }
     
+    @objc func languageDidChangeNotification(notification:NSNotification){
+        languageDidChange()
+    }
+
+    func languageDidChange(){
+        
+        if UserDefaults.standard.string(forKey: "AppLanguage") == "en"{
+            currentLanguageText.text = NSLocalizedString("English", comment: "")
+        }else{
+            currentLanguageText.text = NSLocalizedString("Portuguese", comment: "")
+        }
+        
+        tableView.reloadData()
+    }
+    
+    func restartApplication () {
+        let viewController = InitialViewController()
+        let navCtrl = UINavigationController(rootViewController: viewController)
+
+        guard
+                let window = UIApplication.shared.keyWindow,
+                let rootViewController = window.rootViewController
+                else {
+            return
+        }
+
+        navCtrl.view.frame = rootViewController.view.frame
+        navCtrl.view.layoutIfNeeded()
+
+        UIView.transition(with: window, duration: 0.3, options: .transitionCrossDissolve, animations: {
+            window.rootViewController = navCtrl
+        })
+
+    }
+    
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.tableView.deselectRow(at: indexPath, animated: true)
@@ -99,7 +164,7 @@ class SettingsViewController: UITableViewController, MFMailComposeViewController
             }
             
         }else if indexPath.section == 1{
-            if indexPath.row == 2{
+            if indexPath.row == 1{
                 UIApplication.shared.open(URL(string:"App-Prefs:root=NOTIFICATIONS_ID")!, options: [:], completionHandler: nil)
             }
         }
@@ -131,19 +196,96 @@ class SettingsViewController: UITableViewController, MFMailComposeViewController
         }
     }
     
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-
-        guard UIApplication.shared.applicationState == .inactive else {
-            return
-        }
-
-        setTheme()
-    }
+   // picker methods
     
-    func setTheme(){
+    @IBOutlet weak var languageCell: UITableViewCell!
+ 
+    
+   func numberOfComponents(in pickerView: UIPickerView) -> Int {
+       return 1;
+   }
+   
+   func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    return languages.count
+   }
+   
+   func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+       return languages[row]
+       
+   }
+   
+   func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+       
+        currentLanguageText.text = languages[row]
+    
         
-    }
+        
+   }
+    
+    
+   
+   func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+
+       var label: UILabel
+
+       if let view = view as? UILabel {
+           label = view
+       } else {
+           label = UILabel()
+       }
+
+       
+       label.textAlignment = .center
+       label.text = languages[row]
+
+       return label
+   }
+   
+   func createPicker() {
+       
+        languagePicker.delegate = self
+        currentLanguageText.inputView = languagePicker
+        languagePicker.showsSelectionIndicator = true
+    
+       
+       let toolBar = UIToolbar()
+       toolBar.barStyle = UIBarStyle.default
+       toolBar.isTranslucent = true
+       toolBar.tintColor = UIColor(red: 76/255, green: 217/255, blue: 100/255, alpha: 1)
+       toolBar.sizeToFit()
+
+       let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.done, target: self, action: #selector (self.dimissPicker))
+       let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
+       let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItem.Style.plain, target: self, action: #selector (self.dimissPickerReset))
+
+       toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
+       toolBar.isUserInteractionEnabled = true
+       
+       currentLanguageText.inputAccessoryView = toolBar
+    
+     
+
+   }
+   @objc func dimissPicker(){
+       self.view.endEditing(true)
+    
+    if currentLanguageText.text == "English" || currentLanguageText.text == "Inglês" {
+            UserDefaults.standard.set("en", forKey: "AppLanguage")
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "LANGUAGE_WILL_CHANGE"), object: "en")
+        restartApplication()
+            
+        }else{
+            UserDefaults.standard.set("pt", forKey: "AppLanguage")
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "LANGUAGE_WILL_CHANGE"), object: "pt")
+            restartApplication()
+        }
+        
+   }
+   @objc func dimissPickerReset(){
+       self.view.endEditing(true)
+       
+   }
+   
     
 }
 

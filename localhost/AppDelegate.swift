@@ -44,8 +44,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         IQKeyboardManager.shared().isEnabled = true
         
+
+        if UserDefaults.standard.string(forKey: "AppLanguage") == nil{
+                UserDefaults.standard.set("en", forKey: "AppLanguage")
+        }
+        
+        
+        NotificationCenter.default.addObserver(self, selector: #selector( languageWillChange), name: NSNotification.Name(rawValue: "LANGUAGE_WILL_CHANGE"), object: nil)
+
+        let targetLang = UserDefaults.standard.string(forKey: "AppLanguage")
+
+        Bundle.setLanguage((targetLang != nil) ? targetLang! : "en")
+
+        
         return true
     }
+    
+    @objc func languageWillChange(notification:NSNotification){
+        let targetLang = notification.object as! String
+        UserDefaults.standard.set(targetLang, forKey: "AppLanguage")
+        Bundle.setLanguage(targetLang)
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "LANGUAGE_DID_CHANGE"), object: targetLang)
+    } 
 
     // MARK: UISceneSession Lifecycle
 
@@ -65,4 +85,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
 }
+
+
+import ObjectiveC
+
+private var associatedLanguageBundle:Character = "0"
+
+class PrivateBundle: Bundle {
+    override func localizedString(forKey key: String, value: String?, table tableName: String?) -> String {
+        let bundle: Bundle? = objc_getAssociatedObject(self, &associatedLanguageBundle) as? Bundle
+        return (bundle != nil) ? (bundle!.localizedString(forKey: key, value: value, table: tableName)) : (super.localizedString(forKey: key, value: value, table: tableName))
+
+    }
+}
+
+extension Bundle {
+    class func setLanguage(_ language: String) {
+        var onceToken: Int = 0
+
+        if (onceToken == 0) {
+            /* TODO: move below code to a static variable initializer (dispatch_once is deprecated) */
+            object_setClass(Bundle.main, PrivateBundle.self)
+        }
+        onceToken = 1
+        objc_setAssociatedObject(Bundle.main, &associatedLanguageBundle, (language != nil) ? Bundle(path: Bundle.main.path(forResource: language, ofType: "lproj") ?? "") : nil, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+    }
+}
+
 

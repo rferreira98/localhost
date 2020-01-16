@@ -38,7 +38,7 @@ class PlacesListViewController: UITableViewController, UISearchBarDelegate {
         searchController.obscuresBackgroundDuringPresentation = false
         
         // 3
-        searchController.searchBar.placeholder = "Search Places"
+        searchController.searchBar.placeholder = NSLocalizedString("Search Places", comment:"Text for search bar")
         // 4
         navigationItem.searchController = searchController
         // 5
