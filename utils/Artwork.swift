@@ -23,7 +23,7 @@ class Artwork: NSObject, MKAnnotation {
         self.coordinate = coordinate
         self.localRating = localRating
         self.local = local
-        
+       
         super.init()
     }
 

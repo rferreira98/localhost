@@ -27,12 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.manager?.listener = { status in
             self.isNetworkOn = (status == .reachable(.ethernetOrWiFi) || status == .reachable(.wwan))
         }
-        
-        
     }
-    
-    
-
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.

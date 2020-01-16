@@ -14,29 +14,23 @@ class ModalDetailPageViewController: UIPageViewController, UIPageViewControllerD
     var pageControl = UIPageControl()
     var orderedVC = [UIViewController]()
     var reviews = [Review?]()
-    
-    
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.dataSource = self
         getReviews(self.local.id)
+        self.dataSource = self
         self.delegate = self        
     }
     
     
     func configurePageControl(){
-        pageControl = UIPageControl(frame: CGRect(x: 0, y: UIScreen.main.bounds.maxY - (UIScreen.main.bounds.maxY * 0.15), width: UIScreen.main.bounds.width, height: 50))
+        pageControl = UIPageControl(frame: CGRect(x: 0, y: UIScreen.main.bounds.maxY - (UIScreen.main.bounds.maxY * 0.12), width: UIScreen.main.bounds.width, height: 50))
         pageControl.numberOfPages = orderedVC.count
         pageControl.currentPage = 0
         pageControl.currentPageIndicatorTintColor = UIColor(named: "AppGreenPrimary")
         pageControl.pageIndicatorTintColor = UIColor.systemGray
         self.view.addSubview(pageControl)
-        if(orderedVC.first?.isViewLoaded == true){
-            print("first")
-        }else if(orderedVC[1].isViewLoaded){
-            print("second")
-        }
+        
     }
     
     
@@ -45,7 +39,6 @@ class ModalDetailPageViewController: UIPageViewController, UIPageViewControllerD
             else {
                 return nil
         }
-        
         let previousIndex = viewControllerIndex - 1
         guard previousIndex >= 0 else {
             return orderedVC.last
@@ -89,15 +82,14 @@ class ModalDetailPageViewController: UIPageViewController, UIPageViewControllerD
         if(viewController == "detailView"){	
             let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: viewController) as? MapAnnotationModalViewController
             vc?.local = self.local
-            
             return vc!
         }else if(viewController == "reviewsView") {
             let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: viewController) as? ReviewsViewController
             vc?.reviews = self.reviews
-        
             return vc!
         }else{
-            return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: viewController)
+            let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: viewController)
+            return vc
         }
     }
     
@@ -117,12 +109,10 @@ class ModalDetailPageViewController: UIPageViewController, UIPageViewControllerD
                     //self.view.intrinsicContentSize.height
                     //self.scrollview.contentSize.height = height + 758
                     //print(height)
-                    
                     self.orderedVC = {
                         return [self.newViewController(viewController: "detailView"),
                                 self.newViewController(viewController: "reviewsView")]
                     }()
-                    
                     if let firstVC = self.orderedVC.first {
                         self.setViewControllers([firstVC], direction: .forward, animated: true, completion: nil)
                     }

@@ -303,7 +303,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         }
     }
     
-    
     //MARK: - Custom Annotation
     /*func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if annotation is MKUserLocation{
@@ -350,6 +349,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
      mapView.setCenter((view.annotation?.coordinate)!, animated: true)
      }*/
     
+
+    
     
 }
 extension MapViewController: HandleMapSearch {
@@ -363,35 +364,12 @@ extension MapViewController: HandleMapSearch {
     
 }
 
-class UserAnnotationView: MKMarkerAnnotationView {
-    static let preferredClusteringIdentifier = Bundle.main.bundleIdentifier! + ".UserAnnotationView"
-    
-    override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
-        super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
-        clusteringIdentifier = UserAnnotationView.preferredClusteringIdentifier
-        collisionMode = .circle
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    override var annotation: MKAnnotation? {
-        willSet {
-            guard let artwork = newValue as? Artwork else {return}
-                       canShowCallout = true
-                       calloutOffset = CGPoint(x: 0, y: 5)
-                       image = UIImage(named: "NewMarker")
-            //clusteringIdentifier = UserAnnotationView.preferredClusteringIdentifier
-        }
-    }
-}
-
 class UserClusterAnnotationView: MKAnnotationView {
     static let preferredClusteringIdentifier = Bundle.main.bundleIdentifier! + ".UserClusterAnnotationView"
 
     override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
         super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
+        //clusteringIdentifier = String(describing: annotation.self)
         collisionMode = .circle
         updateImage()
     }
@@ -399,8 +377,13 @@ class UserClusterAnnotationView: MKAnnotationView {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
-    override var annotation: MKAnnotation? { didSet { updateImage() } }
+    
+    override var annotation: MKAnnotation? {
+        didSet { updateImage() }
+        willSet {
+            clusteringIdentifier = ArtworkView.preferredClusteringIdentifier
+        }
+    }
 
     private func updateImage() {
         if let clusterAnnotation = annotation as? MKClusterAnnotation {
