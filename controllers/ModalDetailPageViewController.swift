@@ -21,7 +21,6 @@ class ModalDetailPageViewController: UIPageViewController, UIPageViewControllerD
         super.viewDidLoad()
         self.dataSource = self
         getReviews(self.local.id)
-
         self.delegate = self        
     }
     
@@ -33,6 +32,11 @@ class ModalDetailPageViewController: UIPageViewController, UIPageViewControllerD
         pageControl.currentPageIndicatorTintColor = UIColor(named: "AppGreenPrimary")
         pageControl.pageIndicatorTintColor = UIColor.systemGray
         self.view.addSubview(pageControl)
+        if(orderedVC.first?.isViewLoaded == true){
+            print("first")
+        }else if(orderedVC[1].isViewLoaded){
+            print("second")
+        }
     }
     
     

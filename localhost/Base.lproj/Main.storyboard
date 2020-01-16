@@ -180,7 +180,7 @@
         <scene sceneID="m22-nJ-vaS">
             <objects>
                 <viewController storyboardIdentifier="reviewsView" id="ec1-B2-ayG" customClass="ReviewsViewController" customModule="Localhost" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="0fI-Vb-g5O" customClass="ReviewTableViewCell" customModule="Localhost" customModuleProvider="target">
+                    <view key="view" userInteractionEnabled="NO" contentMode="scaleToFill" id="0fI-Vb-g5O" userLabel="Reviews View" customClass="ReviewTableViewCell" customModule="Localhost" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -193,6 +193,16 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="34"/>
                                 <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No reviews for you today" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iup-ED-do8">
+                                <rect key="frame" x="37.666666666666657" y="261" width="300" height="300"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="Ikq-uX-eFD"/>
+                                    <constraint firstAttribute="height" constant="300" id="nGF-uG-roV"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="32"/>
+                                <color key="textColor" systemColor="opaqueSeparatorColor" red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1CV-vF-REc">
@@ -284,19 +294,25 @@
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <accessibility key="accessibilityConfiguration">
+                            <accessibilityTraits key="traits" notEnabled="YES"/>
+                        </accessibility>
                         <constraints>
                             <constraint firstItem="nKD-NC-Zc2" firstAttribute="top" secondItem="1CV-vF-REc" secondAttribute="bottom" constant="15" id="4RW-1A-de0"/>
                             <constraint firstItem="FVf-FB-h6N" firstAttribute="leading" secondItem="cXc-OM-XxY" secondAttribute="leading" id="8Uk-K2-44a"/>
                             <constraint firstItem="FVf-FB-h6N" firstAttribute="centerX" secondItem="cXc-OM-XxY" secondAttribute="centerX" id="CGp-tm-fpT"/>
                             <constraint firstItem="cXc-OM-XxY" firstAttribute="bottom" secondItem="FVf-FB-h6N" secondAttribute="bottom" constant="56" id="DN3-0E-1YV"/>
+                            <constraint firstItem="iup-ED-do8" firstAttribute="centerY" secondItem="cXc-OM-XxY" secondAttribute="centerY" id="OoS-9Y-dYg"/>
                             <constraint firstItem="1CV-vF-REc" firstAttribute="centerX" secondItem="cXc-OM-XxY" secondAttribute="centerX" id="WOo-TS-Dva"/>
                             <constraint firstItem="nKD-NC-Zc2" firstAttribute="leading" secondItem="cXc-OM-XxY" secondAttribute="leading" constant="16" id="f4H-QD-yCk"/>
                             <constraint firstItem="FVf-FB-h6N" firstAttribute="top" secondItem="nKD-NC-Zc2" secondAttribute="bottom" constant="15" id="iLu-6B-YLt"/>
                             <constraint firstItem="1CV-vF-REc" firstAttribute="top" secondItem="cXc-OM-XxY" secondAttribute="top" constant="15" id="xnW-RV-PLY"/>
+                            <constraint firstItem="iup-ED-do8" firstAttribute="centerX" secondItem="cXc-OM-XxY" secondAttribute="centerX" id="zlC-uS-ib2"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="cXc-OM-XxY"/>
                     </view>
                     <connections>
+                        <outlet property="NoReviewsLabel" destination="iup-ED-do8" id="Kcn-5Z-FJW"/>
                         <outlet property="dragDownButton" destination="1CV-vF-REc" id="A9j-f8-H0j"/>
                         <outlet property="reviewsTableView" destination="FVf-FB-h6N" id="nUG-OG-8cJ"/>
                     </connections>
@@ -1220,7 +1236,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" image="LocalHostIcon" translatesAutoresizingMaskIntoConstraints="NO" id="nGb-ea-EiD">
-                                <rect key="frame" x="87.666666666666686" y="88" width="200" height="200"/>
+                                <rect key="frame" x="87.666666666666686" y="88" width="200" height="200.00000000000011"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="KDX-yo-zpz"/>
                                     <constraint firstAttribute="height" constant="200" id="i8F-VJ-211"/>

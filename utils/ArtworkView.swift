@@ -36,10 +36,10 @@ class ArtworkView: MKAnnotationView {
             rightCalloutAccessoryView = mapsButton*/
             image = UIImage(named: "NewMarker")
             let label = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: 30))
-            label.textColor = .black
+            label.textColor = UIColor(named: "AppGreenPrimary")
             label.shadowColor = .white
             label.numberOfLines = 3
-            label.font = label.font.withSize(12)
+            label.font = UIFont.systemFont(ofSize: 10, weight: .bold)
             label.text = artwork.title // set text here
             label.textAlignment = .center
             label.preferredMaxLayoutWidth = 100

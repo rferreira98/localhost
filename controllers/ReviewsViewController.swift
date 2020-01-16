@@ -13,6 +13,7 @@ class ReviewsViewController: UIViewController,UITableViewDelegate, UITableViewDa
     var reviews:[Review?] = []
     @IBOutlet weak var dragDownButton: UIButton!
     @IBOutlet weak var reviewsTableView: UITableView!
+    @IBOutlet weak var NoReviewsLabel: UILabel!
     
     
     @IBAction func buttonTouched(_ sender: Any) {
@@ -23,7 +24,15 @@ class ReviewsViewController: UIViewController,UITableViewDelegate, UITableViewDa
     override func viewDidLoad() {
         self.reviewsTableView.delegate = self
         self.reviewsTableView.dataSource = self
-        self.reviewsTableView.reloadData()
+        if reviews.isEmpty {
+            reviewsTableView.removeFromSuperview()
+        }else{
+            NoReviewsLabel.removeFromSuperview()
+            self.reviewsTableView.reloadData()
+        }
+        
+        
+        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
