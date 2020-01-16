@@ -1,0 +1,12 @@
+/* 
+  Localizable.strings
+  localhost
+
+  Created by Pedro Alves on 16/01/2020.
+  Copyright © 2020 Ricardo Filipe Ribeiro Ferreira. All rights reserved.
+*/
+"Map"="Mapa";
+"Places"="Lugares";
+"Recommendations"="Recomendações";
+"Settings"="Definições";
+"Filters"="Filtros";
