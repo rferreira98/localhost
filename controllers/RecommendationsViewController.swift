@@ -152,10 +152,8 @@ class RecommendationsViewController: UITableViewController, UISearchBarDelegate{
 
             alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { action in
                 let question: Question = self.questionsAux[indexPath.row]
-                print(question.id)
                 DispatchQueue.global(qos: .background).async {
                     self.deleteFirebase(chat_id: question.id)
-                    self.tableView.reloadData()
                 }
                 
                 NetworkHandler.deleteChat(question_id: question.id, completion: { (success, error) in
@@ -168,7 +166,16 @@ class RecommendationsViewController: UITableViewController, UISearchBarDelegate{
                             let alert = UIAlertController(title: "Chat deleted successfully",
                                                           message: nil, preferredStyle: .alert)
 
-                            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: {action in
+                                
+                                for (index, questionAux) in self.questions.enumerated() {
+                                    if question.id == questionAux.id {
+                                        self.questions.remove(at: index)
+                                        break
+                                    }
+                                }
+                                self.tableView.reloadData()
+                            }))
 
                             self.present(alert, animated: true)
                         }

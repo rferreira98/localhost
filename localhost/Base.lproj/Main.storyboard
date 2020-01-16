@@ -604,7 +604,6 @@
         <!--Recommendations-->
         <scene sceneID="tou-PF-sgX">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="w8d-n7-2d9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <navigationController id="CQ6-hj-tZS" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Recommendations" image="Recommendation" landscapeImage="Recommendation" id="Efd-B8-jeS"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="cse-0n-2ZD">
@@ -615,6 +614,7 @@
                         <segue destination="woV-Be-tJf" kind="relationship" relationship="rootViewController" id="rNW-yf-AXC"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="w8d-n7-2d9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-368" y="309"/>
         </scene>
@@ -1803,11 +1803,10 @@
                                         </constraints>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iOc-0Z-zr2">
-                                        <rect key="frame" x="104.66666666666669" y="424" width="206" height="30"/>
-                                        <state key="normal" title="Ask Advice for this Restaurant"/>
+                                        <rect key="frame" x="169.66666666666666" y="424" width="76" height="30"/>
+                                        <state key="normal" title="Ask Advice"/>
                                         <connections>
                                             <action selector="onClickAskOrGoToQuestionBtn:" destination="49e-l4-9gV" eventType="touchUpInside" id="FvF-pJ-CMn"/>
-                                            <segue destination="obS-3R-Ogx" kind="presentation" id="HPW-PH-2lG"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -1875,6 +1874,7 @@
                         <outlet property="ratingView" destination="xg3-t8-KlD" id="een-Qd-q3y"/>
                         <outlet property="reviewsTableView" destination="llT-ON-Nue" id="u1S-yJ-apB"/>
                         <outlet property="scrollview" destination="8Z2-rj-rtF" id="ggW-7Y-py0"/>
+                        <segue destination="obS-3R-Ogx" kind="showDetail" id="bIy-JH-8q9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bam-XN-Tpk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1928,6 +1928,7 @@
                                 <state key="normal" title="Ask"/>
                                 <connections>
                                     <action selector="onClickAskAdviceBtn:" destination="obS-3R-Ogx" eventType="touchUpInside" id="uOL-nc-qYq"/>
+                                    <segue destination="Vdc-R8-sfw" kind="unwind" unwindAction="unwindToLocalDecail:" id="KZV-fw-kgc"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -1960,6 +1961,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fYP-n3-sVf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="Vdc-R8-sfw" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2600.8000000000002" y="-364.28571428571428"/>
         </scene>

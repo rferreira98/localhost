@@ -103,6 +103,10 @@ class AskAdviceViewController: UIViewController, UITextViewDelegate {
             }
         }
     }
+    
+    @IBAction func unwindToLocalDecail(_ unwindSegue: UIStoryboardSegue) {
+        // Use data from the view controller which initiated the unwind segue
+    }
 
 
     // MARK: - Navigation

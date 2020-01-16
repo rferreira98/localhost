@@ -817,6 +817,37 @@ class NetworkHandler {
         }
         task.resume()
     }
+    
+    static func hasQuestion(local_id:Int ,completion: @escaping (_ hasQuestion: Bool, _ error: String?) -> Void) {
+        if !NetworkHandler.appDelegate.isNetworkOn {
+            completion(false, "Sem conexão de Internet")
+            return
+        }
+        let postRequest = prepareRequest(nil as String? ,needsToken: true, urlString: "/places/\(local_id)/question", request_type: "GET", completion: completion)!
+        let task = postRequest.session.dataTask(with: postRequest.request) { (responseData, response, responseError) in
+            let error = getServerError(responseData: responseData, response: response, responseError: responseError)
+            guard error == nil else {
+                return completion(false, error)
+            }
+            
+            var hasQuestion:Bool = false
+            
+            if let data = responseData {
+                let decoder = JSONDecoder()
+                do {
+                    //print(String(data: data, encoding: .utf8) ?? "no body data")
+                    hasQuestion = try decoder.decode(Bool.self, from: data)
+                } catch let exception {
+                    completion(false, exception.localizedDescription)
+                    return
+                }
+                
+            }
+            
+            completion(hasQuestion, nil)
+        }
+        task.resume()
+    }
 }
 
 class PostRequest {

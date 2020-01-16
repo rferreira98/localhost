@@ -66,6 +66,8 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
         
         getReviews(local.id)
         
+        hasQuestion(local.id)
+        
         if !User.hasUserLoggedIn(){
             self.navigationItem.rightBarButtonItem = nil
         } else {
@@ -87,6 +89,28 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
                 }
             }
         }
+    }
+    
+    public func hasQuestion(_ local_id:Int){
+        NetworkHandler.hasQuestion(local_id: local_id, completion: { (hasQuestion, error) in
+            OperationQueue.main.addOperation {
+                if error != nil {
+                    let alert = Utils.triggerAlert(title: "Erro", error: error)
+                    self.present(alert, animated: true, completion: nil)
+                } else {
+                    if hasQuestion {
+                        self.btnAskOrGoToQuestion.titleLabel?.text = "Go to Chat"
+                    } else{
+                        self.btnAskOrGoToQuestion.titleLabel?.text = "Ask Advice"
+                    }
+                    //let height = self.reviewsTableView.content
+                    //self.view.intrinsicContentSize.height
+                    //self.scrollview.contentSize.height = height + 758
+                    //print(height)
+                }
+            }
+
+        })
     }
     
     public func getReviews(_ local_id:Int) {
@@ -206,7 +230,11 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
     
     @IBAction func onClickAskOrGoToQuestionBtn(_ sender: Any) {
         //if text equals go to question perform chat segue
-        //else perform ask segue
+        if self.btnAskOrGoToQuestion.titleLabel?.text == "Go to Question" {
+            print("ola")
+        } else{
+            print("xiu")
+        }
     }
     
     
