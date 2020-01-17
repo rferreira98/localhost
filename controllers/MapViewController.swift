@@ -116,7 +116,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         print(self.regionToGo.center.latitude)
         print(self.regionToGo.center.longitude)
         if(self.regionToGo.center.latitude != region.center.latitude ||
-            self.regionToGo.center.longitude != region.center.longitude){        mapView.setRegion(region, animated: true)
+            self.regionToGo.center.longitude != region.center.longitude){
+            mapView.setRegion(region, animated: true)
             self.regionToGo = region
         }else{
             isSameRegion = true

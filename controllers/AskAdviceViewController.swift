@@ -21,7 +21,6 @@ class AskAdviceViewController: UIViewController, UITextViewDelegate {
     UserDefaults.standard.value(forKey: "MessagingToken") as! String)
 
     var local:Local!
-    var questionToSend:Question!
     
     @IBOutlet weak var cancelBtn: UIButton!
     @IBOutlet weak var textViewQuestion: UITextView!
@@ -74,15 +73,19 @@ class AskAdviceViewController: UIViewController, UITextViewDelegate {
                         self.present(alert, animated: true, completion: nil)
                     } else {
                         self.createNewChat(question!.id, self.textViewQuestion.text)
-                        self.questionToSend = question
+                        //self.performSegue(withIdentifier: "goToLocalDetail", sender: nil)
+                        //self.questionToSend = question
                         //self.performSegue(withIdentifier: "goToChat", sender: nil)
-                        //self.navigationController?.popViewController(animated: true)
-                       // self.dismiss(animated: true, completion: nil)
+                        self.navigationController?.popViewController(animated: true)
+                        self.dismiss(animated: true){
+                          NotificationCenter.default.post(name: NSNotification.Name(rawValue: "modalIsDimissed"), object: nil)
+                        }
                     }
                 }
             }
         }
     }
+    
     
     func createNewChat(_ question_id: Int, _ message:String) {
         let data: [String: Any] = [
@@ -104,21 +107,18 @@ class AskAdviceViewController: UIViewController, UITextViewDelegate {
         }
     }
     
-    @IBAction func unwindToLocalDecail(_ unwindSegue: UIStoryboardSegue) {
-        // Use data from the view controller which initiated the unwind segue
-    }
-
-
+    /*
     // MARK: - Navigation
-
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
-        if let smld=segue.destination as? ChatViewController {
-            smld.question = self.questionToSend
+        if let smld=segue.destination as? LocalDetailedViewController {
+            smld.hasQuestion = self.questionCreated
         }
     }
+ */
+ 
     
 
 }

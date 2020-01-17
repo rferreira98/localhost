@@ -33,6 +33,10 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
     @IBOutlet weak var scrollview: UIScrollView!
     @IBOutlet weak var btnAskOrGoToQuestion: UIButton!
     
+    var questionToSend:Question?
+    
+    var goingForwards:Bool = false
+    
     override func viewDidLoad() {
         mapView.delegate = self
         mapView.userTrackingMode = .follow
@@ -41,7 +45,6 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
         mapView.showsCompass = false
         mapView.showsPointsOfInterest = true
         mapView.isUserInteractionEnabled = false
-        
         
             //reviews = local.reviews
             //print(local.reviews.count)
@@ -89,6 +92,16 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
                 }
             }
         }
+        
+        NotificationCenter.default.addObserver(self,
+        selector: #selector(LocalDetailedViewController.handleModalDismissed),
+        name: NSNotification.Name(rawValue: "modalIsDimissed"),
+        object: nil) 
+    }
+    
+    @objc func handleModalDismissed() {
+      // Do something
+        hasQuestion(local.id)
     }
     
     public func hasQuestion(_ local_id:Int){
@@ -98,7 +111,8 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
                     let alert = Utils.triggerAlert(title: "Erro", error: error)
                     self.present(alert, animated: true, completion: nil)
                 } else {
-                    if hasQuestion {
+                    if hasQuestion != nil && hasQuestion?.id != -1{
+                        self.questionToSend = hasQuestion
                         self.btnAskOrGoToQuestion.titleLabel?.text = "Go to Chat"
                     } else{
                         self.btnAskOrGoToQuestion.titleLabel?.text = "Ask Advice"
@@ -111,6 +125,13 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
             }
 
         })
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if goingForwards {
+           //self.goingForwards = false
+           hasQuestion(self.local.id)
+       }
     }
     
     public func getReviews(_ local_id:Int) {
@@ -225,15 +246,18 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let smld=segue.destination as? AskAdviceViewController {
             smld.local = self.local
+        } else if let smld=segue.destination as? ChatViewController {
+            smld.question = self.questionToSend
         }
     }
     
     @IBAction func onClickAskOrGoToQuestionBtn(_ sender: Any) {
         //if text equals go to question perform chat segue
-        if self.btnAskOrGoToQuestion.titleLabel?.text == "Go to Question" {
-            print("ola")
+        if self.btnAskOrGoToQuestion.titleLabel?.text == "Go to Chat" {
+            self.goingForwards = true
+            performSegue(withIdentifier: "goToChat", sender: nil)
         } else{
-            print("xiu")
+            performSegue(withIdentifier: "goToAskModal", sender: nil)
         }
     }
     

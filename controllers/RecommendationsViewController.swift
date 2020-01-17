@@ -38,6 +38,7 @@ class RecommendationsViewController: UITableViewController, UISearchBarDelegate{
         searchBar.scopeButtonTitles = ["My Questions", "Other Questions"]
         searchBar.showsScopeBar = true
         searchBar.delegate = self
+
         
         /*
          
