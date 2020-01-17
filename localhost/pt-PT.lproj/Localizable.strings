@@ -59,4 +59,8 @@
 "from favorites?"=" dos favoritos?";
 "will be removed from your favorites list. This operation is definitive"=" vai ser removido da sua lista de favoritos. Esta operação é definitiva";
 "Please fill the question field"="Por favor preencha a questão";
+"Email or Password empty"="Email ou Password vazios";
+"Email with incorrect format"="Email com formato incorreto";
+"Insert the email connected to your account"="Insira o email associado à sua conta";
+"Insert your email here"="Insira o seu email aqui";
 

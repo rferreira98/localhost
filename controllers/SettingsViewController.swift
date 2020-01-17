@@ -272,8 +272,7 @@ class SettingsViewController: UITableViewController, MFMailComposeViewController
     if currentLanguageText.text == "English" || currentLanguageText.text == "Inglês" {
             UserDefaults.standard.set("en", forKey: "AppLanguage")
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "LANGUAGE_WILL_CHANGE"), object: "en")
-        restartApplication()
-            
+            restartApplication()
         }else{
             UserDefaults.standard.set("pt", forKey: "AppLanguage")
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "LANGUAGE_WILL_CHANGE"), object: "pt")

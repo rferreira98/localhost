@@ -38,18 +38,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
         
         IQKeyboardManager.shared().isEnabled = true
-        
-
-        if UserDefaults.standard.string(forKey: "AppLanguage") == nil{
-                UserDefaults.standard.set("en", forKey: "AppLanguage")
-        }
-        
-        
+    
         NotificationCenter.default.addObserver(self, selector: #selector( languageWillChange), name: NSNotification.Name(rawValue: "LANGUAGE_WILL_CHANGE"), object: nil)
+        
+        let systemLanguage = NSLocale.current.languageCode
+        let userLanguage = UserDefaults.standard.string(forKey: "AppLanguage")
 
-        let targetLang = UserDefaults.standard.string(forKey: "AppLanguage")
+        if userLanguage == nil{
+            UserDefaults.standard.set(systemLanguage, forKey: "AppLanguage")
+            Bundle.setLanguage(systemLanguage!)
+        }else{
+            Bundle.setLanguage(userLanguage!)
+        }
+    
 
-        Bundle.setLanguage((targetLang != nil) ? targetLang! : "en")
+        //let targetLang = UserDefaults.standard.string(forKey: "AppLanguage")
+
+        //Bundle.setLanguage((targetLang != nil) ? targetLang! : "pt")
 
         
         return true

@@ -62,7 +62,7 @@ class NetworkHandler {
                 let jsonData = try encoder.encode(data)
                 // ... and set our request's HTTP body
                 request.httpBody = jsonData
-                print("jsonData: ", String(data: request.httpBody!, encoding: .utf8) ?? "no body data")
+                //print("jsonData: ", String(data: request.httpBody!, encoding: .utf8) ?? "no body data")
             } catch {
                 completion(false, "Erro ao encodificar JSON")
             }
