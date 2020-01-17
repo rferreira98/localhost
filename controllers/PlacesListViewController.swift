@@ -38,7 +38,7 @@ class PlacesListViewController: UITableViewController, UISearchBarDelegate {
         searchController.obscuresBackgroundDuringPresentation = false
         
         // 3
-        searchController.searchBar.placeholder = "Search Places"
+        searchController.searchBar.placeholder = NSLocalizedString("Search Places", comment:"Text for search bar")
         // 4
         navigationItem.searchController = searchController
         // 5
@@ -46,7 +46,7 @@ class PlacesListViewController: UITableViewController, UISearchBarDelegate {
         
         
         if User.hasUserLoggedIn(){
-            searchController.searchBar.scopeButtonTitles = ["Places", "Favorites"]
+            searchController.searchBar.scopeButtonTitles = [NSLocalizedString("Places", comment: ""), NSLocalizedString("Favorites", comment: "")]
             searchController.searchBar.showsScopeBar = true
         } else {
             searchController.searchBar.showsScopeBar = false
@@ -77,7 +77,7 @@ class PlacesListViewController: UITableViewController, UISearchBarDelegate {
         
         //pull to refresh
         
-        self.refreshControl?.attributedTitle = NSAttributedString(string: "Puxe para atualizar")
+        self.refreshControl?.attributedTitle = NSAttributedString(string: NSLocalizedString("Pull to refresh", comment: ""))
         self.refreshControl?.addTarget(self, action: #selector(self.refresh(_:)), for: UIControl.Event.valueChanged)
         
         //----------------
@@ -95,6 +95,9 @@ class PlacesListViewController: UITableViewController, UISearchBarDelegate {
             self.locals = Items.sharedInstance.locals
             tableView.reloadData()
         }
+        
+        self.navigationItem.title = ""
+        
     }
     
     func filterContentForSearchText(_ searchText: String) {
@@ -111,7 +114,8 @@ class PlacesListViewController: UITableViewController, UISearchBarDelegate {
     }
     
     @objc func segueFilters(){
-        performSegue(withIdentifier: "listFiltersButton", sender: nil)
+        performSegue(withIdentifier: "listFiltersButton", sender: self)
+        
     }
     
     
@@ -156,7 +160,7 @@ class PlacesListViewController: UITableViewController, UISearchBarDelegate {
         NetworkHandler.getFavorites(completion: {
             (locals, error) in OperationQueue.main.addOperation {
                 if error != nil {
-                    let alert = Utils.triggerAlert(title: "Erro", error: error)
+                    let alert = Utils.triggerAlert(title: NSLocalizedString("Error", comment: ""), error: error)
                     self.present(alert, animated: true, completion: nil)
                 }
                 else{
@@ -209,7 +213,7 @@ class PlacesListViewController: UITableViewController, UISearchBarDelegate {
             performSegue(withIdentifier: "segueLocalDetail", sender: nil)
         }else{
 
-            let alert = UIAlertController(title: "Not Logged In", message: "To perform more actions you need to be logged in", preferredStyle: UIAlertController.Style.alert)
+            let alert = UIAlertController(title: NSLocalizedString("Not Logged In", comment: ""), message: NSLocalizedString("To perform more actions you need to be logged in", comment: ""), preferredStyle: UIAlertController.Style.alert)
             
             // add the actions (buttons)
             alert.addAction(UIAlertAction(title: "Login", style: UIAlertAction.Style.default, handler: {
@@ -218,12 +222,12 @@ class PlacesListViewController: UITableViewController, UISearchBarDelegate {
                 let loginViewController = storyBoard.instantiateViewController(withIdentifier: "loginViewController")
                 self.present(loginViewController, animated: true, completion: nil)
             }))
-            alert.addAction(UIAlertAction(title: "Registar", style: UIAlertAction.Style.default, handler: { action in
+            alert.addAction(UIAlertAction(title: NSLocalizedString("Register", comment: ""), style: UIAlertAction.Style.default, handler: { action in
                 let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
                 let registerViewController = storyBoard.instantiateViewController(withIdentifier: "registerViewController")
                 self.present(registerViewController, animated: true, completion: nil)
             }))
-            alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: {
+            alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: UIAlertAction.Style.cancel, handler: {
             action in
                  tableView.cellForRow(at: indexPath)?.isSelected = false
             }))
@@ -296,6 +300,7 @@ class PlacesListViewController: UITableViewController, UISearchBarDelegate {
         if let smld=segue.destination as? LocalDetailedViewController {
             smld.local = self.localToSend
         }
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Places", comment: ""), style: UIBarButtonItem.Style.plain, target: nil, action: nil)
     }
 
 }

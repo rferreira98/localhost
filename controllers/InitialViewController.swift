@@ -28,8 +28,8 @@ class InitialViewController: UIViewController, CLLocationManagerDelegate{
             locationManager.startUpdatingLocation()
         }else {
             if(UserDefaults.standard.bool(forKey: "hasBeenLaunched")){
-                let alertController = UIAlertController(title: "Erro", message: "Por favor autorize a utilização da localização para o correto funcionamento da aplicação nas Definições.", preferredStyle: .alert)
-                let settingsAction = UIAlertAction(title: "Definições", style: .default) { (_) -> Void in
+                let alertController = UIAlertController(title: NSLocalizedString("Error", comment: ""), message: NSLocalizedString("Please authorize the location usage on Settings for the correct function of the app", comment: ""), preferredStyle: .alert)
+                let settingsAction = UIAlertAction(title: NSLocalizedString("Settings", comment: ""), style: .default) { (_) -> Void in
                     guard let settingsUrl = URL(string: "App-Prefs:root=Privacy&path=LOCATION_SERVICES")  else {
                         return
                     }
@@ -37,7 +37,7 @@ class InitialViewController: UIViewController, CLLocationManagerDelegate{
                         UIApplication.shared.open(settingsUrl, completionHandler: { (success) in })
                      }
                 }
-                let cancelAction = UIAlertAction(title: "Cancelar", style: .default, handler: nil)
+                let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .default, handler: nil)
                 alertController.addAction(cancelAction)
                 alertController.addAction(settingsAction)
                 self.present(alertController, animated: true, completion: nil)
@@ -68,16 +68,19 @@ class InitialViewController: UIViewController, CLLocationManagerDelegate{
         NetworkHandler.getLocals(latitude: Double((locationManager.location?.coordinate.latitude)!), longitude: Double((locationManager.location?.coordinate.longitude)!)) {
             (locals, error) in OperationQueue.main.addOperation {
                 if error != nil {
-                    let alert = Utils.triggerAlert(title: "Erro", error: error)
+                    let alert = Utils.triggerAlert(title: NSLocalizedString("Error", comment: ""), error: error)
                     self.present(alert, animated: true, completion: nil)
                     self.removeSpinner()
                     self.goToMainScreen()
                 }
                 else{
                     
-                    for local in locals!{
-                        Items.sharedInstance.locals.append(local)
+                    if Items.sharedInstance.locals.count == 0 {
+                        for local in locals!{
+                            Items.sharedInstance.locals.append(local)
+                        }
                     }
+                    
                     
                     self.goToMainScreen()
                     

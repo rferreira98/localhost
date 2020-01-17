@@ -60,7 +60,7 @@ class AskAdviceViewController: UIViewController, UITextViewDelegate {
     
     @IBAction func onClickAskAdviceBtn(_ sender: Any) {
         if textViewQuestion.text.isEmpty || textViewQuestion.text.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
-            let alert = Utils.triggerAlert(title: "Erro", error: "Please fill the question field")
+            let alert = Utils.triggerAlert(title: NSLocalizedString("Error", comment: ""), error: NSLocalizedString("Please fill the question field", comment: ""))
             self.present(alert, animated: true, completion: nil)
         } else {
             let postStoreQuestion = NetworkHandler.PostStoreQuestion(question: textViewQuestion.text)
@@ -69,7 +69,7 @@ class AskAdviceViewController: UIViewController, UITextViewDelegate {
             NetworkHandler.storeQuestion(post: postStoreQuestion, local_id: local.id) { (question, error) in
                 OperationQueue.main.addOperation {
                     if error != nil {
-                        let alert = Utils.triggerAlert(title: "Erro", error: error)
+                        let alert = Utils.triggerAlert(title: NSLocalizedString("Error", comment: ""), error: error)
                         self.present(alert, animated: true, completion: nil)
                     } else {
                         self.createNewChat(question!.id, self.textViewQuestion.text)

@@ -79,7 +79,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         textFieldEmail.backgroundColor = UIColor.white
         textFieldEmail.tintColor = UIColor(named: "AppGreenDark")
         textFieldEmail.textColor = UIColor.black
-        textFieldEmail.attributedPlaceholder = NSAttributedString(string: "E-Mail",
+        textFieldEmail.attributedPlaceholder = NSAttributedString(string: NSLocalizedString("E-Mail", comment: ""),
                                                                   attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
         
         textFieldEmail.text = "pedro@alves.pt"
@@ -93,7 +93,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         textFieldPassword.backgroundColor = UIColor.white
         textFieldPassword.tintColor = UIColor(named: "AppGreenDark")
         textFieldPassword.textColor = UIColor.black
-        textFieldPassword.attributedPlaceholder = NSAttributedString(string: "Password",
+        textFieldPassword.attributedPlaceholder = NSAttributedString(string: NSLocalizedString("Password", comment: ""),
                                                                      attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
         textFieldPassword.text = "teste1"
         
@@ -117,12 +117,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
         if  textFieldEmail.hasText {
             if textFieldEmail.text!.isEmpty || textFieldPassword.text!.isEmpty {
-                let alert = Utils.triggerAlert(title: "Erro", error: "E-Mail ou Password vazios")
+                let alert = Utils.triggerAlert(title: NSLocalizedString("Error", comment: ""), error: NSLocalizedString("Email or Password empty", comment: ""))
                 self.present(alert, animated: true, completion: nil)
                 return;
             }
             if !isValid(email) {
-                let alert = Utils.triggerAlert(title: "Erro", error: "E-Mail em formato incorreto.")
+                let alert = Utils.triggerAlert(title: NSLocalizedString("Error", comment: ""), error: NSLocalizedString("Email with incorrect format", comment: ""))
                 self.present(alert, animated: true, completion: nil)
             } else {
                 let myPost = NetworkHandler.PostLogin(password: password, email: email)
@@ -131,7 +131,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 NetworkHandler.login(post: myPost) { (success, error) in
                     OperationQueue.main.addOperation {
                         if error != nil {
-                            let alert = Utils.triggerAlert(title: "Erro", error: error)
+                            let alert = Utils.triggerAlert(title: NSLocalizedString("Error", comment: ""), error: error)
                             self.present(alert, animated: true, completion: nil)
                         } else {
                             if UserDefaults.standard.bool(forKey: "biometricPrompted") {
@@ -223,14 +223,14 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     func displayActionSheet(){
         
-        let actionBiometric = UIAlertController(title: "Autenticação com "+biometricType, message: "Deseja que futuros logins na sua conta possam ser feitos através de "+biometricType+" ?", preferredStyle: .actionSheet)
+        let actionBiometric = UIAlertController(title: NSLocalizedString("Authentication with", comment: "")+biometricType, message: NSLocalizedString("Do you wish that future logins are made with", comment: "")+biometricType+" ?", preferredStyle: .actionSheet)
         
-        let noAction = UIAlertAction(title: "Não", style: .cancel, handler: {
+        let noAction = UIAlertAction(title: NSLocalizedString("No", comment: ""), style: .cancel, handler: {
             (alert: UIAlertAction!) -> Void in
             UserDefaults.standard.set(true, forKey: "biometricPrompted")
             self.goToMainScreen()
         })
-        let yesAction = UIAlertAction(title: "Sim", style: .default, handler: {
+        let yesAction = UIAlertAction(title: NSLocalizedString("Yes", comment: ""), style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
             //If user accepts, save his login data on the KeyChain
             do {
@@ -263,7 +263,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                     OperationQueue.main.addOperation {
                         
                         if error != nil {
-                            let alert = Utils.triggerAlert(title: "Erro", error: error)
+                            let alert = Utils.triggerAlert(title: NSLocalizedString("Error", comment: ""), error: error)
                             self!.present(alert, animated: true, completion: nil)
                         } else {
                             self!.goToMainScreen()
@@ -276,19 +276,19 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func onClickRecoverPasswordBtn(_ sender: Any) {
-        let alert = UIAlertController(title: "Insert the email connected to your account.", message: nil, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        let alert = UIAlertController(title: NSLocalizedString("Insert the email connected to your account", comment: ""), message: nil, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel, handler: nil))
         
         alert.addTextField(configurationHandler: { textField in
-            textField.placeholder = "Input your email here..."
+            textField.placeholder = NSLocalizedString("Inser your email here", comment: "")
         })
         
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
             
             if let email = alert.textFields?.first?.text {
                 print("Your name: \(email)")
                 alert.dismiss(animated: false, completion: {
-                    let alert = UIAlertController(title: nil, message: "Please wait...", preferredStyle: .alert)
+                    let alert = UIAlertController(title: nil, message: NSLocalizedString("Please wait", comment: ""), preferredStyle: .alert)
                     
                     let loadingIndicator = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 50, height: 50))
                     loadingIndicator.hidesWhenStopped = true
@@ -303,12 +303,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                     NetworkHandler.resetPassword(post: postResetPass) { (success, error) in
                         OperationQueue.main.addOperation {
                             if error != nil {
-                                let alert = Utils.triggerAlert(title: "Erro", error: error)
+                                let alert = Utils.triggerAlert(title: NSLocalizedString("Error", comment: ""), error: error)
                                 self.present(alert, animated: true, completion: nil)
                             } else {
                                 alert.dismiss(animated: false, completion: nil)
-                                let success = UIAlertController(title: "Reset Password", message: "Check your email for instructions on how to reset your password.", preferredStyle: .alert)
-                                success.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                                let success = UIAlertController(title: NSLocalizedString("Reset Password", comment: ""), message: NSLocalizedString("Check your email for instructions on how to reset your password", comment: ""), preferredStyle: .alert)
+                                success.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
                                 self.present(success, animated: true, completion: nil)
                             }
                         }

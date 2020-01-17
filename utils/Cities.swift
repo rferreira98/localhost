@@ -10,7 +10,7 @@ import Foundation
 
 struct Cities {
     static var cities = [
-    "Choose local",
+    NSLocalizedString("Choose Local", comment: ""),
     "Abrantes",
     "Agualva-Cacém",
     "Águeda",

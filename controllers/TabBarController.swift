@@ -20,6 +20,7 @@ class TabBarController : UITabBarController, UITabBarControllerDelegate{
     
     
     
+    
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
         
        if !User.hasUserLoggedIn(){
@@ -29,6 +30,7 @@ class TabBarController : UITabBarController, UITabBarControllerDelegate{
            
         }
         return true
+    
     }
     
     
@@ -39,7 +41,7 @@ class TabBarController : UITabBarController, UITabBarControllerDelegate{
             if !User.hasUserLoggedIn(){
                 
                 // create the alert
-                let alert = UIAlertController(title: "Not Logged In", message: "To perform more actions you need to be logged in", preferredStyle: UIAlertController.Style.alert)
+                let alert = UIAlertController(title: NSLocalizedString("Not Logged In", comment: ""), message: NSLocalizedString("To perform more actions you need to be logged in", comment: ""), preferredStyle: UIAlertController.Style.alert)
                 
                 // add the actions (buttons)
                 alert.addAction(UIAlertAction(title: "Login", style: UIAlertAction.Style.default, handler: {
@@ -49,13 +51,13 @@ class TabBarController : UITabBarController, UITabBarControllerDelegate{
                     loginViewController.modalPresentationStyle = .fullScreen
                     self.present(loginViewController, animated: true, completion: nil)
                 }))
-                alert.addAction(UIAlertAction(title: "Registar", style: UIAlertAction.Style.default, handler: { action in
+                alert.addAction(UIAlertAction(title: NSLocalizedString("Register", comment: ""), style: UIAlertAction.Style.default, handler: { action in
                     let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
                     let registerViewController = storyBoard.instantiateViewController(withIdentifier: "registerViewController")
                     registerViewController.modalPresentationStyle = .fullScreen
                     self.present(registerViewController, animated: true, completion: nil)
                 }))
-                alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
+                alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: UIAlertAction.Style.cancel, handler: nil))
                 
                 
                 // show the alert

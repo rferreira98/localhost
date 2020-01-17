@@ -35,7 +35,7 @@ class RecommendationsViewController: UITableViewController, UISearchBarDelegate{
         self.navigationItem.titleView = searchBar
         searchBar.tintColor = UIColor(named: "AppGreenPrimary")
         searchBar.showsCancelButton = false
-        searchBar.scopeButtonTitles = ["My Questions", "Other Questions"]
+        searchBar.scopeButtonTitles = [NSLocalizedString("My Questions", comment: ""), NSLocalizedString("Other Questions", comment: "")]
         searchBar.showsScopeBar = true
         searchBar.delegate = self
 
@@ -126,7 +126,7 @@ class RecommendationsViewController: UITableViewController, UISearchBarDelegate{
         NetworkHandler.getQuestions(completion: {
             (questions, error) in OperationQueue.main.addOperation {
                 if error != nil {
-                    let alert = Utils.triggerAlert(title: "Erro", error: error)
+                    let alert = Utils.triggerAlert(title: NSLocalizedString("Error", comment: ""), error: error)
                     self.present(alert, animated: true, completion: nil)
                 }
                 else{

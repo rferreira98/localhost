@@ -104,9 +104,9 @@ class FiltersTableViewController: UITableViewController, UITextFieldDelegate, CL
         }else if UserDefaults.standard.integer(forKey: "metricUnit") == 1 {
             checkCurrentRadiusValue()
             if currentRadiusValue == 1{
-                lblDistance.text = "\(currentRadiusValue) mile"
+                lblDistance.text = "\(currentRadiusValue) "+NSLocalizedString("Mile", comment: "")
             }else{
-                lblDistance.text = "\(currentRadiusValue) miles"
+                lblDistance.text = "\(currentRadiusValue) "+NSLocalizedString("Miles", comment: "")
             }
         }
     }
@@ -158,7 +158,7 @@ class FiltersTableViewController: UITableViewController, UITextFieldDelegate, CL
         NetworkHandler.getLocalsFilteredByDistance(currentLocationLatitude: currentLocationLatitude, currentLocationLongitude: currentLocationLongitude, radius: radius){
             (locals, error) in OperationQueue.main.addOperation {
                 if error != nil {
-                    let alert = Utils.triggerAlert(title: "Erro", error: error)
+                    let alert = Utils.triggerAlert(title: NSLocalizedString("Error", comment: ""), error: error)
                     self.present(alert, animated: true, completion: nil)
                 }
                 else{
@@ -179,7 +179,7 @@ class FiltersTableViewController: UITableViewController, UITextFieldDelegate, CL
         NetworkHandler.getLocalsFilteredByRating(rating: rating, latitude: latitude, longitude: longitude){
             (locals, error) in OperationQueue.main.addOperation {
                 if error != nil {
-                    let alert = Utils.triggerAlert(title: "Erro", error: error)
+                    let alert = Utils.triggerAlert(title: NSLocalizedString("Error", comment: ""), error: error)
                     self.present(alert, animated: true, completion: nil)
                 }
                 else{
@@ -201,7 +201,7 @@ class FiltersTableViewController: UITableViewController, UITextFieldDelegate, CL
         NetworkHandler.getLocalsFilteredByCity(city: city){
             (locals, error) in OperationQueue.main.addOperation {
                 if error != nil {
-                    let alert = Utils.triggerAlert(title: "Erro", error: error)
+                    let alert = Utils.triggerAlert(title: NSLocalizedString("Error", comment: ""), error: error)
                     self.present(alert, animated: true, completion: nil)
                 }
                 else{
@@ -234,7 +234,7 @@ class FiltersTableViewController: UITableViewController, UITextFieldDelegate, CL
             self.navigationItem.rightBarButtonItem?.isEnabled = false
             sliderDistance.value = 0
             sliderDistance.maximumValue = 25
-            lblDistance.text = "0 miles"
+            lblDistance.text = "0 "+NSLocalizedString("Miles", comment: "")
         }
     }
     
@@ -285,9 +285,9 @@ class FiltersTableViewController: UITableViewController, UITextFieldDelegate, CL
         toolBar.tintColor = UIColor(red: 76/255, green: 217/255, blue: 100/255, alpha: 1)
         toolBar.sizeToFit()
         
-        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.done, target: self, action: #selector (self.dimissPicker))
+        let doneButton = UIBarButtonItem(title: NSLocalizedString("Done", comment: ""), style: UIBarButtonItem.Style.done, target: self, action: #selector (self.dimissPicker))
         let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
-        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItem.Style.plain, target: self, action: #selector (self.dimissPickerReset))
+        let cancelButton = UIBarButtonItem(title: NSLocalizedString("Cancel", comment: ""), style: UIBarButtonItem.Style.plain, target: self, action: #selector (self.dimissPickerReset))
         
         toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
         toolBar.isUserInteractionEnabled = true
@@ -297,7 +297,7 @@ class FiltersTableViewController: UITableViewController, UITextFieldDelegate, CL
     
     @objc func dimissPicker(){
         self.view.endEditing(true)
-        if self.selectedCity != "" && self.selectedCity != "Choose local"{
+        if self.selectedCity != "" && self.selectedCity != NSLocalizedString("Choose Local", comment: ""){
             getLocalsByCity(city: self.selectedCity)
         }
     }
@@ -310,7 +310,7 @@ class FiltersTableViewController: UITableViewController, UITextFieldDelegate, CL
     func resetPicker() {
         if self.lastSelectedCity == ""
         {
-            self.textFieldPickerLocal.text = "Choose local"
+            self.textFieldPickerLocal.text = NSLocalizedString("Choose Local", comment: "")
             self.selectedCity = ""
         } else {
             self.textFieldPickerLocal.text = self.lastSelectedCity

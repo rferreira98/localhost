@@ -1,0 +1,312 @@
+
+/* Class = "UILabel"; text = "Unkown tags"; ObjectID = "04w-x7-DeK"; */
+"04w-x7-DeK.text" = "Unkown tags";
+
+/* Class = "UITextView"; text = "Any suggestions please feel free to contact us using the button below or by emailing team.localh@gmail.com"; ObjectID = "0eN-az-qzT"; */
+"0eN-az-qzT.text" = "Any suggestions please feel free to contact us using the button below or by emailing team.localh@gmail.com";
+
+/* Class = "UILabel"; text = "Notifications"; ObjectID = "1D6-A4-cpg"; */
+"1D6-A4-cpg.text" = "Notifications";
+
+/* Class = "UILabel"; text = "O Casarão"; ObjectID = "2Ox-o2-Xof"; */
+"2Ox-o2-Xof.text" = "O Casarão";
+
+/* Class = "UILabel"; text = "Last Name"; ObjectID = "4vR-ox-siL"; */
+"4vR-ox-siL.text" = "Last Name";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "5J3-FA-roo"; */
+"5J3-FA-roo.text" = "Title";
+
+/* Class = "UILabel"; text = "Version"; ObjectID = "5bx-mC-8Sc"; */
+"5bx-mC-8Sc.text" = "Version";
+
+/* Class = "UILabel"; text = "0 Km"; ObjectID = "5mN-dP-2ft"; */
+"5mN-dP-2ft.text" = "0 Km";
+
+/* Class = "UILabel"; text = "Reviews"; ObjectID = "6J4-P9-uMN"; */
+"6J4-P9-uMN.text" = "Reviews";
+
+/* Class = "UITextField"; placeholder = "Password"; ObjectID = "6Z2-kh-UGg"; */
+"6Z2-kh-UGg.placeholder" = "Password";
+
+/* Class = "UITextField"; placeholder = "Password"; ObjectID = "7Qj-qP-oFx"; */
+"7Qj-qP-oFx.placeholder" = "Password";
+
+/* Class = "UIButton"; normalTitle = "Logout"; ObjectID = "7ur-dd-zhl"; */
+"7ur-dd-zhl.normalTitle" = "Logout";
+
+/* Class = "UITableViewSection"; headerTitle = "Contact"; ObjectID = "8hq-uW-jhy"; */
+"8hq-uW-jhy.headerTitle" = "Contact";
+
+/* Class = "UIBarButtonItem"; title = "Settings"; ObjectID = "8mt-Dc-geZ"; */
+"8mt-Dc-geZ.title" = "Settings";
+
+/* Class = "UIBarButtonItem"; title = "Edit"; ObjectID = "986-Hq-6QW"; */
+"986-Hq-6QW.title" = "Edit";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "AFH-rG-XYF"; */
+"AFH-rG-XYF.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "Reset Password"; ObjectID = "BWK-lY-s0b"; */
+"BWK-lY-s0b.normalTitle" = "Reset Password";
+
+/* Class = "UITableViewSection"; headerTitle = "Local"; ObjectID = "CvB-Ud-uY4"; */
+"CvB-Ud-uY4.headerTitle" = "Local";
+
+/* Class = "UITextView"; text = "This data will in no way be used for any purpose other than the basic functions of the application."; ObjectID = "DIN-eT-SGn"; */
+"DIN-eT-SGn.text" = "This data will in no way be used for any purpose other than the basic functions of the application.";
+
+/* Class = "UIButton"; normalTitle = "Login"; ObjectID = "DUj-nm-94h"; */
+"DUj-nm-94h.normalTitle" = "Login";
+
+/* Class = "UITabBarItem"; title = "Recommendations"; ObjectID = "Efd-B8-jeS"; */
+"Efd-B8-jeS.title" = "Recommendations";
+
+/* Class = "UITableViewController"; title = "List"; ObjectID = "Ep5-V4-vVc"; */
+"Ep5-V4-vVc.title" = "List";
+
+/* Class = "UITableViewSection"; headerTitle = "About"; ObjectID = "GGk-5X-115"; */
+"GGk-5X-115.headerTitle" = "About";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "Hz8-8a-fgb"; */
+"Hz8-8a-fgb.text" = "Label";
+
+/* Class = "UITextField"; placeholder = "Local"; ObjectID = "INN-B6-1Pr"; */
+"INN-B6-1Pr.placeholder" = "Local";
+
+/* Class = "UIBarButtonItem"; title = "Register"; ObjectID = "JDO-1t-1vj"; */
+"JDO-1t-1vj.title" = "Register";
+
+/* Class = "UIButton"; normalTitle = "Logout and Delete Biometric Data"; ObjectID = "JOF-kL-14d"; */
+"JOF-kL-14d.normalTitle" = "Logout and Delete Biometric Data";
+
+/* Class = "UITabBarItem"; title = "Places"; ObjectID = "Jaj-EF-0ON"; */
+"Jaj-EF-0ON.title" = "Places";
+
+/* Class = "UILabel"; text = "Unknown location"; ObjectID = "JoJ-lK-mg1"; */
+"JoJ-lK-mg1.text" = "Unknown location";
+
+/* Class = "UIBarButtonItem"; title = "Item"; ObjectID = "KTn-Sd-kVw"; */
+"KTn-Sd-kVw.title" = "Item";
+
+/* Class = "UITabBarItem"; title = "Settings"; ObjectID = "LRf-yV-1lu"; */
+"LRf-yV-1lu.title" = "Settings";
+
+/* Class = "UILabel"; text = "Tipo"; ObjectID = "M5b-WC-DTM"; */
+"M5b-WC-DTM.text" = "Tipo";
+
+/* Class = "UIButton"; normalTitle = "Ask"; ObjectID = "NSf-sM-wIq"; */
+"NSf-sM-wIq.normalTitle" = "Ask";
+
+/* Class = "UILabel"; text = "Restaurant"; ObjectID = "OFC-dx-7wt"; */
+"OFC-dx-7wt.text" = "Restaurant";
+
+/* Class = "UILabel"; text = "Question"; ObjectID = "P51-Hh-bNX"; */
+"P51-Hh-bNX.text" = "Question";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "Qg9-2x-TlS"; */
+"Qg9-2x-TlS.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "SBO-Q0-vMW"; */
+"SBO-Q0-vMW.text" = "Label";
+
+/* Class = "UITableViewSection"; headerTitle = "Terms and Conditions"; ObjectID = "TSk-rV-l8Y"; */
+"TSk-rV-l8Y.headerTitle" = "Terms and Conditions";
+
+/* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "TrH-TP-hOa"; */
+"TrH-TP-hOa.title" = "Back";
+
+/* Class = "UITextField"; placeholder = "Local"; ObjectID = "UvZ-Kt-hU6"; */
+"UvZ-Kt-hU6.placeholder" = "Local";
+
+/* Class = "UITableViewSection"; headerTitle = "Range"; ObjectID = "VNb-m9-XFD"; */
+"VNb-m9-XFD.headerTitle" = "Range";
+
+/* Class = "UIButton"; normalTitle = "Reset Filters"; ObjectID = "WfJ-EO-SdQ"; */
+"WfJ-EO-SdQ.normalTitle" = "Reset Filters";
+
+/* Class = "UILabel"; text = "Classification: "; ObjectID = "Wkc-f0-T2I"; */
+"Wkc-f0-T2I.text" = "Classification: ";
+
+/* Class = "UIButton"; normalTitle = "Register"; ObjectID = "XcO-BP-B2H"; */
+"XcO-BP-B2H.normalTitle" = "Register";
+
+/* Class = "UILabel"; text = "Metric Unit"; ObjectID = "YzM-2p-xqw"; */
+"YzM-2p-xqw.text" = "Metric Unit";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "ZV2-Xc-IDO"; */
+"ZV2-Xc-IDO.text" = "Label";
+
+/* Class = "UITextField"; placeholder = "Last Name"; ObjectID = "ZaT-Nf-7Zu"; */
+"ZaT-Nf-7Zu.placeholder" = "Last Name";
+
+/* Class = "UILabel"; text = "Address"; ObjectID = "aBO-B4-QdN"; */
+"aBO-B4-QdN.text" = "Address";
+
+/* Class = "UITableViewController"; title = "Settings"; ObjectID = "atx-kn-CUc"; */
+"atx-kn-CUc.title" = "Settings";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "b5S-6g-lU0"; */
+"b5S-6g-lU0.text" = "Label";
+
+/* Class = "UILabel"; text = "(0)"; ObjectID = "bGj-rn-9dL"; */
+"bGj-rn-9dL.text" = "(0)";
+
+/* Class = "UITextView"; text = "All data communications made by the application are encrypted, thus ensuring the security of our users' information."; ObjectID = "buR-fT-ae9"; */
+"buR-fT-ae9.text" = "All data communications made by the application are encrypted, thus ensuring the security of our users' information.";
+
+/* Class = "UILabel"; text = "Ask Advice"; ObjectID = "cFb-lA-n7P"; */
+"cFb-lA-n7P.text" = "Ask Advice";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "d2H-QI-DPe"; */
+"d2H-QI-DPe.text" = "Label";
+
+/* Class = "UILabel"; text = "First Name"; ObjectID = "d8N-eF-V3z"; */
+"d8N-eF-V3z.text" = "First Name";
+
+/* Class = "UILabel"; text = "Biometric Authentication"; ObjectID = "dYk-sT-WzF"; */
+"dYk-sT-WzF.text" = "Biometric Authentication";
+
+/* Class = "UILabel"; text = "1.0.0"; ObjectID = "eKo-vS-p56"; */
+"eKo-vS-p56.text" = "1.0.0";
+
+/* Class = "UITableViewSection"; headerTitle = "Version"; ObjectID = "etN-4O-xVj"; */
+"etN-4O-xVj.headerTitle" = "Version";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "fAV-BR-fSB"; */
+"fAV-BR-fSB.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "Recover Password"; ObjectID = "fbl-lr-va4"; */
+"fbl-lr-va4.normalTitle" = "Recover Password";
+
+/* Class = "UITextField"; placeholder = "First Name"; ObjectID = "fiv-lu-mff"; */
+"fiv-lu-mff.placeholder" = "First Name";
+
+/* Class = "UITableViewSection"; headerTitle = "Profile"; ObjectID = "fng-0M-us7"; */
+"fng-0M-us7.headerTitle" = "Profile";
+
+/* Class = "UINavigationItem"; title = "Places"; ObjectID = "grr-Kf-1ry"; */
+"grr-Kf-1ry.title" = "Places";
+
+/* Class = "UIBarButtonItem"; title = "Apply"; ObjectID = "hfB-Z8-XvP"; */
+"hfB-Z8-XvP.title" = "Apply";
+
+/* Class = "UILabel"; text = "Classification"; ObjectID = "iNG-ft-MPN"; */
+"iNG-ft-MPN.text" = "Classification";
+
+/* Class = "UIButton"; normalTitle = "Ask Advice for this Restaurant"; ObjectID = "iOc-0Z-zr2"; */
+"iOc-0Z-zr2.normalTitle" = "Ask Advice for this Restaurant";
+
+/* Class = "UITableViewSection"; headerTitle = "Settings"; ObjectID = "iQv-BT-dJf"; */
+"iQv-BT-dJf.headerTitle" = "Settings";
+
+/* Class = "UILabel"; text = "No reviews for you today"; ObjectID = "iup-ED-do8"; */
+"iup-ED-do8.text" = "No reviews for you today";
+
+/* Class = "UITextField"; placeholder = "Confirm Password"; ObjectID = "jqk-jU-Jpk"; */
+"jqk-jU-Jpk.placeholder" = "Confirm Password";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "kCk-Lh-io8"; */
+"kCk-Lh-io8.normalTitle" = "Button";
+
+/* Class = "UILabel"; text = "Email"; ObjectID = "kXt-Zo-cbl"; */
+"kXt-Zo-cbl.text" = "Email";
+
+/* Class = "UITextField"; placeholder = "Language"; ObjectID = "keY-g0-dZG"; */
+"keY-g0-dZG.placeholder" = "Language";
+
+/* Class = "UITextField"; text = "English"; ObjectID = "keY-g0-dZG"; */
+"keY-g0-dZG.text" = "English";
+
+/* Class = "UITabBarItem"; title = "Map"; ObjectID = "knw-sO-aup"; */
+"knw-sO-aup.title" = "Map";
+
+/* Class = "UILabel"; text = "Contact"; ObjectID = "lD4-TN-0j9"; */
+"lD4-TN-0j9.text" = "Contact";
+
+/* Class = "UIBarButtonItem"; title = "Filters"; ObjectID = "mKh-TZ-qbz"; */
+"mKh-TZ-qbz.title" = "Filters";
+
+/* Class = "UILabel"; text = "(0)"; ObjectID = "maa-JD-rs4"; */
+"maa-JD-rs4.text" = "(0)";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "nB1-s3-RCe"; */
+"nB1-s3-RCe.text" = "Label";
+
+/* Class = "UILabel"; text = "Reviews"; ObjectID = "nKD-NC-Zc2"; */
+"nKD-NC-Zc2.text" = "Reviews";
+
+/* Class = "UILabel"; text = "Localhost"; ObjectID = "nKw-Fm-xs8"; */
+"nKw-Fm-xs8.text" = "Localhost";
+
+/* Class = "UILabel"; text = "Perfil"; ObjectID = "nqj-Ys-RQY"; */
+"nqj-Ys-RQY.text" = "Perfil";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "ohA-uP-itB"; */
+"ohA-uP-itB.text" = "Label";
+
+/* Class = "UITableViewSection"; headerTitle = "Rating"; ObjectID = "oiS-cO-jQY"; */
+"oiS-cO-jQY.headerTitle" = "Rating";
+
+/* Class = "UILabel"; text = "Unkown address"; ObjectID = "p76-33-onx"; */
+"p76-33-onx.text" = "Unkown address";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "rq7-Zq-dyV"; */
+"rq7-Zq-dyV.text" = "Label";
+
+/* Class = "UITextView"; text = "This application is intended to give its users an easy way to search for restaurants in a place unknown to them as well as to quickly solicit feedback from current users of the application."; ObjectID = "sEK-jX-gl0"; */
+"sEK-jX-gl0.text" = "This application is intended to give its users an easy way to search for restaurants in a place unknown to them as well as to quickly solicit feedback from current users of the application.";
+
+/* Class = "UITextField"; placeholder = "E-Mail"; ObjectID = "sEd-7z-9tN"; */
+"sEd-7z-9tN.placeholder" = "E-Mail";
+
+/* Class = "UISegmentedControl"; syO-mh-O59.segmentTitles[0] = "Km"; ObjectID = "syO-mh-O59"; */
+"syO-mh-O59.segmentTitles[0]" = "Km";
+
+/* Class = "UISegmentedControl"; syO-mh-O59.segmentTitles[1] = "Miles"; ObjectID = "syO-mh-O59"; */
+"syO-mh-O59.segmentTitles[1]" = "Miles";
+
+/* Class = "UITextField"; placeholder = "Email"; ObjectID = "t4b-bJ-q4k"; */
+"t4b-bJ-q4k.placeholder" = "Email";
+
+/* Class = "UITableViewSection"; headerTitle = " "; ObjectID = "uKj-vq-tDQ"; */
+"uKj-vq-tDQ.headerTitle" = " ";
+
+/* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "v7l-Rl-biy"; */
+"v7l-Rl-biy.title" = "Back";
+
+/* Class = "UILabel"; text = "Copyright"; ObjectID = "vL9-kq-A0b"; */
+"vL9-kq-A0b.text" = "Copyright";
+
+/* Class = "UIViewController"; title = "Map"; ObjectID = "vRX-qy-ikg"; */
+"vRX-qy-ikg.title" = "Map";
+
+/* Class = "UIButton"; normalTitle = "Cancel"; ObjectID = "vnd-xh-KnH"; */
+"vnd-xh-KnH.normalTitle" = "Cancel";
+
+/* Class = "UILabel"; text = "About"; ObjectID = "w03-0B-6uX"; */
+"w03-0B-6uX.text" = "About";
+
+/* Class = "UITextField"; placeholder = "First Name"; ObjectID = "wEf-oC-xMk"; */
+"wEf-oC-xMk.placeholder" = "First Name";
+
+/* Class = "UITextField"; placeholder = "Last Name"; ObjectID = "whL-vH-aOL"; */
+"whL-vH-aOL.placeholder" = "Last Name";
+
+/* Class = "UITableViewController"; title = "Recommendations"; ObjectID = "woV-Be-tJf"; */
+"woV-Be-tJf.title" = "Recommendations";
+
+/* Class = "UIBarButtonItem"; title = "Item"; ObjectID = "x7L-Ff-Rph"; */
+"x7L-Ff-Rph.title" = "Item";
+
+/* Class = "UILabel"; text = "Local"; ObjectID = "xcN-cs-BGu"; */
+"xcN-cs-BGu.text" = "Local";
+
+/* Class = "UITextField"; text = "Choose local"; ObjectID = "yta-nK-qMX"; */
+"yta-nK-qMX.text" = "Choose local";
+
+/* Class = "UITextField"; placeholder = "E-Mail"; ObjectID = "z72-Fn-9mD"; */
+"z72-Fn-9mD.placeholder" = "E-Mail";
+
+/* Class = "UILabel"; text = "Language"; ObjectID = "zEZ-P8-MWP"; */
+"zEZ-P8-MWP.text" = "Language";
