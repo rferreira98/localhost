@@ -95,6 +95,9 @@ class PlacesListViewController: UITableViewController, UISearchBarDelegate {
             self.locals = Items.sharedInstance.locals
             tableView.reloadData()
         }
+        
+        self.navigationItem.title = ""
+        
     }
     
     func filterContentForSearchText(_ searchText: String) {
@@ -111,7 +114,8 @@ class PlacesListViewController: UITableViewController, UISearchBarDelegate {
     }
     
     @objc func segueFilters(){
-        performSegue(withIdentifier: "listFiltersButton", sender: nil)
+        performSegue(withIdentifier: "listFiltersButton", sender: self)
+        
     }
     
     
@@ -296,6 +300,7 @@ class PlacesListViewController: UITableViewController, UISearchBarDelegate {
         if let smld=segue.destination as? LocalDetailedViewController {
             smld.local = self.localToSend
         }
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Places", comment: ""), style: UIBarButtonItem.Style.plain, target: nil, action: nil)
     }
 
 }
