@@ -1776,9 +1776,8 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xg3-t8-KlD" customClass="CosmosView" customModule="Cosmos">
-                                <rect key="frame" x="127" y="369" width="120" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xg3-t8-KlD" customClass="CosmosView" customModule="Cosmos">
+                                <rect key="frame" x="16" y="298" width="120" height="20"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="rating">
                                         <real key="value" value="0.0"/>
@@ -1798,49 +1797,19 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="(0)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bGj-rn-9dL">
-                                <rect key="frame" x="176" y="368" width="23" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(0)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bGj-rn-9dL">
+                                <rect key="frame" x="144" y="297" width="23" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <scrollView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8Z2-rj-rtF">
-                                <rect key="frame" x="-20" y="409" width="415" height="1135"/>
-                                <subviews>
-                                    <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="T5m-Gk-DsF">
-                                        <rect key="frame" x="20" y="408" width="375" height="261"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="261" id="dat-h5-RGg"/>
-                                        </constraints>
-                                    </mapView>
-                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iOc-0Z-zr2">
-                                        <rect key="frame" x="104.66666666666669" y="314" width="206" height="30"/>
-                                        <state key="normal" title="Ask Advice for this Restaurant"/>
-                                        <connections>
-                                            <segue destination="obS-3R-Ogx" kind="presentation" id="HPW-PH-2lG"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V4D-H2-1sJ">
-                                        <rect key="frame" x="195" y="233" width="34" height="30"/>
-                                        <state key="normal" title="View"/>
-                                        <connections>
-                                            <action selector="buttonPlaceReviewsClicked:" destination="49e-l4-9gV" eventType="touchUpInside" id="MNq-Zc-zRO"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="T5m-Gk-DsF" secondAttribute="trailing" constant="20" id="8aP-Jl-zG6"/>
-                                    <constraint firstItem="T5m-Gk-DsF" firstAttribute="top" secondItem="iOc-0Z-zr2" secondAttribute="bottom" constant="64" id="OF1-If-jcS"/>
-                                    <constraint firstAttribute="bottom" secondItem="T5m-Gk-DsF" secondAttribute="bottom" constant="516" id="T4L-t6-hux"/>
-                                    <constraint firstItem="iOc-0Z-zr2" firstAttribute="centerX" secondItem="8Z2-rj-rtF" secondAttribute="centerX" id="c3l-tK-6eH"/>
-                                    <constraint firstItem="T5m-Gk-DsF" firstAttribute="centerX" secondItem="iOc-0Z-zr2" secondAttribute="centerX" id="hFl-4j-gHW"/>
-                                    <constraint firstItem="iOc-0Z-zr2" firstAttribute="top" secondItem="V4D-H2-1sJ" secondAttribute="bottom" constant="51" id="i7j-4M-3zd"/>
-                                    <constraint firstItem="T5m-Gk-DsF" firstAttribute="leading" secondItem="8Z2-rj-rtF" secondAttribute="leading" constant="20" id="yHh-Sz-yYY"/>
-                                </constraints>
-                                <viewLayoutGuide key="contentLayoutGuide" id="SOR-o9-YV9"/>
-                                <viewLayoutGuide key="frameLayoutGuide" id="STJ-HK-7X2"/>
-                            </scrollView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V4D-H2-1sJ">
+                                <rect key="frame" x="175" y="293" width="34" height="30"/>
+                                <state key="normal" title="View"/>
+                                <connections>
+                                    <action selector="buttonPlaceReviewsClicked:" destination="49e-l4-9gV" eventType="touchUpInside" id="MNq-Zc-zRO"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kCk-Lh-io8">
                                 <rect key="frame" x="324" y="255" width="35" height="35"/>
                                 <constraints>
@@ -1852,22 +1821,40 @@
                                     <action selector="buttonMapClicked:" destination="49e-l4-9gV" eventType="touchUpInside" id="0D1-eZ-uBP"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iOc-0Z-zr2">
+                                <rect key="frame" x="84.666666666666686" y="341" width="206" height="30"/>
+                                <state key="normal" title="Ask Advice for this Restaurant"/>
+                                <connections>
+                                    <segue destination="obS-3R-Ogx" kind="presentation" identifier="goToAskModal" id="HPW-PH-2lG"/>
+                                </connections>
+                            </button>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="T5m-Gk-DsF">
+                                <rect key="frame" x="0.0" y="401" width="375" height="274"/>
+                            </mapView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="V4D-H2-1sJ" firstAttribute="top" secondItem="rq7-Zq-dyV" secondAttribute="bottom" constant="10" id="0hd-TQ-G1f"/>
                             <constraint firstItem="kCk-Lh-io8" firstAttribute="top" secondItem="fAV-BR-fSB" secondAttribute="bottom" constant="5" id="0zg-6b-WDr"/>
-                            <constraint firstItem="8Z2-rj-rtF" firstAttribute="centerX" secondItem="40A-7T-XDr" secondAttribute="centerX" id="4Kh-Lt-FSv"/>
                             <constraint firstItem="fAV-BR-fSB" firstAttribute="leading" secondItem="GDm-RU-3CA" secondAttribute="leading" constant="15" id="5HT-CF-xzz"/>
-                            <constraint firstItem="8Z2-rj-rtF" firstAttribute="top" secondItem="GDm-RU-3CA" secondAttribute="top" id="7SX-7N-OR4"/>
-                            <constraint firstAttribute="bottom" secondItem="8Z2-rj-rtF" secondAttribute="bottom" constant="-433" id="CMA-hv-PSa"/>
+                            <constraint firstItem="GDm-RU-3CA" firstAttribute="bottom" secondItem="T5m-Gk-DsF" secondAttribute="bottom" id="7nv-MH-exi"/>
+                            <constraint firstItem="bGj-rn-9dL" firstAttribute="top" secondItem="rq7-Zq-dyV" secondAttribute="bottom" constant="14" id="EVh-5b-kXd"/>
                             <constraint firstItem="ZV2-Xc-IDO" firstAttribute="centerX" secondItem="GDm-RU-3CA" secondAttribute="centerX" id="IgY-Wj-rLc"/>
                             <constraint firstItem="3i0-4Y-Cyu" firstAttribute="top" secondItem="ZV2-Xc-IDO" secondAttribute="bottom" constant="14.333333333333329" id="JnK-Tg-MEu"/>
+                            <constraint firstItem="V4D-H2-1sJ" firstAttribute="leading" secondItem="bGj-rn-9dL" secondAttribute="trailing" constant="8" id="Lth-l4-GVV"/>
                             <constraint firstItem="ZV2-Xc-IDO" firstAttribute="top" secondItem="GDm-RU-3CA" secondAttribute="top" constant="15" id="UtK-5X-dTG"/>
+                            <constraint firstItem="iOc-0Z-zr2" firstAttribute="top" secondItem="V4D-H2-1sJ" secondAttribute="bottom" constant="18" id="XqK-xX-YLy"/>
+                            <constraint firstItem="bGj-rn-9dL" firstAttribute="leading" secondItem="xg3-t8-KlD" secondAttribute="trailing" constant="8" id="YlP-7s-aA7"/>
+                            <constraint firstItem="GDm-RU-3CA" firstAttribute="trailing" secondItem="T5m-Gk-DsF" secondAttribute="trailing" id="aNF-Qd-iTK"/>
                             <constraint firstItem="rq7-Zq-dyV" firstAttribute="leading" secondItem="GDm-RU-3CA" secondAttribute="leading" constant="16" id="bfj-it-aIl"/>
-                            <constraint firstItem="8Z2-rj-rtF" firstAttribute="leading" secondItem="40A-7T-XDr" secondAttribute="leadingMargin" constant="-36" id="gCf-vB-sYc"/>
+                            <constraint firstItem="iOc-0Z-zr2" firstAttribute="centerX" secondItem="GDm-RU-3CA" secondAttribute="centerX" id="j0x-h3-Tuy"/>
                             <constraint firstItem="GDm-RU-3CA" firstAttribute="trailing" secondItem="kCk-Lh-io8" secondAttribute="trailing" constant="16" id="jSu-FS-DVd"/>
                             <constraint firstItem="3i0-4Y-Cyu" firstAttribute="centerX" secondItem="GDm-RU-3CA" secondAttribute="centerX" id="mLZ-ms-qAu"/>
+                            <constraint firstItem="T5m-Gk-DsF" firstAttribute="leading" secondItem="GDm-RU-3CA" secondAttribute="leading" id="npy-CS-FVO"/>
+                            <constraint firstItem="xg3-t8-KlD" firstAttribute="leading" secondItem="GDm-RU-3CA" secondAttribute="leading" constant="16" id="pgA-UT-Aij"/>
                             <constraint firstItem="fAV-BR-fSB" firstAttribute="top" secondItem="3i0-4Y-Cyu" secondAttribute="bottom" constant="25" id="pud-yA-of1"/>
+                            <constraint firstItem="T5m-Gk-DsF" firstAttribute="top" secondItem="iOc-0Z-zr2" secondAttribute="bottom" constant="30" id="qar-WE-sm8"/>
+                            <constraint firstItem="xg3-t8-KlD" firstAttribute="top" secondItem="rq7-Zq-dyV" secondAttribute="bottom" constant="15" id="vod-83-N44"/>
                             <constraint firstItem="rq7-Zq-dyV" firstAttribute="top" secondItem="fAV-BR-fSB" secondAttribute="bottom" constant="12" id="xzZ-iu-yGN"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="GDm-RU-3CA"/>
@@ -1892,6 +1879,7 @@
                         <outlet property="mapView" destination="T5m-Gk-DsF" id="Uhn-ec-77t"/>
                         <outlet property="ratingView" destination="xg3-t8-KlD" id="een-Qd-q3y"/>
                         <segue destination="Jmr-YD-KLD" kind="show" identifier="segueReviewsDetail" id="xB4-NB-agQ"/>
+                        <segue destination="SLS-a4-1Dy" kind="show" identifier="goToChat" id="azt-BP-tXx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bam-XN-Tpk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -2147,6 +2135,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="DUm-uL-UMg"/>
+        <segue reference="azt-BP-tXx"/>
         <segue reference="Bzt-6p-OWk"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" name="AppGreenPrimary"/>

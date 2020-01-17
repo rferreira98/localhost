@@ -114,7 +114,7 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
          }
          }*/
         
-        let region = MKCoordinateRegion(center: selectedCoordinate, latitudinalMeters: 700, longitudinalMeters: 700)
+        let region = MKCoordinateRegion(center: selectedCoordinate, latitudinalMeters: 400, longitudinalMeters: 400)
         mapView.setRegion(region, animated: true)
         mapView.isZoomEnabled = false
         mapView.isPitchEnabled = false
