@@ -99,7 +99,7 @@ class ModalDetailPageViewController: UIPageViewController, UIPageViewControllerD
         NetworkHandler.getReviews(local_id: self.local.id, completion: { (reviews, error) in
             OperationQueue.main.addOperation {
                 if error != nil {
-                    let alert = Utils.triggerAlert(title: "Erro", error: error)
+                    let alert = Utils.triggerAlert(title: NSLocalizedString("Error", comment: ""), error: error)
                     self.present(alert, animated: true, completion: nil)
                 } else {
                     self.reviews = reviews!

@@ -86,6 +86,10 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20.333333333333343" id="QCV-Ow-wQ2"/>
                                 </constraints>
+                            </mapView>
+                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vpB-mK-5Z5" customClass="CosmosView" customModule="Cosmos">
+                                <rect key="frame" x="16" y="197.33333333333334" width="120" height="20.333333333333343"/>
+                                <gestureRecognizers/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="rating">
                                         <real key="value" value="0.0"/>

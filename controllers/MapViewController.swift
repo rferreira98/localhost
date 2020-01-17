@@ -69,6 +69,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         self.navigationItem.titleView = searchBar
         searchBar.tintColor = UIColor(named: "AppGreenPrimary")
         searchBar.showsCancelButton = false
+        searchBar.placeholder = NSLocalizedString("Search", comment: "")
         //------------------------------------------------------------
         
         map.userTrackingMode = .follow
@@ -104,7 +105,9 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     @objc func segueFilters(){
         //Used to perform the segue for the screen with the filters when filters button is pressed
         goingForwards = true
-        performSegue(withIdentifier: "mapFiltersButton", sender: nil)
+        performSegue(withIdentifier: "mapFiltersButton", sender: self)
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Map", comment: ""), style: UIBarButtonItem.Style.plain, target: nil, action: nil)
+        
     }
     
      
@@ -116,7 +119,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         print(self.regionToGo.center.latitude)
         print(self.regionToGo.center.longitude)
         if(self.regionToGo.center.latitude != region.center.latitude ||
-            self.regionToGo.center.longitude != region.center.longitude){        mapView.setRegion(region, animated: true)
+            self.regionToGo.center.longitude != region.center.longitude){mapView.setRegion(region, animated: true)
             self.regionToGo = region
         }else{
             isSameRegion = true
@@ -135,13 +138,13 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         if((view.annotation?.isKind(of: Artwork.self))!){
             mapView.deselectAnnotation(view.annotation, animated: false)
             if(isSameRegion == true){
-                print("not async")
+                //print("not async")
                 let artwork = view.annotation as! Artwork
                 self.localToSend = artwork.local
                 self.performSegue(withIdentifier: "mapAnnotationView", sender: nil)
             }else{
                 DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(750), execute: {
-                    print("async")
+                    //print("async")
                     // Put your code which should be executed with a delay here
                     let artwork = view.annotation as! Artwork
                     self.localToSend = artwork.local
@@ -271,7 +274,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             
             performSegue(withIdentifier: "segueMapLocalDetail", sender: nil)
         }else {
-            let alert = UIAlertController(title: "Not Logged In", message: "To perform more actions you need to be logged in", preferredStyle: UIAlertController.Style.alert)
+            let alert = UIAlertController(title: NSLocalizedString("Not Logged In", comment: ""), message: NSLocalizedString("To perform more actions you need to be logged in", comment: ""), preferredStyle: UIAlertController.Style.alert)
             
             // add the actions (buttons)
             alert.addAction(UIAlertAction(title: "Login", style: UIAlertAction.Style.default, handler: {
@@ -280,12 +283,12 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
                 let loginViewController = storyBoard.instantiateViewController(withIdentifier: "loginViewController")
                 self.present(loginViewController, animated: true, completion: nil)
             }))
-            alert.addAction(UIAlertAction(title: "Registar", style: UIAlertAction.Style.default, handler: { action in
+            alert.addAction(UIAlertAction(title: NSLocalizedString("Register", comment: ""), style: UIAlertAction.Style.default, handler: { action in
                 let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
                 let registerViewController = storyBoard.instantiateViewController(withIdentifier: "registerViewController")
                 self.present(registerViewController, animated: true, completion: nil)
             }))
-            alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
+            alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: UIAlertAction.Style.cancel, handler: nil))
             
             
             // show the alert

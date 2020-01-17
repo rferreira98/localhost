@@ -184,7 +184,7 @@ UIPickerViewDelegate, UIPickerViewDataSource{
                 }
             }
             if let local = self.localTextField.text {
-                if local.isEmpty || local == "Choose Local"{
+                if local.isEmpty || local == NSLocalizedString("Choose Local", comment: ""){
                     self.localTextField.text = userProfile.local
                 } else {
                     userProfile.local = local
@@ -212,7 +212,7 @@ UIPickerViewDelegate, UIPickerViewDataSource{
                 NetworkHandler.uploadAvatar(avatar: self.avatarImageView.image!.resized(toWidth: 200)!){ (success, error) in
                     OperationQueue.main.addOperation {
                         if error != nil{
-                            let alert = Utils.triggerAlert(title: "Erro", error: error)
+                            let alert = Utils.triggerAlert(title: NSLocalizedString("Error", comment: ""), error: error)
                             self.present(alert, animated: true, completion: nil)
                         }else{
                             //success
@@ -236,7 +236,7 @@ UIPickerViewDelegate, UIPickerViewDataSource{
                     OperationQueue.main.addOperation {
                         
                         if error != nil {
-                            let alert = Utils.triggerAlert(title: "Erro", error: error)
+                            let alert = Utils.triggerAlert(title: NSLocalizedString("Error", comment: ""), error: error)
                             self.present(alert, animated: true, completion: nil)
                         } else {
                             self.goToMainScreen()
@@ -256,7 +256,7 @@ UIPickerViewDelegate, UIPickerViewDataSource{
         let controller = UIImagePickerController()
         controller.delegate = self
         
-        let actionsheet = UIAlertController(title: "Select Photo", message: "Choose A Photo", preferredStyle: .actionSheet)
+        let actionsheet = UIAlertController(title: NSLocalizedString("Select Avatar", comment: ""), message: "Choose an Avatar", preferredStyle: .actionSheet)
         
         actionsheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (action:UIAlertAction)in
             if UIImagePickerController.isSourceTypeAvailable(.camera){
@@ -268,12 +268,12 @@ UIPickerViewDelegate, UIPickerViewDataSource{
             }
         }))
         
-        actionsheet.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: { (action:UIAlertAction)in
+        actionsheet.addAction(UIAlertAction(title: NSLocalizedString("Photo Library", comment: ""), style: .default, handler: { (action:UIAlertAction)in
             controller.sourceType = .photoLibrary
             self.present(controller, animated: true, completion: nil)
         }))
         
-        actionsheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        actionsheet.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel, handler: nil))
         
         self.present(actionsheet,animated: true, completion: nil)
         
@@ -337,11 +337,11 @@ UIPickerViewDelegate, UIPickerViewDataSource{
     
     @IBAction func ResetPasswordButtonClicked(_ sender: Any) {
         // Create the action buttons for the alert.
-        let defaultAction = UIAlertAction(title: "Continue", style: .default) { (action) in
+        let defaultAction = UIAlertAction(title: NSLocalizedString("Continue", comment: ""), style: .default) { (action) in
             // Respond to user selection of the action.
             let email = self.profile?.email as! String
             
-            let alert = UIAlertController(title: nil, message: "Please wait...", preferredStyle: .alert)
+            let alert = UIAlertController(title: nil, message: NSLocalizedString("Please wait", comment: ""), preferredStyle: .alert)
             
             let loadingIndicator = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 50, height: 50))
             loadingIndicator.hidesWhenStopped = true
@@ -356,12 +356,12 @@ UIPickerViewDelegate, UIPickerViewDataSource{
             NetworkHandler.resetPassword(post: postResetPass) { (success, error) in
                 OperationQueue.main.addOperation {
                     if error != nil {
-                        let alert = Utils.triggerAlert(title: "Erro", error: error)
+                        let alert = Utils.triggerAlert(title: NSLocalizedString("Error", comment: ""), error: error)
                         self.present(alert, animated: true, completion: nil)
                     } else {
                         alert.dismiss(animated: false, completion: nil)
-                        let success = UIAlertController(title: "Reset Password", message: "Check your email for instructions on how to reset your password.", preferredStyle: .alert)
-                        success.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                        let success = UIAlertController(title: NSLocalizedString("Reset Password", comment: ""), message: NSLocalizedString("Check your email for instructions on how to reset your password", comment: ""), preferredStyle: .alert)
+                        success.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
                         self.present(success, animated: true, completion: nil)
                     }
                 }
@@ -369,11 +369,11 @@ UIPickerViewDelegate, UIPickerViewDataSource{
         }
         
         // Create and configure the alert controller.
-        let alert = UIAlertController(title: "Reset Password",
-                                      message: "Do you really want to reset password?",
+        let alert = UIAlertController(title: NSLocalizedString("Reset Password", comment: ""),
+                                      message: NSLocalizedString("Do you really want to reset password?", comment: ""),
                                       preferredStyle: .alert)
         alert.addAction(defaultAction)
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel, handler: nil))
         
         self.present(alert, animated: true, completion: nil)
         
@@ -428,9 +428,9 @@ UIPickerViewDelegate, UIPickerViewDataSource{
         toolBar.tintColor = UIColor(red: 76/255, green: 217/255, blue: 100/255, alpha: 1)
         toolBar.sizeToFit()
         
-        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.done, target: self, action: #selector (self.dimissPicker))
+        let doneButton = UIBarButtonItem(title: NSLocalizedString("Done", comment: ""), style: UIBarButtonItem.Style.done, target: self, action: #selector (self.dimissPicker))
         let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
-        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItem.Style.plain, target: self, action: #selector (self.dimissPickerReset))
+        let cancelButton = UIBarButtonItem(title: NSLocalizedString("Cancel", comment: ""), style: UIBarButtonItem.Style.plain, target: self, action: #selector (self.dimissPickerReset))
         
         toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
         toolBar.isUserInteractionEnabled = true

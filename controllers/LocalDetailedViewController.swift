@@ -92,7 +92,7 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
         NetworkHandler.getReviews(local_id: self.local.id, completion: { (reviews, error) in
             OperationQueue.main.addOperation {
                 if error != nil {
-                    let alert = Utils.triggerAlert(title: "Erro", error: error)
+                    let alert = Utils.triggerAlert(title: NSLocalizedString("Error", comment: ""), error: error)
                     self.present(alert, animated: true, completion: nil)
                 } else {
                     self.reviews = reviews!
@@ -191,7 +191,7 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
     func tableView(_ tableView: UITableView, titleForHeaderInSection
         section: Int) -> String? {
         if section == 0 {
-            return "Reviews"
+            return NSLocalizedString("Reviews", comment: "")
         }
         
         return ""
@@ -206,13 +206,13 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
     
     @IBAction func onClickFavoriteButtonBarItem(_ sender: Any) {
         if self.btnFavoriteBarItem.image == UIImage(named: "Favorite_empty") {
-            let alert = UIAlertController(title: "Deseja adicionar \(local.name) aos favoritos?", message: "O \(local.name) vai ser adicionado a sua lista de favoritos para consultar mais tarde", preferredStyle: .alert)
+            let alert = UIAlertController(title: NSLocalizedString("Do you wish to add", comment: "")+(local.name)+" "+NSLocalizedString("to favorites", comment: ""), message: NSLocalizedString("O", comment: "") + (local.name) + NSLocalizedString("will be added to your favorites list for you to check back later", comment: ""), preferredStyle: .alert)
             
             alert.addAction(UIAlertAction(title: "Sim", style: .default, handler: { action in
                 NetworkHandler.storeFavorite(local_id: self.local.id, completion: { (success, error) in
                     OperationQueue.main.addOperation {
                         if error != nil {
-                            let alert = Utils.triggerAlert(title: "Erro", error: error)
+                            let alert = Utils.triggerAlert(title: NSLocalizedString("Error", comment: ""), error: error)
                             self.present(alert, animated: true, completion: nil)
                         } else {
                             if let myImage = UIImage(named: "Favorite_full") {
@@ -224,16 +224,16 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
                     }
                 }
                 )}))
-            alert.addAction(UIAlertAction(title: "Não", style: .cancel, handler: nil))
+            alert.addAction(UIAlertAction(title: NSLocalizedString("No", comment: ""), style: .cancel, handler: nil))
             self.present(alert, animated: true)
         } else {
-            let alert = UIAlertController(title: "Deseja remover \(local.name) dos favoritos?", message: "O \(local.name) vai ser removido da sua lista de favoritos, esta operação é definitiva", preferredStyle: .alert)
+            let alert = UIAlertController(title: NSLocalizedString("Do you wish to remove", comment: "") + (local.name) + NSLocalizedString("from favorites?", comment: ""), message: NSLocalizedString("O", comment: "") + (local.name) + NSLocalizedString("will be removed from your favorites list. This operation is definitive", comment: ""), preferredStyle: .alert)
             
-            alert.addAction(UIAlertAction(title: "Sim", style: .default, handler: { action in
+            alert.addAction(UIAlertAction(title: NSLocalizedString("Yes", comment: ""), style: .default, handler: { action in
                 NetworkHandler.deleteFavorite(local_id: self.local.id, completion: { (success, error) in
                     OperationQueue.main.addOperation {
                         if error != nil {
-                            let alert = Utils.triggerAlert(title: "Erro", error: error)
+                            let alert = Utils.triggerAlert(title: NSLocalizedString("Error", comment: ""), error: error)
                             self.present(alert, animated: true, completion: nil)
                         } else {
                             for (index, favorite) in Items.sharedInstance.favorites.enumerated() {
@@ -251,7 +251,7 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
                     }
                 }
                 )}))
-            alert.addAction(UIAlertAction(title: "Não", style: .cancel, handler: nil))
+            alert.addAction(UIAlertAction(title: NSLocalizedString("No", comment: ""), style: .cancel, handler: nil))
             self.present(alert, animated: true)
         }
     }

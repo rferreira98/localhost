@@ -36,7 +36,7 @@ class SettingsViewController: UITableViewController, MFMailComposeViewController
         segmentedControl.selectedSegmentIndex = UserDefaults.standard.integer(forKey: "metricUnit")
         
         let authLabel = tableView.cellForRow(at: IndexPath(row: 0, section: 1))?.contentView.subviews[0] as! UILabel
-        authLabel.text = "Autenticação com "+Utils.getBiometricSensor()
+        authLabel.text = NSLocalizedString("Authentication with", comment: "")  + Utils.getBiometricSensor()
         
         let firstname = UserDefaults.standard.value(forKey: "FirstName") as! String
         let lastname = UserDefaults.standard.value(forKey: "LastName") as! String
@@ -154,12 +154,12 @@ class SettingsViewController: UITableViewController, MFMailComposeViewController
                 let mail = MFMailComposeViewController()
                 mail.mailComposeDelegate = self
                 mail.setToRecipients(["team.localh@gmail.com"])
-                mail.setSubject("App Contact")
+                mail.setSubject(NSLocalizedString("App Contact", comment: ""))
                 
                 
                 present(mail, animated: true)
             } else {
-                let alert = Utils.triggerAlert(title: "Error", error: "Error opening e-mail app")
+                let alert = Utils.triggerAlert(title: NSLocalizedString("Error", comment: ""), error: NSLocalizedString("Error opening email app", comment: ""))
                 self.present(alert, animated: true, completion: nil)
             }
             
@@ -254,9 +254,9 @@ class SettingsViewController: UITableViewController, MFMailComposeViewController
        toolBar.tintColor = UIColor(red: 76/255, green: 217/255, blue: 100/255, alpha: 1)
        toolBar.sizeToFit()
 
-       let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.done, target: self, action: #selector (self.dimissPicker))
+       let doneButton = UIBarButtonItem(title: NSLocalizedString("Done", comment: ""), style: UIBarButtonItem.Style.done, target: self, action: #selector (self.dimissPicker))
        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
-       let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItem.Style.plain, target: self, action: #selector (self.dimissPickerReset))
+       let cancelButton = UIBarButtonItem(title: NSLocalizedString("Cancel", comment: ""), style: UIBarButtonItem.Style.plain, target: self, action: #selector (self.dimissPickerReset))
 
        toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
        toolBar.isUserInteractionEnabled = true
