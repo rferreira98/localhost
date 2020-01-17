@@ -16,8 +16,9 @@ class ModalDetailPageViewController: UIPageViewController, UIPageViewControllerD
     var reviews = [Review?]()
 
     override func viewDidLoad() {
+        getReviews(self.local.id, isLogged: User.hasUserLoggedIn())
         super.viewDidLoad()
-        getReviews(self.local.id)
+        self.view.backgroundColor = .clear
         self.dataSource = self
         self.delegate = self        
     }
@@ -35,6 +36,8 @@ class ModalDetailPageViewController: UIPageViewController, UIPageViewControllerD
     
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
+        if self.orderedVC.count > 1 {
+
         guard let viewControllerIndex = orderedVC.firstIndex(of: viewController)
             else {
                 return nil
@@ -50,26 +53,33 @@ class ModalDetailPageViewController: UIPageViewController, UIPageViewControllerD
         }
         
         return orderedVC[previousIndex]
+            }else{
+                       return nil
+                   }
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        guard let viewControllerIndex = orderedVC.firstIndex(of: viewController)
-            else {
+        if self.orderedVC.count > 1 {
+            guard let viewControllerIndex = orderedVC.firstIndex(of: viewController)
+                else {
+                    return nil
+            }
+            
+            let nextIndex = viewControllerIndex + 1
+            
+            guard orderedVC.count != nextIndex else {
+                return orderedVC.first
+                //return nil
+            }
+            
+            guard orderedVC.count > nextIndex else {
                 return nil
-        }
-        
-        let nextIndex = viewControllerIndex + 1
-        
-        guard orderedVC.count != nextIndex else {
-            return orderedVC.first
-            //return nil
-        }
-        
-        guard orderedVC.count > nextIndex else {
+            }
+            
+            return orderedVC[nextIndex]
+        }else{
             return nil
         }
-        
-        return orderedVC[nextIndex]
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
@@ -94,31 +104,37 @@ class ModalDetailPageViewController: UIPageViewController, UIPageViewControllerD
     }
     
     
-    public func getReviews(_ local_id:Int) {
-        print("pedido")
-        NetworkHandler.getReviews(local_id: self.local.id, completion: { (reviews, error) in
-            OperationQueue.main.addOperation {
-                if error != nil {
-                    let alert = Utils.triggerAlert(title: NSLocalizedString("Error", comment: ""), error: error)
-                    self.present(alert, animated: true, completion: nil)
-                } else {
-                    self.reviews = reviews!
-                    print(reviews!)
-                    //self.reviewsTableView.reloadData()
-                    //let height = self.reviewsTableView.content
-                    //self.view.intrinsicContentSize.height
-                    //self.scrollview.contentSize.height = height + 758
-                    //print(height)
-                    self.orderedVC = {
-                        return [self.newViewController(viewController: "detailView"),
-                                self.newViewController(viewController: "reviewsView")]
-                    }()
-                    if let firstVC = self.orderedVC.first {
-                        self.setViewControllers([firstVC], direction: .forward, animated: true, completion: nil)
+    public func getReviews(_ local_id:Int, isLogged:Bool) {
+        if isLogged {
+            print("pedido")
+            NetworkHandler.getReviews(local_id: self.local.id, completion: { (reviews, error) in
+                OperationQueue.main.addOperation {
+                    if error != nil {
+                        let alert = Utils.triggerAlert(title: "Erro", error: error)
+                        self.present(alert, animated: true, completion: nil)
+                    } else {
+                        self.reviews = reviews!
+                        print(reviews!)
+                        //self.reviewsTableView.reloadData()
+                        //let height = self.reviewsTableView.content
+                        //self.view.intrinsicContentSize.height
+                        //self.scrollview.contentSize.height = height + 758
+                        //print(height)
+                        self.orderedVC = {
+                            return [self.newViewController(viewController: "detailView"), self.newViewController(viewController: "reviewsView")]
+                        }()
+                        if let firstVC = self.orderedVC.first {
+                            self.setViewControllers([firstVC], direction: .forward, animated: true, completion: nil)
+                        }
+                        self.configurePageControl()
                     }
-                    self.configurePageControl()
                 }
+            })
+        }else {
+            self.orderedVC = { return [self.newViewController(viewController: "detailView")] }()
+            if let firstVC = self.orderedVC.first {
+                self.setViewControllers([firstVC], direction: .forward, animated: true, completion: nil)
             }
-        })
+        }
     }
 }
