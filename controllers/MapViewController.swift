@@ -228,9 +228,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             )
              
             map.addAnnotation(artwork)
-            
-            
-            
             map.register(ArtworkView.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
             map.register(UserClusterAnnotationView.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultClusterAnnotationViewReuseIdentifier)
           

@@ -59,6 +59,7 @@
 		C7CCE92423CD1629001F399E /* PushNotificationSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7CCE92323CD1629001F399E /* PushNotificationSender.swift */; };
 		C7D6EF6223711B6300D33E4B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D6EF6123711B6200D33E4B /* SceneDelegate.swift */; };
 		C7D9339A2399F98300CC5464 /* ReviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D933992399F98300CC5464 /* ReviewTableViewCell.swift */; };
+		C7E3D18223D20BEC005183C1 /* ListReviewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E3D18123D20BEC005183C1 /* ListReviewsViewController.swift */; };
 		C7E9E67A23710082004BB27C /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E9E67923710082004BB27C /* ProfileViewController.swift */; };
 		C7F805F12399351C005E1212 /* LocalDetailedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F805F02399351C005E1212 /* LocalDetailedViewController.swift */; };
 		EBBBBD2A23CD2958009B8496 /* ModalDetailPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBBBBD2923CD2958009B8496 /* ModalDetailPageViewController.swift */; };
@@ -146,6 +147,7 @@
 		C7CCE92323CD1629001F399E /* PushNotificationSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationSender.swift; sourceTree = "<group>"; };
 		C7D6EF6123711B6200D33E4B /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		C7D933992399F98300CC5464 /* ReviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewTableViewCell.swift; sourceTree = "<group>"; };
+		C7E3D18123D20BEC005183C1 /* ListReviewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListReviewsViewController.swift; sourceTree = "<group>"; };
 		C7E9E67923710082004BB27C /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		C7F805F02399351C005E1212 /* LocalDetailedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDetailedViewController.swift; sourceTree = "<group>"; };
 		D7D700F0C14C9D7F9D4CB253 /* Pods-localhost-localhostUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-localhost-localhostUITests.debug.xcconfig"; path = "Target Support Files/Pods-localhost-localhostUITests/Pods-localhost-localhostUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -293,6 +295,7 @@
 				5BAA241423BE545F007F7146 /* MapAnnotationModalViewController.swift */,
 				EBBBBD2923CD2958009B8496 /* ModalDetailPageViewController.swift */,
 				5B5FF03B23CE3847009B8AC7 /* ReviewsViewController.swift */,
+				C7E3D18123D20BEC005183C1 /* ListReviewsViewController.swift */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -579,6 +582,7 @@
 				230E0E8523986944001AB7E6 /* FiltersTableViewController.swift in Sources */,
 				C766EC69236FDE5E0006A248 /* RegisterViewController.swift in Sources */,
 				C7CCE92423CD1629001F399E /* PushNotificationSender.swift in Sources */,
+				C7E3D18223D20BEC005183C1 /* ListReviewsViewController.swift in Sources */,
 				C766EC67236FDE530006A248 /* LoginViewController.swift in Sources */,
 				C769DE8323839C9400020527 /* BiometricAuth.swift in Sources */,
 				C766EC5F236FD5420006A248 /* Utils.swift in Sources */,

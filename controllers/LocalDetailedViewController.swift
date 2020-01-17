@@ -25,12 +25,12 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
     @IBOutlet weak var labelLocalAddress: UILabel!
     @IBOutlet weak var buttonMapDirections: UIButton!
     @IBOutlet weak var mapView: MKMapView!
-    @IBOutlet weak var reviewsTableView: UITableView!
     @IBOutlet weak var ratingView: CosmosView!
     @IBOutlet weak var labelQtReviews: UILabel!
     @IBOutlet var btnFavoriteBarItem: UIBarButtonItem!
     @IBOutlet weak var imageViewLocal: UIImageView!
     @IBOutlet weak var scrollview: UIScrollView!
+    @IBOutlet weak var buttonPlaceReviews: UIButton!
     
     override func viewDidLoad() {
         mapView.delegate = self
@@ -96,8 +96,7 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
                     self.present(alert, animated: true, completion: nil)
                 } else {
                     self.reviews = reviews!
-                    print(reviews!)
-                    self.reviewsTableView.reloadData()
+                    //print(reviews!)
                     //let height = self.reviewsTableView.content
                     //self.view.intrinsicContentSize.height
                     //self.scrollview.contentSize.height = height + 758
@@ -142,10 +141,10 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
         mapView.register(ArtworkView.self,
                          forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
         
-        reviewsTableView.delegate=self
-        reviewsTableView.dataSource=self
-        reviewsTableView.tableFooterView = UIView()
-        
+    }
+    
+    @IBAction func buttonPlaceReviewsClicked(_ sender: Any) {
+        performSegue(withIdentifier: "segueReviewsDetail", sender: nil)
     }
     
     @IBAction func buttonMapClicked(_ sender: Any) {
@@ -200,6 +199,9 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let smld=segue.destination as? AskAdviceViewController {
             smld.local = self.local
+        }
+        if let rvd = segue.destination as? ListReviewsViewController {
+            rvd.reviews = self.reviews
         }
     }
     

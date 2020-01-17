@@ -75,9 +75,12 @@ class InitialViewController: UIViewController, CLLocationManagerDelegate{
                 }
                 else{
                     
-                    for local in locals!{
-                        Items.sharedInstance.locals.append(local)
+                    if Items.sharedInstance.locals.count == 0 {
+                        for local in locals!{
+                            Items.sharedInstance.locals.append(local)
+                        }
                     }
+                    
                     
                     self.goToMainScreen()
                     

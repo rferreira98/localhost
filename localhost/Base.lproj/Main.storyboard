@@ -1888,6 +1888,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V4D-H2-1sJ">
                                 <rect key="frame" x="120" y="541" width="135" height="30"/>
                                 <state key="normal" title="View Place Reviews"/>
+                                <connections>
+                                    <action selector="buttonPlaceReviewsClicked:" destination="49e-l4-9gV" eventType="touchUpInside" id="MNq-Zc-zRO"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -1912,6 +1915,7 @@
                     <connections>
                         <outlet property="btnFavoriteBarItem" destination="PfY-NN-9q8" id="VUh-71-6pH"/>
                         <outlet property="buttonMapDirections" destination="kCk-Lh-io8" id="YIN-bl-WUY"/>
+                        <outlet property="buttonPlaceReviews" destination="V4D-H2-1sJ" id="sSX-tx-GNv"/>
                         <outlet property="imageViewLocal" destination="3i0-4Y-Cyu" id="PdO-tY-0j8"/>
                         <outlet property="labelLocalAddress" destination="rq7-Zq-dyV" id="vLj-mT-bLr"/>
                         <outlet property="labelLocalName" destination="ZV2-Xc-IDO" id="5BN-Hu-bdw"/>
@@ -2027,14 +2031,24 @@
             </objects>
             <point key="canvasLocation" x="-2658" y="1697"/>
         </scene>
-        <!--Reviews View Controller-->
+        <!--List Reviews View Controller-->
         <scene sceneID="kna-Sv-ngQ">
             <objects>
-                <viewController id="Jmr-YD-KLD" customClass="ReviewsViewController" customModule="Localhost" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="1hg-vW-n2U" customClass="ReviewTableViewCell" customModule="Localhost" customModuleProvider="target">
+                <viewController id="Jmr-YD-KLD" customClass="ListReviewsViewController" customModule="Localhost" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="1hg-vW-n2U" userLabel="Reviews">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No reviews for you today" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cVN-2N-9SR">
+                                <rect key="frame" x="37.666666666666657" y="215.66666666666663" width="300" height="300"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="300" id="8vP-o7-oge"/>
+                                    <constraint firstAttribute="width" constant="300" id="Zmz-FS-83G"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="32"/>
+                                <color key="textColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reviews" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6J4-P9-uMN">
                                 <rect key="frame" x="16" y="65" width="179" height="41"/>
                                 <constraints>
@@ -2127,13 +2141,16 @@
                             <constraint firstItem="J9T-vp-vAq" firstAttribute="leading" secondItem="qXK-ox-jdd" secondAttribute="leading" id="Poy-3l-Ua1"/>
                             <constraint firstItem="6J4-P9-uMN" firstAttribute="leading" secondItem="qXK-ox-jdd" secondAttribute="leading" constant="16" id="X9Z-Op-vfh"/>
                             <constraint firstItem="6J4-P9-uMN" firstAttribute="top" secondItem="qXK-ox-jdd" secondAttribute="top" constant="9" id="fEI-0n-xbr"/>
+                            <constraint firstItem="cVN-2N-9SR" firstAttribute="centerX" secondItem="qXK-ox-jdd" secondAttribute="centerX" id="gvA-5s-B1B"/>
+                            <constraint firstItem="cVN-2N-9SR" firstAttribute="centerY" secondItem="qXK-ox-jdd" secondAttribute="centerY" id="uwd-TK-Vqb"/>
                             <constraint firstItem="qXK-ox-jdd" firstAttribute="bottom" secondItem="J9T-vp-vAq" secondAttribute="bottom" id="voq-iA-DKU"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="qXK-ox-jdd"/>
                     </view>
                     <navigationItem key="navigationItem" id="gjt-dN-G3W"/>
                     <connections>
-                        <outlet property="reviewsTableView" destination="J9T-vp-vAq" id="mAh-IC-IJI"/>
+                        <outlet property="NoReviewsLabel" destination="cVN-2N-9SR" id="cat-vd-RxW"/>
+                        <outlet property="reviewsTableView" destination="J9T-vp-vAq" id="hs0-6Y-isT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gFp-or-rCm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
