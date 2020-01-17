@@ -16,7 +16,6 @@
 		5B1748E923634BB5004532AE /* localhostTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1748E823634BB5004532AE /* localhostTests.swift */; };
 		5B1748F423634BB6004532AE /* localhostUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1748F323634BB6004532AE /* localhostUITests.swift */; };
 		5B5FF03C23CE3847009B8AC7 /* ReviewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5FF03B23CE3847009B8AC7 /* ReviewsViewController.swift */; };
-		5BA29D9E23D202C4002B831D /* Logo com letras.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BA29D9D23D202C3002B831D /* Logo com letras.png */; };
 		5BAA241523BE545F007F7146 /* MapAnnotationModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAA241423BE545F007F7146 /* MapAnnotationModalViewController.swift */; };
 		9996804D23B6873B00724F45 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9996804C23B6873B00724F45 /* ChatViewController.swift */; };
 		9996804F23B6886A00724F45 /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9996804E23B6886A00724F45 /* Chat.swift */; };
@@ -98,7 +97,6 @@
 		5B1748F323634BB6004532AE /* localhostUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = localhostUITests.swift; sourceTree = "<group>"; };
 		5B1748F523634BB6004532AE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5B5FF03B23CE3847009B8AC7 /* ReviewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsViewController.swift; sourceTree = "<group>"; };
-		5BA29D9D23D202C3002B831D /* Logo com letras.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Logo com letras.png"; path = "../../../Downloads/Logo com letras.png"; sourceTree = "<group>"; };
 		5BAA241423BE545F007F7146 /* MapAnnotationModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAnnotationModalViewController.swift; sourceTree = "<group>"; };
 		7F954917C992F384FB4FCEF7 /* Pods-localhostTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-localhostTests.debug.xcconfig"; path = "Target Support Files/Pods-localhostTests/Pods-localhostTests.debug.xcconfig"; sourceTree = "<group>"; };
 		8310D0417BE2BF3022CAE98E /* Pods_localhost_localhostUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_localhost_localhostUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -238,7 +236,6 @@
 		5B1748D023634BB3004532AE /* localhost */ = {
 			isa = PBXGroup;
 			children = (
-				5BA29D9D23D202C3002B831D /* Logo com letras.png */,
 				C75996462388C2D100E23CE5 /* Localhost.entitlements */,
 				C7D6EF6123711B6200D33E4B /* SceneDelegate.swift */,
 				5B1748D123634BB3004532AE /* AppDelegate.swift */,
@@ -448,7 +445,6 @@
 				C7A31CB123CFF40900271E76 /* Localizable.strings in Resources */,
 				C7CA1DFB236FE5F200A1A72A /* Main.storyboard in Resources */,
 				C7CCE92023CCDDF6001F399E /* GoogleService-Info.plist in Resources */,
-				5BA29D9E23D202C4002B831D /* Logo com letras.png in Resources */,
 				5B1748DE23634BB5004532AE /* LaunchScreen.storyboard in Resources */,
 				5B1748DB23634BB5004532AE /* Assets.xcassets in Resources */,
 			);

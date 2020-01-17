@@ -29,7 +29,6 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
     @IBOutlet weak var labelQtReviews: UILabel!
     @IBOutlet var btnFavoriteBarItem: UIBarButtonItem!
     @IBOutlet weak var imageViewLocal: UIImageView!
-    @IBOutlet weak var scrollview: UIScrollView!
     @IBOutlet weak var buttonPlaceReviews: UIButton!
     
     override func viewDidLoad() {

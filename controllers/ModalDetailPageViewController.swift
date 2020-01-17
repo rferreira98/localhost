@@ -17,12 +17,31 @@ class ModalDetailPageViewController: UIPageViewController, UIPageViewControllerD
 
     override func viewDidLoad() {
         getReviews(self.local.id, isLogged: User.hasUserLoggedIn())
+        let width = self.view.frame.width
+        let navigationBar:UINavigationBar = UINavigationBar(frame: CGRect(x:0,y:0,width:width,height:64))
+        navigationBar.backgroundColor  = .clear
+        
+        
+        
+        let navigationItem = UIButton(frame: CGRect(x:0,y:0,width:64,height:44))
+        navigationItem.setImage(UIImage(named: "chevron-dwon"), for: .normal)
+        navigationBar.setItems([navigationItem as! UINavigationItem], animated: false)
+        
+        self.view.addSubview(navigationBar)
         super.viewDidLoad()
         self.view.backgroundColor = .clear
         self.dataSource = self
         self.delegate = self        
     }
     
+    
+    
+    
+    @IBOutlet weak var downButton: UIButton!
+    @IBAction func dragDownTouched(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+        self.dismiss(animated: true, completion: nil)
+    }
     
     func configurePageControl(){
         pageControl = UIPageControl(frame: CGRect(x: 0, y: UIScreen.main.bounds.maxY - (UIScreen.main.bounds.maxY * 0.12), width: UIScreen.main.bounds.width, height: 50))

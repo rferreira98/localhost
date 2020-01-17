@@ -268,7 +268,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         if User.hasUserLoggedIn(){
             let artwork = view.annotation as! Artwork
             localToSend = artwork.local
-            
             performSegue(withIdentifier: "segueMapLocalDetail", sender: nil)
         }else {
             let alert = UIAlertController(title: NSLocalizedString("Not Logged In", comment: ""), message: NSLocalizedString("To perform more actions you need to be logged in", comment: ""), preferredStyle: UIAlertController.Style.alert)
