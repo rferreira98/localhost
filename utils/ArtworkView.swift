@@ -45,7 +45,7 @@ class ArtworkView: MKAnnotationView {
     override var annotation: MKAnnotation? {
         willSet{
             guard let artwork = newValue as? Artwork else {return}
-            canShowCallout = false
+            canShowCallout = true
             calloutOffset = CGPoint(x: 0, y: 5)
             clusteringIdentifier = ArtworkView.preferredClusteringIdentifier
             image = UIImage(named: "NewMarker")
@@ -60,7 +60,15 @@ class ArtworkView: MKAnnotationView {
                 // activate the constraints
                 NSLayoutConstraint.activate([verticalSpace, centerAlignment])
             }
-            /*
+            
+            
+            let mapsButton = UIButton(frame: CGRect(origin: CGPoint.zero,
+               size: CGSize(width: 30, height: 30)))
+            mapsButton.setBackgroundImage(UIImage(named: "Info"), for: UIControl.State())
+            
+            rightCalloutAccessoryView = mapsButton
+            image = UIImage(named: "NewMarker")
+            
             let detailLabel = UILabel()
             detailLabel.numberOfLines = 0
             detailLabel.font = detailLabel.font.withSize(12)
@@ -79,7 +87,6 @@ class ArtworkView: MKAnnotationView {
             
             
             detailCalloutAccessoryView = classification
-*/
             
             
             /*detailCalloutAccessoryView!.addConstraint(NSLayoutConstraint(item: classification, attribute: .trailing, relatedBy: .equal, toItem: detailLabel, attribute: .trailing, multiplier: 1, constant: 0))

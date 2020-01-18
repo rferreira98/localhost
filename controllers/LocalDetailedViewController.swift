@@ -45,6 +45,22 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
         mapView.showsPointsOfInterest = true
         mapView.isUserInteractionEnabled = false
         
+        buttonPlaceReviews.centerVertically(padding: 0, leftImageInsetDivider: 1.8)
+        buttonPlaceReviews.backgroundColor = UIColor(named: "AppGreenButton")
+        buttonPlaceReviews.layer.cornerRadius = 6
+        //buttonPlaceReviews.layer.borderWidth = 0
+        //buttonPlaceReviews.layer.borderColor = UIColor(named: "AppGreenButton")?.cgColor
+        
+        buttonMapDirections.centerVertically(padding: 0, leftImageInsetDivider: 1.8)
+        buttonMapDirections.backgroundColor = UIColor(named:"AppGreenButton")
+        buttonMapDirections.layer.cornerRadius = 6
+        
+        btnAskOrGoToQuestion.centerVertically(padding: 0, leftImageInsetDivider: 1.6)
+        btnAskOrGoToQuestion.backgroundColor = UIColor(named:"AppGreenButton")
+        btnAskOrGoToQuestion.layer.cornerRadius = 6
+        
+        
+        
             //reviews = local.reviews
             //print(local.reviews.count)
             //print(reviews.count)
@@ -62,7 +78,7 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
         self.labelLocalAddress.text = local.address
         self.ratingView.isUserInteractionEnabled = false
         self.ratingView.rating = self.local.avgRating
-        self.labelQtReviews.text = String(local.qtReviews)
+        self.labelQtReviews.text = String(local.qtReviews) + " " + NSLocalizedString("Reviews", comment: "")
         self.imageViewLocal.contentMode = .scaleAspectFill
         self.imageViewLocal.sd_setImage(with: URL(string: local.imageUrl), placeholderImage: UIImage(named: "NoPhotoRestaurant"))
         
@@ -107,14 +123,14 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
         NetworkHandler.hasQuestion(local_id: local_id, completion: { (hasQuestion, error) in
             OperationQueue.main.addOperation {
                 if error != nil {
-                    let alert = Utils.triggerAlert(title: "Erro", error: error)
+                    let alert = Utils.triggerAlert(title: NSLocalizedString("Error", comment: ""), error: error)
                     self.present(alert, animated: true, completion: nil)
                 } else {
                     if hasQuestion != nil && hasQuestion?.id != -1{
                         self.questionToSend = hasQuestion
-                        self.btnAskOrGoToQuestion.titleLabel?.text = "Go to Chat"
+                        self.btnAskOrGoToQuestion.titleLabel?.text = NSLocalizedString("Go to Chat", comment: "")
                     } else{
-                        self.btnAskOrGoToQuestion.titleLabel?.text = "Ask Advice"
+                        self.btnAskOrGoToQuestion.titleLabel?.text = NSLocalizedString("Ask Advice", comment: "")
                     }
                     //let height = self.reviewsTableView.content
                     //self.view.intrinsicContentSize.height
@@ -314,5 +330,47 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
             self.present(alert, animated: true)
         }
     }
+}
+
+extension UIButton {
+
+    func centerVertically(padding: CGFloat = 0.0, leftImageInsetDivider: CGFloat) {
+        guard
+            let imageViewSize = self.imageView?.frame.size,
+            let titleLabelSize = self.titleLabel?.frame.size else {
+            return
+        }
+
+        let totalHeight = imageViewSize.height + titleLabelSize.height + padding
+
+        self.imageEdgeInsets = UIEdgeInsets(
+            //top: -(totalHeight - imageViewSize.height),
+            top: -24,
+            //left: 0.0,
+            //left: titleLabelSize.width/1.8,
+            left: titleLabelSize.width/leftImageInsetDivider,
+            bottom: 0.0,
+            //right: -titleLabelSize.width
+            right: -0.0
+        )
+
+        self.titleEdgeInsets = UIEdgeInsets(
+            top: 0.0,
+            left: -imageViewSize.width,
+            bottom: -(totalHeight - titleLabelSize.height),
+            right: 0.0
+        )
+
+        self.contentEdgeInsets = UIEdgeInsets(
+            //top: titleLabelSize.height/1.6,
+            top:34/1.6,
+            left: 0.0,
+            //bottom: titleLabelSize.height/2,
+            bottom: 34/2,
+            right: 0.0
+        )
+    
+    }
+
 }
 

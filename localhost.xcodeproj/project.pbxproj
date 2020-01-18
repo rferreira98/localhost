@@ -118,6 +118,8 @@
 		C72BAED9236FC4240022C461 /* LocationSearchTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchTableController.swift; sourceTree = "<group>"; };
 		C75321DA239688CC003BB49C /* CustomAnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAnotation.swift; sourceTree = "<group>"; };
 		C75996462388C2D100E23CE5 /* Localhost.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Localhost.entitlements; sourceTree = "<group>"; };
+		C75A19A723D243240097C38E /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Main.strings"; sourceTree = "<group>"; };
+		C75A19AB23D24A710097C38E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		C766EC57236FD1120006A248 /* MapFiltersController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapFiltersController.swift; sourceTree = "<group>"; };
 		C766EC59236FD4D20006A248 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		C766EC5B236FD4FC0006A248 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
@@ -134,13 +136,11 @@
 		C78DA8482381EE8500CCD60C /* NetworkHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkHandler.swift; sourceTree = "<group>"; };
 		C78DA84A2382145F00CCD60C /* NetworkErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkErrors.swift; sourceTree = "<group>"; };
 		C78DA84C2382263400CCD60C /* Cities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cities.swift; sourceTree = "<group>"; };
-		C7A31CAF23CFF34100271E76 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		C7A31CB223CFF40900271E76 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C7A31CB423CFF41E00271E76 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		C7A81B9C239883BB00B59A7A /* ArtworkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtworkView.swift; sourceTree = "<group>"; };
 		C7B62394236FE1B900CF4CF6 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		C7B62397236FE20700CF4CF6 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		C7C8888223D1E67B00EAD502 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Main.strings"; sourceTree = "<group>"; };
 		C7CA1DFA236FE5F200A1A72A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C7CCE91F23CCDDF5001F399E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C7CCE92123CCE556001F399E /* PushNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationManager.swift; sourceTree = "<group>"; };
@@ -659,7 +659,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				5B1748DD23634BB5004532AE /* Base */,
-				C7A31CAF23CFF34100271E76 /* pt-PT */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -677,7 +676,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				C7CA1DFA236FE5F200A1A72A /* Base */,
-				C7C8888223D1E67B00EAD502 /* pt-PT */,
+				C75A19A723D243240097C38E /* pt-PT */,
+				C75A19AB23D24A710097C38E /* en */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";

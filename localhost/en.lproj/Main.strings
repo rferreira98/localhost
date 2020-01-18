@@ -68,9 +68,6 @@
 /* Class = "UITableViewSection"; headerTitle = "About"; ObjectID = "GGk-5X-115"; */
 "GGk-5X-115.headerTitle" = "About";
 
-/* Class = "UILabel"; text = "Label"; ObjectID = "Hz8-8a-fgb"; */
-"Hz8-8a-fgb.text" = "Label";
-
 /* Class = "UITextField"; placeholder = "Local"; ObjectID = "INN-B6-1Pr"; */
 "INN-B6-1Pr.placeholder" = "Local";
 
@@ -119,14 +116,14 @@
 /* Class = "UITextField"; placeholder = "Local"; ObjectID = "UvZ-Kt-hU6"; */
 "UvZ-Kt-hU6.placeholder" = "Local";
 
+/* Class = "UIButton"; normalTitle = "Reviews"; ObjectID = "V4D-H2-1sJ"; */
+"V4D-H2-1sJ.normalTitle" = "Reviews";
+
 /* Class = "UITableViewSection"; headerTitle = "Range"; ObjectID = "VNb-m9-XFD"; */
 "VNb-m9-XFD.headerTitle" = "Range";
 
 /* Class = "UIButton"; normalTitle = "Reset Filters"; ObjectID = "WfJ-EO-SdQ"; */
 "WfJ-EO-SdQ.normalTitle" = "Reset Filters";
-
-/* Class = "UILabel"; text = "Classification: "; ObjectID = "Wkc-f0-T2I"; */
-"Wkc-f0-T2I.text" = "Classification: ";
 
 /* Class = "UIButton"; normalTitle = "Register"; ObjectID = "XcO-BP-B2H"; */
 "XcO-BP-B2H.normalTitle" = "Register";
@@ -146,9 +143,6 @@
 /* Class = "UITableViewController"; title = "Settings"; ObjectID = "atx-kn-CUc"; */
 "atx-kn-CUc.title" = "Settings";
 
-/* Class = "UILabel"; text = "Label"; ObjectID = "b5S-6g-lU0"; */
-"b5S-6g-lU0.text" = "Label";
-
 /* Class = "UILabel"; text = "(0)"; ObjectID = "bGj-rn-9dL"; */
 "bGj-rn-9dL.text" = "(0)";
 
@@ -157,6 +151,9 @@
 
 /* Class = "UILabel"; text = "Ask Advice"; ObjectID = "cFb-lA-n7P"; */
 "cFb-lA-n7P.text" = "Ask Advice";
+
+/* Class = "UILabel"; text = "No reviews for you today"; ObjectID = "cVN-2N-9SR"; */
+"cVN-2N-9SR.text" = "No reviews for you today";
 
 /* Class = "UILabel"; text = "Label"; ObjectID = "d2H-QI-DPe"; */
 "d2H-QI-DPe.text" = "Label";
@@ -194,8 +191,8 @@
 /* Class = "UILabel"; text = "Classification"; ObjectID = "iNG-ft-MPN"; */
 "iNG-ft-MPN.text" = "Classification";
 
-/* Class = "UIButton"; normalTitle = "Ask Advice for this Restaurant"; ObjectID = "iOc-0Z-zr2"; */
-"iOc-0Z-zr2.normalTitle" = "Ask Advice for this Restaurant";
+/* Class = "UIButton"; normalTitle = "Ask Advice"; ObjectID = "iOc-0Z-zr2"; */
+"iOc-0Z-zr2.normalTitle" = "Ask Advice";
 
 /* Class = "UITableViewSection"; headerTitle = "Settings"; ObjectID = "iQv-BT-dJf"; */
 "iQv-BT-dJf.headerTitle" = "Settings";
@@ -206,8 +203,8 @@
 /* Class = "UITextField"; placeholder = "Confirm Password"; ObjectID = "jqk-jU-Jpk"; */
 "jqk-jU-Jpk.placeholder" = "Confirm Password";
 
-/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "kCk-Lh-io8"; */
-"kCk-Lh-io8.normalTitle" = "Button";
+/* Class = "UIButton"; normalTitle = "Directions"; ObjectID = "kCk-Lh-io8"; */
+"kCk-Lh-io8.normalTitle" = "Directions";
 
 /* Class = "UILabel"; text = "Email"; ObjectID = "kXt-Zo-cbl"; */
 "kXt-Zo-cbl.text" = "Email";
@@ -310,3 +307,6 @@
 
 /* Class = "UILabel"; text = "Language"; ObjectID = "zEZ-P8-MWP"; */
 "zEZ-P8-MWP.text" = "Language";
+
+/* Class = "UIButton"; normalTitle = "Directions"; ObjectID = "kCk-Lh-io8"; */
+"kCk-Lh-io8.normalTitle" = "Directions";
