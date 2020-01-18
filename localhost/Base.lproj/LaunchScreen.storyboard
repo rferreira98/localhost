@@ -36,7 +36,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="LocalhostIconWhite" width="411" height="397"/>
+        <image name="LocalhostIconWhite" width="374" height="322"/>
         <namedColor name="AppGreenPrimary">
             <color red="0.42699998617172241" green="0.70999997854232788" blue="0.17599999904632568" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

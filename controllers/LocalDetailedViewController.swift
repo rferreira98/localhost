@@ -120,26 +120,53 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
     }
     
     public func hasQuestion(_ local_id:Int){
-        NetworkHandler.hasQuestion(local_id: local_id, completion: { (hasQuestion, error) in
-            OperationQueue.main.addOperation {
-                if error != nil {
-                    let alert = Utils.triggerAlert(title: NSLocalizedString("Error", comment: ""), error: error)
-                    self.present(alert, animated: true, completion: nil)
-                } else {
-                    if hasQuestion != nil && hasQuestion?.id != -1{
-                        self.questionToSend = hasQuestion
-                        self.btnAskOrGoToQuestion.titleLabel?.text = NSLocalizedString("Go to Chat", comment: "")
-                    } else{
-                        self.btnAskOrGoToQuestion.titleLabel?.text = NSLocalizedString("Ask Advice", comment: "")
+        
+        if User.hasUserLoggedIn(){
+            NetworkHandler.hasQuestion(local_id: local_id, completion: { (hasQuestion, error) in
+                OperationQueue.main.addOperation {
+                    if error != nil {
+                        let alert = Utils.triggerAlert(title: NSLocalizedString("Error", comment: ""), error: error)
+                        self.present(alert, animated: true, completion: nil)
+                    } else {
+                        if hasQuestion != nil && hasQuestion?.id != -1{
+                            self.questionToSend = hasQuestion
+                            self.btnAskOrGoToQuestion.titleLabel?.text = NSLocalizedString("Go to Chat", comment: "")
+                        } else{
+                            self.btnAskOrGoToQuestion.titleLabel?.text = NSLocalizedString("Ask Advice", comment: "")
+                        }
+                        //let height = self.reviewsTableView.content
+                        //self.view.intrinsicContentSize.height
+                        //self.scrollview.contentSize.height = height + 758
+                        //print(height)
                     }
-                    //let height = self.reviewsTableView.content
-                    //self.view.intrinsicContentSize.height
-                    //self.scrollview.contentSize.height = height + 758
-                    //print(height)
                 }
-            }
 
-        })
+            })
+        }
+        
+        /*let alert = UIAlertController(title: NSLocalizedString("Not Logged In", comment: ""), message: NSLocalizedString("To perform more actions you need to be logged in", comment: ""), preferredStyle: UIAlertController.Style.alert)
+        
+        // add the actions (buttons)
+        alert.addAction(UIAlertAction(title: "Login", style: UIAlertAction.Style.default, handler: {
+            action in
+            let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let loginViewController = storyBoard.instantiateViewController(withIdentifier: "loginViewController")
+            self.present(loginViewController, animated: true, completion: nil)
+        }))
+        alert.addAction(UIAlertAction(title: NSLocalizedString("Register", comment: ""), style: UIAlertAction.Style.default, handler: { action in
+            let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let registerViewController = storyBoard.instantiateViewController(withIdentifier: "registerViewController")
+            self.present(registerViewController, animated: true, completion: nil)
+        }))
+        alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: UIAlertAction.Style.cancel, handler: {
+        action in
+             tableView.cellForRow(at: indexPath)?.isSelected = false
+        }))
+        
+        
+        // show the alert
+        self.present(alert, animated: true, completion: nil)*/
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -269,13 +296,37 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
     }
     
     @IBAction func onClickAskOrGoToQuestionBtn(_ sender: Any) {
-        //if text equals go to question perform chat segue
-        if self.btnAskOrGoToQuestion.titleLabel?.text == "Go to Chat" {
-            self.goingForwards = true
-            performSegue(withIdentifier: "goToChat", sender: nil)
-        } else{
-            performSegue(withIdentifier: "goToAskModal", sender: nil)
+        
+        if User.hasUserLoggedIn(){
+            //if text equals go to question perform chat segue
+            if self.btnAskOrGoToQuestion.titleLabel?.text == "Go to Chat" {
+                self.goingForwards = true
+                performSegue(withIdentifier: "goToChat", sender: nil)
+            } else{
+                performSegue(withIdentifier: "goToAskModal", sender: nil)
+            }
+        }else{
+            let alert = UIAlertController(title: NSLocalizedString("Not Logged In", comment: ""), message: NSLocalizedString("To perform this action you need to be logged in", comment: ""), preferredStyle: UIAlertController.Style.alert)
+            
+            // add the actions (buttons)
+            alert.addAction(UIAlertAction(title: "Login", style: UIAlertAction.Style.default, handler: {
+                action in
+                let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                let loginViewController = storyBoard.instantiateViewController(withIdentifier: "loginViewController")
+                self.present(loginViewController, animated: true, completion: nil)
+            }))
+            alert.addAction(UIAlertAction(title: NSLocalizedString("Register", comment: ""), style: UIAlertAction.Style.default, handler: { action in
+                let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                let registerViewController = storyBoard.instantiateViewController(withIdentifier: "registerViewController")
+                self.present(registerViewController, animated: true, completion: nil)
+            }))
+            alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: UIAlertAction.Style.cancel, handler:nil))
+            
+            
+            // show the alert
+            self.present(alert, animated: true, completion: nil)
         }
+        
     }
     
     
