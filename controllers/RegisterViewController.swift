@@ -10,8 +10,11 @@ import UIKit
 import RSKImageCropper
 import InitialsImageView
 import FirebaseMessaging
+import AVKit
+import AVFoundation
 
-class RegisterViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate & UINavigationControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource, RSKImageCropViewControllerDelegate {
+class RegisterViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource, RSKImageCropViewControllerDelegate {
+       
     
     
     func imageCropViewControllerDidCancelCrop(_ controller: RSKImageCropViewController) {
@@ -33,7 +36,8 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIImagePick
     @IBOutlet weak var textFieldLocal: UITextField!
     @IBOutlet weak var imageViewAvatar: UIImageView!
     @IBOutlet weak var backButton: UIBarButtonItem!
-    
+    @IBOutlet weak var videoView: UIView!
+    var player:AVPlayer?
     
     var hasAddedAvatar: Bool = false
    
@@ -50,6 +54,21 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIImagePick
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if let filePath = Bundle.main.path(forResource: "register_screen", ofType:"mp4") {
+            let filePathUrl = NSURL.fileURL(withPath: filePath)
+            player = AVPlayer(url: filePathUrl)
+            let playerLayer = AVPlayerLayer(player: player)
+            playerLayer.frame = self.videoView.bounds
+            playerLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
+            NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: self.player?.currentItem, queue: nil) { (_) in
+                self.player?.seek(to: CMTime.zero)
+                self.player?.play()
+            }
+            self.videoView.layer.addSublayer(playerLayer)
+        }
+        
+        player?.play()
         
         UserDefaults.standard.set(false, forKey: "usesBiometricAuth")
         UserDefaults.standard.set(false, forKey: "biometricPrompted")

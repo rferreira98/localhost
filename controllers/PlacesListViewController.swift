@@ -262,7 +262,8 @@ class PlacesListViewController: UITableViewController, UISearchBarDelegate {
         cell.ratingView.isUserInteractionEnabled = false
         cell.ratingView.rating = local.avgRating
         cell.localPhoto.contentMode = .scaleAspectFill
-        cell.localPhoto.sd_setImage(with: URL(string: local.imageUrl), placeholderImage: UIImage(named: "NoPhotoRestaurant"))
+        //cell.localPhoto.backgroundColor = UIColor.init(red: <#T##CGFloat#>, green: <#T##CGFloat#>, blue: <#T##CGFloat#>, alpha: <#T##CGFloat#>)
+        cell.localPhoto.sd_setImage(with: URL(string: local.imageUrl), placeholderImage: UIImage(named: "Restaurant_placeholder"))
         //cell.localPhoto.image = cropToBounds(image: cell.localPhoto.image!, width: 80, height: 80)
         
         return cell

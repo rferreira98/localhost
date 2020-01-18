@@ -112,9 +112,19 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
                 } else {
                     if hasQuestion != nil && hasQuestion?.id != -1{
                         self.questionToSend = hasQuestion
-                        self.btnAskOrGoToQuestion.titleLabel?.text = "Go to Chat"
+                        UIView.transition(with: self.btnAskOrGoToQuestion.titleLabel!,
+                             duration: 0.25,
+                              options: .transitionCrossDissolve,
+                           animations: { [weak self] in
+                            self?.btnAskOrGoToQuestion.titleLabel!.text = "Go to Chat"
+                        }, completion: nil)
                     } else{
-                        self.btnAskOrGoToQuestion.titleLabel?.text = "Ask Advice"
+                        UIView.transition(with: self.btnAskOrGoToQuestion.titleLabel!,
+                             duration: 0.25,
+                              options: .transitionCrossDissolve,
+                           animations: { [weak self] in
+                            self?.btnAskOrGoToQuestion.titleLabel!.text = "Ask advice"
+                        }, completion: nil)
                     }
                     //let height = self.reviewsTableView.content
                     //self.view.intrinsicContentSize.height

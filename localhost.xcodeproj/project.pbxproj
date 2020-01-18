@@ -16,6 +16,8 @@
 		5B1748E923634BB5004532AE /* localhostTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1748E823634BB5004532AE /* localhostTests.swift */; };
 		5B1748F423634BB6004532AE /* localhostUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1748F323634BB6004532AE /* localhostUITests.swift */; };
 		5B5FF03C23CE3847009B8AC7 /* ReviewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5FF03B23CE3847009B8AC7 /* ReviewsViewController.swift */; };
+		5BA61B9A23D34EEA00E7E25B /* login_screen.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 5BA61B9923D34EEA00E7E25B /* login_screen.mp4 */; };
+		5BA61B9C23D35A1000E7E25B /* register_screen.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 5BA61B9B23D35A0F00E7E25B /* register_screen.mp4 */; };
 		5BAA241523BE545F007F7146 /* MapAnnotationModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAA241423BE545F007F7146 /* MapAnnotationModalViewController.swift */; };
 		9996804D23B6873B00724F45 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9996804C23B6873B00724F45 /* ChatViewController.swift */; };
 		9996804F23B6886A00724F45 /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9996804E23B6886A00724F45 /* Chat.swift */; };
@@ -97,6 +99,8 @@
 		5B1748F323634BB6004532AE /* localhostUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = localhostUITests.swift; sourceTree = "<group>"; };
 		5B1748F523634BB6004532AE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5B5FF03B23CE3847009B8AC7 /* ReviewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsViewController.swift; sourceTree = "<group>"; };
+		5BA61B9923D34EEA00E7E25B /* login_screen.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = login_screen.mp4; sourceTree = "<group>"; };
+		5BA61B9B23D35A0F00E7E25B /* register_screen.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = register_screen.mp4; sourceTree = "<group>"; };
 		5BAA241423BE545F007F7146 /* MapAnnotationModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAnnotationModalViewController.swift; sourceTree = "<group>"; };
 		7F954917C992F384FB4FCEF7 /* Pods-localhostTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-localhostTests.debug.xcconfig"; path = "Target Support Files/Pods-localhostTests/Pods-localhostTests.debug.xcconfig"; sourceTree = "<group>"; };
 		8310D0417BE2BF3022CAE98E /* Pods_localhost_localhostUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_localhost_localhostUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -236,6 +240,8 @@
 		5B1748D023634BB3004532AE /* localhost */ = {
 			isa = PBXGroup;
 			children = (
+				5BA61B9B23D35A0F00E7E25B /* register_screen.mp4 */,
+				5BA61B9923D34EEA00E7E25B /* login_screen.mp4 */,
 				C75996462388C2D100E23CE5 /* Localhost.entitlements */,
 				C7D6EF6123711B6200D33E4B /* SceneDelegate.swift */,
 				5B1748D123634BB3004532AE /* AppDelegate.swift */,
@@ -270,32 +276,32 @@
 		C72BAED4236FA6E30022C461 /* controllers */ = {
 			isa = PBXGroup;
 			children = (
+				99D4020323B803060093ADBC /* AskAdviceViewController.swift */,
+				9996804C23B6873B00724F45 /* ChatViewController.swift */,
+				C75321DA239688CC003BB49C /* CustomAnotation.swift */,
+				230E0E8423986944001AB7E6 /* FiltersTableViewController.swift */,
 				C766EC5B236FD4FC0006A248 /* InfoViewController.swift */,
+				C720D48B239844220039A433 /* InitialViewController.swift */,
 				C766EC64236FDCDD0006A248 /* ListFiltersController.swift */,
+				C7E3D18123D20BEC005183C1 /* ListReviewsViewController.swift */,
+				C7F805F02399351C005E1212 /* LocalDetailedViewController.swift */,
+				C776DE642395268D00EA1767 /* LocalTableViewCell.swift */,
 				C72BAED9236FC4240022C461 /* LocationSearchTableController.swift */,
 				C766EC66236FDE530006A248 /* LoginViewController.swift */,
+				C711AD7D238D7E4000A58DE7 /* MapAnnotationDetailController.swift */,
+				5BAA241423BE545F007F7146 /* MapAnnotationModalViewController.swift */,
 				C766EC57236FD1120006A248 /* MapFiltersController.swift */,
 				C72BAED7236FC2A40022C461 /* MapViewController.swift */,
+				EBBBBD2923CD2958009B8496 /* ModalDetailPageViewController.swift */,
 				C766EC62236FDB4D0006A248 /* PlacesListViewController.swift */,
 				C7E9E67923710082004BB27C /* ProfileViewController.swift */,
+				99D4020523BA3BA50093ADBC /* QuestionTableViewCell.swift */,
 				C766EC60236FD9AD0006A248 /* RecommendationsViewController.swift */,
 				C766EC68236FDE5E0006A248 /* RegisterViewController.swift */,
+				5B5FF03B23CE3847009B8AC7 /* ReviewsViewController.swift */,
+				C7D933992399F98300CC5464 /* ReviewTableViewCell.swift */,
 				C766EC59236FD4D20006A248 /* SettingsViewController.swift */,
 				C7B62394236FE1B900CF4CF6 /* TabBarController.swift */,
-				C711AD7D238D7E4000A58DE7 /* MapAnnotationDetailController.swift */,
-				C776DE642395268D00EA1767 /* LocalTableViewCell.swift */,
-				C75321DA239688CC003BB49C /* CustomAnotation.swift */,
-				C720D48B239844220039A433 /* InitialViewController.swift */,
-				230E0E8423986944001AB7E6 /* FiltersTableViewController.swift */,
-				C7F805F02399351C005E1212 /* LocalDetailedViewController.swift */,
-				C7D933992399F98300CC5464 /* ReviewTableViewCell.swift */,
-				9996804C23B6873B00724F45 /* ChatViewController.swift */,
-				99D4020323B803060093ADBC /* AskAdviceViewController.swift */,
-				99D4020523BA3BA50093ADBC /* QuestionTableViewCell.swift */,
-				5BAA241423BE545F007F7146 /* MapAnnotationModalViewController.swift */,
-				EBBBBD2923CD2958009B8496 /* ModalDetailPageViewController.swift */,
-				5B5FF03B23CE3847009B8AC7 /* ReviewsViewController.swift */,
-				C7E3D18123D20BEC005183C1 /* ListReviewsViewController.swift */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -442,9 +448,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5BA61B9C23D35A1000E7E25B /* register_screen.mp4 in Resources */,
 				C7A31CB123CFF40900271E76 /* Localizable.strings in Resources */,
 				C7CA1DFB236FE5F200A1A72A /* Main.storyboard in Resources */,
 				C7CCE92023CCDDF6001F399E /* GoogleService-Info.plist in Resources */,
+				5BA61B9A23D34EEA00E7E25B /* login_screen.mp4 in Resources */,
 				5B1748DE23634BB5004532AE /* LaunchScreen.storyboard in Resources */,
 				5B1748DB23634BB5004532AE /* Assets.xcassets in Resources */,
 			);
