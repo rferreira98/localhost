@@ -11,7 +11,13 @@ import FirebaseMessaging
 import AVKit
 import AVFoundation
 
+protocol LoginHasBeenMade: NSObjectProtocol {
+    func sendBool(loginMade: Bool)
+}
+
 class LoginViewController: UIViewController, UITextFieldDelegate {
+    
+    var delegate: LoginHasBeenMade?
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -237,6 +243,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         first.modalPresentationStyle = .fullScreen
         //self.dismiss(animated: true, completion: nil)
         self.present(first, animated: true, completion: nil)*/
+        delegate?.sendBool(loginMade: true)
         self.navigationController?.popViewController(animated: true)
         dismiss(animated: true, completion: nil)
     }

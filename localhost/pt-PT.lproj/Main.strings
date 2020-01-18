@@ -117,7 +117,7 @@
 "UvZ-Kt-hU6.placeholder" = "Local";
 
 /* Class = "UIButton"; normalTitle = "Ver Reviews do Local"; ObjectID = "V4D-H2-1sJ"; */
-"V4D-H2-1sJ.normalTitle" = "Ver";
+"V4D-H2-1sJ.normalTitle" = "Opiniões";
 
 /* Class = "UITableViewSection"; headerTitle = "Range"; ObjectID = "VNb-m9-XFD"; */
 "VNb-m9-XFD.headerTitle" = "Alcance";
@@ -192,7 +192,7 @@
 "iNG-ft-MPN.text" = "Classificação";
 
 /* Class = "UIButton"; normalTitle = "Ask Advice for this Restaurant"; ObjectID = "iOc-0Z-zr2"; */
-"iOc-0Z-zr2.normalTitle" = "Pedir opinião sobre este Restaurante";
+"iOc-0Z-zr2.normalTitle" = "Pedir opinião";
 
 /* Class = "UITableViewSection"; headerTitle = "Settings"; ObjectID = "iQv-BT-dJf"; */
 "iQv-BT-dJf.headerTitle" = "Detalhes";
@@ -307,3 +307,6 @@
 
 /* Class = "UILabel"; text = "Language"; ObjectID = "zEZ-P8-MWP"; */
 "zEZ-P8-MWP.text" = "Linguagem";
+
+/* Class = "UIButton"; normalTitle = "Directions"; ObjectID = "kCk-Lh-io8"; */
+"kCk-Lh-io8.normalTitle" = "Direções";

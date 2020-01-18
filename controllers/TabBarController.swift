@@ -24,7 +24,7 @@ class TabBarController : UITabBarController, UITabBarControllerDelegate{
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
         
        if !User.hasUserLoggedIn(){
-            if viewController == tabBarController.viewControllers?[2] || viewController == tabBarController.viewControllers?[3] {
+            if viewController == tabBarController.viewControllers?[2] {
                 return false
             }
            
@@ -36,7 +36,7 @@ class TabBarController : UITabBarController, UITabBarControllerDelegate{
     
     
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
-         if item == tabBar.items?[2] || item == tabBar.items?[3] {
+         if item == tabBar.items?[2] {
             
             if !User.hasUserLoggedIn(){
                 

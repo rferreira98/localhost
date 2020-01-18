@@ -17,17 +17,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Incrível" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TSr-jL-2zo">
-                                <rect key="frame" x="101.00000000000001" y="381.33333333333331" width="173.33333333333337" height="59.666666666666686"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="50"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <imageView clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LocalhostIconWhite" translatesAutoresizingMaskIntoConstraints="NO" id="DI5-nh-2nI">
+                                <rect key="frame" x="-186.66666666666666" y="279" width="748.33333333333337" height="264"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" name="AppGreenPrimary"/>
                         <constraints>
-                            <constraint firstItem="TSr-jL-2zo" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="3J3-Be-vT1"/>
-                            <constraint firstItem="TSr-jL-2zo" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="zKc-Fq-6GG"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="DI5-nh-2nI" secondAttribute="bottom" constant="235" id="Lyr-5q-md7"/>
+                            <constraint firstItem="DI5-nh-2nI" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="Ymw-Fx-dJ8"/>
+                            <constraint firstItem="DI5-nh-2nI" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="235" id="eV4-7N-VtK"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -38,6 +36,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="LocalhostIconWhite" width="374" height="322"/>
         <namedColor name="AppGreenPrimary">
             <color red="0.42699998617172241" green="0.70999997854232788" blue="0.17599999904632568" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

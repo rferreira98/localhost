@@ -199,7 +199,7 @@ class PlacesListViewController: UITableViewController, UISearchBarDelegate {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if User.hasUserLoggedIn(){
+       
             let local:Local
             
             if isFiltering {
@@ -211,33 +211,6 @@ class PlacesListViewController: UITableViewController, UISearchBarDelegate {
             localToSend = local
             
             performSegue(withIdentifier: "segueLocalDetail", sender: nil)
-        }else{
-
-            let alert = UIAlertController(title: NSLocalizedString("Not Logged In", comment: ""), message: NSLocalizedString("To perform more actions you need to be logged in", comment: ""), preferredStyle: UIAlertController.Style.alert)
-            
-            // add the actions (buttons)
-            alert.addAction(UIAlertAction(title: "Login", style: UIAlertAction.Style.default, handler: {
-                action in
-                let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                let loginViewController = storyBoard.instantiateViewController(withIdentifier: "loginViewController")
-                self.present(loginViewController, animated: true, completion: nil)
-            }))
-            alert.addAction(UIAlertAction(title: NSLocalizedString("Register", comment: ""), style: UIAlertAction.Style.default, handler: { action in
-                let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                let registerViewController = storyBoard.instantiateViewController(withIdentifier: "registerViewController")
-                self.present(registerViewController, animated: true, completion: nil)
-            }))
-            alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: UIAlertAction.Style.cancel, handler: {
-            action in
-                 tableView.cellForRow(at: indexPath)?.isSelected = false
-            }))
-            
-            
-            // show the alert
-            self.present(alert, animated: true, completion: nil)
-           
-
-        }
         
     }
     

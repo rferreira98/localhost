@@ -116,42 +116,32 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         let span = MKCoordinateSpan(latitudeDelta: 0.002, longitudeDelta: 0.002)
         let region = MKCoordinateRegion(center: (view.annotation?.coordinate)!, span: span)
         var isSameRegion:Bool = false
-        print(self.regionToGo.center.latitude)
-        print(self.regionToGo.center.longitude)
+        
         if(self.regionToGo.center.latitude != region.center.latitude ||
             self.regionToGo.center.longitude != region.center.longitude){mapView.setRegion(region, animated: true)
             self.regionToGo = region
         }else{
             isSameRegion = true
         }
-        /*let viewController: MapAnnotationModalViewController = MapAnnotationModalViewController()
-        let viewController1 = storyboard!.instantiateViewController(withIdentifier: "ola") as MapAnnotationModalViewController?
-        viewController.addChild(viewController1)
-        localToSend = artwork.local
-        viewController1.local = localToSend
-        // Initialize the bottom sheet with the view controller just created
-        let bottomSheet: MDCBottomSheetController = MDCBottomSheetController(contentViewController: viewController1)
-        // Present the bottom sheet
-        present(bottomSheet, animated: true, completion: nil)
- */
-
+        
+/*
         if((view.annotation?.isKind(of: Artwork.self))!){
             mapView.deselectAnnotation(view.annotation, animated: false)
             if(isSameRegion == true){
                 //print("not async")
                 let artwork = view.annotation as! Artwork
                 self.localToSend = artwork.local
-                self.performSegue(withIdentifier: "mapAnnotationView", sender: nil)
+                //self.performSegue(withIdentifier: "mapAnnotationView", sender: nil)
             }else{
                 DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(750), execute: {
                     //print("async")
                     // Put your code which should be executed with a delay here
                     let artwork = view.annotation as! Artwork
                     self.localToSend = artwork.local
-                    self.performSegue(withIdentifier: "mapAnnotationView", sender: nil)
+                    //self.performSegue(withIdentifier: "mapAnnotationView", sender: nil)
                 })
             }
-        }
+        }*/
         
     }
     
@@ -209,13 +199,13 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             
             
             /*pointAnnotation = CustomAnnotation()
-            pointAnnotation.pinCustomImageName = "MapMarker"
+            pointAnnotation.pinCustomImageName = "NewMarker"
             pointAnnotation.local = local
             pointAnnotation.coordinate = CLLocationCoordinate2D(latitude: latitude ,
                                                                 longitude: longitude)
             pointAnnotation.title = local.name as! String
-            pinAnnotationView = MKPinAnnotationView(annotation: pointAnnotation, reuseIdentifier: "pin")*/
-            //map.addAnnotation(pinAnnotationView.annotation!)
+            pinAnnotationView = MKPinAnnotationView(annotation: pointAnnotation, reuseIdentifier: "pin")
+            //map.addAnnotation(pinAnnotationView.annotation!)*/
             
             
             
@@ -264,11 +254,15 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
       let launchOptions = [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving]
 
       location.mapItem().openInMaps(launchOptions: launchOptions)*/
+        let artwork = view.annotation as! Artwork
+        localToSend = artwork.local
         
-        if User.hasUserLoggedIn(){
+        performSegue(withIdentifier: "segueMapLocalDetail", sender: nil)
+        
+        /*if User.hasUserLoggedIn(){
             let artwork = view.annotation as! Artwork
             localToSend = artwork.local
-            performSegue(withIdentifier: "segueMapLocalDetail", sender: nil)
+            //performSegue(withIdentifier: "segueMapLocalDetail", sender: nil)
         }else {
             let alert = UIAlertController(title: NSLocalizedString("Not Logged In", comment: ""), message: NSLocalizedString("To perform more actions you need to be logged in", comment: ""), preferredStyle: UIAlertController.Style.alert)
             
@@ -289,7 +283,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             
             // show the alert
             self.present(alert, animated: true, completion: nil)
-        }
+        }*/
         
         
     }
@@ -297,9 +291,9 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let smld=segue.destination as? LocalDetailedViewController {
             smld.local = self.localToSend
-        }else if let smld=segue.destination as? ModalDetailPageViewController {
+        }/*else if let smld=segue.destination as? ModalDetailPageViewController {
             smld.local = self.localToSend
-        }
+        }*/
     }
     
     //MARK: - Custom Annotation

@@ -18,6 +18,8 @@
 		5B5FF03C23CE3847009B8AC7 /* ReviewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5FF03B23CE3847009B8AC7 /* ReviewsViewController.swift */; };
 		5BA61B9A23D34EEA00E7E25B /* login_screen.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 5BA61B9923D34EEA00E7E25B /* login_screen.mp4 */; };
 		5BA61B9C23D35A1000E7E25B /* register_screen.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 5BA61B9B23D35A0F00E7E25B /* register_screen.mp4 */; };
+		5BA61BA423D3726600E7E25B /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA61BA323D3726600E7E25B /* NotificationService.swift */; };
+		5BA61BA823D3726600E7E25B /* NotificationService.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5BA61BA123D3726600E7E25B /* NotificationService.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		5BAA241523BE545F007F7146 /* MapAnnotationModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAA241423BE545F007F7146 /* MapAnnotationModalViewController.swift */; };
 		9996804D23B6873B00724F45 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9996804C23B6873B00724F45 /* ChatViewController.swift */; };
 		9996804F23B6886A00724F45 /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9996804E23B6886A00724F45 /* Chat.swift */; };
@@ -82,7 +84,28 @@
 			remoteGlobalIDString = 5B1748CD23634BB3004532AE;
 			remoteInfo = localhost;
 		};
+		5BA61BA623D3726600E7E25B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5B1748C623634BB3004532AE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5BA61BA023D3726600E7E25B;
+			remoteInfo = NotificationService;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		5BA61BA923D3726600E7E25B /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				5BA61BA823D3726600E7E25B /* NotificationService.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		230E0E8423986944001AB7E6 /* FiltersTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersTableViewController.swift; sourceTree = "<group>"; };
@@ -101,6 +124,9 @@
 		5B5FF03B23CE3847009B8AC7 /* ReviewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsViewController.swift; sourceTree = "<group>"; };
 		5BA61B9923D34EEA00E7E25B /* login_screen.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = login_screen.mp4; sourceTree = "<group>"; };
 		5BA61B9B23D35A0F00E7E25B /* register_screen.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = register_screen.mp4; sourceTree = "<group>"; };
+		5BA61BA123D3726600E7E25B /* NotificationService.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationService.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		5BA61BA323D3726600E7E25B /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		5BA61BA523D3726600E7E25B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5BAA241423BE545F007F7146 /* MapAnnotationModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAnnotationModalViewController.swift; sourceTree = "<group>"; };
 		7F954917C992F384FB4FCEF7 /* Pods-localhostTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-localhostTests.debug.xcconfig"; path = "Target Support Files/Pods-localhostTests/Pods-localhostTests.debug.xcconfig"; sourceTree = "<group>"; };
 		8310D0417BE2BF3022CAE98E /* Pods_localhost_localhostUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_localhost_localhostUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -122,6 +148,8 @@
 		C72BAED9236FC4240022C461 /* LocationSearchTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchTableController.swift; sourceTree = "<group>"; };
 		C75321DA239688CC003BB49C /* CustomAnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAnotation.swift; sourceTree = "<group>"; };
 		C75996462388C2D100E23CE5 /* Localhost.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Localhost.entitlements; sourceTree = "<group>"; };
+		C75A19A723D243240097C38E /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Main.strings"; sourceTree = "<group>"; };
+		C75A19AB23D24A710097C38E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		C766EC57236FD1120006A248 /* MapFiltersController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapFiltersController.swift; sourceTree = "<group>"; };
 		C766EC59236FD4D20006A248 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		C766EC5B236FD4FC0006A248 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
@@ -138,13 +166,11 @@
 		C78DA8482381EE8500CCD60C /* NetworkHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkHandler.swift; sourceTree = "<group>"; };
 		C78DA84A2382145F00CCD60C /* NetworkErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkErrors.swift; sourceTree = "<group>"; };
 		C78DA84C2382263400CCD60C /* Cities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cities.swift; sourceTree = "<group>"; };
-		C7A31CAF23CFF34100271E76 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		C7A31CB223CFF40900271E76 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C7A31CB423CFF41E00271E76 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		C7A81B9C239883BB00B59A7A /* ArtworkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtworkView.swift; sourceTree = "<group>"; };
 		C7B62394236FE1B900CF4CF6 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		C7B62397236FE20700CF4CF6 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		C7C8888223D1E67B00EAD502 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Main.strings"; sourceTree = "<group>"; };
 		C7CA1DFA236FE5F200A1A72A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C7CCE91F23CCDDF5001F399E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C7CCE92123CCE556001F399E /* PushNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationManager.swift; sourceTree = "<group>"; };
@@ -186,6 +212,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		5BA61B9E23D3726600E7E25B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -221,6 +254,7 @@
 				5B1748D023634BB3004532AE /* localhost */,
 				5B1748E723634BB5004532AE /* localhostTests */,
 				5B1748F223634BB6004532AE /* localhostUITests */,
+				5BA61BA223D3726600E7E25B /* NotificationService */,
 				5B1748CF23634BB3004532AE /* Products */,
 				5A2032A8291EE2ED5D730417 /* Pods */,
 				2AF1A7DD9698DDF5E4191CB1 /* Frameworks */,
@@ -233,6 +267,7 @@
 				5B1748CE23634BB3004532AE /* Localhost.app */,
 				5B1748E423634BB5004532AE /* localhostTests.xctest */,
 				5B1748EF23634BB5004532AE /* localhostUITests.xctest */,
+				5BA61BA123D3726600E7E25B /* NotificationService.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -271,6 +306,15 @@
 				5B1748F523634BB6004532AE /* Info.plist */,
 			);
 			path = localhostUITests;
+			sourceTree = "<group>";
+		};
+		5BA61BA223D3726600E7E25B /* NotificationService */ = {
+			isa = PBXGroup;
+			children = (
+				5BA61BA323D3726600E7E25B /* NotificationService.swift */,
+				5BA61BA523D3726600E7E25B /* Info.plist */,
+			);
+			path = NotificationService;
 			sourceTree = "<group>";
 		};
 		C72BAED4236FA6E30022C461 /* controllers */ = {
@@ -350,10 +394,12 @@
 				5B1748CB23634BB3004532AE /* Frameworks */,
 				5B1748CC23634BB3004532AE /* Resources */,
 				A4FF29AC65AF5EDB0FB653F2 /* [CP] Embed Pods Frameworks */,
+				5BA61BA923D3726600E7E25B /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				5BA61BA723D3726600E7E25B /* PBXTargetDependency */,
 			);
 			name = localhost;
 			productName = localhost;
@@ -399,13 +445,30 @@
 			productReference = 5B1748EF23634BB5004532AE /* localhostUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		5BA61BA023D3726600E7E25B /* NotificationService */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5BA61BAC23D3726600E7E25B /* Build configuration list for PBXNativeTarget "NotificationService" */;
+			buildPhases = (
+				5BA61B9D23D3726600E7E25B /* Sources */,
+				5BA61B9E23D3726600E7E25B /* Frameworks */,
+				5BA61B9F23D3726600E7E25B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NotificationService;
+			productName = NotificationService;
+			productReference = 5BA61BA123D3726600E7E25B /* NotificationService.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		5B1748C623634BB3004532AE /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1100;
+				LastSwiftUpdateCheck = 1130;
 				LastUpgradeCheck = 1100;
 				ORGANIZATIONNAME = "Pedro Miguel Prates Alves";
 				TargetAttributes = {
@@ -419,6 +482,9 @@
 					5B1748EE23634BB5004532AE = {
 						CreatedOnToolsVersion = 11.0;
 						TestTargetID = 5B1748CD23634BB3004532AE;
+					};
+					5BA61BA023D3726600E7E25B = {
+						CreatedOnToolsVersion = 11.3;
 					};
 				};
 			};
@@ -439,6 +505,7 @@
 				5B1748CD23634BB3004532AE /* localhost */,
 				5B1748E323634BB5004532AE /* localhostTests */,
 				5B1748EE23634BB5004532AE /* localhostUITests */,
+				5BA61BA023D3726600E7E25B /* NotificationService */,
 			);
 		};
 /* End PBXProject section */
@@ -466,6 +533,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		5B1748ED23634BB5004532AE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5BA61B9F23D3726600E7E25B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -647,6 +721,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		5BA61B9D23D3726600E7E25B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5BA61BA423D3726600E7E25B /* NotificationService.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -660,6 +742,11 @@
 			target = 5B1748CD23634BB3004532AE /* localhost */;
 			targetProxy = 5B1748F023634BB5004532AE /* PBXContainerItemProxy */;
 		};
+		5BA61BA723D3726600E7E25B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5BA61BA023D3726600E7E25B /* NotificationService */;
+			targetProxy = 5BA61BA623D3726600E7E25B /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -667,7 +754,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				5B1748DD23634BB5004532AE /* Base */,
-				C7A31CAF23CFF34100271E76 /* pt-PT */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -685,7 +771,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				C7CA1DFA236FE5F200A1A72A /* Base */,
-				C7C8888223D1E67B00EAD502 /* pt-PT */,
+				C75A19A723D243240097C38E /* pt-PT */,
+				C75A19AB23D24A710097C38E /* en */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -813,6 +900,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DB2C673CDC94E2B79A1C4DB8 /* Pods-localhost.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = localhost/Localhost.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -836,6 +924,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 854FD002A07AE702A8ADB2E0 /* Pods-localhost.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = localhost/Localhost.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -939,6 +1028,48 @@
 			};
 			name = Release;
 		};
+		5BA61BAA23D3726600E7E25B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = H224JX9UQG;
+				INFOPLIST_FILE = NotificationService/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = ipleiria.ios10.localhost.NotificationService;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		5BA61BAB23D3726600E7E25B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = NotificationService/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = ipleiria.ios10.localhost.NotificationService;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -974,6 +1105,15 @@
 			buildConfigurations = (
 				5B1748FF23634BB6004532AE /* Debug */,
 				5B17490023634BB6004532AE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5BA61BAC23D3726600E7E25B /* Build configuration list for PBXNativeTarget "NotificationService" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5BA61BAA23D3726600E7E25B /* Debug */,
+				5BA61BAB23D3726600E7E25B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

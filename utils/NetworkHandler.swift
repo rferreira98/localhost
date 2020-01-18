@@ -550,7 +550,7 @@ class NetworkHandler {
         var headers = request.allHTTPHeaderFields ?? [:]
         headers["Content-Type"] = "application/json"
         let token = UserDefaults.standard.value(forKey: "Token") as? String
-        headers["Authorization"] = "Bearer " + token!
+        //headers["Authorization"] = "Bearer " + token!
         request.allHTTPHeaderFields = headers
         
         // Create and run a URLSession data task with JSON encoded POST request

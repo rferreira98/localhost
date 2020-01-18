@@ -13,6 +13,10 @@ class InitialViewController: UIViewController, CLLocationManagerDelegate{
     var locals = [Local]()
     let locationManager = CLLocationManager()
     
+    override func viewDidLoad() {
+        self.view.backgroundColor = UIColor(named: "AppGreenPrimary")
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         
         locationManager.delegate = self

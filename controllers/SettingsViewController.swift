@@ -11,49 +11,13 @@ import UIKit
 import MessageUI
 import SDWebImage
 
-class SettingsViewController: UITableViewController, MFMailComposeViewControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate{
-    
-    @IBOutlet weak var imageViewAvatar: UIImageView!
-    @IBOutlet weak var switchAuth: UISwitch!
-    @IBOutlet weak var segmentedControl: UISegmentedControl!
-    @IBOutlet weak var perfilLabel: UILabel!
-    @IBOutlet weak var currentLanguageText: UITextField!
-    let languages = [NSLocalizedString("English", comment: ""), NSLocalizedString("Portuguese", comment: "")]
-    var languagePicker = UIPickerView()
-    
-    deinit{
-        NotificationCenter.default.removeObserver(self)
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        //removes the separator/line on the table cell
-        tableView.cellForRow(at: IndexPath(row: 0, section: 3))?.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: .greatestFiniteMagnitude)
-        //if the user has dark mode enable in the system the button is set to on, otherwise to off
-        
-        
-        switchAuth.setOn(UserDefaults.standard.bool(forKey: "usesBiometricAuth"), animated: true)
-        
-        segmentedControl.selectedSegmentIndex = UserDefaults.standard.integer(forKey: "metricUnit")
-        
-        let authLabel = tableView.cellForRow(at: IndexPath(row: 0, section: 1))?.contentView.subviews[0] as! UILabel
-        authLabel.text = NSLocalizedString("Authentication with", comment: "")  + Utils.getBiometricSensor()
-        
-        let firstname = UserDefaults.standard.value(forKey: "FirstName") as! String
-        let lastname = UserDefaults.standard.value(forKey: "LastName") as! String
-        
-        perfilLabel.text = firstname + " " + lastname
-        
-        
-        
-        
-        
-        
-    
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        imageViewAvatar.layer.cornerRadius = imageViewAvatar.frame.size.height / 2
-        imageViewAvatar.clipsToBounds = true
+class SettingsViewController: UITableViewController, MFMailComposeViewControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate, LoginHasBeenMade{
+    func sendBool(loginMade: Bool) {
+        loginLogic()
+        tableView.reloadData()
+        let notifLabel = tableView.cellForRow(at: IndexPath(row: 1, section: 1))?.contentView.subviews[0] as! UILabel
+        notifLabel.text = NSLocalizedString("Notifications", comment: "")
+
         if let avatarEncoded = UserDefaults.standard.value(forKey: "AvatarEncoded") as? String {
             if let decodedData = Data(base64Encoded: avatarEncoded, options: .ignoreUnknownCharacters) {
                 let avatar = UIImage(data: decodedData)
@@ -67,6 +31,75 @@ class SettingsViewController: UITableViewController, MFMailComposeViewController
             let avatarName = UserDefaults.standard.value(forKey: "AvatarURL") as! String
             let strUrl = NetworkHandler.domainUrl + "/storage/profiles/"+avatarName
             self.imageViewAvatar.sd_setImage(with: URL(string: strUrl), placeholderImage: UIImage(named: "NoAvatar"))
+        }
+    }
+    
+    
+    @IBOutlet weak var imageViewAvatar: UIImageView!
+    @IBOutlet weak var switchAuth: UISwitch!
+    @IBOutlet weak var segmentedControl: UISegmentedControl!
+    @IBOutlet weak var perfilLabel: UILabel!
+    @IBOutlet weak var currentLanguageText: UITextField!
+    let languages = [NSLocalizedString("English", comment: ""), NSLocalizedString("Portuguese", comment: "")]
+    var languagePicker = UIPickerView()
+    
+    var loginHasBeenMade:Bool?
+    
+    deinit{
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        //removes the separator/line on the table cell
+        tableView.cellForRow(at: IndexPath(row: 0, section: 3))?.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: .greatestFiniteMagnitude)
+        //if the user has dark mode enable in the system the button is set to on, otherwise to off
+        
+        
+        
+        
+        
+        loginLogic()
+    
+    }
+    func loginLogic(){
+        
+        if User.hasUserLoggedIn(){
+            switchAuth.setOn(UserDefaults.standard.bool(forKey: "usesBiometricAuth"), animated: true)
+            
+            segmentedControl.selectedSegmentIndex = UserDefaults.standard.integer(forKey: "metricUnit")
+            
+            let authLabel = tableView.cellForRow(at: IndexPath(row: 0, section: 1))?.contentView.subviews[0] as! UILabel
+            authLabel.text = NSLocalizedString("Authentication with", comment: "")  + Utils.getBiometricSensor()
+            
+            let firstname = UserDefaults.standard.value(forKey: "FirstName") as! String
+            let lastname = UserDefaults.standard.value(forKey: "LastName") as! String
+            perfilLabel.text = firstname + " " + lastname
+        }else {
+            perfilLabel.text = NSLocalizedString("Profile", comment: "")
+        }
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        imageViewAvatar.layer.cornerRadius = imageViewAvatar.frame.size.height / 2
+        imageViewAvatar.clipsToBounds = true
+        
+        if User.hasUserLoggedIn(){
+            if let avatarEncoded = UserDefaults.standard.value(forKey: "AvatarEncoded") as? String {
+                if let decodedData = Data(base64Encoded: avatarEncoded, options: .ignoreUnknownCharacters) {
+                    let avatar = UIImage(data: decodedData)
+                    self.imageViewAvatar.image = avatar
+                }
+            } else {
+                var imageCache = SDImageCache.shared
+                imageCache.clearMemory()
+                imageCache.clearDisk()
+                
+                let avatarName = UserDefaults.standard.value(forKey: "AvatarURL") as! String
+                let strUrl = NetworkHandler.domainUrl + "/storage/profiles/"+avatarName
+                self.imageViewAvatar.sd_setImage(with: URL(string: strUrl), placeholderImage: UIImage(named: "NoAvatar"))
+            }
+            
+        }else{
+            self.imageViewAvatar.image = UIImage(named: "NoAvatar")
         }
         
         createPicker()
@@ -145,6 +178,33 @@ class SettingsViewController: UITableViewController, MFMailComposeViewController
 
     }
     
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        let count = super.tableView(tableView, numberOfRowsInSection: section)
+        if !User.hasUserLoggedIn() && section == 1{
+            return count - 1
+            
+        }
+        return count
+    }
+
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if !User.hasUserLoggedIn() &&  indexPath.section == 1{
+            //tableView.deleteRows(at: [IndexPath(row: 0, section: 1)], with: UITableView.RowAnimation.none)
+            return super.tableView(tableView, cellForRowAt: IndexPath(row: indexPath.row+1, section: 1))
+            
+            
+        }
+        return super.tableView(tableView, cellForRowAt: indexPath)
+    }
+    
+
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 3{
+            return CGFloat.leastNonzeroMagnitude
+        }
+        
+        return 25
+    }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.tableView.deselectRow(at: indexPath, animated: true)
@@ -164,9 +224,48 @@ class SettingsViewController: UITableViewController, MFMailComposeViewController
             }
             
         }else if indexPath.section == 1{
-            if indexPath.row == 1{
-                UIApplication.shared.open(URL(string:"App-Prefs:root=NOTIFICATIONS_ID")!, options: [:], completionHandler: nil)
+            if !User.hasUserLoggedIn(){
+                if indexPath.row == 0{
+                    UIApplication.shared.open(URL(string:"App-Prefs:root=NOTIFICATIONS_ID")!, options: [:], completionHandler: nil)
+                }
+            }else{
+                if indexPath.row == 1{
+                    UIApplication.shared.open(URL(string:"App-Prefs:root=NOTIFICATIONS_ID")!, options: [:], completionHandler: nil)
+                }
             }
+            
+        }else if indexPath.section == 0 && indexPath.row == 0 {
+            if !User.hasUserLoggedIn(){
+                let alert = UIAlertController(title: NSLocalizedString("Not Logged In", comment: ""), message: NSLocalizedString("To perform this action you need to be logged in", comment: ""), preferredStyle: UIAlertController.Style.alert)
+                
+                // add the actions (buttons)
+                alert.addAction(UIAlertAction(title: "Login", style: UIAlertAction.Style.default, handler: {
+                    action in
+                    let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                    let loginViewController = storyBoard.instantiateViewController(withIdentifier: "loginViewController_1") as! LoginViewController
+                    loginViewController.delegate = self
+                    let navigationController = UINavigationController(rootViewController: loginViewController)
+
+                    self.present(navigationController, animated: true, completion: nil)
+
+                    //loginViewController.delegate = self
+                    //self.present(loginViewController, animated: true, completion: nil)
+                }))
+                alert.addAction(UIAlertAction(title: NSLocalizedString("Register", comment: ""), style: UIAlertAction.Style.default, handler: { action in
+                    let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                    let registerViewController = storyBoard.instantiateViewController(withIdentifier: "registerViewController")
+                    
+                    self.present(registerViewController, animated: true, completion: nil)
+                }))
+                alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: UIAlertAction.Style.cancel, handler:nil))
+                
+                
+                // show the alert
+                self.present(alert, animated: true, completion: nil)
+            }else {
+                performSegue(withIdentifier: "segueProfileDetails", sender: nil)
+            }
+            
         }
     }
     
