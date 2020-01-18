@@ -12,7 +12,26 @@ import Contacts
 import Cosmos
 import SDWebImage
 
-class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableViewDelegate, UITableViewDataSource {
+class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableViewDelegate, UITableViewDataSource, LoginHasBeenMade {
+    func sendBool(loginMade: Bool) {
+        if loginMade {
+            print("OK")
+            hasQuestion(local.id)
+            
+            if self.btnAskOrGoToQuestion.titleLabel?.text == NSLocalizedString("Go to Chat", comment: ""){
+                print("Go to chat")
+                self.goingForwards = true
+                performSegue(withIdentifier: "goToChat", sender: nil)
+            } else{
+                print("Go to MODAL")
+                performSegue(withIdentifier: "goToAskModal", sender: self)
+                
+            }
+        }
+    }
+    
+    
+    
     
     var reviews = [Review?]()
     
@@ -299,26 +318,33 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
         
         if User.hasUserLoggedIn(){
             //if text equals go to question perform chat segue
-            if self.btnAskOrGoToQuestion.titleLabel?.text == "Go to Chat" {
+            if self.btnAskOrGoToQuestion.titleLabel?.text == NSLocalizedString("Go to Chat", comment: "") {
                 self.goingForwards = true
                 performSegue(withIdentifier: "goToChat", sender: nil)
             } else{
                 performSegue(withIdentifier: "goToAskModal", sender: nil)
             }
         }else{
+            
             let alert = UIAlertController(title: NSLocalizedString("Not Logged In", comment: ""), message: NSLocalizedString("To perform this action you need to be logged in", comment: ""), preferredStyle: UIAlertController.Style.alert)
             
             // add the actions (buttons)
             alert.addAction(UIAlertAction(title: "Login", style: UIAlertAction.Style.default, handler: {
                 action in
                 let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                let loginViewController = storyBoard.instantiateViewController(withIdentifier: "loginViewController")
-                self.present(loginViewController, animated: true, completion: nil)
+                let loginViewController = storyBoard.instantiateViewController(withIdentifier: "loginViewController_1") as! LoginViewController
+                loginViewController.delegate = self
+                let navigationController = UINavigationController(rootViewController: loginViewController)
+
+                self.present(navigationController, animated: true, completion: nil)
             }))
             alert.addAction(UIAlertAction(title: NSLocalizedString("Register", comment: ""), style: UIAlertAction.Style.default, handler: { action in
                 let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                let registerViewController = storyBoard.instantiateViewController(withIdentifier: "registerViewController")
-                self.present(registerViewController, animated: true, completion: nil)
+                let registerViewController = storyBoard.instantiateViewController(withIdentifier: "registerViewController_1") as! RegisterViewController
+                registerViewController.delegate = self
+                let navigationController = UINavigationController(rootViewController: registerViewController)
+                
+                self.present(navigationController, animated: true, completion: nil)
             }))
             alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: UIAlertAction.Style.cancel, handler:nil))
             

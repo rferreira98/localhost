@@ -203,7 +203,7 @@
                                                 <constraint firstAttribute="height" constant="90" id="FfN-dP-FKV"/>
                                             </constraints>
                                         </imageView>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="btz-bV-oYG" customClass="CosmosView" customModule="Cosmos">
+                                        <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="btz-bV-oYG" customClass="CosmosView" customModule="Cosmos">
                                             <rect key="frame" x="224" y="70" width="120" height="20"/>
                                             <userDefinedRuntimeAttributes>
                                                 <userDefinedRuntimeAttribute type="number" keyPath="rating">
@@ -528,7 +528,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5a7-TX-9L7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1518" y="309"/>
+            <point key="canvasLocation" x="1662" y="352"/>
         </scene>
         <!--Settings-->
         <scene sceneID="6dV-al-UFu">
@@ -720,12 +720,12 @@
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" rowHeight="67" id="lgM-QX-oni">
                                         <rect key="frame" x="0.0" y="28" width="375" height="67"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="lgM-QX-oni" id="kf3-6l-CQk">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="lgM-QX-oni" id="kf3-6l-CQk">
                                             <rect key="frame" x="0.0" y="0.0" width="348" height="67"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AvatarExample" translatesAutoresizingMaskIntoConstraints="NO" id="41i-Gd-BiM">
-                                                    <rect key="frame" x="20" y="3" width="60" height="60"/>
+                                                    <rect key="frame" x="20" y="4" width="60" height="60"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="60" id="UTw-4G-Qzl"/>
                                                         <constraint firstAttribute="height" constant="60" id="b5B-Dq-cff"/>
@@ -740,9 +740,10 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="nqj-Ys-RQY" firstAttribute="top" secondItem="kf3-6l-CQk" secondAttribute="top" constant="23" id="csS-Oz-Fj7"/>
+                                                <constraint firstAttribute="bottom" secondItem="41i-Gd-BiM" secondAttribute="bottom" constant="4" id="eb0-rh-4jy"/>
                                                 <constraint firstItem="nqj-Ys-RQY" firstAttribute="leading" secondItem="41i-Gd-BiM" secondAttribute="trailing" constant="8" id="fZm-IJ-KWk"/>
                                                 <constraint firstItem="41i-Gd-BiM" firstAttribute="leading" secondItem="kf3-6l-CQk" secondAttribute="leading" constant="20" id="frZ-Ct-eiN"/>
-                                                <constraint firstItem="41i-Gd-BiM" firstAttribute="top" secondItem="kf3-6l-CQk" secondAttribute="top" constant="3" id="tx1-ij-L1i"/>
+                                                <constraint firstItem="41i-Gd-BiM" firstAttribute="top" secondItem="kf3-6l-CQk" secondAttribute="top" constant="4" id="tx1-ij-L1i"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -936,7 +937,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" image="LocalhostIconWhite" translatesAutoresizingMaskIntoConstraints="NO" id="nGb-ea-EiD">
-                                <rect key="frame" x="87.666666666666686" y="88" width="200" height="200"/>
+                                <rect key="frame" x="87.666666666666657" y="88" width="200.00000000000003" height="200.00000000000006"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="KDX-yo-zpz"/>
                                     <constraint firstAttribute="height" constant="200" id="i8F-VJ-211"/>
@@ -1050,7 +1051,6 @@
         <!--Navigation Controller-->
         <scene sceneID="UJh-PE-FAt">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="mJj-v0-zk9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <navigationController storyboardIdentifier="loginViewController" id="VzB-dc-MkO" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="INc-9f-pjs"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="rnp-jN-quB">
@@ -1063,13 +1063,14 @@
                         <segue destination="X1K-Wl-KBG" kind="relationship" relationship="rootViewController" id="yMs-Yv-x5D"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mJj-v0-zk9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1266" y="1009"/>
         </scene>
         <!--Register View Controller-->
         <scene sceneID="hqg-sR-qBD">
             <objects>
-                <viewController id="Nb8-Pt-vFg" customClass="RegisterViewController" customModule="Localhost" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="registerViewController_1" id="Nb8-Pt-vFg" customClass="RegisterViewController" customModule="Localhost" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="vco-5q-kxc">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1522,7 +1523,7 @@
                                     <color key="titleColor" name="AppGreenPrimary"/>
                                 </state>
                                 <connections>
-                                    <segue destination="obS-3R-Ogx" kind="presentation" identifier="goToAskModal" id="HPW-PH-2lG"/>
+                                    <action selector="onClickAskOrGoToQuestionBtn:" destination="49e-l4-9gV" eventType="touchUpInside" id="vEL-0R-okI"/>
                                 </connections>
                             </button>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="T5m-Gk-DsF">
@@ -1589,6 +1590,7 @@
                         <outlet property="ratingView" destination="xg3-t8-KlD" id="een-Qd-q3y"/>
                         <segue destination="Jmr-YD-KLD" kind="show" identifier="segueReviewsDetail" id="xB4-NB-agQ"/>
                         <segue destination="SLS-a4-1Dy" kind="show" identifier="goToChat" id="azt-BP-tXx"/>
+                        <segue destination="obS-3R-Ogx" kind="presentation" identifier="goToAskModal" id="acq-pg-bQI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bam-XN-Tpk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1846,7 +1848,7 @@
         </namedColor>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="omm-TA-kpH"/>
+        <segue reference="deb-LI-gaU"/>
         <segue reference="DUm-uL-UMg"/>
         <segue reference="azt-BP-tXx"/>
         <segue reference="Bzt-6p-OWk"/>

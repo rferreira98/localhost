@@ -15,8 +15,6 @@
 		5B1748DE23634BB5004532AE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B1748DC23634BB5004532AE /* LaunchScreen.storyboard */; };
 		5B1748E923634BB5004532AE /* localhostTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1748E823634BB5004532AE /* localhostTests.swift */; };
 		5B1748F423634BB6004532AE /* localhostUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1748F323634BB6004532AE /* localhostUITests.swift */; };
-		5B5FF03C23CE3847009B8AC7 /* ReviewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5FF03B23CE3847009B8AC7 /* ReviewsViewController.swift */; };
-		5BAA241523BE545F007F7146 /* MapAnnotationModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAA241423BE545F007F7146 /* MapAnnotationModalViewController.swift */; };
 		9996804D23B6873B00724F45 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9996804C23B6873B00724F45 /* ChatViewController.swift */; };
 		9996804F23B6886A00724F45 /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9996804E23B6886A00724F45 /* Chat.swift */; };
 		9996805123B6887600724F45 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9996805023B6887600724F45 /* Message.swift */; };
@@ -62,7 +60,6 @@
 		C7E3D18223D20BEC005183C1 /* ListReviewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E3D18123D20BEC005183C1 /* ListReviewsViewController.swift */; };
 		C7E9E67A23710082004BB27C /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E9E67923710082004BB27C /* ProfileViewController.swift */; };
 		C7F805F12399351C005E1212 /* LocalDetailedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F805F02399351C005E1212 /* LocalDetailedViewController.swift */; };
-		EBBBBD2A23CD2958009B8496 /* ModalDetailPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBBBBD2923CD2958009B8496 /* ModalDetailPageViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -96,8 +93,6 @@
 		5B1748EF23634BB5004532AE /* localhostUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = localhostUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B1748F323634BB6004532AE /* localhostUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = localhostUITests.swift; sourceTree = "<group>"; };
 		5B1748F523634BB6004532AE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5B5FF03B23CE3847009B8AC7 /* ReviewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsViewController.swift; sourceTree = "<group>"; };
-		5BAA241423BE545F007F7146 /* MapAnnotationModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAnnotationModalViewController.swift; sourceTree = "<group>"; };
 		7F954917C992F384FB4FCEF7 /* Pods-localhostTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-localhostTests.debug.xcconfig"; path = "Target Support Files/Pods-localhostTests/Pods-localhostTests.debug.xcconfig"; sourceTree = "<group>"; };
 		8310D0417BE2BF3022CAE98E /* Pods_localhost_localhostUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_localhost_localhostUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		854FD002A07AE702A8ADB2E0 /* Pods-localhost.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-localhost.release.xcconfig"; path = "Target Support Files/Pods-localhost/Pods-localhost.release.xcconfig"; sourceTree = "<group>"; };
@@ -153,7 +148,6 @@
 		D7D700F0C14C9D7F9D4CB253 /* Pods-localhost-localhostUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-localhost-localhostUITests.debug.xcconfig"; path = "Target Support Files/Pods-localhost-localhostUITests/Pods-localhost-localhostUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		DB2C673CDC94E2B79A1C4DB8 /* Pods-localhost.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-localhost.debug.xcconfig"; path = "Target Support Files/Pods-localhost/Pods-localhost.debug.xcconfig"; sourceTree = "<group>"; };
 		EABC756ECEE2BDCF6FCFAE9D /* Pods_localhost.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_localhost.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		EBBBBD2923CD2958009B8496 /* ModalDetailPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalDetailPageViewController.swift; sourceTree = "<group>"; };
 		F24F07567EAA7F6A8B6FE504 /* Pods-localhost-localhostUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-localhost-localhostUITests.release.xcconfig"; path = "Target Support Files/Pods-localhost-localhostUITests/Pods-localhost-localhostUITests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -292,9 +286,6 @@
 				9996804C23B6873B00724F45 /* ChatViewController.swift */,
 				99D4020323B803060093ADBC /* AskAdviceViewController.swift */,
 				99D4020523BA3BA50093ADBC /* QuestionTableViewCell.swift */,
-				5BAA241423BE545F007F7146 /* MapAnnotationModalViewController.swift */,
-				EBBBBD2923CD2958009B8496 /* ModalDetailPageViewController.swift */,
-				5B5FF03B23CE3847009B8AC7 /* ReviewsViewController.swift */,
 				C7E3D18123D20BEC005183C1 /* ListReviewsViewController.swift */,
 			);
 			path = controllers;
@@ -606,12 +597,9 @@
 				C711AD82239045E300A58DE7 /* Review.swift in Sources */,
 				C7B62395236FE1B900CF4CF6 /* TabBarController.swift in Sources */,
 				99D4020623BA3BA50093ADBC /* QuestionTableViewCell.swift in Sources */,
-				5B5FF03C23CE3847009B8AC7 /* ReviewsViewController.swift in Sources */,
 				C766EC63236FDB4D0006A248 /* PlacesListViewController.swift in Sources */,
-				EBBBBD2A23CD2958009B8496 /* ModalDetailPageViewController.swift in Sources */,
 				C72BAED8236FC2A40022C461 /* MapViewController.swift in Sources */,
 				9996805123B6887600724F45 /* Message.swift in Sources */,
-				5BAA241523BE545F007F7146 /* MapAnnotationModalViewController.swift in Sources */,
 				C711AD7E238D7E4000A58DE7 /* MapAnnotationDetailController.swift in Sources */,
 				C7F805F12399351C005E1212 /* LocalDetailedViewController.swift in Sources */,
 				C711AD80239040AF00A58DE7 /* Local.swift in Sources */,

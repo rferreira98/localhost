@@ -13,6 +13,7 @@ import FirebaseMessaging
 
 class RegisterViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate & UINavigationControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource, RSKImageCropViewControllerDelegate {
     
+    var delegate: LoginHasBeenMade?
     
     func imageCropViewControllerDidCancelCrop(_ controller: RSKImageCropViewController) {
         _ = self.navigationController?.popViewController(animated: true)
@@ -318,7 +319,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIImagePick
         //mvc.locals = self.locals
         
         //first.modalPresentationStyle = .fullScreen
-        
+        delegate?.sendBool(loginMade: true)
         self.navigationController?.popViewController(animated: true)
         self.dismiss(animated: true, completion: nil)
         //self.present(first, animated: true, completion: nil)

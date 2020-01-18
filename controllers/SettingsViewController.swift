@@ -17,6 +17,9 @@ class SettingsViewController: UITableViewController, MFMailComposeViewController
         tableView.reloadData()
         let notifLabel = tableView.cellForRow(at: IndexPath(row: 1, section: 1))?.contentView.subviews[0] as! UILabel
         notifLabel.text = NSLocalizedString("Notifications", comment: "")
+        
+        let authLabel = tableView.cellForRow(at: IndexPath(row: 0, section: 1))?.contentView.subviews[0] as! UILabel
+        authLabel.text = NSLocalizedString("Authentication with", comment: "")  + Utils.getBiometricSensor()
 
         if let avatarEncoded = UserDefaults.standard.value(forKey: "AvatarEncoded") as? String {
             if let decodedData = Data(base64Encoded: avatarEncoded, options: .ignoreUnknownCharacters) {
@@ -53,10 +56,6 @@ class SettingsViewController: UITableViewController, MFMailComposeViewController
         //removes the separator/line on the table cell
         tableView.cellForRow(at: IndexPath(row: 0, section: 3))?.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: .greatestFiniteMagnitude)
         //if the user has dark mode enable in the system the button is set to on, otherwise to off
-        
-        
-        
-        
         
         loginLogic()
     
@@ -253,9 +252,11 @@ class SettingsViewController: UITableViewController, MFMailComposeViewController
                 }))
                 alert.addAction(UIAlertAction(title: NSLocalizedString("Register", comment: ""), style: UIAlertAction.Style.default, handler: { action in
                     let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                    let registerViewController = storyBoard.instantiateViewController(withIdentifier: "registerViewController")
+                    let registerViewController = storyBoard.instantiateViewController(withIdentifier: "registerViewController_1") as! RegisterViewController
+                    registerViewController.delegate = self
+                    let navigationController = UINavigationController(rootViewController: registerViewController)
                     
-                    self.present(registerViewController, animated: true, completion: nil)
+                    self.present(navigationController, animated: true, completion: nil)
                 }))
                 alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: UIAlertAction.Style.cancel, handler:nil))
                 
