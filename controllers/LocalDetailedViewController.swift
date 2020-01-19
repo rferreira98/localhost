@@ -16,17 +16,7 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
     func sendBool(loginMade: Bool) {
         if loginMade {
             print("OK")
-            hasQuestion(local.id)
-            
-            if self.btnAskOrGoToQuestion.titleLabel?.text == NSLocalizedString("Go to Chat", comment: ""){
-                print("Go to chat")
-                self.goingForwards = true
-                performSegue(withIdentifier: "goToChat", sender: nil)
-            } else{
-                print("Go to MODAL")
-                performSegue(withIdentifier: "goToAskModal", sender: self)
-                
-            }
+            hasQuestion(local.id, perfSegue: true)
         }
     }
     
@@ -65,17 +55,18 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
         mapView.isUserInteractionEnabled = false
         
         buttonPlaceReviews.centerVertically(padding: 0, leftImageInsetDivider: 1.8)
-        buttonPlaceReviews.backgroundColor = UIColor(named: "AppGreenButton")
+        buttonPlaceReviews.backgroundColor = UIColor.systemGray.withAlphaComponent(0.5)
         buttonPlaceReviews.layer.cornerRadius = 6
         //buttonPlaceReviews.layer.borderWidth = 0
         //buttonPlaceReviews.layer.borderColor = UIColor(named: "AppGreenButton")?.cgColor
         
         buttonMapDirections.centerVertically(padding: 0, leftImageInsetDivider: 1.8)
-        buttonMapDirections.backgroundColor = UIColor(named:"AppGreenButton")
+        buttonMapDirections.backgroundColor = UIColor.systemGray.withAlphaComponent(0.5)
         buttonMapDirections.layer.cornerRadius = 6
         
-        btnAskOrGoToQuestion.centerVertically(padding: 0, leftImageInsetDivider: 1.6)
-        btnAskOrGoToQuestion.backgroundColor = UIColor(named:"AppGreenButton")
+        UserDefaults.standard.string(forKey: "AppLanguage") == NSLocalizedString("English", comment: "") ? btnAskOrGoToQuestion.centerVertically(padding: 0, leftImageInsetDivider: 1.6) : btnAskOrGoToQuestion.centerVertically(padding: 0, leftImageInsetDivider: 1.8)
+        
+        btnAskOrGoToQuestion.backgroundColor = UIColor.systemGray.withAlphaComponent(0.5)
         btnAskOrGoToQuestion.layer.cornerRadius = 6
         
         
@@ -103,7 +94,7 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
         
         getReviews(local.id)
         
-        hasQuestion(local.id)
+        hasQuestion(local.id, perfSegue: false)
         
         if !User.hasUserLoggedIn(){
             self.navigationItem.rightBarButtonItem = nil
@@ -128,17 +119,17 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
         }
         
         NotificationCenter.default.addObserver(self,
-        selector: #selector(LocalDetailedViewController.handleModalDismissed),
+        selector: #selector(handleModalDismissed),
         name: NSNotification.Name(rawValue: "modalIsDimissed"),
         object: nil) 
     }
     
     @objc func handleModalDismissed() {
       // Do something
-        hasQuestion(local.id)
+        hasQuestion(local.id, perfSegue: false)
     }
     
-    public func hasQuestion(_ local_id:Int){
+    public func hasQuestion(_ local_id:Int, perfSegue:Bool){
         
         if User.hasUserLoggedIn(){
             NetworkHandler.hasQuestion(local_id: local_id, completion: { (hasQuestion, error) in
@@ -149,10 +140,23 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
                     } else {
                         if hasQuestion != nil && hasQuestion?.id != -1{
                             self.questionToSend = hasQuestion
-                            self.btnAskOrGoToQuestion.titleLabel?.text = NSLocalizedString("Go to Chat", comment: "")
+                            self.btnAskOrGoToQuestion.setTitle(NSLocalizedString("Go to Chat", comment: ""), for: UIControl.State.normal)
+                            //self.btnAskOrGoToQuestion.titleLabel?.text = "Go to Chat"
+                            //self.btnAskOrGoToQuestion.setNeedsDisplay()
                         } else{
-                            self.btnAskOrGoToQuestion.titleLabel?.text = NSLocalizedString("Ask Advice", comment: "")
+                            self.btnAskOrGoToQuestion.setTitle(NSLocalizedString("Ask Advice", comment: ""), for: UIControl.State.normal)
+                            //self.btnAskOrGoToQuestion.titleLabel?.text = NSLocalizedString("Ask Advice", comment: "")
                         }
+                        
+                        if perfSegue {
+                            if self.btnAskOrGoToQuestion.titleLabel?.text == NSLocalizedString("Go to Chat", comment: ""){
+                                self.goingForwards = true
+                                self.performSegue(withIdentifier: "goToChat", sender: nil)
+                            } else{
+                                self.performSegue(withIdentifier: "goToAskModal", sender: self)
+                            }
+                        }
+                        
                         //let height = self.reviewsTableView.content
                         //self.view.intrinsicContentSize.height
                         //self.scrollview.contentSize.height = height + 758
@@ -191,7 +195,7 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
     override func viewWillAppear(_ animated: Bool) {
         if goingForwards {
            //self.goingForwards = false
-           hasQuestion(self.local.id)
+           hasQuestion(self.local.id, perfSegue: false)
        }
     }
     
@@ -316,12 +320,16 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
     
     @IBAction func onClickAskOrGoToQuestionBtn(_ sender: Any) {
         
+        
         if User.hasUserLoggedIn(){
             //if text equals go to question perform chat segue
+            print(self.btnAskOrGoToQuestion.titleLabel?.text)
+            print(NSLocalizedString("Go to Chat", comment: ""))
             if self.btnAskOrGoToQuestion.titleLabel?.text == NSLocalizedString("Go to Chat", comment: "") {
                 self.goingForwards = true
                 performSegue(withIdentifier: "goToChat", sender: nil)
             } else{
+                print("Tou")
                 performSegue(withIdentifier: "goToAskModal", sender: nil)
             }
         }else{

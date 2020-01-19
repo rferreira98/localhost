@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Xko-fz-x9B">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Xko-fz-x9B">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -1507,9 +1507,9 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="kCk-Lh-io8">
-                                <rect key="frame" x="262.66666666666669" y="354" width="87.333333333333314" height="19.333333333333314"/>
+                                <rect key="frame" x="262.66666666666669" y="354" width="87.333333333333314" height="19"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <state key="normal" title="Directions" image="map" catalog="system">
+                                <state key="normal" title="Directions" image="map.fill" catalog="system">
                                     <color key="titleColor" name="AppGreenPrimary"/>
                                 </state>
                                 <connections>
@@ -1518,8 +1518,8 @@
                             </button>
                             <button opaque="NO" contentMode="center" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="iOc-0Z-zr2">
                                 <rect key="frame" x="125" y="354" width="112.66666666666669" height="19.666666666666686"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <state key="normal" title="Ask Advice" image="message" catalog="system">
+                                <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="14"/>
+                                <state key="normal" title="Ask Advice" image="message.fill" catalog="system">
                                     <color key="titleColor" name="AppGreenPrimary"/>
                                 </state>
                                 <connections>
@@ -1532,7 +1532,7 @@
                             <button opaque="NO" contentMode="center" horizontalCompressionResistancePriority="752" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="V4D-H2-1sJ">
                                 <rect key="frame" x="25" y="354" width="75" height="20"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <state key="normal" title="Reviews" image="star" catalog="system">
+                                <state key="normal" title="Reviews" image="star.fill" catalog="system">
                                     <color key="titleColor" name="AppGreenPrimary"/>
                                 </state>
                                 <connections>
@@ -1840,17 +1840,17 @@
         <image name="Recommendation" width="25" height="25"/>
         <image name="Settings" width="25" height="25"/>
         <image name="chevron.left" catalog="system" width="48" height="64"/>
-        <image name="map" catalog="system" width="64" height="56"/>
-        <image name="message" catalog="system" width="64" height="56"/>
-        <image name="star" catalog="system" width="64" height="58"/>
+        <image name="map.fill" catalog="system" width="64" height="56"/>
+        <image name="message.fill" catalog="system" width="64" height="56"/>
+        <image name="star.fill" catalog="system" width="64" height="58"/>
         <namedColor name="AppGreenPrimary">
             <color red="0.42699998617172241" green="0.70999997854232788" blue="0.17599999904632568" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="deb-LI-gaU"/>
+        <segue reference="omm-TA-kpH"/>
         <segue reference="DUm-uL-UMg"/>
-        <segue reference="azt-BP-tXx"/>
+        <segue reference="hxw-PN-3GF"/>
         <segue reference="Bzt-6p-OWk"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" name="AppGreenPrimary"/>

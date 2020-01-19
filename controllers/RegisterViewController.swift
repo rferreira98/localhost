@@ -263,7 +263,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIImagePick
                             
                             //------
                         
-                            let postLogin = NetworkHandler.PostLogin(password: password, email: email)
+                            let postLogin = NetworkHandler.PostLogin(password: password, email: email, messaging_token: messagingToken!)
                             NetworkHandler.login(post: postLogin) { (success, error) in
                                 OperationQueue.main.addOperation {
 

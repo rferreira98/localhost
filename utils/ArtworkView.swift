@@ -20,6 +20,7 @@ class ArtworkView: MKAnnotationView {
         //clusteringIdentifier = UserAnnotationView.preferredClusteringIdentifier
         clusteringIdentifier = ArtworkView.preferredClusteringIdentifier
         collisionMode = .circle
+        label.text = annotation?.title!
         label = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: 30))
         label.textColor = UIColor(named: "AppGreenPrimary")
         label.numberOfLines = 3
@@ -28,6 +29,7 @@ class ArtworkView: MKAnnotationView {
         label.preferredMaxLayoutWidth = 100
         self.addSubview(label)
         label.translatesAutoresizingMaskIntoConstraints = false
+        
         let verticalSpace = NSLayoutConstraint(item: self.label!, attribute: .top, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1, constant: 1)
         let centerAlignment = NSLayoutConstraint(item: self.label!, attribute: .centerX, relatedBy: .equal,toItem: self,attribute: .centerX, multiplier: 1, constant: 0)
         // activate the constraints
@@ -43,6 +45,7 @@ class ArtworkView: MKAnnotationView {
     }
     
     override var annotation: MKAnnotation? {
+        
         willSet{
             guard let artwork = newValue as? Artwork else {return}
             canShowCallout = true

@@ -375,6 +375,7 @@ class UserClusterAnnotationView: MKAnnotationView {
         didSet { updateImage() }
         willSet {
             clusteringIdentifier = ArtworkView.preferredClusteringIdentifier
+            
         }
     }
 

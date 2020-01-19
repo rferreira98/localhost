@@ -17,6 +17,7 @@ class Artwork: NSObject, MKAnnotation {
     let localRating: Double
     let local: Local
     
+    
     init(title: String, locationName: String, coordinate: CLLocationCoordinate2D, localRating: Double, local: Local) {
         self.title = title
         self.locationName = locationName

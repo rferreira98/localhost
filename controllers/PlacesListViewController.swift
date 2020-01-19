@@ -15,13 +15,9 @@ class PlacesListViewController: UITableViewController, UISearchBarDelegate {
     //var searchBar: UISearchBar!
     
     var searchController = UISearchController(searchResultsController: nil)
-    
     var localToSend: Local!
-    
     var tapGesture: UITapGestureRecognizer?
-    
     var filteredLocals: [Local] = []
-    
     var isSearchBarEmpty: Bool {
         return searchController.searchBar.text?.isEmpty ?? true
     }
@@ -32,11 +28,9 @@ class PlacesListViewController: UITableViewController, UISearchBarDelegate {
     
     override func viewDidLoad() {
         self.locals = Items.sharedInstance.locals
-        
         searchController.searchResultsUpdater = self
         // 2
         searchController.obscuresBackgroundDuringPresentation = false
-        
         // 3
         searchController.searchBar.placeholder = NSLocalizedString("Search Places", comment:"Text for search bar")
         // 4
@@ -53,6 +47,8 @@ class PlacesListViewController: UITableViewController, UISearchBarDelegate {
         }
             
         searchController.searchBar.delegate = self
+        
+        
         /*
          let locationSearchTable = storyboard!.instantiateViewController(withIdentifier: "LocationSearchTable") as! LocationSearchTableController
          resultSearchController = UISearchController(searchResultsController: locationSearchTable)
@@ -86,6 +82,8 @@ class PlacesListViewController: UITableViewController, UISearchBarDelegate {
         }
     }
     
+    
+    
     override func viewWillAppear(_ animated: Bool) {
         let searchBar = searchController.searchBar.selectedScopeButtonIndex
         if searchBar == 1{
@@ -96,7 +94,8 @@ class PlacesListViewController: UITableViewController, UISearchBarDelegate {
             tableView.reloadData()
         }
         
-        self.navigationItem.title = ""
+        //self.navigationItem.title = ""
+        
         
     }
     
@@ -118,7 +117,14 @@ class PlacesListViewController: UITableViewController, UISearchBarDelegate {
         
     }
     
-    
+    override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+       self.searchController.searchBar.endEditing(true)
+       if(self.isSearchBarEmpty){
+           self.searchController.isActive = false
+       }
+        self.navigationItem.hidesSearchBarWhenScrolling = false
+        //navigationController?.
+    }
     
     private func getLocals(){
         /*NetworkHandler.getLocals() {
@@ -260,12 +266,7 @@ class PlacesListViewController: UITableViewController, UISearchBarDelegate {
     }
     
                         
-    override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        self.searchController.searchBar.endEditing(true)
-        if(self.isSearchBarEmpty){
-            self.searchController.isActive = false
-        }
-    }
+    
  
     
     

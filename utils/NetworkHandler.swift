@@ -81,6 +81,7 @@ class NetworkHandler {
     }
     
     static func getServerError(responseData: Data?, response: URLResponse?, responseError: Error?) -> String? {
+        print(String(data: responseData!, encoding: .utf8) ?? "no body data")
         guard responseError == nil else {
             return "Erro desconhecido"
         }
@@ -169,6 +170,7 @@ class NetworkHandler {
     struct PostLogin: Codable {
         let password: String
         let email: String
+        let messaging_token: String
     }
     
     

@@ -137,9 +137,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 let alert = Utils.triggerAlert(title: NSLocalizedString("Error", comment: ""), error: NSLocalizedString("Email with incorrect format", comment: ""))
                 self.present(alert, animated: true, completion: nil)
             } else {
-                let myPost = NetworkHandler.PostLogin(password: password, email: email)
-                
-                                
+                let myPost = NetworkHandler.PostLogin(password: password, email: email, messaging_token: Messaging.messaging().fcmToken!)
                 NetworkHandler.login(post: myPost) { (success, error) in
                     OperationQueue.main.addOperation {
                         if error != nil {
@@ -270,7 +268,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         biometric.authenticateUser() { [weak self] in
             if let receivedData = KeychainPasswordItem.load(key: email) {
                 let pwd = String(decoding: receivedData, as: UTF8.self)
-                let myPost = NetworkHandler.PostLogin(password: pwd, email: email)
+                let myPost = NetworkHandler.PostLogin(password: pwd, email: email, messaging_token: Messaging.messaging().fcmToken!)
                 
                 NetworkHandler.login(post: myPost) { (success, error) in
                     OperationQueue.main.addOperation {
@@ -352,7 +350,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             }
             print("Facebook login success")
             
-            GraphRequest(graphPath: "me", parameters: ["fields": "email", "first_name, last_name, location, picture.type(large)"]).start() {
+            GraphRequest(graphPath: "me", parameters: ["fields": "email, first_name, last_name, location, picture.type(large)"]).start() {
                 (connection, result, graphError) in
 
                 if let error = graphError {
