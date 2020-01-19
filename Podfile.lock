@@ -166,6 +166,16 @@ PODS:
     - BoringSSL-GRPC/Interface (= 0.0.3)
   - BoringSSL-GRPC/Interface (0.0.3)
   - Cosmos (20.0.1)
+  - FBSDKCoreKit (5.10.0):
+    - FBSDKCoreKit/Basics (= 5.10.0)
+    - FBSDKCoreKit/Core (= 5.10.0)
+  - FBSDKCoreKit/Basics (5.10.0)
+  - FBSDKCoreKit/Core (5.10.0):
+    - FBSDKCoreKit/Basics
+  - FBSDKLoginKit (5.10.0):
+    - FBSDKLoginKit/Login (= 5.10.0)
+  - FBSDKLoginKit/Login (5.10.0):
+    - FBSDKCoreKit (~> 5.0)
   - Firebase/CoreOnly (6.14.0):
     - FirebaseCore (= 6.5.0)
   - Firebase/Firestore (6.14.0):
@@ -297,6 +307,7 @@ PODS:
 DEPENDENCIES:
   - Alamofire
   - Cosmos
+  - FBSDKLoginKit
   - Firebase/Firestore
   - Firebase/Messaging
   - InitialsImageView
@@ -313,6 +324,8 @@ SPEC REPOS:
     - Alamofire
     - BoringSSL-GRPC
     - Cosmos
+    - FBSDKCoreKit
+    - FBSDKLoginKit
     - Firebase
     - FirebaseAnalyticsInterop
     - FirebaseAuthInterop
@@ -344,6 +357,8 @@ SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
   BoringSSL-GRPC: db8764df3204ccea016e1c8dd15d9a9ad63ff318
   Cosmos: b47fddf2102bb48580cd3025d9ce0a5c658a65da
+  FBSDKCoreKit: f9bae468a078f20c05c73450825ccd54cfafbbb7
+  FBSDKLoginKit: 4ece964272a52c4e1363d5c048a545e33761491b
   Firebase: 0219bb4782eb1406f1b9b0628a2e625484ce910d
   FirebaseAnalyticsInterop: d48b6ab67bcf016a05e55b71fc39c61c0cb6b7f3
   FirebaseAuthInterop: 0ffa57668be100582bb7643d4fcb7615496c41fc
@@ -370,6 +385,6 @@ SPEC CHECKSUMS:
   SDWebImage: f1afa74b86587c2c63f4e80dfd39b21e3c17b45b
   SwiftHTTP: e94f1aa8cde58637dcc0100f6349de31a3337fde
 
-PODFILE CHECKSUM: 0878aa98a83aee4b044670ea362ac66c4435e801
+PODFILE CHECKSUM: 79956aea870166026ae22f4dcca9a83fabcdb4f6
 
 COCOAPODS: 1.8.4

@@ -8,6 +8,8 @@
 
 import UIKit
 import FirebaseMessaging
+import FBSDKCoreKit
+import FBSDKLoginKit
 
 protocol LoginHasBeenMade: NSObjectProtocol {
     func sendBool(loginMade: Bool)
@@ -16,6 +18,10 @@ protocol LoginHasBeenMade: NSObjectProtocol {
 class LoginViewController: UIViewController, UITextFieldDelegate {
     
     var delegate: LoginHasBeenMade?
+    
+    let facebookLogin = LoginManager()
+    var facebookFirstName: String?
+    var facebookLastName: String?
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -329,6 +335,115 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
     }
     
+    @IBAction func facebookLoginClicked(_ sender: Any) {
+        facebookLogin.logIn(permissions: ["public_profile", "email", "user_location"], from: self, handler: { result, error in
+            if error != nil {
+                let alert = Utils.triggerAlert(title: "Erro", error: "Ocorreu um erro, tente novamente")
+                self.present(alert, animated: true, completion: nil)
+
+                return
+            }
+
+            if (result?.isCancelled)! {
+                let alert = Utils.triggerAlert(title: "Login cancelado", error: "Login pelo Facebook cancelado")
+                self.present(alert, animated: true, completion: nil)
+                print("Facebook login canceled")
+                return;
+            }
+            print("Facebook login success")
+            
+            GraphRequest(graphPath: "me", parameters: ["fields": "email", "first_name, last_name, location, picture.type(large)"]).start() {
+                (connection, result, graphError) in
+
+                if let error = graphError {
+                    print(error.localizedDescription)
+                    return
+                }
+
+                if let fields = result as? [String: Any] {
+                    if let imageURL = ((fields["picture"] as? [String: Any])?["data"] as? [String: Any])?["url"] as? String {
+                        
+
+                    if let firstName = fields["first_name"] as? String {
+                        self.facebookFirstName = firstName
+                    }
+
+                    if let lastName = fields["last_name"] as? String {
+                        self.facebookLastName = lastName
+                    }
+
+                        print(fields)
+                }
+            }
+            }
+        }
+        )}
+            
+            
+
+            /*NetworkRequestsHandler.facebookLogin(accessToken: (result?.token.tokenString)!, completion: { (success, newUser, error) in
+
+                guard error == nil else {
+                    let alert = Utils.triggerAlert(title: "Erro", error: error!.message)
+                    self.present(alert, animated: true, completion: nil)
+                    return
+                }
+
+                FBSDKGraphRequest(graphPath: "me", parameters: ["fields": "first_name, last_name, picture.type(large)"]).start() {
+                    (connection, result, graphError) in
+
+                    if let error = graphError {
+                        print(error.localizedDescription)
+                        return
+                    }
+
+                    if !success {
+                        let alert = Utils.triggerAlert(title: "Erro", error: "Ocorreu um erro, tente novamente")
+                        self.present(alert, animated: true, completion: nil)
+                        return
+                    }
+
+                    if (!newUser) {
+                        self.goToHome()
+                        return
+                    }
+
+                    if let fields = result as? [String: Any] {
+                        if let imageURL = ((fields["picture"] as? [String: Any])?["data"] as? [String: Any])?["url"] as? String {
+                            NetworkRequestsHandler.downloadImage(from: imageURL, completion: { (uiImage, error) in
+                                OperationQueue.main.addOperation {
+                                    if (error != nil) {
+                                        let alert = Utils.triggerAlert(title: "Erro", error: "Ocorreu um erro a obter a imagem de perfil do Facebook")
+                                        self.present(alert, animated: true, completion: nil)
+                                        return;
+                                    }
+
+                                    /*var imageCropVC: RSKImageCropViewController!
+
+                                    imageCropVC = RSKImageCropViewController(image: uiImage!, cropMode: RSKImageCropMode.circle)
+
+                                    imageCropVC.delegate = self
+
+                                    self.navigationController?.pushViewController(imageCropVC, animated: true)*/
+                                }
+
+                            })
+                        }
+
+                        if let firstName = fields["first_name"] as? String {
+                            self.facebookFirstName = firstName
+                        }
+
+                        if let lastName = fields["last_name"] as? String {
+                            self.facebookLastName = lastName
+                        }
+
+                    }
+                }
+
+            })
+        })
+    }*/
 }
 
 

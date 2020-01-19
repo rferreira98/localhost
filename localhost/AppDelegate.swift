@@ -10,6 +10,7 @@ import UIKit
 import Alamofire
 import Firebase
 import IQKeyboardManager
+import FBSDKCoreKit
 
 
 @UIApplicationMain
@@ -31,6 +32,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
+    
         
         let pushManager = PushNotificationManager(userID: "currently_logged_in_user_id")
         pushManager.registerForPushNotifications()
@@ -58,6 +62,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         
         return true
+    }
+    
+    func application(_ application: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+
+        let handled = ApplicationDelegate.shared.application(application, open: url, sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String, annotation: options[UIApplication.OpenURLOptionsKey.annotation])
+        
+        return handled
     }
     
     @objc func languageWillChange(notification:NSNotification){

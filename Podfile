@@ -17,6 +17,7 @@ target 'localhost' do
   pod 'MessageKit'
   pod 'MaterialComponents/BottomSheet'
   pod 'IQKeyboardManager'
+  pod 'FBSDKLoginKit'
   
   target 'localhostTests' do
     inherit! :search_paths

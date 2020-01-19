@@ -203,7 +203,7 @@
                                                 <constraint firstAttribute="height" constant="90" id="FfN-dP-FKV"/>
                                             </constraints>
                                         </imageView>
-                                        <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="btz-bV-oYG" customClass="CosmosView" customModule="Cosmos">
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="btz-bV-oYG" customClass="CosmosView" customModule="Cosmos">
                                             <rect key="frame" x="224" y="70" width="120" height="20"/>
                                             <userDefinedRuntimeAttributes>
                                                 <userDefinedRuntimeAttribute type="number" keyPath="rating">
@@ -999,7 +999,7 @@
                                 </constraints>
                                 <state key="normal" image="FacebookLogo"/>
                                 <connections>
-                                    <action selector="facebookLoginClicked:" destination="X1K-Wl-KBG" eventType="touchUpInside" id="ccl-CC-Puw"/>
+                                    <action selector="facebookLoginClicked:" destination="X1K-Wl-KBG" eventType="touchUpInside" id="58H-SW-0Gl"/>
                                 </connections>
                             </button>
                         </subviews>
