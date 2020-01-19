@@ -47,6 +47,7 @@ class Local: Decodable {
         var longitude:Double
         var qtReviews:Int
         
+        
         do
         {
             id = try container.decode(Int.self, forKey: .id)

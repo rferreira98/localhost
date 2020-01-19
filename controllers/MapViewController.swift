@@ -19,6 +19,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     @IBOutlet weak var map: MKMapView!
     
+    var annotationLabel: UILabel!
     var locals = [Local]()
     
     var resultSearchController: UISearchController!
@@ -209,12 +210,26 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             
             
             
+            annotationLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: 30))
+            annotationLabel.text = local.name
+            annotationLabel.textColor = UIColor(named: "AppGreenPrimary")
+            annotationLabel.numberOfLines = 3
+            annotationLabel.font = UIFont.systemFont(ofSize: 10, weight: .bold)
+            annotationLabel.textAlignment = .center
+            annotationLabel.preferredMaxLayoutWidth = 100
+            //self.addSubview(label)
+            annotationLabel.translatesAutoresizingMaskIntoConstraints = false
+            
+            
+            
+            
             let artwork = Artwork(
                 title: local.name,
                 locationName: local.address,
                 coordinate: CLLocationCoordinate2D(latitude: latitude, longitude: longitude),
                 localRating: local.avgRating,
-                local: local
+                local: local,
+                titleView: annotationLabel
             )
              
             map.addAnnotation(artwork)

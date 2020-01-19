@@ -245,7 +245,8 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
             locationName: local.address,
             coordinate: CLLocationCoordinate2D(latitude: local.latitude, longitude: local.longitude),
             localRating: local.avgRating,
-            local: local
+            local: local,
+            titleView: nil
         )
         
         mapView.addAnnotation(artwork)
@@ -286,6 +287,9 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
         cell.labelReview.numberOfLines = 0
         cell.labelReviewUser.text = review?.user_name
         cell.imageViewUserReviewer.contentMode = .scaleAspectFill
+        
+        cell.imageViewReviewProvider.image = UIImage(named: (review!.provider.lowercased()))
+        
         if review?.user_image != nil {
             cell.imageViewUserReviewer.sd_setImage(with: URL(string: (review?.user_image)!), placeholderImage: UIImage(named: "NoAvatar"))
         }

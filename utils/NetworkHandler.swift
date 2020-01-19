@@ -81,7 +81,7 @@ class NetworkHandler {
     }
     
     static func getServerError(responseData: Data?, response: URLResponse?, responseError: Error?) -> String? {
-        print(String(data: responseData!, encoding: .utf8) ?? "no body data")
+        //print(String(data: responseData!, encoding: .utf8) ?? "no body data")
         guard responseError == nil else {
             return "Erro desconhecido"
         }
@@ -206,6 +206,28 @@ class NetworkHandler {
         }
         task.resume()
     }
+    
+    static func logout(completion: @escaping (_ success: Bool, _ error: String?) -> Void) {
+        if !NetworkHandler.appDelegate.isNetworkOn {
+            completion(false, "Sem conexão de Internet")
+            return
+        }
+        let postRequest = prepareRequest(nil as String?, needsToken: true, urlString: "/logout", request_type: "POST", completion: completion)!
+        let task = postRequest.session.dataTask(with: postRequest.request) { (responseData, response, responseError) in
+            let error = getServerError(responseData: responseData, response: response, responseError: responseError)
+            guard error == nil else {
+                return completion(false, error)
+            }
+            //let dataStr = String(responseData)
+            completion(true, nil)
+                
+            }
+            task.resume()
+        }
+    
+    
+    
+    
     
     static func saveUserInStorage(userJson: [String: Any]) -> Bool {
         var dataJson: [String: Any]

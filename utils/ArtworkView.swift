@@ -20,7 +20,8 @@ class ArtworkView: MKAnnotationView {
         //clusteringIdentifier = UserAnnotationView.preferredClusteringIdentifier
         clusteringIdentifier = ArtworkView.preferredClusteringIdentifier
         collisionMode = .circle
-        label.text = annotation?.title!
+        
+        /*label.text = annotation?.title!
         label = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: 30))
         label.textColor = UIColor(named: "AppGreenPrimary")
         label.numberOfLines = 3
@@ -33,7 +34,7 @@ class ArtworkView: MKAnnotationView {
         let verticalSpace = NSLayoutConstraint(item: self.label!, attribute: .top, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1, constant: 1)
         let centerAlignment = NSLayoutConstraint(item: self.label!, attribute: .centerX, relatedBy: .equal,toItem: self,attribute: .centerX, multiplier: 1, constant: 0)
         // activate the constraints
-        NSLayoutConstraint.activate([verticalSpace, centerAlignment])
+        NSLayoutConstraint.activate([verticalSpace, centerAlignment])*/
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -52,7 +53,15 @@ class ArtworkView: MKAnnotationView {
             calloutOffset = CGPoint(x: 0, y: 5)
             clusteringIdentifier = ArtworkView.preferredClusteringIdentifier
             image = UIImage(named: "NewMarker")
-            if self.label.text == nil {
+            if (artwork.titleView != nil) {
+                self.addSubview(artwork.titleView!)
+                let verticalSpace = NSLayoutConstraint(item: artwork.titleView, attribute: .top, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1, constant: 1)
+                let centerAlignment = NSLayoutConstraint(item: artwork.titleView, attribute: .centerX, relatedBy: .equal,toItem: self,attribute: .centerX, multiplier: 1, constant: 0)
+                // activate the constraints
+                NSLayoutConstraint.activate([verticalSpace, centerAlignment])
+            }
+            
+            /*if self.label.text == nil {
                 self.label.text = artwork.title!
                 label.translatesAutoresizingMaskIntoConstraints = false
                 
@@ -62,7 +71,7 @@ class ArtworkView: MKAnnotationView {
                 let centerAlignment = NSLayoutConstraint(item: self.label!, attribute: .centerX, relatedBy: .equal,toItem: self,attribute: .centerX, multiplier: 1, constant: 0)
                 // activate the constraints
                 NSLayoutConstraint.activate([verticalSpace, centerAlignment])
-            }
+            }*/
             
             
             let mapsButton = UIButton(frame: CGRect(origin: CGPoint.zero,

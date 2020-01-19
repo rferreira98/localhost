@@ -44,6 +44,7 @@ class ListReviewsViewController: UIViewController,UITableViewDelegate, UITableVi
         cell.labelReview.numberOfLines = 0
         cell.labelReviewUser.text = review?.user_name
         cell.imageViewUserReviewer.contentMode = .scaleAspectFill
+        cell.imageViewReviewProvider.image = UIImage(named: (review!.provider.lowercased()))
         
         cell.imageViewUserReviewer.layer.cornerRadius = cell.imageViewUserReviewer.frame.size.height / 2
         cell.imageViewUserReviewer.clipsToBounds = true

@@ -19,6 +19,7 @@ class ReviewTableViewCell: UITableViewCell{
     @IBOutlet weak var labelReview: UILabel!
     @IBOutlet weak var imageViewUserReviewer: UIImageView!
     @IBOutlet weak var ratingReview: CosmosView!
+    @IBOutlet weak var imageViewReviewProvider: UIImageView!
     
     
     override func awakeFromNib() {

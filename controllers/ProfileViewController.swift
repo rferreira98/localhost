@@ -296,42 +296,61 @@ UIPickerViewDelegate, UIPickerViewDataSource{
     }
     
     @IBAction func logoutClicked(_ sender: Any) {
-        
-        UserDefaults.standard.removeObject(forKey: "Token")
-        UserDefaults.standard.removeObject(forKey: "FirstName")
-        UserDefaults.standard.removeObject(forKey: "LastName")
-        UserDefaults.standard.removeObject(forKey: "AvatarEncoded")
-        //shouldn't remove email in this case because it will be needed for faceID
-        //UserDefaults.standard.removeObject(forKey: "Email")
-        UserDefaults.standard.removeObject(forKey: "Local")
-        UserDefaults.standard.synchronize()
-        
-        //go to first screen
-        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let first = storyBoard.instantiateViewController(withIdentifier: "tabBarController")        
-        first.modalPresentationStyle = .fullScreen
-        //self.dismiss(animated: true, completion: nil)
-        self.present(first, animated: true, completion: nil)
+        NetworkHandler.logout() { (success, error) in
+            OperationQueue.main.addOperation {
+                if error != nil {
+                    let alert = Utils.triggerAlert(title: NSLocalizedString("Error", comment: ""), error: error)
+                    self.present(alert, animated: true, completion: nil)
+                } else {
+                    UserDefaults.standard.removeObject(forKey: "Token")
+                    UserDefaults.standard.removeObject(forKey: "FirstName")
+                    UserDefaults.standard.removeObject(forKey: "LastName")
+                    UserDefaults.standard.removeObject(forKey: "AvatarEncoded")
+                    //shouldn't remove email in this case because it will be needed for faceID
+                    //UserDefaults.standard.removeObject(forKey: "Email")
+                    UserDefaults.standard.removeObject(forKey: "Local")
+                    UserDefaults.standard.synchronize()
+                    
+                    //go to first screen
+                    let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                    let first = storyBoard.instantiateViewController(withIdentifier: "tabBarController")
+                    first.modalPresentationStyle = .fullScreen
+                    //self.dismiss(animated: true, completion: nil)
+                    self.present(first, animated: true, completion: nil)
+                }
+            }
+            
+        }
         
     }
     
     @IBAction func logoutDeleteBiometricClicked(_ sender: Any) {
-        UserDefaults.standard.removeObject(forKey: "Token")
-        UserDefaults.standard.removeObject(forKey: "FirstName")
-        UserDefaults.standard.removeObject(forKey: "LastName")
-        UserDefaults.standard.removeObject(forKey: "Email")
-        UserDefaults.standard.removeObject(forKey: "Local")
-        UserDefaults.standard.removeObject(forKey: "AvatarEncoded")
-        UserDefaults.standard.set(false, forKey: "usesBiometricAuth")
-        UserDefaults.standard.set(false, forKey: "biometricPrompted")
-        UserDefaults.standard.synchronize()
-        
-        //go to first screen
-        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let first = storyBoard.instantiateViewController(withIdentifier: "tabBarController")
-        first.modalPresentationStyle = .fullScreen
-        //self.dismiss(animated: true, completion: nil)
-        self.present(first, animated: true, completion: nil)
+        NetworkHandler.logout() { (success, error) in
+            OperationQueue.main.addOperation {
+                if error != nil {
+                    let alert = Utils.triggerAlert(title: NSLocalizedString("Error", comment: ""), error: error)
+                    self.present(alert, animated: true, completion: nil)
+                } else {
+                    UserDefaults.standard.removeObject(forKey: "Token")
+                    UserDefaults.standard.removeObject(forKey: "FirstName")
+                    UserDefaults.standard.removeObject(forKey: "LastName")
+                    UserDefaults.standard.removeObject(forKey: "Email")
+                    UserDefaults.standard.removeObject(forKey: "Local")
+                    UserDefaults.standard.removeObject(forKey: "AvatarEncoded")
+                    UserDefaults.standard.set(false, forKey: "usesBiometricAuth")
+                    UserDefaults.standard.set(false, forKey: "biometricPrompted")
+                    UserDefaults.standard.synchronize()
+                    
+                    //go to first screen
+                    let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                    let first = storyBoard.instantiateViewController(withIdentifier: "tabBarController")
+                    first.modalPresentationStyle = .fullScreen
+                    //self.dismiss(animated: true, completion: nil)
+                    self.present(first, animated: true, completion: nil)
+                }
+            }
+            
+        }
     }
     
     
