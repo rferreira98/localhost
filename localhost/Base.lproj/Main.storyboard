@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Xko-fz-x9B">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Xko-fz-x9B">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -175,19 +175,26 @@
                                             <rect key="frame" x="116" y="10.666666666666666" width="228" height="19.333333333333336"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="228" id="4aL-4w-sgQ"/>
+                                                <constraint firstAttribute="height" constant="19.333333333333336" id="E5X-hC-H5I"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aBO-B4-QdN" userLabel="Label Local">
-                                            <rect key="frame" x="116" y="53" width="60" height="20"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aBO-B4-QdN" userLabel="Label Local">
+                                            <rect key="frame" x="116" y="53" width="228" height="20"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="228" id="yzR-Kk-wWI"/>
+                                            </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Classification" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iNG-ft-MPN" userLabel="Label Classificacao">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Classification" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iNG-ft-MPN" userLabel="Label Classificacao">
                                             <rect key="frame" x="116" y="81" width="107" height="20"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="107" id="6Nq-bJ-Nfs"/>
+                                            </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -223,6 +230,9 @@
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tipo" textAlignment="natural" lineBreakMode="clip" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M5b-WC-DTM" userLabel="Label Type">
                                             <rect key="frame" x="116" y="34" width="25" height="15"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="15" id="w4M-Y4-ZlN"/>
+                                            </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
@@ -232,6 +242,8 @@
                                         <constraint firstItem="iNG-ft-MPN" firstAttribute="top" secondItem="aBO-B4-QdN" secondAttribute="bottom" constant="8" id="2Qz-Vx-GsB"/>
                                         <constraint firstItem="M5b-WC-DTM" firstAttribute="leading" secondItem="dqs-ga-VcG" secondAttribute="trailing" constant="10" id="9Cn-HQ-7gD"/>
                                         <constraint firstAttribute="bottom" secondItem="iNG-ft-MPN" secondAttribute="bottom" constant="14" id="Ag1-hL-87d"/>
+                                        <constraint firstAttribute="trailing" secondItem="aBO-B4-QdN" secondAttribute="trailing" constant="4" id="Cem-d3-7hm"/>
+                                        <constraint firstItem="iNG-ft-MPN" firstAttribute="top" secondItem="btz-bV-oYG" secondAttribute="top" id="KVB-LF-mSZ"/>
                                         <constraint firstItem="2Ox-o2-Xof" firstAttribute="leading" secondItem="dqs-ga-VcG" secondAttribute="trailing" constant="10" id="QWp-cn-TQH"/>
                                         <constraint firstItem="M5b-WC-DTM" firstAttribute="top" secondItem="2Ox-o2-Xof" secondAttribute="bottom" constant="4" id="WUB-el-aot"/>
                                         <constraint firstAttribute="bottom" secondItem="btz-bV-oYG" secondAttribute="bottom" constant="14" id="X6Y-Uc-aSH"/>
@@ -1864,7 +1876,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="omm-TA-kpH"/>
         <segue reference="DUm-uL-UMg"/>
-        <segue reference="hxw-PN-3GF"/>
+        <segue reference="azt-BP-tXx"/>
         <segue reference="Bzt-6p-OWk"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" name="AppGreenPrimary"/>

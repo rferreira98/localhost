@@ -54,19 +54,32 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
         mapView.showsPointsOfInterest = true
         mapView.isUserInteractionEnabled = false
         
+        
+        
+        if traitCollection.userInterfaceStyle == .dark{
+            buttonPlaceReviews.backgroundColor = UIColor.lightGray.withAlphaComponent(0.3)
+            buttonMapDirections.backgroundColor = UIColor.lightGray.withAlphaComponent(0.3)
+            btnAskOrGoToQuestion.backgroundColor = UIColor.lightGray.withAlphaComponent(0.3)
+        }else {
+            buttonPlaceReviews.backgroundColor = UIColor.lightGray.withAlphaComponent(0.1)
+            buttonMapDirections.backgroundColor = UIColor.lightGray.withAlphaComponent(0.1)
+            btnAskOrGoToQuestion.backgroundColor = UIColor.lightGray.withAlphaComponent(0.1)
+        }
+        labelQtReviews.isUserInteractionEnabled = true
+        let tap = UITapGestureRecognizer(target: self, action: #selector(goToRecommendations))
+        labelQtReviews.addGestureRecognizer(tap)
+        
         buttonPlaceReviews.centerVertically(padding: 0, leftImageInsetDivider: 1.8)
-        buttonPlaceReviews.backgroundColor = UIColor.systemGray.withAlphaComponent(0.5)
         buttonPlaceReviews.layer.cornerRadius = 6
         //buttonPlaceReviews.layer.borderWidth = 0
         //buttonPlaceReviews.layer.borderColor = UIColor(named: "AppGreenButton")?.cgColor
         
         buttonMapDirections.centerVertically(padding: 0, leftImageInsetDivider: 1.8)
-        buttonMapDirections.backgroundColor = UIColor.systemGray.withAlphaComponent(0.5)
         buttonMapDirections.layer.cornerRadius = 6
         
         UserDefaults.standard.string(forKey: "AppLanguage") == NSLocalizedString("English", comment: "") ? btnAskOrGoToQuestion.centerVertically(padding: 0, leftImageInsetDivider: 1.6) : btnAskOrGoToQuestion.centerVertically(padding: 0, leftImageInsetDivider: 1.8)
         
-        btnAskOrGoToQuestion.backgroundColor = UIColor.systemGray.withAlphaComponent(0.5)
+        
         btnAskOrGoToQuestion.layer.cornerRadius = 6
         
         
@@ -122,6 +135,22 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
         selector: #selector(handleModalDismissed),
         name: NSNotification.Name(rawValue: "modalIsDimissed"),
         object: nil) 
+    }
+    
+    @objc func goToRecommendations(){
+        performSegue(withIdentifier: "segueReviewsDetail", sender: nil)
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        if previousTraitCollection?.userInterfaceStyle == .dark{
+            buttonPlaceReviews.backgroundColor = UIColor.lightGray.withAlphaComponent(0.1)
+            buttonMapDirections.backgroundColor = UIColor.lightGray.withAlphaComponent(0.1)
+            btnAskOrGoToQuestion.backgroundColor = UIColor.lightGray.withAlphaComponent(0.1)
+        }else{
+            buttonPlaceReviews.backgroundColor = UIColor.lightGray.withAlphaComponent(0.3)
+            buttonMapDirections.backgroundColor = UIColor.lightGray.withAlphaComponent(0.3)
+            btnAskOrGoToQuestion.backgroundColor = UIColor.lightGray.withAlphaComponent(0.3)
+        }
     }
     
     @objc func handleModalDismissed() {

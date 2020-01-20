@@ -201,8 +201,8 @@ class SettingsViewController: UITableViewController, MFMailComposeViewController
         if section == 3{
             return CGFloat.leastNonzeroMagnitude
         }
-        
-        return 25
+
+        return 30
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

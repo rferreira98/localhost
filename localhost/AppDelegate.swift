@@ -14,7 +14,7 @@ import FBSDKCoreKit
 
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
     
     private let manager = NetworkReachabilityManager(host: "www.google.com")
     public var isNetworkOn:Bool = true
@@ -38,6 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let pushManager = PushNotificationManager(userID: "currently_logged_in_user_id")
         pushManager.registerForPushNotifications()
+        UNUserNotificationCenter.current().delegate = self
         
         FirebaseApp.configure()
         

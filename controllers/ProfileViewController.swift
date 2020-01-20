@@ -58,6 +58,7 @@ UIPickerViewDelegate, UIPickerViewDataSource{
             
         }
         
+        
         //self.tableView.cellForRow(at: IndexPath(row: 0, section: 2))?.separatorInset = UIEdgeInsets(top: 0, left: 10000, bottom: 0, right: 0)
         
         //tableView.contentInset = UIEdgeInsets(top: -1, left: 0, bottom: 0, right: 0)
@@ -73,14 +74,30 @@ UIPickerViewDelegate, UIPickerViewDataSource{
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 0 {
             return 0.0
-        } else {
-            return 32
         }
+    
+        if section == 1 && isEditingFields {
+            return 0.0
+        }
+        return 30
+    }
+    
+    
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        let count = super.tableView(tableView, numberOfRowsInSection: section)
+        if isEditingFields && section == 1{
+            return 0
+            
+        }
+        return count
     }
     
     override func viewWillAppear(_ animated: Bool) {
         avatarImageView.layer.cornerRadius = avatarImageView.frame.size.height / 2
         avatarImageView.clipsToBounds = true
+        
+        self.tableView.separatorStyle = .none
         
     }
     
@@ -138,6 +155,8 @@ UIPickerViewDelegate, UIPickerViewDataSource{
         return .none
     }
     
+    
+    
     @IBAction func editClicked(_ sender: Any) {
         if isEditingFields {
             isEditingFields = false
@@ -145,6 +164,7 @@ UIPickerViewDelegate, UIPickerViewDataSource{
         } else {
             isEditingFields = true
             barButtonItemEdit.title = "Done"
+            
         }
         
         
@@ -160,6 +180,7 @@ UIPickerViewDelegate, UIPickerViewDataSource{
             let tapImage = UITapGestureRecognizer(target: self, action: #selector(ProfileViewController.avatarUpload(_:)))
             avatarImageView.isUserInteractionEnabled = isEditingFields
             avatarImageView.addGestureRecognizer(tapImage)
+            self.tableView.reloadData()
         }
         
         //User clicked "Done"
@@ -245,6 +266,8 @@ UIPickerViewDelegate, UIPickerViewDataSource{
                     
                 }
             }
+            
+            self.tableView.reloadData()
         }
         
     }

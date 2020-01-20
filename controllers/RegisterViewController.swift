@@ -239,7 +239,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIImagePick
         var image: UIImage!
         
         
-        if textFieldFirstName.text!.isEmpty || textFieldLastName.text!.isEmpty || textFieldEmail.text!.isEmpty || textFieldPassword.text!.isEmpty || textFieldConfirmPassword.text!.isEmpty || (textFieldLocal.text!.isEmpty && textFieldLocal.text! == "Choose local"){
+        if textFieldFirstName.text!.isEmpty || textFieldLastName.text!.isEmpty || textFieldEmail.text!.isEmpty || textFieldPassword.text!.isEmpty || textFieldConfirmPassword.text!.isEmpty || (textFieldLocal.text!.isEmpty || textFieldLocal.text! == NSLocalizedString("Choose Local", comment: "")){
             
             let alert = Utils.triggerAlert(title: NSLocalizedString("Error", comment: ""), error: NSLocalizedString("Some fields are empty", comment: ""))
             self.present(alert, animated: true, completion: nil)
@@ -332,6 +332,9 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIImagePick
                 
             let noAction = UIAlertAction(title: NSLocalizedString("No", comment: ""), style: .cancel, handler: {
                 (alert: UIAlertAction!) -> Void in
+                let email = self.textFieldEmail.text!
+                let passwd : Data? = self.textFieldPassword.text!.data(using: .utf8)
+                let status = KeychainPasswordItem.save(key: email, data: passwd!)
                 UserDefaults.standard.set(true, forKey: "biometricPrompted")
                 self.goToMainScreen()
             })

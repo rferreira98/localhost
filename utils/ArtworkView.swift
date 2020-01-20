@@ -13,6 +13,8 @@ import Cosmos
 class ArtworkView: MKAnnotationView {
     
     static let preferredClusteringIdentifier = Bundle.main.bundleIdentifier! + ".UserAnnotationView"
+    var detailLabel = UILabel()
+    var darkTheme: Bool!
     var label: UILabel!
     
     override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
@@ -20,9 +22,11 @@ class ArtworkView: MKAnnotationView {
         //clusteringIdentifier = UserAnnotationView.preferredClusteringIdentifier
         clusteringIdentifier = ArtworkView.preferredClusteringIdentifier
         collisionMode = .circle
+        darkTheme = traitCollection.userInterfaceStyle == .dark
         
-        /*label.text = annotation?.title!
+        
         label = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: 30))
+        label.text = annotation?.title!
         label.textColor = UIColor(named: "AppGreenPrimary")
         label.numberOfLines = 3
         label.font = UIFont.systemFont(ofSize: 10, weight: .bold)
@@ -34,7 +38,17 @@ class ArtworkView: MKAnnotationView {
         let verticalSpace = NSLayoutConstraint(item: self.label!, attribute: .top, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1, constant: 1)
         let centerAlignment = NSLayoutConstraint(item: self.label!, attribute: .centerX, relatedBy: .equal,toItem: self,attribute: .centerX, multiplier: 1, constant: 0)
         // activate the constraints
-        NSLayoutConstraint.activate([verticalSpace, centerAlignment])*/
+        NSLayoutConstraint.activate([verticalSpace, centerAlignment])
+        
+        
+        detailLabel.numberOfLines = 0
+        detailLabel.font = detailLabel.font.withSize(12)
+        detailLabel.textColor = UIColor.lightGray
+        if darkTheme{
+            detailLabel.shadowColor = .darkGray
+        }else{
+            detailLabel.shadowColor = .white
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -42,7 +56,7 @@ class ArtworkView: MKAnnotationView {
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        label.shadowColor = traitCollection.userInterfaceStyle == .dark ? .darkGray : .white
+        darkTheme = traitCollection.userInterfaceStyle == .dark
     }
     
     override var annotation: MKAnnotation? {
@@ -53,41 +67,40 @@ class ArtworkView: MKAnnotationView {
             calloutOffset = CGPoint(x: 0, y: 5)
             clusteringIdentifier = ArtworkView.preferredClusteringIdentifier
             image = UIImage(named: "NewMarker")
-            if (artwork.titleView != nil) {
+            /*if (detailLabel.text == nil) {
+                
+                detailLabel.text = artwork.subtitle
+                self.detailLabel.removeFromSuperview()
                 self.addSubview(artwork.titleView!)
                 let verticalSpace = NSLayoutConstraint(item: artwork.titleView, attribute: .top, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1, constant: 1)
                 let centerAlignment = NSLayoutConstraint(item: artwork.titleView, attribute: .centerX, relatedBy: .equal,toItem: self,attribute: .centerX, multiplier: 1, constant: 0)
                 // activate the constraints
                 NSLayoutConstraint.activate([verticalSpace, centerAlignment])
-            }
-            
-            /*if self.label.text == nil {
-                self.label.text = artwork.title!
-                label.translatesAutoresizingMaskIntoConstraints = false
-                
-                self.label.removeFromSuperview()
-                self.addSubview(label)
-                let verticalSpace = NSLayoutConstraint(item: self.label!, attribute: .top, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1, constant: 1)
-                let centerAlignment = NSLayoutConstraint(item: self.label!, attribute: .centerX, relatedBy: .equal,toItem: self,attribute: .centerX, multiplier: 1, constant: 0)
-                // activate the constraints
-                NSLayoutConstraint.activate([verticalSpace, centerAlignment])
             }*/
             
+             
+                           self.label.text = artwork.title!
+                           label.translatesAutoresizingMaskIntoConstraints = false
+                           
+                           self.label.removeFromSuperview()
+                           self.addSubview(label)
+                           let verticalSpace = NSLayoutConstraint(item: self.label!, attribute: .top, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1, constant: 1)
+                           let centerAlignment = NSLayoutConstraint(item: self.label!, attribute: .centerX, relatedBy: .equal,toItem: self,attribute: .centerX, multiplier: 1, constant: 0)
+                           // activate the constraints
+                           NSLayoutConstraint.activate([verticalSpace, centerAlignment])
+                       
             
-            let mapsButton = UIButton(frame: CGRect(origin: CGPoint.zero,
-               size: CGSize(width: 30, height: 30)))
-            mapsButton.setBackgroundImage(UIImage(named: "Info"), for: UIControl.State())
             
-            rightCalloutAccessoryView = mapsButton
-            image = UIImage(named: "NewMarker")
             
-            let detailLabel = UILabel()
-            detailLabel.numberOfLines = 0
-            detailLabel.font = detailLabel.font.withSize(12)
-            detailLabel.text = artwork.subtitle
-            detailLabel.textColor = UIColor.lightGray
+            
             //detailCalloutAccessoryView = detailLabel
             
+            let mapsButton = UIButton(frame: CGRect(origin: CGPoint.zero,
+                              size: CGSize(width: 30, height: 30)))
+                           mapsButton.setBackgroundImage(UIImage(named: "Info"), for: UIControl.State())
+                           
+                           rightCalloutAccessoryView = mapsButton
+                           image = UIImage(named: "NewMarker")
             
             let classification = CosmosView(frame: CGRect(origin: CGPoint.zero,
             size: CGSize(width: 30, height: 30)))

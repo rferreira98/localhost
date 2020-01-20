@@ -48,6 +48,8 @@ class PlacesListViewController: UITableViewController, UISearchBarDelegate {
             
         searchController.searchBar.delegate = self
         
+        //self.navigationController?.navigationBar.isTranslucent = false
+        
         
         /*
          let locationSearchTable = storyboard!.instantiateViewController(withIdentifier: "LocationSearchTable") as! LocationSearchTableController

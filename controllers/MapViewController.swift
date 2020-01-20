@@ -21,6 +21,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     var annotationLabel: UILabel!
     var locals = [Local]()
+    var firstLaunch = true
     
     var resultSearchController: UISearchController!
     
@@ -77,13 +78,17 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         map.showsUserLocation = true
         map.showsScale = true
         map.showsCompass = true
-        map.showsPointsOfInterest = false
-        
+        map.showsPointsOfInterest = true
+        if #available(iOS 13.0, *) {
+            map.pointOfInterestFilter = .some(MKPointOfInterestFilter(excluding: [MKPointOfInterestCategory.restaurant, MKPointOfInterestCategory.cafe, MKPointOfInterestCategory.nightlife]))
+        }
         
         //Adds the button for current location to the map
         let buttonCurrentLocation = MKUserTrackingButton(mapView: map)
         buttonCurrentLocation.frame = CGRect(origin: CGPoint(x:view.frame.maxX - (view.frame.maxX * 0.15), y: view.frame.maxY -  (view.frame.maxY * 0.30) ), size: CGSize(width: 35, height: 35))
         map.addSubview(buttonCurrentLocation)
+        
+        
         //----------------------------------------------
         
         //Since we wanted the searchbar on the navbar and we added it programmaticaly, we need to also add the filter button programmaticaly and place it to the right
@@ -102,6 +107,18 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         
         self.drawLocalPins()
     }
+    func mapView(_ mapView: MKMapView, didChange mode: MKUserTrackingMode, animated: Bool) {
+        
+        if !firstLaunch {
+            if mode == .follow{
+                getCurrentLocals()
+            }
+        }else {
+            firstLaunch = false
+        }
+        
+        
+    }
     
     @objc func segueFilters(){
         //Used to perform the segue for the screen with the filters when filters button is pressed
@@ -111,10 +128,35 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         
     }
     
-     
+    @objc func getCurrentLocals (){
+        
+        NetworkHandler.getLocals(latitude: Double((locationManager.location?.coordinate.latitude)!), longitude: Double((locationManager.location?.coordinate.longitude)!)) {
+            (locals, error) in OperationQueue.main.addOperation {
+                if error != nil {
+                    let alert = Utils.triggerAlert(title: NSLocalizedString("Error", comment: ""), error: error)
+                    self.present(alert, animated: true, completion: nil)
+                }
+                else{
+                    
+                    Items.sharedInstance.locals = [Local]()
+                    
+                    if Items.sharedInstance.locals.count == 0{
+                        for local in locals!{
+                            Items.sharedInstance.locals.append(local)
+                        }
+                    }
+                    self.locals = Items.sharedInstance.locals
+                    self.drawLocalPins()
+                    
+                }
+            }
+        }
+    }
+    
+    
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        let span = MKCoordinateSpan(latitudeDelta: 0.002, longitudeDelta: 0.002)
+        let span = MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)
         let region = MKCoordinateRegion(center: (view.annotation?.coordinate)!, span: span)
         var isSameRegion:Bool = false
         
@@ -156,7 +198,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         if goingForwards == true {
             goingForwards = false
             getCoordinateFrom(address: Items.sharedInstance.locals[0].city, completion: {coordinates, error in
-                let span = MKCoordinateSpan(latitudeDelta: 0.15, longitudeDelta: 0.15)
+                let span = MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2)
                 let region = MKCoordinateRegion(center: coordinates!, span: span)
                 self.map.setRegion(region, animated: true)
                 self.locals = Items.sharedInstance.locals
@@ -263,6 +305,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         }
     }
     
+
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView,
         calloutAccessoryControlTapped control: UIControl) {
       /*let location = view.annotation as! Artwork
@@ -310,6 +353,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             smld.local = self.localToSend
         }*/
     }
+    
+     
     
     //MARK: - Custom Annotation
     /*func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
@@ -365,12 +410,17 @@ extension MapViewController: HandleMapSearch {
     
     //When a searched location is clicked the map will zomm on it
     func zoomLocation(_ placemark: MKPlacemark){
-        let span = MKCoordinateSpan(latitudeDelta: 0.002, longitudeDelta: 0.002)
+        self.resultSearchController.searchBar.text = Items.sharedInstance.locals[0].city.capitalizingFirstLetter()
+        self.locals = Items.sharedInstance.locals
+        self.drawLocalPins()
+        
+        let span = MKCoordinateSpan(latitudeDelta: 0.09, longitudeDelta: 0.09)
         let region = MKCoordinateRegion(center: placemark.coordinate, span: span)
         map.setRegion(region, animated: true)
     }
     
 }
+
 
 class UserClusterAnnotationView: MKAnnotationView {
     static let preferredClusteringIdentifier = Bundle.main.bundleIdentifier! + ".UserClusterAnnotationView"

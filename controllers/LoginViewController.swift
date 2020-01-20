@@ -341,8 +341,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 return
             }
             
-            print(result)
-            
 
             if (result?.isCancelled)! {
                 let alert = Utils.triggerAlert(title: "Login cancelado", error: "Login pelo Facebook cancelado")
@@ -401,17 +399,19 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                                 let alert = Utils.triggerAlert(title: NSLocalizedString("Error", comment: ""), error: error)
                                 self.present(alert, animated: true, completion: nil)
                             } else {
+                                
+                                //deletes the data from other user faceid
+                                self.biometricLoginButton.isHidden = true
+                                self.usesBiometricAuth = false
+                                UserDefaults.standard.set(false, forKey: "usesBiometricAuth")
+                                UserDefaults.standard.removeObject(forKey: "biometricPrompted")
+                                
                                 self.goToMainScreen()
                             }
                         }
                         
                     }
                     
-                    
-                    
-                    //user is returned, save in storage as a normal login and proceds to map screen
-                        
-
                 }
             
             }
