@@ -20,8 +20,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     var delegate: LoginHasBeenMade?
     
     let facebookLogin = LoginManager()
-    var facebookFirstName: String?
-    var facebookLastName: String?
+    
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -341,6 +340,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 
                 return
             }
+            
+            print(result)
+            
 
             if (result?.isCancelled)! {
                 let alert = Utils.triggerAlert(title: "Login cancelado", error: "Login pelo Facebook cancelado")
@@ -349,6 +351,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 return;
             }
             print("Facebook login success")
+            var access_token: String?
+            if (result?.token?.tokenString != nil){
+                access_token = result?.token?.tokenString
+            }
             
             GraphRequest(graphPath: "me", parameters: ["fields": "email, first_name, last_name, location, picture.type(large)"]).start() {
                 (connection, result, graphError) in
@@ -357,22 +363,57 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                     print(error.localizedDescription)
                     return
                 }
+                
+                
 
                 if let fields = result as? [String: Any] {
+                    
+                    var first_name: String?
+                    var last_name: String?
+                    var local: String?
+                    var email: String?
+                    var photo_url: String?
+                    
                     if let imageURL = ((fields["picture"] as? [String: Any])?["data"] as? [String: Any])?["url"] as? String {
-                        
+                        photo_url = imageURL
+                    }
 
                     if let firstName = fields["first_name"] as? String {
-                        self.facebookFirstName = firstName
+                        first_name = firstName
                     }
 
                     if let lastName = fields["last_name"] as? String {
-                        self.facebookLastName = lastName
+                        last_name = lastName
                     }
+                    
+                    if let location = (fields["location"] as? [String: Any])?["name"] as? String {
+                        local = location
+                    }
+                    
+                    if let fbemail = fields["email"] as? String {
+                        email = fbemail
+                    }
+                    
+                    let myPost = NetworkHandler.PostFacebookLogin(access_token: access_token!, local: local!, messaging_token: Messaging.messaging().fcmToken!, first_name: first_name!, last_name: last_name!, email: email!, photo_url: photo_url!)
+                    NetworkHandler.facebookLogin(post: myPost){ (success, error) in
+                        OperationQueue.main.addOperation {
+                            if error != nil {
+                                let alert = Utils.triggerAlert(title: NSLocalizedString("Error", comment: ""), error: error)
+                                self.present(alert, animated: true, completion: nil)
+                            } else {
+                                self.goToMainScreen()
+                            }
+                        }
+                        
+                    }
+                    
+                    
+                    
+                    //user is returned, save in storage as a normal login and proceds to map screen
+                        
 
-                        print(fields)
                 }
-            }
+            
             }
         }
         )}

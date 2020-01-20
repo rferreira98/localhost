@@ -225,6 +225,49 @@ class NetworkHandler {
             task.resume()
         }
     
+    struct PostFacebookLogin: Codable {
+        let access_token: String
+        let local: String
+        let messaging_token: String
+        let first_name: String
+        let last_name: String
+        let email: String
+        let photo_url: String
+        
+    }
+    static func facebookLogin(post: PostFacebookLogin, completion: @escaping (_ success: Bool, _ error: String?) -> Void) {
+        if !NetworkHandler.appDelegate.isNetworkOn {
+            completion(false, "Sem conexão de Internet")
+            return
+        }
+        let postRequest = prepareRequest(post, needsToken: false, urlString: "/fblogin", request_type: "POST", completion: completion)!
+        let task = postRequest.session.dataTask(with: postRequest.request) { (responseData, response, responseError) in
+            let error = getServerError(responseData: responseData, response: response, responseError: responseError)
+            guard error == nil else {
+                return completion(false, error)
+            }
+            
+            //let dataStr = String(responseData)
+            
+            do {
+                let jsonResponse = try JSONSerialization.jsonObject(with:
+                    responseData!, options: [])
+                
+                
+                if let dictionary = jsonResponse as? [String: Any] {
+                    //let saved = saveUserInStorage(userJson: jsonResponse as! [String: Any])
+                    let saved = saveUserInStorage(userJson: jsonResponse as! [String: Any])
+                    completion(saved, nil)
+                }
+                
+            } catch let parsingError {
+                print("Error", parsingError)
+                completion(false, "Erro no parse de JSON no login" )
+            }
+        }
+        task.resume()
+    }
+    
     
     
     
