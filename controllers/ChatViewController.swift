@@ -59,7 +59,6 @@ class ChatViewController: MessagesViewController {
         self.view.addGestureRecognizer(tap)
         
         
-        
         loadChat()
     }
     
@@ -67,6 +66,7 @@ class ChatViewController: MessagesViewController {
     func loadChat() {
         //Fetch all the chats which has current user in it
         // let db = Firestore.firestore().collection("Chats").whereField("users", arrayContains: "\(currentUser.id)"/*Auth.auth().currentUser?.uid*/ ?? "Not Found User 1")
+        //let doc = Firestore.firestore().collection("Chats").document("\(question.id)")
         let doc = Firestore.firestore().collection("Chats").document("\(question.id)")
         /*db.getDocuments { (chatQuerySnap, error) in
          if let error = error {

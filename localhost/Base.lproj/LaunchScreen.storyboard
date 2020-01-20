@@ -17,8 +17,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LocalhostIconWhite" translatesAutoresizingMaskIntoConstraints="NO" id="DI5-nh-2nI">
-                                <rect key="frame" x="-186.66666666666666" y="279" width="748.33333333333337" height="264"/>
+                            <imageView clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo com letras-2.png" translatesAutoresizingMaskIntoConstraints="NO" id="DI5-nh-2nI">
+                                <rect key="frame" x="98" y="279" width="179" height="264"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" name="AppGreenPrimary"/>
@@ -36,7 +36,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="LocalhostIconWhite" width="374" height="322"/>
+        <image name="Logo com letras-2.png" width="89.760002136230469" height="77.279998779296875"/>
         <namedColor name="AppGreenPrimary">
             <color red="0.42699998617172241" green="0.70999997854232788" blue="0.17599999904632568" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

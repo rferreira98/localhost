@@ -26,5 +26,5 @@ target 'localhost' do
   target 'localhostUITests' do
     # Pods for testing
   end
-
+  
 end

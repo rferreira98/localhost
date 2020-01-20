@@ -47,7 +47,18 @@ class PushNotificationManager: NSObject, MessagingDelegate, UNUserNotificationCe
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
         updateFirestorePushTokenIfNeeded()
     }
+    
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         print(response)
-    }
+        print("ação escolhida na notificação")
+        if response.actionIdentifier == "ACCEPT_ACTION" {
+                print("Handle like action identifier")
+            } else if response.actionIdentifier == "DECLINE_ACTION" {
+                print("Handle save action identifier")
+            } else {
+                print("No custom action identifiers chosen")
+            }
+            // Make sure completionHandler method is at the bottom of this func
+            completionHandler()
+        }
 }
