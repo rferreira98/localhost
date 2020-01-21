@@ -103,7 +103,20 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
         self.ratingView.rating = self.local.avgRating
         self.labelQtReviews.text = String(local.qtReviews) + " " + NSLocalizedString("Reviews", comment: "")
         self.imageViewLocal.contentMode = .scaleAspectFill
-        self.imageViewLocal.sd_setImage(with: URL(string: local.imageUrl), placeholderImage: UIImage(named: "NoPhotoRestaurant"))
+        
+        if(traitCollection.userInterfaceStyle == .dark){
+            if local.imageUrl == ""{
+                self.imageViewLocal.contentMode = .scaleAspectFit
+            }
+             self.imageViewLocal.sd_setImage(with: URL(string: local.imageUrl), placeholderImage: UIImage(named: "LocalhostPlaceGray"))
+        }else{
+            if local.imageUrl == ""{
+                self.imageViewLocal.contentMode = .scaleAspectFit
+            }
+            self.imageViewLocal.sd_setImage(with: URL(string: local.imageUrl), placeholderImage: UIImage(named: "LocalhostPlaceWhite"))
+        }
+        
+       
         
         getReviews(local.id)
         
@@ -146,10 +159,18 @@ class LocalDetailedViewController: UIViewController, MKMapViewDelegate, UITableV
             buttonPlaceReviews.backgroundColor = UIColor.lightGray.withAlphaComponent(0.1)
             buttonMapDirections.backgroundColor = UIColor.lightGray.withAlphaComponent(0.1)
             btnAskOrGoToQuestion.backgroundColor = UIColor.lightGray.withAlphaComponent(0.1)
+            if local.imageUrl == nil{
+                self.imageViewLocal.contentMode = .scaleAspectFit
+            }
+            self.imageViewLocal.sd_setImage(with: URL(string: local.imageUrl), placeholderImage: UIImage(named: "LocalhostPlaceWhite"))
         }else{
             buttonPlaceReviews.backgroundColor = UIColor.lightGray.withAlphaComponent(0.3)
             buttonMapDirections.backgroundColor = UIColor.lightGray.withAlphaComponent(0.3)
             btnAskOrGoToQuestion.backgroundColor = UIColor.lightGray.withAlphaComponent(0.3)
+            if local.imageUrl == nil{
+                self.imageViewLocal.contentMode = .scaleAspectFit
+            }
+            self.imageViewLocal.sd_setImage(with: URL(string: local.imageUrl), placeholderImage: UIImage(named: "LocalhostPlaceGray"))
         }
     }
     
