@@ -6,19 +6,22 @@ target 'localhost' do
   use_frameworks!
 
   # Pods for localhost
-  pod 'RSKImageCropper'
-  pod 'InitialsImageView'
-  pod 'SDWebImage'
-  pod 'SwiftHTTP'
-  pod 'Alamofire'
-  pod 'Cosmos'
-  pod 'Firebase/Firestore'
-  pod 'Firebase/Messaging'
-  pod 'MessageKit'
-  pod 'MaterialComponents/BottomSheet'
-  pod 'IQKeyboardManager'
-  pod 'FBSDKLoginKit'
+  def sharedPods
+    pod 'RSKImageCropper'
+    pod 'InitialsImageView'
+    pod 'SDWebImage'
+    pod 'SwiftHTTP'
+    pod 'Alamofire'
+    pod 'Cosmos'
+    pod 'Firebase/Firestore'
+    pod 'Firebase/Messaging'
+    pod 'MessageKit'
+    pod 'IQKeyboardManager'
+    pod 'FBSDKLoginKit'
+  end
   
+  sharedPods
+
   target 'localhostTests' do
     inherit! :search_paths
     # Pods for testing
@@ -26,6 +29,18 @@ target 'localhost' do
 
   target 'localhostUITests' do
     # Pods for testing
+  end
+  
+  target 'NotificationViewController' do
+    sharedPods
+  end
+
+  post_install do |installer|
+    installer.pods_project.targets.each do |target|
+      target.build_configurations.each do |config|
+        config.build_settings['APPLICATION_EXTENSION_API_ONLY'] = 'NO'
+      end
+    end
   end
 
 end

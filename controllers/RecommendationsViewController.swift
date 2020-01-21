@@ -20,15 +20,33 @@ class RecommendationsViewController: UITableViewController, UISearchBarDelegate{
     
     var questionToSend:Question!
     
+    var searchController = UISearchController(searchResultsController: nil)
+    var filteredQuestions: [Question] = []
+    var isSearchBarEmpty: Bool {
+        return searchController.searchBar.text?.isEmpty ?? true
+    }
+    
+    var isFiltering: Bool {
+        return searchController.isActive && !isSearchBarEmpty
+    }
+    
     
     override func viewWillAppear(_ animated: Bool) {
-        let locationSearchTable = storyboard!.instantiateViewController(withIdentifier: "LocationSearchTable") as! LocationSearchTableController
-        resultSearchController = UISearchController(searchResultsController: locationSearchTable)
-        resultSearchController.searchResultsUpdater = locationSearchTable
-        resultSearchController.hidesNavigationBarDuringPresentation = false
+        searchController.searchResultsUpdater = self
+        // 2
+        searchController.obscuresBackgroundDuringPresentation = false
+        // 3
+        searchController.searchBar.placeholder = "Search Questions"
+        // 4
+        navigationItem.searchController = searchController
+        // 5
         definesPresentationContext = true
-        //-------------------------------------------------------------------------
-        
+       
+        searchController.searchBar.scopeButtonTitles = [NSLocalizedString("My Questions", comment: ""), NSLocalizedString("Other Questions", comment: "")]
+            searchController.searchBar.showsScopeBar = true
+            
+        searchController.searchBar.delegate = self
+        /*
         //Sets the location of the search bar to the navigation bar (on the top of the screen)
         let searchBar = resultSearchController!.searchBar
         //navigationItem.searchController = resultSearchController
@@ -38,7 +56,8 @@ class RecommendationsViewController: UITableViewController, UISearchBarDelegate{
         searchBar.scopeButtonTitles = [NSLocalizedString("My Questions", comment: ""), NSLocalizedString("Other Questions", comment: "")]
         searchBar.showsScopeBar = true
         searchBar.delegate = self
-
+ */
+        
         
         /*
          
@@ -55,6 +74,16 @@ class RecommendationsViewController: UITableViewController, UISearchBarDelegate{
         
         getQuestions()
     }
+    
+    override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+       self.searchController.searchBar.endEditing(true)
+       if(self.isSearchBarEmpty){
+           self.searchController.isActive = false
+       }
+        self.navigationItem.hidesSearchBarWhenScrolling = false
+        //navigationController?.
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         //Checks is iOS 13 is available and if it is it sets the selected tab to green color, because the previous tint color method is not suported on ios 13+
         
@@ -69,8 +98,14 @@ class RecommendationsViewController: UITableViewController, UISearchBarDelegate{
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "questionCell", for: indexPath) as! QuestionTableViewCell
+        let question:Question
         
-        let question: Question = questionsAux[indexPath.row]
+        
+        if isFiltering {
+            question = filteredQuestions[indexPath.row]
+        } else {
+            question = questionsAux[indexPath.row]
+        }
         cell.restaurantNameLbl.text = question.place_name
         cell.restaurantCityLbl.text = question.place_city.capitalizingFirstLetter()
         cell.restaurantImage.sd_setImage(with: URL(string: question.place_image_url), placeholderImage: UIImage(named: "NoPhotoRestaurant"))
@@ -80,13 +115,21 @@ class RecommendationsViewController: UITableViewController, UISearchBarDelegate{
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if isFiltering {
+            return filteredQuestions.count
+        }
         return questionsAux.count
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let question:Question
         
-        question = questionsAux[indexPath.row]
+        
+        if isFiltering {
+            question = filteredQuestions[indexPath.row]
+        } else {
+            question = questionsAux[indexPath.row]
+        }
         
         questionToSend = question
         
@@ -150,7 +193,7 @@ class RecommendationsViewController: UITableViewController, UISearchBarDelegate{
         let closeAction = UIContextualAction(style: .normal, title:  "Close", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
             print("OK, marked as Closed")
             let alert = UIAlertController(title: "Did you want to delete the question ?", message: "Deleting is a permanent action cannot be undone", preferredStyle: .alert)
-
+            
             alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { action in
                 let question: Question = self.questionsAux[indexPath.row]
                 DispatchQueue.global(qos: .background).async {
@@ -166,7 +209,7 @@ class RecommendationsViewController: UITableViewController, UISearchBarDelegate{
                             //dizer que removeu
                             let alert = UIAlertController(title: "Chat deleted successfully",
                                                           message: nil, preferredStyle: .alert)
-
+                            
                             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: {action in
                                 
                                 for (index, questionAux) in self.questions.enumerated() {
@@ -177,7 +220,7 @@ class RecommendationsViewController: UITableViewController, UISearchBarDelegate{
                                 }
                                 self.tableView.reloadData()
                             }))
-
+                            
                             self.present(alert, animated: true)
                         }
                     }
@@ -186,7 +229,7 @@ class RecommendationsViewController: UITableViewController, UISearchBarDelegate{
                 self.questionsAux.remove(at: indexPath.row)
             }))
             alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
-
+            
             self.present(alert, animated: true)
             success(true)
         })
@@ -221,7 +264,16 @@ class RecommendationsViewController: UITableViewController, UISearchBarDelegate{
             }
         }
     }
+    
+    func filterContentForSearchText(_ searchText: String) {
+        filteredQuestions = questionsAux.filter { (question: Question) -> Bool in
+            return question.place_name.lowercased().contains(searchText.lowercased())
+        }
+        
+        tableView.reloadData()
+    }
 }
+
 
 extension String {
     func capitalizingFirstLetter() -> String {
@@ -230,5 +282,12 @@ extension String {
     
     mutating func capitalizeFirstLetter() {
         self = self.capitalizingFirstLetter()
+    }
+}
+
+extension RecommendationsViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        let searchBar = searchController.searchBar
+        filterContentForSearchText(searchBar.text!)
     }
 }

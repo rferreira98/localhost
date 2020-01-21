@@ -42,7 +42,7 @@ class ArtworkView: MKAnnotationView {
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        label.shadowColor = traitCollection.userInterfaceStyle == .dark ? .darkGray : .white
+        //label.shadowColor = traitCollection.userInterfaceStyle == .dark ? .darkGray : .white
     }
     
     override var annotation: MKAnnotation? {
