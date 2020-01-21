@@ -1008,7 +1008,7 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" image="LocalhostIconWhite" translatesAutoresizingMaskIntoConstraints="NO" id="nGb-ea-EiD">
-                                <rect key="frame" x="87.666666666666657" y="128" width="200.00000000000003" height="200.00000000000006"/>
+                                <rect key="frame" x="87.666666666666686" y="128" width="200" height="200"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="KDX-yo-zpz"/>
                                     <constraint firstAttribute="height" constant="200" id="i8F-VJ-211"/>
@@ -1924,7 +1924,7 @@
         <image name="FacebookLogo" width="128" height="128"/>
         <image name="Favorite_empty" width="24" height="24"/>
         <image name="List" width="24" height="24"/>
-        <image name="LocalhostIconWhite" width="374" height="322"/>
+        <image name="LocalhostIconWhite" width="381" height="343"/>
         <image name="Map" width="20" height="20"/>
         <image name="NoAvatar" width="256" height="256"/>
         <image name="Recommendation" width="25" height="25"/>
