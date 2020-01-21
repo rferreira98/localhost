@@ -106,6 +106,11 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         
         self.drawLocalPins()
     }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        print("tou")
+    }
+    
     func mapView(_ mapView: MKMapView, didChange mode: MKUserTrackingMode, animated: Bool) {
         
         if !firstLaunch {
@@ -208,6 +213,11 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     override func viewDidDisappear(_ animated: Bool) {
         locationManager.stopUpdatingLocation()
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        print("tous")
+        //searchBar.resignFirstResponder()
     }
     
     private func getLocals(){

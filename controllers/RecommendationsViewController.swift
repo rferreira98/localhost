@@ -31,7 +31,7 @@ class RecommendationsViewController: UITableViewController, UISearchBarDelegate{
     }
     
     
-    override func viewWillAppear(_ animated: Bool) {
+    override func viewDidLoad(){
         searchController.searchResultsUpdater = self
         // 2
         searchController.obscuresBackgroundDuringPresentation = false
@@ -41,22 +41,22 @@ class RecommendationsViewController: UITableViewController, UISearchBarDelegate{
         navigationItem.searchController = searchController
         // 5
         definesPresentationContext = true
-       
+        
         searchController.searchBar.scopeButtonTitles = [NSLocalizedString("My Questions", comment: ""), NSLocalizedString("Other Questions", comment: "")]
-            searchController.searchBar.showsScopeBar = true
-            
+        searchController.searchBar.showsScopeBar = true
+        
         searchController.searchBar.delegate = self
         /*
-        //Sets the location of the search bar to the navigation bar (on the top of the screen)
-        let searchBar = resultSearchController!.searchBar
-        //navigationItem.searchController = resultSearchController
-        self.navigationItem.titleView = searchBar
-        searchBar.tintColor = UIColor(named: "AppGreenPrimary")
-        searchBar.showsCancelButton = false
-        searchBar.scopeButtonTitles = [NSLocalizedString("My Questions", comment: ""), NSLocalizedString("Other Questions", comment: "")]
-        searchBar.showsScopeBar = true
-        searchBar.delegate = self
- */
+         //Sets the location of the search bar to the navigation bar (on the top of the screen)
+         let searchBar = resultSearchController!.searchBar
+         //navigationItem.searchController = resultSearchController
+         self.navigationItem.titleView = searchBar
+         searchBar.tintColor = UIColor(named: "AppGreenPrimary")
+         searchBar.showsCancelButton = false
+         searchBar.scopeButtonTitles = [NSLocalizedString("My Questions", comment: ""), NSLocalizedString("Other Questions", comment: "")]
+         searchBar.showsScopeBar = true
+         searchBar.delegate = self
+         */
         
         
         /*
@@ -75,11 +75,24 @@ class RecommendationsViewController: UITableViewController, UISearchBarDelegate{
         getQuestions()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        let searchBar = searchController.searchBar.selectedScopeButtonIndex
+        if searchBar == 0{
+            self.questionsAux = self.questions.filter{$0.isMine == 1}
+            tableView.reloadData()
+        } else {
+            self.questionsAux = self.questions.filter{$0.isMine == 0}
+            tableView.reloadData()
+        }
+        
+        //self.navigationItem.title = ""
+    }
+    
     override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-       self.searchController.searchBar.endEditing(true)
-       if(self.isSearchBarEmpty){
-           self.searchController.isActive = false
-       }
+        self.searchController.searchBar.endEditing(true)
+        if(self.isSearchBarEmpty){
+            self.searchController.isActive = false
+        }
         self.navigationItem.hidesSearchBarWhenScrolling = false
         //navigationController?.
     }
@@ -95,6 +108,8 @@ class RecommendationsViewController: UITableViewController, UISearchBarDelegate{
         
         
     }
+    
+    
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "questionCell", for: indexPath) as! QuestionTableViewCell
@@ -190,58 +205,61 @@ class RecommendationsViewController: UITableViewController, UISearchBarDelegate{
     override func tableView(_ tableView: UITableView,
                             trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration?
     {
-        let closeAction = UIContextualAction(style: .normal, title:  "Close", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
-            print("OK, marked as Closed")
-            let alert = UIAlertController(title: "Did you want to delete the question ?", message: "Deleting is a permanent action cannot be undone", preferredStyle: .alert)
-            
-            alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { action in
-                let question: Question = self.questionsAux[indexPath.row]
-                DispatchQueue.global(qos: .background).async {
-                    self.deleteFirebase(chat_id: question.id)
-                }
+        if searchController.searchBar.selectedScopeButtonIndex == 0 {
+            let closeAction = UIContextualAction(style: .normal, title:  "Close", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
+                print("OK, marked as Closed")
+                let alert = UIAlertController(title: "Did you want to delete the question ?", message: "Deleting is a permanent action cannot be undone", preferredStyle: .alert)
                 
-                NetworkHandler.deleteChat(question_id: question.id, completion: { (success, error) in
-                    OperationQueue.main.addOperation {
-                        if error != nil {
-                            let alert = Utils.triggerAlert(title: "Erro", error: error)
-                            self.present(alert, animated: true, completion: nil)
-                        } else {
-                            //dizer que removeu
-                            let alert = UIAlertController(title: "Chat deleted successfully",
-                                                          message: nil, preferredStyle: .alert)
-                            
-                            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: {action in
-                                
-                                for (index, questionAux) in self.questions.enumerated() {
-                                    if question.id == questionAux.id {
-                                        self.questions.remove(at: index)
-                                        break
-                                    }
-                                }
-                                self.tableView.reloadData()
-                            }))
-                            
-                            self.present(alert, animated: true)
-                        }
+                alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { action in
+                    let question: Question = self.questionsAux[indexPath.row]
+                    DispatchQueue.global(qos: .background).async {
+                        self.deleteFirebase(chat_id: question.id)
                     }
-                })
+                    
+                    NetworkHandler.deleteChat(question_id: question.id, completion: { (success, error) in
+                        OperationQueue.main.addOperation {
+                            if error != nil {
+                                let alert = Utils.triggerAlert(title: "Erro", error: error)
+                                self.present(alert, animated: true, completion: nil)
+                            } else {
+                                //dizer que removeu
+                                let alert = UIAlertController(title: "Chat deleted successfully",
+                                                              message: nil, preferredStyle: .alert)
+                                
+                                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: {action in
+                                    
+                                    for (index, questionAux) in self.questions.enumerated() {
+                                        if question.id == questionAux.id {
+                                            self.questions.remove(at: index)
+                                            break
+                                        }
+                                    }
+                                    self.tableView.reloadData()
+                                }))
+                                
+                                self.present(alert, animated: true)
+                            }
+                        }
+                    })
+                    
+                    self.questionsAux.remove(at: indexPath.row)
+                }))
+                alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
                 
-                self.questionsAux.remove(at: indexPath.row)
-            }))
-            alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
+                self.present(alert, animated: true)
+                success(true)
+            })
+            if #available(iOS 13.0, *) {
+                closeAction.image = UIImage(systemName: "trash")
+            } else {
+                // Fallback on earlier versions
+                closeAction.image = UIImage(named: "trash")
+            }
+            closeAction.backgroundColor = .red
             
-            self.present(alert, animated: true)
-            success(true)
-        })
-        if #available(iOS 13.0, *) {
-            closeAction.image = UIImage(systemName: "trash")
-        } else {
-            // Fallback on earlier versions
-            closeAction.image = UIImage(named: "trash")
+            return UISwipeActionsConfiguration(actions: [closeAction])
         }
-        closeAction.backgroundColor = .red
-        
-        return UISwipeActionsConfiguration(actions: [closeAction])
+        return nil
     }
     
     func deleteFirebase(chat_id:Int) -> Void {
@@ -272,6 +290,8 @@ class RecommendationsViewController: UITableViewController, UISearchBarDelegate{
         
         tableView.reloadData()
     }
+    
+    
 }
 
 
