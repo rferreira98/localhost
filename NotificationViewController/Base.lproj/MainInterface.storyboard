@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="M4Y-Lb-cyx">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Notification View Controller-->
+        <scene sceneID="cwh-vc-ff4">
+            <objects>
+                <viewController id="M4Y-Lb-cyx" userLabel="Notification View Controller" customClass="NotificationViewController" customModule="NotificationViewController" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" simulatedAppContext="notificationCenter" id="S3S-Oj-5AN">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="235"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="fWv-GL-udZ">
+                                <rect key="frame" x="0.0" y="111" width="320" height="124"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="124" id="Evd-0F-cMs"/>
+                                    <constraint firstAttribute="width" constant="320" id="djv-YN-CY5"/>
+                                </constraints>
+                            </mapView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Questão" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qW5-gA-BAP">
+                                <rect key="frame" x="16" y="81.5" width="288" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="288" id="Cjh-eY-vRU"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Local" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sa2-Em-T0t">
+                                <rect key="frame" x="16" y="53" width="288" height="20.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="288" id="YYH-kw-Jqx"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="tintColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="2BE-c3-nQJ" firstAttribute="bottom" secondItem="fWv-GL-udZ" secondAttribute="bottom" id="0di-6c-NTg"/>
+                            <constraint firstItem="sa2-Em-T0t" firstAttribute="top" secondItem="2BE-c3-nQJ" secondAttribute="top" constant="9" id="CBO-QI-OND"/>
+                            <constraint firstItem="fWv-GL-udZ" firstAttribute="top" secondItem="qW5-gA-BAP" secondAttribute="bottom" constant="8.5" id="P5c-t3-iSf"/>
+                            <constraint firstItem="qW5-gA-BAP" firstAttribute="top" secondItem="sa2-Em-T0t" secondAttribute="bottom" constant="8" id="aHn-eJ-IGi"/>
+                            <constraint firstItem="fWv-GL-udZ" firstAttribute="leading" secondItem="2BE-c3-nQJ" secondAttribute="leading" id="dEG-g2-H0a"/>
+                            <constraint firstItem="sa2-Em-T0t" firstAttribute="leading" secondItem="2BE-c3-nQJ" secondAttribute="leading" constant="16" id="gjj-tq-GdQ"/>
+                            <constraint firstItem="2BE-c3-nQJ" firstAttribute="trailing" secondItem="sa2-Em-T0t" secondAttribute="trailing" constant="16" id="gvh-li-ZBn"/>
+                            <constraint firstItem="2BE-c3-nQJ" firstAttribute="trailing" secondItem="fWv-GL-udZ" secondAttribute="trailing" id="mjM-fm-M5C"/>
+                            <constraint firstItem="2BE-c3-nQJ" firstAttribute="trailing" secondItem="qW5-gA-BAP" secondAttribute="trailing" constant="16" id="xMW-gw-bgz"/>
+                            <constraint firstItem="qW5-gA-BAP" firstAttribute="leading" secondItem="2BE-c3-nQJ" secondAttribute="leading" constant="16" id="z2C-Ht-E2e"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="2BE-c3-nQJ"/>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="320" height="235"/>
+                    <connections>
+                        <outlet property="lblLocal" destination="sa2-Em-T0t" id="Wjm-ho-Kpe"/>
+                        <outlet property="lblQuestao" destination="qW5-gA-BAP" id="MdL-Pr-LSV"/>
+                        <outlet property="mapView" destination="fWv-GL-udZ" id="Rcp-Wo-wsD"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vXp-U4-Rya" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="131.8840579710145" y="113.50446428571428"/>
+        </scene>
+    </scenes>
+</document>

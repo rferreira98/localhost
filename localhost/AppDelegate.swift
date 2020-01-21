@@ -35,7 +35,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
     
-        
         let pushManager = PushNotificationManager(userID: "currently_logged_in_user_id")
         pushManager.registerForPushNotifications()
         UNUserNotificationCenter.current().delegate = self
@@ -94,7 +93,55 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+           //print(response.notification.request.content.userInfo["balela"] as! String)
+        if response.actionIdentifier == "like" {
+            let message = Message(id: UUID().uuidString, content: "👍", created: Timestamp(), senderID: "\(UserDefaults.standard.value(forKey: "Id") as! Int)",
+                senderName: "\(UserDefaults.standard.value(forKey: "FirstName") as! String) \(UserDefaults.standard.value(forKey: "LastName") as! String)", senderPhoto: UserDefaults.standard.value(forKey: "AvatarURL") as? String ?? "")
+            //print(response.notification.request.content.userInfo["chat_id"] as! String)
+            
+            save(message, response.notification.request.content.userInfo["chat_id"] as! String)
+        }else if response.actionIdentifier == "dislike" {
+            let message = Message(id: UUID().uuidString, content: "👎", created: Timestamp(), senderID: "\(UserDefaults.standard.value(forKey: "Id") as! Int)",
+            senderName: "\(UserDefaults.standard.value(forKey: "FirstName") as! String) \(UserDefaults.standard.value(forKey: "LastName") as! String)", senderPhoto: UserDefaults.standard.value(forKey: "AvatarURL") as? String ?? "")
+            
+            save(message, response.notification.request.content.userInfo["chat_id"] as! String)
+            /*
+        OperationQueue.main.addOperation {
+        let mainStoryboard:UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let homePage = mainStoryboard.instantiateViewController(withIdentifier: "loginViewController_1") as! LoginViewController
+        //let navigationController = UINavigationController.init(rootViewController: homePage)
+           //
+            
+            //self.window = UIWindow(frame: UIScreen.main.bounds)
+            self.window?.rootViewController?.present(homePage, animated: false)
+            //self.window?.mak
+             eKeyAndVisible()
+            */
+        }
+        
+        completionHandler()
+       }
 
+    private func save(_ message: Message, _ chat_id: String) {
+        //Preparing the data as per our firestore collection
+        let data: [String: Any] = [
+            "content": message.content,
+            "created": message.created,
+            "id": message.id,
+            "senderID": message.senderID,
+            "senderName": message.senderName,
+            "senderPhoto": message.senderPhoto
+        ]
+        //Writing it to the thread using the saved document reference we saved in load chat function
+        Firestore.firestore().collection("Chats").document(chat_id).collection("thread").addDocument(data: data, completion: { (error) in
+            if let error = error {
+                print("Error Sending message: \(error)")
+                return
+            }
+        })
+    }
 
 }
 

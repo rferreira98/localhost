@@ -166,15 +166,15 @@ PODS:
     - BoringSSL-GRPC/Interface (= 0.0.3)
   - BoringSSL-GRPC/Interface (0.0.3)
   - Cosmos (20.0.1)
-  - FBSDKCoreKit (5.10.0):
-    - FBSDKCoreKit/Basics (= 5.10.0)
-    - FBSDKCoreKit/Core (= 5.10.0)
-  - FBSDKCoreKit/Basics (5.10.0)
-  - FBSDKCoreKit/Core (5.10.0):
+  - FBSDKCoreKit (5.14.0):
+    - FBSDKCoreKit/Basics (= 5.14.0)
+    - FBSDKCoreKit/Core (= 5.14.0)
+  - FBSDKCoreKit/Basics (5.14.0)
+  - FBSDKCoreKit/Core (5.14.0):
     - FBSDKCoreKit/Basics
-  - FBSDKLoginKit (5.10.0):
-    - FBSDKLoginKit/Login (= 5.10.0)
-  - FBSDKLoginKit/Login (5.10.0):
+  - FBSDKLoginKit (5.14.0):
+    - FBSDKLoginKit/Login (= 5.14.0)
+  - FBSDKLoginKit/Login (5.14.0):
     - FBSDKCoreKit (~> 5.0)
   - Firebase/CoreOnly (6.14.0):
     - FirebaseCore (= 6.5.0)
@@ -184,7 +184,7 @@ PODS:
   - Firebase/Messaging (6.14.0):
     - Firebase/CoreOnly
     - FirebaseMessaging (~> 4.1.10)
-  - FirebaseAnalyticsInterop (1.4.0)
+  - FirebaseAnalyticsInterop (1.5.0)
   - FirebaseAuthInterop (1.0.0)
   - FirebaseCore (6.5.0):
     - FirebaseCoreDiagnostics (~> 1.0)
@@ -260,36 +260,10 @@ PODS:
     - gRPC-Core/Interface (= 1.21.0)
     - nanopb (~> 0.3)
   - gRPC-Core/Interface (1.21.0)
-  - InitialsImageView (0.6.0)
+  - InitialsImageView (0.7.0)
   - InputBarAccessoryView (4.2.2)
   - IQKeyboardManager (6.5.4)
   - leveldb-library (1.22)
-  - MaterialComponents/BottomSheet (100.0.0):
-    - MaterialComponents/Elevation
-    - MaterialComponents/private/KeyboardWatcher
-    - MaterialComponents/private/Math
-    - MaterialComponents/ShadowElevations
-    - MaterialComponents/ShadowLayer
-    - MaterialComponents/ShapeLibrary
-    - MaterialComponents/Shapes
-  - MaterialComponents/Elevation (100.0.0):
-    - MaterialComponents/private/Color
-    - MaterialComponents/private/Math
-  - MaterialComponents/private/Application (100.0.0)
-  - MaterialComponents/private/Color (100.0.0)
-  - MaterialComponents/private/KeyboardWatcher (100.0.0):
-    - MaterialComponents/private/Application
-  - MaterialComponents/private/Math (100.0.0)
-  - MaterialComponents/ShadowElevations (100.0.0)
-  - MaterialComponents/ShadowLayer (100.0.0):
-    - MaterialComponents/ShadowElevations
-  - MaterialComponents/ShapeLibrary (100.0.0):
-    - MaterialComponents/private/Math
-    - MaterialComponents/Shapes
-  - MaterialComponents/Shapes (100.0.0):
-    - MaterialComponents/private/Color
-    - MaterialComponents/private/Math
-    - MaterialComponents/ShadowLayer
   - MessageKit (3.0.0):
     - InputBarAccessoryView (~> 4.2.2)
   - nanopb (0.3.9011):
@@ -299,9 +273,9 @@ PODS:
   - nanopb/encode (0.3.9011)
   - Protobuf (3.11.2)
   - RSKImageCropper (2.2.3)
-  - SDWebImage (5.3.0):
-    - SDWebImage/Core (= 5.3.0)
-  - SDWebImage/Core (5.3.0)
+  - SDWebImage (5.4.0):
+    - SDWebImage/Core (= 5.4.0)
+  - SDWebImage/Core (5.4.0)
   - SwiftHTTP (3.0.1)
 
 DEPENDENCIES:
@@ -312,7 +286,6 @@ DEPENDENCIES:
   - Firebase/Messaging
   - InitialsImageView
   - IQKeyboardManager
-  - MaterialComponents/BottomSheet
   - MessageKit
   - RSKImageCropper
   - SDWebImage
@@ -344,7 +317,6 @@ SPEC REPOS:
     - InputBarAccessoryView
     - IQKeyboardManager
     - leveldb-library
-    - MaterialComponents
     - MessageKit
     - nanopb
     - Protobuf
@@ -357,10 +329,10 @@ SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
   BoringSSL-GRPC: db8764df3204ccea016e1c8dd15d9a9ad63ff318
   Cosmos: b47fddf2102bb48580cd3025d9ce0a5c658a65da
-  FBSDKCoreKit: f9bae468a078f20c05c73450825ccd54cfafbbb7
-  FBSDKLoginKit: 4ece964272a52c4e1363d5c048a545e33761491b
+  FBSDKCoreKit: a72c8d2c42aa4c4d5eaa5f160be9580750f70d2e
+  FBSDKLoginKit: 89f3c2f8be892ec8a5359619a8ff657578d47604
   Firebase: 0219bb4782eb1406f1b9b0628a2e625484ce910d
-  FirebaseAnalyticsInterop: d48b6ab67bcf016a05e55b71fc39c61c0cb6b7f3
+  FirebaseAnalyticsInterop: 3f86269c38ae41f47afeb43ebf32a001f58fcdae
   FirebaseAuthInterop: 0ffa57668be100582bb7643d4fcb7615496c41fc
   FirebaseCore: 632e05cc5e1199d9147122c16d92305eb04c34bd
   FirebaseCoreDiagnostics: 511f4f3ed7d440bb69127e8b97c2bc8befae639e
@@ -373,18 +345,17 @@ SPEC CHECKSUMS:
   GoogleUtilities: 29bd0d8f850efbd28cff6d99e8b7da1f8d236bcf
   "gRPC-C++": 9dfe7b44821e7b3e44aacad2af29d2c21f7cde83
   gRPC-Core: c9aef9a261a1247e881b18059b84d597293c9947
-  InitialsImageView: 09a5a30bdfaad2a8d9bb31b43257ae6ebcc8b52a
+  InitialsImageView: 7a416d36fc6df5434198664db28a3ffb0228426d
   InputBarAccessoryView: 2b937602598e2fab3149f37f51dd7ad795653812
   IQKeyboardManager: 72b359cd7e777e3a984cedbe05f8da45320cbb63
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
-  MaterialComponents: b4cc6c1649a566d70bd72096f3e1aae2c3701e4f
   MessageKit: e892a9ca49ebe6d82684d3a93ad84021fa23e2c6
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   Protobuf: dd1aaea7140debfe4dd0683fb8ef208e527ae153
   RSKImageCropper: a446db0e8444a036b34f3c43db01b2373baa4b2a
-  SDWebImage: f1afa74b86587c2c63f4e80dfd39b21e3c17b45b
+  SDWebImage: 5bf6aec6481ae2a062bdc59f9d6c1d1e552090e0
   SwiftHTTP: e94f1aa8cde58637dcc0100f6349de31a3337fde
 
-PODFILE CHECKSUM: 79956aea870166026ae22f4dcca9a83fabcdb4f6
+PODFILE CHECKSUM: 4c324feee6592dbc3aff5654278c62cb4a4fb302
 
 COCOAPODS: 1.8.4

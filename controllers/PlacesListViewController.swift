@@ -97,8 +97,6 @@ class PlacesListViewController: UITableViewController, UISearchBarDelegate {
         }
         
         //self.navigationItem.title = ""
-        
-        
     }
     
     func filterContentForSearchText(_ searchText: String) {
