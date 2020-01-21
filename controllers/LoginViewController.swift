@@ -10,6 +10,8 @@ import UIKit
 import FirebaseMessaging
 import FBSDKCoreKit
 import FBSDKLoginKit
+import AVKit
+import AVFoundation
 
 protocol LoginHasBeenMade: NSObjectProtocol {
     func sendBool(loginMade: Bool)
@@ -34,9 +36,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var textFieldPassword: UITextField!
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var biometricLoginButton: UIButton!
+    @IBOutlet weak var videoView: UIView!
     
     @IBOutlet weak var recoverPasswordBtn: UIButton!
     
+    var player: AVPlayer?
     var usesBiometricAuth = UserDefaults.standard.bool(forKey: "usesBiometricAuth")
     var biometricType = ""
     
@@ -46,6 +50,23 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         textFieldEmail.delegate = self
         textFieldPassword.delegate = self
         
+        
+        //--------
+
+        if let filePath = Bundle.main.path(forResource: "login_screen", ofType:"mp4") {
+            let filePathUrl = NSURL.fileURL(withPath: filePath)
+            player = AVPlayer(url: filePathUrl)
+            let playerLayer = AVPlayerLayer(player: player)
+            playerLayer.frame = self.videoView.bounds
+            playerLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
+            NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: self.player?.currentItem, queue: nil) { (_) in
+                self.player?.seek(to: CMTime.zero)
+                self.player?.play()
+            }
+            self.videoView.layer.addSublayer(playerLayer)
+            player?.play()
+        }
+        //--------
         
         //TouchID And Face ID Code --------------------------------------------------------------
         

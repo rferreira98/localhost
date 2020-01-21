@@ -30,6 +30,8 @@
 		C720D492239879C50039A433 /* Artwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = C720D491239879C50039A433 /* Artwork.swift */; };
 		C72BAED8236FC2A40022C461 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72BAED7236FC2A40022C461 /* MapViewController.swift */; };
 		C72BAEDA236FC4240022C461 /* LocationSearchTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72BAED9236FC4240022C461 /* LocationSearchTableController.swift */; };
+		C73D3FD523D6721700D9620E /* login_screen.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = C73D3FD323D66E7200D9620E /* login_screen.mp4 */; };
+		C73D3FD623D6721B00D9620E /* register_screen.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = C73D3FD423D66E7500D9620E /* register_screen.mp4 */; };
 		C75321DB239688CC003BB49C /* CustomAnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75321DA239688CC003BB49C /* CustomAnotation.swift */; };
 		C766EC58236FD1120006A248 /* MapFiltersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C766EC57236FD1120006A248 /* MapFiltersController.swift */; };
 		C766EC5A236FD4D20006A248 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C766EC59236FD4D20006A248 /* SettingsViewController.swift */; };
@@ -111,6 +113,8 @@
 		C720D491239879C50039A433 /* Artwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Artwork.swift; sourceTree = "<group>"; };
 		C72BAED7236FC2A40022C461 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		C72BAED9236FC4240022C461 /* LocationSearchTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchTableController.swift; sourceTree = "<group>"; };
+		C73D3FD323D66E7200D9620E /* login_screen.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = login_screen.mp4; sourceTree = "<group>"; };
+		C73D3FD423D66E7500D9620E /* register_screen.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = register_screen.mp4; sourceTree = "<group>"; };
 		C75321DA239688CC003BB49C /* CustomAnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAnotation.swift; sourceTree = "<group>"; };
 		C75996462388C2D100E23CE5 /* Localhost.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Localhost.entitlements; sourceTree = "<group>"; };
 		C75A19A723D243240097C38E /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Main.strings"; sourceTree = "<group>"; };
@@ -230,6 +234,8 @@
 		5B1748D023634BB3004532AE /* localhost */ = {
 			isa = PBXGroup;
 			children = (
+				C73D3FD323D66E7200D9620E /* login_screen.mp4 */,
+				C73D3FD423D66E7500D9620E /* register_screen.mp4 */,
 				C75996462388C2D100E23CE5 /* Localhost.entitlements */,
 				C7D6EF6123711B6200D33E4B /* SceneDelegate.swift */,
 				5B1748D123634BB3004532AE /* AppDelegate.swift */,
@@ -438,6 +444,8 @@
 				C7CCE92023CCDDF6001F399E /* GoogleService-Info.plist in Resources */,
 				5B1748DE23634BB5004532AE /* LaunchScreen.storyboard in Resources */,
 				5B1748DB23634BB5004532AE /* Assets.xcassets in Resources */,
+				C73D3FD523D6721700D9620E /* login_screen.mp4 in Resources */,
+				C73D3FD623D6721B00D9620E /* register_screen.mp4 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
