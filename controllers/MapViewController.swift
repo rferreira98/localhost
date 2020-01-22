@@ -103,6 +103,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
 
         //-----------------------------------------------------------------
         
+        self.getCurrentLocals()
         
         self.drawLocalPins()
     }
@@ -219,25 +220,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         print("tous")
         //searchBar.resignFirstResponder()
     }
-    
-    private func getLocals(){
-        /*NetworkHandler.getLocals() {
-            (locals, error) in OperationQueue.main.addOperation {
-                if error != nil {
-                    let alert = Utils.triggerAlert(title: "Erro", error: error)
-                    self.present(alert, animated: true, completion: nil)
-                }
-                else{
-                    
-                    for local in locals!{
-                        self.locals.append(local)
-                    }
-                    self.drawLocalPins()
-                }
-            }
-        }*/
-    }
-    
+
     private func drawLocalPins(){
         
         if !map.annotations.isEmpty{

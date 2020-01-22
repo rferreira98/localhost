@@ -112,7 +112,7 @@ class NetworkHandler {
     }
     
     static func register(post: PostRegister, completion: @escaping (_ success: Bool, _ error: String?) -> Void) {
-        if !NetworkHandler.appDelegate.isNetworkOn {
+        if NetworkReachabilityManager()?.isReachable == false {
             completion(false, "Sem conexão de Internet")
             return
         }
@@ -131,6 +131,9 @@ class NetworkHandler {
                 
                 
                 if let dictionary = jsonResponse as? [String: Any] {
+                    if dictionary["message"] as? String == "The given data was invalid."{
+                        completion(false, NSLocalizedString("Email already taken", comment: ""))
+                    }
                     if dictionary["message"] as? String == "User created successfully!" {
                         
                         //UserDefaults.standard.setValue(token, forKey: "Token")
@@ -175,7 +178,7 @@ class NetworkHandler {
     
     
     static func login(post: PostLogin, completion: @escaping (_ success: Bool, _ error: String?) -> Void) {
-        if !NetworkHandler.appDelegate.isNetworkOn {
+        if NetworkReachabilityManager()?.isReachable == false {
             completion(false, "Sem conexão de Internet")
             return
         }
@@ -208,7 +211,7 @@ class NetworkHandler {
     }
     
     static func logout(completion: @escaping (_ success: Bool, _ error: String?) -> Void) {
-        if !NetworkHandler.appDelegate.isNetworkOn {
+        if NetworkReachabilityManager()?.isReachable == false {
             completion(false, "Sem conexão de Internet")
             return
         }
@@ -236,7 +239,7 @@ class NetworkHandler {
         
     }
     static func facebookLogin(post: PostFacebookLogin, completion: @escaping (_ success: Bool, _ error: String?) -> Void) {
-        if !NetworkHandler.appDelegate.isNetworkOn {
+        if NetworkReachabilityManager()?.isReachable == false {
             completion(false, "Sem conexão de Internet")
             return
         }
@@ -305,7 +308,7 @@ class NetworkHandler {
     
     
     static func uploadAvatar(avatar: UIImage, completion: @escaping (_ success: Bool, _ error: String?) -> Void) {
-        if !NetworkHandler.appDelegate.isNetworkOn {
+        if NetworkReachabilityManager()?.isReachable == false {
             completion(false, "Sem conexão de Internet")
             return
         }
@@ -390,7 +393,7 @@ class NetworkHandler {
     }
     
     static func updateUser(post: PostUserData, completion: @escaping (_ success: Bool, _ error: String?) -> Void) {
-        if !NetworkHandler.appDelegate.isNetworkOn {
+        if NetworkReachabilityManager()?.isReachable == false {
             completion(false, "Sem conexão de Internet")
             return
         }
@@ -429,7 +432,7 @@ class NetworkHandler {
     }
     
     static func resetPassword(post: PostResetPassword, completion: @escaping (_ success: Bool, _ error: String?) -> Void) {
-        if !NetworkHandler.appDelegate.isNetworkOn {
+        if NetworkReachabilityManager()?.isReachable == false {
             completion(false, "Sem conexão de Internet")
             return
         }
@@ -447,9 +450,10 @@ class NetworkHandler {
     }
     
     static func getLocals(latitude: Double?, longitude: Double?, completionHandler: @escaping ([Local]?, _ error: String?) -> Void) {
-        if !NetworkHandler.appDelegate.isNetworkOn {
-            completionHandler(nil, "Sem ligação à internet")
-            return
+        
+        if NetworkReachabilityManager()?.isReachable == false {
+             return completionHandler(nil, NSLocalizedString("No Internet connection", comment: ""))
+           
         }
         
         var urlLocals: URL
@@ -490,7 +494,7 @@ class NetworkHandler {
     }
     
     static func getLocalsFilteredByDistance(currentLocationLatitude: Double, currentLocationLongitude: Double, radius: Int, completionHandler: @escaping ([Local]?, _ error: String?) -> Void) {
-        if !NetworkHandler.appDelegate.isNetworkOn {
+        if NetworkReachabilityManager()?.isReachable == false {
             completionHandler(nil, "Sem ligação à internet")
             return
         }
@@ -525,7 +529,7 @@ class NetworkHandler {
     }
     
     static func storeFavorite(local_id:Int ,completion: @escaping (_ success: Bool, _ error: String?) -> Void) {
-        if !NetworkHandler.appDelegate.isNetworkOn {
+        if NetworkReachabilityManager()?.isReachable == false {
             completion(false, "Sem conexão de Internet")
             return
         }
@@ -542,7 +546,7 @@ class NetworkHandler {
     }
     
     static func deleteFavorite(local_id:Int ,completion: @escaping (_ success: Bool, _ error: String?) -> Void) {
-        if !NetworkHandler.appDelegate.isNetworkOn {
+        if NetworkReachabilityManager()?.isReachable == false {
             completion(false, "Sem conexão de Internet")
             return
         }
@@ -559,7 +563,7 @@ class NetworkHandler {
     }
     
     static func getFavorites(completion: @escaping ([Local]?, _ error: String?) -> Void) {
-        if !NetworkHandler.appDelegate.isNetworkOn {
+        if NetworkReachabilityManager()?.isReachable == false {
             completion(nil, "Sem conexão de Internet")
             return
         }
@@ -604,7 +608,7 @@ class NetworkHandler {
     }
     
     static func getReviews(local_id: Int, completion: @escaping ([Review]?, _ error: String?) -> Void) {
-        if !NetworkHandler.appDelegate.isNetworkOn {
+        if NetworkReachabilityManager()?.isReachable == false {
             completion(nil, "Sem conexão de Internet")
             return
         }
@@ -649,7 +653,7 @@ class NetworkHandler {
     }
     
     static func getLocalsFilteredByCity(city: String, completionHandler: @escaping ([Local]?, _ error: String?) -> Void) {
-        if !NetworkHandler.appDelegate.isNetworkOn {
+        if NetworkReachabilityManager()?.isReachable == false {
             completionHandler(nil, "Sem ligação à internet")
             return
         }
@@ -685,7 +689,7 @@ class NetworkHandler {
     }
     
     static func getLocalsFilteredByRating(rating: Double, latitude: Double, longitude: Double, completionHandler: @escaping ([Local]?, _ error: String?) -> Void) {
-        if !NetworkHandler.appDelegate.isNetworkOn {
+        if NetworkReachabilityManager()?.isReachable == false {
             completionHandler(nil, "Sem ligação à internet")
             return
         }
@@ -725,7 +729,7 @@ class NetworkHandler {
     }
     
     static func storeQuestion(post: PostStoreQuestion, local_id: Int, completion: @escaping (_ question: Question?, _ error: String?) -> Void) {
-        if !NetworkHandler.appDelegate.isNetworkOn {
+        if NetworkReachabilityManager()?.isReachable == false {
             completion(nil, "Sem conexão de Internet")
             return
         }
@@ -781,7 +785,7 @@ class NetworkHandler {
     }
     
     static func getQuestions(completion: @escaping ([Question]?, _ error: String?) -> Void) {
-        if !NetworkHandler.appDelegate.isNetworkOn {
+        if NetworkReachabilityManager()?.isReachable == false {
             completion(nil, "Sem conexão de Internet")
             return
         }
@@ -826,7 +830,7 @@ class NetworkHandler {
     }
     
     static func deleteChat(question_id:Int ,completion: @escaping (_ success: Bool, _ error: String?) -> Void) {
-        if !NetworkHandler.appDelegate.isNetworkOn {
+        if NetworkReachabilityManager()?.isReachable == false {
             completion(false, "Sem conexão de Internet")
             return
         }
@@ -843,7 +847,7 @@ class NetworkHandler {
     }
     
     static func hasQuestion(local_id:Int ,completion: @escaping (_ hasQuestion: Question?, _ error: String?) -> Void) {
-        if !NetworkHandler.appDelegate.isNetworkOn {
+        if NetworkReachabilityManager()?.isReachable == false {
             completion(nil, "Sem conexão de Internet")
             return
         }

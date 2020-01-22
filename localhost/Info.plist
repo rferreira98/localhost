@@ -79,30 +79,37 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-    <key>CFBundleURLTypes</key>
-    <array>
-      <dict>
-      <key>CFBundleURLSchemes</key>
-      <array>
-        <string>fb537658473507053</string>
-      </array>
-      </dict>
-    </array>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb537658473507053</string>
+			</array>
+		</dict>
+        <dict>
+            <key>CFBundleTypeRole</key>
+            <string>Viewer</string>
+            <key>CFBundleURLName</key>
+            <string>pt.ipleiria.localhost</string>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>localhostapp</string>
+            </array>
+        </dict>
+	</array>
     
-    
-    
-    <key>FacebookAppID</key>
-    <string>537658473507053</string>
-    <key>FacebookDisplayName</key>
-    <string>Localhost</string>
-    <key>LSApplicationQueriesSchemes</key>
-    <array>
-      <string>fbapi</string>
-      <string>fb-messenger-share-api</string>
-      <string>fbauth2</string>
-      <string>fbshareextension</string>
-    </array>
-    
-    
+	<key>FacebookAppID</key>
+	<string>537658473507053</string>
+	<key>FacebookDisplayName</key>
+	<string>Localhost</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>localhostapp</string>
+		<string>fbapi</string>
+		<string>fb-messenger-share-api</string>
+		<string>fbauth2</string>
+		<string>fbshareextension</string>
+	</array>
 </dict>
 </plist>

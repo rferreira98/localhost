@@ -26,10 +26,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     {
         super.init()
         self.manager?.listener = { status in
-            self.isNetworkOn = (status == .reachable(.ethernetOrWiFi) || status == .reachable(.wwan))
+            self.isNetworkOn = self.manager!.isReachable
         }
     }
+    
+    func applicationWillResignActive(_ application: UIApplication) {
+        // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
+        // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
+        self.manager?.stopListening();
+    }
 
+    func applicationDidBecomeActive(_ application: UIApplication) {
+        // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        self.manager?.startListening()
+    }
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
@@ -94,35 +104,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
     
+    
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-           //print(response.notification.request.content.userInfo["balela"] as! String)
-        if response.actionIdentifier == "like" {
-            let message = Message(id: UUID().uuidString, content: "👍", created: Timestamp(), senderID: "\(UserDefaults.standard.value(forKey: "Id") as! Int)",
-                senderName: "\(UserDefaults.standard.value(forKey: "FirstName") as! String) \(UserDefaults.standard.value(forKey: "LastName") as! String)", senderPhoto: UserDefaults.standard.value(forKey: "AvatarURL") as? String ?? "")
-            //print(response.notification.request.content.userInfo["chat_id"] as! String)
-            
-            save(message, response.notification.request.content.userInfo["chat_id"] as! String)
-        }else if response.actionIdentifier == "dislike" {
-            let message = Message(id: UUID().uuidString, content: "👎", created: Timestamp(), senderID: "\(UserDefaults.standard.value(forKey: "Id") as! Int)",
-            senderName: "\(UserDefaults.standard.value(forKey: "FirstName") as! String) \(UserDefaults.standard.value(forKey: "LastName") as! String)", senderPhoto: UserDefaults.standard.value(forKey: "AvatarURL") as? String ?? "")
-            
-            save(message, response.notification.request.content.userInfo["chat_id"] as! String)
-            /*
-        OperationQueue.main.addOperation {
-        let mainStoryboard:UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let homePage = mainStoryboard.instantiateViewController(withIdentifier: "loginViewController_1") as! LoginViewController
-        //let navigationController = UINavigationController.init(rootViewController: homePage)
-           //
-            
-            //self.window = UIWindow(frame: UIScreen.main.bounds)
-            self.window?.rootViewController?.present(homePage, animated: false)
-            //self.window?.mak
-             eKeyAndVisible()
-            */
-        }
-        
-        completionHandler()
-       }
+              
+     if response.actionIdentifier == "like" {
+               let message = Message(id: UUID().uuidString, content: "👍", created: Timestamp(), senderID: "\(UserDefaults.standard.value(forKey: "Id") as! Int)",
+                   senderName: "\(UserDefaults.standard.value(forKey: "FirstName") as! String) \(UserDefaults.standard.value(forKey: "LastName") as! String)", senderPhoto: UserDefaults.standard.value(forKey: "AvatarURL") as? String ?? "")
+               //print(response.notification.request.content.userInfo["chat_id"] as! String)
+               
+               save(message, response.notification.request.content.userInfo["chat_id"] as! String)
+           }else if response.actionIdentifier == "dislike" {
+               let message = Message(id: UUID().uuidString, content: "👎", created: Timestamp(), senderID: "\(UserDefaults.standard.value(forKey: "Id") as! Int)",
+               senderName: "\(UserDefaults.standard.value(forKey: "FirstName") as! String) \(UserDefaults.standard.value(forKey: "LastName") as! String)", senderPhoto: UserDefaults.standard.value(forKey: "AvatarURL") as? String ?? "")
+               
+               save(message, response.notification.request.content.userInfo["chat_id"] as! String)
+           }else if response.actionIdentifier == "save" {
+                let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                let profile = storyBoard.instantiateViewController(withIdentifier: "RecommendationNavigation")
+                //let profile = storyBoard.instantiateViewController(withIdentifier: "ChatVC") as! ChatViewController
+                //profile.question = Question(Int(response.notification.request.content.userInfo["chat_id"] as! String)!, response.notification.request.content.userInfo["place_name"] as! String, "", "", 0)
+                UIApplication.shared.keyWindow?.rootViewController = profile
+           
+            }
+           completionHandler()
+          }
+    
+    
 
     private func save(_ message: Message, _ chat_id: String) {
         //Preparing the data as per our firestore collection

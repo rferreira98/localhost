@@ -14,7 +14,7 @@ struct NetworkError:Error {
     let message: String
 
     let messages = [
-                "O email inserido já se encontra em uso",
+        "O email inserido já se encontra em uso",
         "O email inserido é inválido",
 
         "Password inválida",

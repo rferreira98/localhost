@@ -29,7 +29,7 @@ class PushNotificationManager: NSObject, MessagingDelegate, UNUserNotificationCe
                 completionHandler: {_, _ in })
             let likeAction = UNNotificationAction(identifier: "like", title: "👍", options: [])
             let dislikeAction = UNNotificationAction(identifier: "dislike", title: "👎", options: [])
-            let saveAction = UNNotificationAction(identifier: "save", title: "Go to chat", options: [])
+            let saveAction = UNNotificationAction(identifier: "save", title: "Go to chat", options: [.foreground])
             let category = UNNotificationCategory(identifier: "local", actions: [likeAction, dislikeAction, saveAction], intentIdentifiers: [], hiddenPreviewsBodyPlaceholder: "", options: .customDismissAction)
             UNUserNotificationCenter.current().setNotificationCategories([category])
             

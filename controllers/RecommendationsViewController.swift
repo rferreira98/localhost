@@ -20,6 +20,9 @@ class RecommendationsViewController: UITableViewController, UISearchBarDelegate{
     
     var questionToSend:Question!
     
+    @IBOutlet weak var exitBarButtonItem: UIBarButtonItem!
+    
+    
     var searchController = UISearchController(searchResultsController: nil)
     var filteredQuestions: [Question] = []
     var isSearchBarEmpty: Bool {
@@ -32,6 +35,13 @@ class RecommendationsViewController: UITableViewController, UISearchBarDelegate{
     
     
     override func viewDidLoad(){
+        
+        if self.tabBarController == nil {
+            exitBarButtonItem.title = NSLocalizedString("Exit", comment: "")
+            exitBarButtonItem.isEnabled = true
+            searchController.searchBar.selectedScopeButtonIndex = 1
+        }
+        
         searchController.searchResultsUpdater = self
         // 2
         searchController.obscuresBackgroundDuringPresentation = false
@@ -72,10 +82,19 @@ class RecommendationsViewController: UITableViewController, UISearchBarDelegate{
          }
          */
         
-        getQuestions()
+        
+        
+        //pull to refresh
+        let refreshControl = UIRefreshControl()
+        refreshControl.attributedTitle = NSAttributedString(string: NSLocalizedString("Pull to refresh", comment: ""))
+        refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: UIControl.Event.valueChanged)
+        self.refreshControl = refreshControl
+        //----------------
+        
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    @objc func refresh(_ sender: AnyObject) {
+           getQuestions()
         let searchBar = searchController.searchBar.selectedScopeButtonIndex
         if searchBar == 0{
             self.questionsAux = self.questions.filter{$0.isMine == 1}
@@ -84,6 +103,20 @@ class RecommendationsViewController: UITableViewController, UISearchBarDelegate{
             self.questionsAux = self.questions.filter{$0.isMine == 0}
             tableView.reloadData()
         }
+    }
+
+    @IBAction func exitBarButtonItemClick(_ sender: Any) {
+        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        //let initial = storyBoard.instantiateViewController(withIdentifier: "initialViewController")
+        let initial = storyBoard.instantiateViewController(withIdentifier: "tabBarController")
+        initial.modalTransitionStyle = .crossDissolve
+        initial.modalPresentationStyle = .fullScreen
+        self.present(initial, animated: true, completion: nil)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        getQuestions()
+       
         
         //self.navigationItem.title = ""
     }
@@ -186,11 +219,21 @@ class RecommendationsViewController: UITableViewController, UISearchBarDelegate{
                 if error != nil {
                     let alert = Utils.triggerAlert(title: NSLocalizedString("Error", comment: ""), error: error)
                     self.present(alert, animated: true, completion: nil)
+                    self.refreshControl?.endRefreshing()
                 }
                 else{
                     self.questions = questions ?? []
-                    self.questionsAux = questions?.filter{$0.isMine == 1} ?? []
-                    self.tableView.reloadData()
+                    //self.questionsAux = questions?.filter{$0.isMine == 1} ?? []
+                    let searchBar = self.searchController.searchBar.selectedScopeButtonIndex
+                       
+                           if searchBar == 0{
+                               self.questionsAux = self.questions.filter{$0.isMine == 1}
+                            self.tableView.reloadData()
+                           } else {
+                               self.questionsAux = self.questions.filter{$0.isMine == 0}
+                            self.tableView.reloadData()
+                           }
+                    self.refreshControl?.endRefreshing()
                 }
             }
         })
